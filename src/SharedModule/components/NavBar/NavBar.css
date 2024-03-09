@@ -1,0 +1,18 @@
+.navbar {
+    background-color: #f8f9fb !important;
+}
+.navbar .search{
+padding: 3px 12px !important;
+}
+
+.navbar .avatar {
+    width: 40px !important;
+    height: 40px !important;
+}
+.dropdown-menu[data-bs-popper]{
+    position: relative;
+    border: 2px solid #4aa35a;
+    top: 60px !important;
+    left: -150px !important;
+    width: fit-content !important;
+}
