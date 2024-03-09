@@ -16,15 +16,8 @@ import ProtectedRout from './SharedModule/components/ProtectedRout/ProtectedRout
 import UserList from './UserModule/components/UserList/UserList';
 import CategoriesList from './categoriesModule/components/CategoriesList/CategoriesList';
 import FavoriteList from './UserModule/components/FavoriteList/FavoriteList';
-import { useEffect, useState } from 'react';
-import { handleJwtToken } from './SharedModule/components/JwtToken/JwtToken';
 
 function App() {
-  const [jwtDecode, setJwtDecode] = useState({});
-  useEffect(() => {
-    const jwtToken = handleJwtToken();
-    setJwtDecode(jwtToken);
-  }, []);
 
 
   const routes = createBrowserRouter([
