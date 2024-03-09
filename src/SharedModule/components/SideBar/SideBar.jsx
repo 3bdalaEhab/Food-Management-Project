@@ -10,8 +10,8 @@ import { handleJwtToken } from "../JwtToken/JwtToken";
 export default function SideBar() {
   const navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(false);
-  const [show, setShow] = useState(false);
   const sidebarRef = useRef(null);
+  const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 

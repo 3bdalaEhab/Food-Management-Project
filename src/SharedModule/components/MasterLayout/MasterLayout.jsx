@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom'
 export default function MasterLayout() {
   return <>
     <div className="container-fluid  px-0">
-      <div className="d-flex   ">
+      <div className="d-flex ">
         <div className="  ">
           <SideBar />
         </div>
