@@ -1,5 +1,6 @@
 .navbar {
     background-color: #f8f9fb !important;
+    min-height: 80px !important;
 }
 .navbar .search{
 padding: 3px 12px !important;
@@ -16,3 +17,11 @@ padding: 3px 12px !important;
     left: -150px !important;
     width: fit-content !important;
 }
+
+/* =================== */
+.navbar-brand{
+    width: 200px;
+    height: 50% !important;
+    /* background: #000; */
+}
+

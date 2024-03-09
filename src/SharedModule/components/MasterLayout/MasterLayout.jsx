@@ -9,7 +9,7 @@ export default function MasterLayout() {
         <div className="  ">
           <SideBar />
         </div>
-        <div className="Outlet px-3">
+        <div className="w-100 vh-100 overflow-auto px-3">
           <NavBar />
           <Outlet />
         </div>

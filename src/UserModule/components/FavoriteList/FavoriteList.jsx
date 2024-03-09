@@ -115,7 +115,7 @@ export default function FavoriteList() {
           ))}
         </div>
       ) : (
-<div className="w-25 mx-auto">
+<div className="w-50 text-center mx-auto">
           <NoData world={"No Data !"} />
   
 </div>      )}

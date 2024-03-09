@@ -25,6 +25,7 @@ a {
     background-image: url(../src/assets/Auth-BG.jpg);
     background-size: cover;
     background-position: center left;
+    overflow: hidden;
 }
 
 .overlay {
@@ -82,13 +83,7 @@ select:focus {
     color: var(--danger) !important;
 }
 
-/* ===============Outlet================= */
-.Outlet {
-    margin-left: auto;
-    width: calc(100% - 80px) !important;
-}
-
-/* =================logoutButton======================== */
+/*=================logoutButton======================== */
 
 .logoutButton:hover {
     transition: all 0.3s;

@@ -9,7 +9,6 @@ import { handleJwtToken } from "../JwtToken/JwtToken";
 
 export default function SideBar() {
   const navigate = useNavigate();
-  // const [userOrAdmin, setUserOrAdmin] = useState(true)
   const [openSidebar, setOpenSidebar] = useState(false);
   const [show, setShow] = useState(false);
   const sidebarRef = useRef(null);
@@ -60,8 +59,8 @@ export default function SideBar() {
           <ChangePass handleClose={handleClose} />
         </Modal.Body>
       </Modal>
-      <div className="sidebar-container" ref={sidebarRef}>
-        <Sidebar className="position-fixed z-3 h-100" collapsed={!openSidebar}>
+      <div className="sidebar-container d-none d-md-block" ref={sidebarRef}>
+        <Sidebar className="vh-100 " collapsed={!openSidebar}>
           <div className={`${!openSidebar ? "text-end ms-2 w-100 relative-image mt-3" : ""} `}>
             <img onClick={handleToggleSidebar} className="w-75 cursor-pointer-imageAtSideBar" src={avatarSidebar} alt="Avatar" />
           </div>

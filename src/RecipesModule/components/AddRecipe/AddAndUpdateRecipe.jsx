@@ -137,12 +137,12 @@ async function getDataItemUpdate() {
                   {...register("categoriesIds", { required: "Category is required" })}
                   className="form-select"
                 >
-                  <option >{dataItemUpdate?.category ? categoryNameInUpdate: "Category"}</option>
+                  <option selected   value={""}>{dataItemUpdate?.category ? categoryNameInUpdate : "Category"}</option>
                   {categories?.map((cat, indx) => <option key={indx} value={cat.id}>{cat.name}</option>)}
                 </select>
               </div>
             </div>
-            {errors.categoriesIds && <div className="mt-1 py-1 alert alert-danger">{errors.categoriesIds.message}</div>}
+            {errors?.categoriesIds && <div className="mt-1 py-1 alert alert-danger">{errors?.categoriesIds.message}</div>}
           </div>
           <div className="flex-column">
             <div className="input-group bd has-validation">
@@ -166,12 +166,12 @@ async function getDataItemUpdate() {
                   {...register("tagId", { required: "Tag is required" })}
                   className="form-select"
                 >
-                  <option >{dataItemUpdate?.tag?.name ? dataItemUpdate?.tag?.name : "Tag"}</option>
+                  <option selected   value={""} >{dataItemUpdate?.tag?.name ? dataItemUpdate?.tag?.name : "Tag"}</option>
                   {tagList?.map((tag, indx) => <option key={indx} value={tag.id}>{tag.name}</option>)}
                 </select>
               </div>
             </div>
-            {errors.tagId && errors.tagId.type === "required" && <div className="mt-1 py-1 alert alert-danger">Tag is required</div>}
+            {errors.tagId &&  <div className="mt-1 py-1 alert alert-danger">{errors.tagId.message}</div>}
           </div>
           <div className="flex-column">
             <div className="input-group bd has-validation">

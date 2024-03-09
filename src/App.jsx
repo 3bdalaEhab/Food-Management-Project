@@ -44,7 +44,6 @@ function App() {
           { path: "FavoriteList", element: <FavoriteList /> },
           { path: "UserList", element: <UserList /> },
           { path: "CategoriesList", element: <CategoriesList /> },
-          { path: "RecipesList", element: <RecipesList /> },
           { path: "AddAndUpdateRecipe/:id", element: <AddAndUpdateRecipe /> },
       ]
     },

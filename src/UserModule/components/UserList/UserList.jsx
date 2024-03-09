@@ -93,7 +93,7 @@ export default function UserList() {
     <>
       <Header imag={5} word={"List"} paragraph={"You can now add your items that any user can order it from the Application and you can edit"} title={"Users"} />
       <HeaderTable Title={"Users Table Details"} />
-      <div className="row my-3 justify-content-center mt-5">
+      <div className="row my-3 gap-3 justify-content-center mt-5">
         <div className="col-md-6">
           <input onChange={handleNameInputChange} type="text" className="form-control" placeholder="Search By Name" />
         </div>
