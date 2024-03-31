@@ -20,7 +20,7 @@ export default function VerifyAccountUser() {
             toast.success(data.message);
             return data
         } catch (error) {
-            toast.error(error?.response?.data?.message)
+            toast.error(error?.response?.data?.message||"There's a mistake.",{ duration: 800 })
             console.log(error);
         }
         setIsLoading(false)
