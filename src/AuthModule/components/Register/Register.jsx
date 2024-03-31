@@ -23,7 +23,7 @@ const navigate = useNavigate()
       toast.success(data.message);
       return data
     } catch (error) {
-      toast.error(error?.response?.data?.message)
+      toast.error(error?.response?.data?.message||"There's a mistake.")
       console.log(error);
     }
     setIsLoading(false)
