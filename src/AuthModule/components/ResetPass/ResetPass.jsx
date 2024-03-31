@@ -24,7 +24,7 @@ export default function ResetPass() {
       navigate("/Login")
     } catch (error) {
       console.log(error);
-      toast.error(error?.response?.data?.message, { duration: 800 });
+      toast.error(error?.response?.data?.message||"There's a mistake.",{ duration: 800 });
 
     }
     setIsLoading(false)
