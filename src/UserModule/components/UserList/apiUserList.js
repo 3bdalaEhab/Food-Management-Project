@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 export async function apiGetUsersList(pageNum, nameSearch, emailSearch, rolesSearch) {
   let token = localStorage.getItem("token");
   try {
-    const data = await axios.get(`https://upskilling-egypt.com:443/api/v1/Users/`, {
+    const data = await axios.get(`https://upskilling-egypt.com:3006/api/v1/Users/`, {
       headers: { Authorization: token },
       params: {
         pageSize: 5,
@@ -30,7 +30,7 @@ export async function apiGetUsersList(pageNum, nameSearch, emailSearch, rolesSea
 export async function apiDeleteUsersList(id) {
   let token = localStorage.getItem("token")
   try {
-    const { data } = await axios.delete(`https://upskilling-egypt.com:443/api/v1/Users/${id}`,
+    const { data } = await axios.delete(`https://upskilling-egypt.com:3006/api/v1/Users/${id}`,
       { headers: { Authorization: token } })
     toast.success(data?.message)
     return data
