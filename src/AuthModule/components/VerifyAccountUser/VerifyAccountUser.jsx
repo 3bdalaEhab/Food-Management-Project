@@ -14,7 +14,7 @@ export default function VerifyAccountUser() {
 
     async function apiVerifyAccountUser(values) {
         try {
-            const { data } = await axios.put(`https://upskilling-egypt.com:443/api/v1/Users/verify/`, values);
+            const { data } = await axios.put(`https://upskilling-egypt.com:3006/api/v1/Users/verify/`, values);
             console.log(data);
             navigate("/Login")
             toast.success(data.message);
