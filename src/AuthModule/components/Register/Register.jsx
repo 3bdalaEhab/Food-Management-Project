@@ -18,7 +18,7 @@ const navigate = useNavigate()
 
   async function apiRegister(formData) {
     try {
-      const { data } = await axios.post(`https://upskilling-egypt.com:443/api/v1/Users/Register`, formData);
+      const { data } = await axios.post(`https://upskilling-egypt.com:3006/api/v1/Users/Register`, formData);
       navigate("/VerifyAccountUser")
       toast.success(data.message);
       return data
