@@ -19,7 +19,7 @@ export default function ResetPass() {
   
   async function resetPassEmail(values) {
     try {
-      let { data } = await axios.post("https://upskilling-egypt.com:443/api/v1/Users/Reset", values);
+      let { data } = await axios.post("https://upskilling-egypt.com:3006/api/v1/Users/Reset", values);
       toast.success(data?.message, { duration: 2000 });
       navigate("/Login")
     } catch (error) {
