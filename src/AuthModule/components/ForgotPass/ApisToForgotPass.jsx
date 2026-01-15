@@ -1,11 +1,10 @@
-import axios from "axios";
+import axiosInstance from "../../../shared/api/axiosInstance";
 
 export async function ForgotPassEmail(values) {
-    try {
-        let { data } = await axios.post("https://upskilling-egypt.com:3006/api/v1/Users/Reset/Request", values);
-        return data
-    } catch (error) {
-        console.log(error);
-
-    }
+  try {
+    const { data } = await axiosInstance.post('/Users/Reset/Request', values);
+    return data;
+  } catch (error) {
+    throw error;
+  }
 }
