@@ -1,213 +1,201 @@
-# 🍽️ Food Management Project - الدليل الشامل للبدء
+# 🍽️ Food Management Project - Professional Complete Guide
 
-## 📚 محتوى الدليل
+## 📚 Guide Contents
 
-1. [نظرة عامة](#نظرة-عامة)
-2. [المكتبات المستخدمة](#المكتبات-المستخدمة)
-3. [البنية الهندسية](#البنية-الهندسية)
-4. [التثبيت والإعداد](#التثبيت-والإعداد)
-5. [أمثلة عملية](#أمثلة-عملية)
-6. [أفضل الممارسات](#أفضل-الممارسات)
-7. [استكشاف الأخطاء](#استكشاف-الأخطاء)
-
----
-
-## 🎯 نظرة عامة
-
-مشروع **احترافي لإدارة الوصفات** مبني باستخدام أحدث التقنيات في عالم React والويب بشكل عام.
-
-**المميزات:**
-✅ تصميم استجابي (Responsive)  
-✅ إدارة النماذج احترافية  
-✅ معالجة الأخطاء الشاملة  
-✅ توثيق كامل  
-✅ أمان عالي  
-✅ أداء محسّن  
+1. [Overview](#overview)
+2. [Libraries Used](#libraries-used)
+3. [Architecture](#architecture)
+4. [Installation & Setup](#installation--setup)
+5. [Practical Examples](#practical-examples)
+6. [Best Practices](#best-practices)
+7. [Troubleshooting](#troubleshooting)
 
 ---
 
-## 📦 المكتبات المستخدمة
+## 🎯 Overview
 
-### Frontend Framework
-- **React 18.2.0** - إطار العمل الأساسي
-- **React DOM 18.2.0** - تطبيق React على DOM
+**A professional recipe management project** built using the latest React and web technologies.
 
-### Routing & Navigation
-- **React Router DOM 6.22.0** - نظام التوجيه المتقدم
+**Features:**
+✅ Responsive Design
+✅ Modern UI/UX
+✅ Professional Code Structure
+✅ Error Handling
+✅ Performance Optimization
+✅ Security Best Practices
+✅ Complete Documentation
+✅ Easy to Extend
 
-### HTTP & API
-- **Axios 1.6.7** - مكتبة الـ HTTP Requests المتقدمة
+---
 
-### UI & Styling
-- **Bootstrap 5.3.2** - إطار العمل CSS
-- **React Bootstrap 2.10.1** - مكونات Bootstrap ل React
-- **React Pro Sidebar 1.1.0** - شريط تنقل احترافي
-- **FontAwesome 6.5.1** - مكتبة الأيقونات
+## 📦 Libraries Used
 
-### Forms & Validation
-- **React Hook Form 7.50.1** - إدارة النماذج
+### Core Libraries
 
-### User Feedback
-- **React Hot Toast 2.4.1** - الإشعارات
+| Library | Version | Purpose |
+|---------|---------|---------|
+| React | 18.2.0 | UI Library |
+| React DOM | 18.2.0 | React Rendering |
+| React Router DOM | 6.22.0 | Routing |
+| Vite | 5.1.0 | Build Tool |
+| Bootstrap | 5.3.2 | CSS Framework |
+| React Bootstrap | 2.10.1 | Bootstrap Components |
+| Axios | 1.6.7 | HTTP Client |
 
-### Date Handling
-- **date-fns 3.3.1** - معالجة التواريخ
+### Form & Validation
+
+| Library | Version | Purpose |
+|---------|---------|---------|
+| React Hook Form | 7.50.1 | Form Management |
+
+### UI & Notifications
+
+| Library | Version | Purpose |
+|---------|---------|---------|
+| React Hot Toast | 2.4.1 | Toast Notifications |
+| React Loader Spinner | 6.1.6 | Loading Spinners |
+| FontAwesome | 6.5.1 | Icons |
+
+### Data & Date
+
+| Library | Version | Purpose |
+|---------|---------|---------|
+| date-fns | 3.3.1 | Date Formatting |
 
 ### Authentication
-- **jwt-decode 4.0.0** - فك تشفير JWT
 
-### Loading States
-- **React Loader Spinner 6.1.6** - مؤشرات التحميل
+| Library | Version | Purpose |
+|---------|---------|---------|
+| jwt-decode | 4.0.0 | JWT Token Decoding |
 
-### Build & Development
-- **Vite 5.1.0** - أداة البناء السريعة
-- **ESLint** - فحص جودة الكود
+### Navigation
+
+| Library | Version | Purpose |
+|---------|---------|---------|
+| React Pro Sidebar | 1.1.0 | Sidebar Menu |
 
 ---
 
-## 📁 البنية الهندسية
+## 🏗️ Architecture
+
+### Folder Structure
 
 ```
 src/
-├── App.jsx                          # المكون الرئيسي
-├── App.css                          # أنماط التطبيق
-├── index.css                        # الأنماط العامة
-├── main.jsx                         # نقطة الدخول
-│
-├── api/                             # طبقة API
-│   ├── axiosInstance.js             # إعدادات Axios
-│   ├── endpoints.js                 # نقاط الاتصال
-│   └── interceptors.js              # معالجات Axios
-│
-├── config/                          # الإعدادات
-│   └── constants.js                 # الثوابت
-│
-├── hooks/                           # الـ Hooks المخصصة
-│   ├── useAuth.js                   # المصادقة
-│   ├── useFetch.js                  # جلب البيانات
-│   ├── useLocalStorage.js           # التخزين
-│   ├── useDebounce.js               # التأخير
-│   └── usePagination.js             # الترقيم
-│
-├── components/                      # المكونات المشتركة
-│   └── ErrorBoundary/               # معالج الأخطاء
-│
-├── utils/                           # الدوال المساعدة
-│   ├── validators.js                # التحقق من البيانات
-│   ├── tokenManager.js              # إدارة الرموز
-│   ├── errorHandler.js              # معالجة الأخطاء
-│   ├── logger.js                    # تسجيل الأحداث
-│   └── cacheManager.js              # إدارة الذاكرة المؤقتة
-│
-├── types/                           # تعريفات TypeScript
-│   ├── index.ts                     # أنواع البيانات
-│   └── guards.ts                    # حراس النوع
-│
-├── tests/                           # ملفات الاختبار
-│   ├── setup.ts                     # إعداد الاختبار
-│   ├── validators.test.ts           # اختبار التحقق
-│   └── ...
-│
-├── AuthModule/                      # وحدة المصادقة
-├── HomeModule/                      # وحدة الصفحة الرئيسية
-├── RecipesModule/                   # وحدة الوصفات
-├── UserModule/                      # وحدة المستخدم
-├── categoriesModule/                # وحدة الفئات
-└── SharedModule/                    # المكونات المشتركة
-    ├── components/
-    │   ├── MasterLayout/            # تخطيط الرئيسي
-    │   ├── NavBar/                  # شريط التنقل
-    │   ├── SideBar/                 # الشريط الجانبي
-    │   └── ...
-    └── ...
+├── api/
+│   ├── axiosInstance.js      # Axios configuration
+│   ├── endpoints.js           # API endpoints
+│   └── interceptors.js        # Request/Response interceptors
+├── hooks/
+│   ├── useAuth.js            # Authentication hook
+│   ├── useFetch.js           # Fetch data hook
+│   ├── useDebounce.js        # Debounce hook
+│   ├── usePagination.js      # Pagination hook
+│   └── useLocalStorage.js    # LocalStorage hook
+├── utils/
+│   ├── validators.js         # Data validators
+│   ├── tokenManager.js       # Token management
+│   ├── errorHandler.js       # Error handling
+│   ├── errorTypes.js         # Error types
+│   ├── logger.js             # Logging
+│   ├── cacheManager.js       # Caching
+│   └── performanceOptimization.js
+├── components/
+│   ├── ErrorBoundary/        # Error boundary
+│   ├── NavBar/               # Navigation bar
+│   ├── SideBar/              # Sidebar
+│   └── ...other components
+├── AuthModule/               # Authentication module
+├── RecipesModule/            # Recipes module
+├── UserModule/               # User module
+├── SharedModule/             # Shared components
+├── categoriesModule/         # Categories module
+├── HomeModule/               # Home module
+├── routes/                   # Route definitions
+├── types/                    # TypeScript types
+├── config/                   # Configuration
+├── App.jsx                   # Main app component
+├── main.jsx                  # Entry point
+└── index.css                 # Global styles
 ```
 
 ---
 
-## 🚀 التثبيت والإعداد
+## 🚀 Installation & Setup
 
-### 1. متطلبات النظام
+### Prerequisites
+- Node.js (v16+)
+- npm or yarn
+
+### Installation Steps
+
 ```bash
-Node.js >= 16.0
-npm >= 8.0
-```
+# 1. Clone the repository
+git clone https://github.com/3bdalaEhab/Food-Management-Project.git
 
-### 2. التثبيت
-```bash
-# استنساخ المشروع
-git clone <repository-url>
-
-# الذهاب للمجلد
+# 2. Navigate to project directory
 cd Food-Management-Project
 
-# تثبيت المكتبات
+# 3. Install dependencies
 npm install
-```
 
-### 3. إعداد متغيرات البيئة
-```bash
-# نسخ الملف النموذجي
-cp .env.example .env
+# 4. Create .env file
+# Add your API endpoints and configuration
 
-# تحرير الملف وإضافة البيانات الصحيحة
-# VITE_API_BASE_URL=https://your-api-url
-# VITE_API_TIMEOUT=10000
-```
-
-### 4. تشغيل المشروع
-```bash
-# بيئة التطوير
+# 5. Start development server
 npm run dev
 
-# البناء للإنتاج
+# 6. Open browser
+# Visit http://localhost:5173
+```
+
+### Build for Production
+
+```bash
+# Build optimized production bundle
 npm run build
 
-# معاينة الإنتاج
+# Preview production build
 npm run preview
-
-# فحص الكود
-npm run lint
 ```
 
 ---
 
-## 💡 أمثلة عملية
+## 💡 Practical Examples
 
-### 1. استخدام useFetch للحصول على البيانات
+### Example 1: Using useFetch Hook
 
 ```jsx
-import { useFetch } from '@/hooks';
-import { API_ENDPOINTS } from '@/config/constants';
-import axiosInstance from '@/api/axiosInstance';
+import { useFetch } from './hooks/useFetch';
+import { axiosInstance } from './api/axiosInstance';
+import { API_ENDPOINTS } from './api/endpoints';
 
 function RecipesList() {
-  const { data, loading, error } = useFetch(
+  // Fetch recipes from API
+  const { data: recipes, loading, error } = useFetch(
     () => axiosInstance.get(API_ENDPOINTS.RECIPES.GET_ALL)
   );
 
   if (loading) return <Spinner />;
-  if (error) return <Alert variant="danger">{error}</Alert>;
+  if (error) return <ErrorMessage error={error} />;
 
   return (
     <div>
-      {data?.map(recipe => (
-        <Card key={recipe.id}>
-          <Card.Img src={recipe.image} />
-          <Card.Body>
-            <Card.Title>{recipe.name}</Card.Title>
-          </Card.Body>
-        </Card>
+      {recipes.map(recipe => (
+        <RecipeCard key={recipe.id} recipe={recipe} />
       ))}
     </div>
   );
 }
+
+export default RecipesList;
 ```
 
-### 2. إنشاء نموذج مع React Hook Form
+### Example 2: React Hook Form with Validation
 
 ```jsx
 import { useForm } from 'react-hook-form';
-import { validateEmail, validatePassword } from '@/utils/validators';
+import { validateEmail, validatePassword } from './utils/validators';
 import toast from 'react-hot-toast';
 
 function LoginForm() {
@@ -215,166 +203,184 @@ function LoginForm() {
 
   const onSubmit = async (data) => {
     try {
+      // Submit login
       const response = await axiosInstance.post(
         API_ENDPOINTS.AUTH.LOGIN,
         data
       );
       
+      // Save token
       localStorage.setItem('token', response.data.token);
-      toast.success('تم الدخول بنجاح');
-      navigate('/dashboard');
+      toast.success('Login successful!');
     } catch (error) {
-      toast.error(error.response?.data?.message || 'خطأ في الدخول');
+      toast.error('Login failed!');
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Form.Group>
-        <Form.Label>البريد الإلكتروني</Form.Label>
-        <Form.Control
-          type="email"
-          {...register('email', {
-            required: 'البريد مطلوب',
-            validate: validateEmail
-          })}
-          isInvalid={!!errors.email}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.email?.message}
-        </Form.Control.Feedback>
-      </Form.Group>
+      <input
+        {...register('email', {
+          required: 'Email is required',
+          validate: validateEmail
+        })}
+        placeholder="Email"
+      />
+      {errors.email && <span>{errors.email.message}</span>}
 
-      <Form.Group>
-        <Form.Label>كلمة المرور</Form.Label>
-        <Form.Control
-          type="password"
-          {...register('password', {
-            required: 'كلمة المرور مطلوبة',
-            validate: validatePassword
-          })}
-          isInvalid={!!errors.password}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.password?.message}
-        </Form.Control.Feedback>
-      </Form.Group>
+      <input
+        type="password"
+        {...register('password', {
+          required: 'Password is required',
+          validate: validatePassword
+        })}
+        placeholder="Password"
+      />
+      {errors.password && <span>{errors.password.message}</span>}
 
-      <Button type="submit" className="w-100">
-        دخول
-      </Button>
+      <button type="submit">Login</button>
     </form>
   );
 }
+
+export default LoginForm;
 ```
 
-### 3. عرض الإشعارات
+### Example 3: Toast Notifications
 
 ```jsx
 import toast from 'react-hot-toast';
 
-// نجاح
-toast.success('تم الحفظ بنجاح!');
+function NotificationExample() {
+  const handleSuccess = () => {
+    toast.success('Operation successful!', {
+      duration: 3000,
+      position: 'top-right'
+    });
+  };
 
-// خطأ
-toast.error('حدث خطأ ما');
+  const handleError = () => {
+    toast.error('An error occurred!', {
+      duration: 3000,
+      position: 'top-right'
+    });
+  };
 
-// معلومة
-toast((t) => (
-  <div>
-    <p>هل أنت متأكد؟</p>
-    <button onClick={() => {
-      handleDelete();
-      toast.dismiss(t.id);
-    }}>
-      نعم، احذف
-    </button>
-  </div>
-));
-```
-
-### 4. معالجة التواريخ
-
-```jsx
-import { format, addDays, differenceInDays } from 'date-fns';
-import { ar } from 'date-fns/locale';
-
-function RecipeDate({ createdAt, expiresAt }) {
-  const created = format(new Date(createdAt), 'dd MMMM yyyy', { locale: ar });
-  const daysLeft = differenceInDays(new Date(expiresAt), new Date());
+  const handleLoading = () => {
+    toast.loading('Processing...', {
+      position: 'top-right'
+    });
+  };
 
   return (
     <div>
-      <p>تاريخ الإنشاء: {created}</p>
-      <p>أيام المتبقية: {daysLeft}</p>
+      <button onClick={handleSuccess}>Show Success</button>
+      <button onClick={handleError}>Show Error</button>
+      <button onClick={handleLoading}>Show Loading</button>
     </div>
   );
 }
+
+export default NotificationExample;
 ```
 
-### 5. استخراج بيانات المستخدم من JWT
+### Example 4: date-fns Date Formatting
+
+```jsx
+import { format, parseISO, isToday, differenceInDays } from 'date-fns';
+
+function DateExample() {
+  const apiDate = "2024-01-15T10:30:00Z";
+  const date = parseISO(apiDate);
+
+  return (
+    <div>
+      {/* Format: Jan 15, 2024 */}
+      <p>Date: {format(date, 'MMM dd, yyyy')}</p>
+
+      {/* Format: Monday, 10:30 AM */}
+      <p>Full: {format(date, 'EEEE, hh:mm a')}</p>
+
+      {/* Check if today */}
+      {isToday(date) && <p>This is today!</p>}
+
+      {/* Days difference */}
+      <p>Days ago: {differenceInDays(new Date(), date)}</p>
+    </div>
+  );
+}
+
+export default DateExample;
+```
+
+### Example 5: JWT Token Handling
 
 ```jsx
 import { jwtDecode } from 'jwt-decode';
+import { isTokenValid } from './utils/tokenManager';
 
-function useAuthToken() {
+function TokenExample() {
   const token = localStorage.getItem('token');
-  
-  if (!token) return null;
 
-  try {
-    const decoded = jwtDecode(token);
-    
-    // التحقق من انتهاء الصلاحية
-    if (decoded.exp * 1000 < Date.now()) {
-      localStorage.removeItem('token');
-      return null;
-    }
-
-    return {
-      userId: decoded.userId,
-      email: decoded.email,
-      role: decoded.role,
-    };
-  } catch (error) {
-    console.error('Invalid token');
-    return null;
+  if (!token || !isTokenValid(token)) {
+    // Redirect to login
+    return <Navigate to="/login" />;
   }
+
+  // Decode token
+  const decoded = jwtDecode(token);
+  const userId = decoded.userId;
+  const email = decoded.email;
+  const role = decoded.role;
+
+  return (
+    <div>
+      <p>User ID: {userId}</p>
+      <p>Email: {email}</p>
+      <p>Role: {role}</p>
+    </div>
+  );
 }
+
+export default TokenExample;
 ```
 
-### 6. استخدام Bootstrap مع React
+### Example 6: Bootstrap Grid System
 
 ```jsx
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 
-function Dashboard() {
+function LayoutExample() {
   return (
     <Container className="py-5">
       <Row className="g-4">
-        <Col lg={4} md={6} sm={12}>
+        {/* 3 columns on desktop, 1 on mobile */}
+        <Col md={4} sm={12}>
           <Card>
             <Card.Body>
-              <Card.Title>إجمالي الوصفات</Card.Title>
-              <h2>42</h2>
+              <Card.Title>Recipe 1</Card.Title>
+              <Card.Text>Description here</Card.Text>
+              <Button variant="primary">View Recipe</Button>
             </Card.Body>
           </Card>
         </Col>
 
-        <Col lg={4} md={6} sm={12}>
+        <Col md={4} sm={12}>
           <Card>
             <Card.Body>
-              <Card.Title>المفضلة</Card.Title>
-              <h2>18</h2>
+              <Card.Title>Recipe 2</Card.Title>
+              <Card.Text>Description here</Card.Text>
+              <Button variant="primary">View Recipe</Button>
             </Card.Body>
           </Card>
         </Col>
 
-        <Col lg={4} md={6} sm={12}>
+        <Col md={4} sm={12}>
           <Card>
             <Card.Body>
-              <Card.Title>المستخدمون</Card.Title>
-              <h2>256</h2>
+              <Card.Title>Recipe 3</Card.Title>
+              <Card.Text>Description here</Card.Text>
+              <Button variant="primary">View Recipe</Button>
             </Card.Body>
           </Card>
         </Col>
@@ -382,142 +388,198 @@ function Dashboard() {
     </Container>
   );
 }
+
+export default LayoutExample;
 ```
 
 ---
 
-## ✨ أفضل الممارسات
+## ✨ Best Practices
 
-### 1. استخدام Custom Hooks
+### 1. Use Custom Hooks for Logic
 ```jsx
-// ❌ خطأ
-const [recipes, setRecipes] = useState([]);
+// Good ✅
+const { data, loading } = useFetch(fetchData);
+
+// Bad ❌
+const [data, setData] = useState(null);
 const [loading, setLoading] = useState(false);
-const [error, setError] = useState(null);
-
-useEffect(() => {
-  // fetch logic
-}, []);
-
-// ✅ صحيح
-const { data: recipes, loading, error } = useFetch(
-  () => axiosInstance.get(API_ENDPOINTS.RECIPES.GET_ALL)
-);
+// ... repeat in every component
 ```
 
-### 2. معالجة الأخطاء
+### 2. Validate Input Data
 ```jsx
-// ❌ خطأ
-try {
-  await api.call();
-} catch (error) {
-  console.log(error);
-}
-
-// ✅ صحيح
-try {
-  await api.call();
-} catch (error) {
-  const message = error.response?.data?.message || 'حدث خطأ';
-  toast.error(message);
-  logger.error('API Error:', error);
-}
-```
-
-### 3. التحقق من البيانات
-```jsx
-// ❌ خطأ
-const email = data.email;
-
-// ✅ صحيح
-import { validateEmail } from '@/utils/validators';
-
-if (!validateEmail(data.email)) {
-  toast.error('البريد غير صحيح');
+// Good ✅
+if (!validateEmail(email)) {
+  toast.error('Invalid email');
   return;
 }
+
+// Bad ❌
+// Send data without validation
 ```
 
-### 4. الترقيم (Pagination)
+### 3. Use Error Boundaries
 ```jsx
-const { items, page, totalPages, goToPage } = usePagination(
-  recipes,
-  10 // items per page
+// Good ✅
+<ErrorBoundary>
+  <YourComponent />
+</ErrorBoundary>
+
+// Bad ❌
+// No error handling
+<YourComponent />
+```
+
+### 4. Use Suspense for Lazy Loading
+```jsx
+// Good ✅
+const Component = lazy(() => import('./Component'));
+
+<Suspense fallback={<Spinner />}>
+  <Component />
+</Suspense>
+
+// Bad ❌
+// Load all components at once
+```
+
+### 5. Cache API Responses
+```jsx
+// Good ✅
+const cacheManager = new CacheManager();
+const cachedData = cacheManager.get('recipes');
+
+// Bad ❌
+// Fetch the same data multiple times
+```
+
+### 6. Use Environment Variables
+```jsx
+// Good ✅
+const API_URL = import.meta.env.VITE_API_URL;
+
+// Bad ❌
+const API_URL = 'http://api.example.com';
+```
+
+### 7. Use Toast for User Feedback
+```jsx
+// Good ✅
+toast.success('Recipe added successfully!');
+toast.error('Error adding recipe!');
+
+// Bad ❌
+alert('Success');
+alert('Error');
+```
+
+### 8. Organize Components by Feature
+```
+// Good ✅
+RecipesModule/
+  ├── RecipesList/
+  ├── AddRecipe/
+  └── RecipeDetail/
+
+// Bad ❌
+components/
+  ├── RecipesList.jsx
+  ├── AddRecipe.jsx
+  ├── RecipeDetail.jsx
+  └── ... 50 more files
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### Issue 1: CORS Error
+
+**Problem:** `Access to XMLHttpRequest blocked by CORS`
+
+**Solution:**
+```jsx
+// Update axiosInstance.js with proper headers
+axiosInstance.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+```
+
+### Issue 2: Token Expired
+
+**Problem:** `Unauthorized` error
+
+**Solution:**
+```jsx
+// Use interceptor to refresh token
+api.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response.status === 401) {
+      // Refresh token or redirect to login
+      redirectToLogin();
+    }
+  }
 );
-
-<Pagination>
-  <Pagination.First onClick={() => goToPage(0)} />
-  {[...Array(totalPages)].map((_, i) => (
-    <Pagination.Item
-      key={i}
-      active={i === page}
-      onClick={() => goToPage(i)}
-    >
-      {i + 1}
-    </Pagination.Item>
-  ))}
-  <Pagination.Last onClick={() => goToPage(totalPages - 1)} />
-</Pagination>
 ```
 
-### 5. استخدام Lazy Loading
+### Issue 3: Long Load Time
+
+**Problem:** App takes too long to load
+
+**Solution:**
 ```jsx
-import { lazy, Suspense } from 'react';
+// Use lazy loading and code splitting
+const Component = lazy(() => import('./Component'));
+// Use Suspense with fallback
+```
 
-const Dashboard = lazy(() => import('./pages/Dashboard'));
-const RecipesList = lazy(() => import('./pages/RecipesList'));
+### Issue 4: Memory Leak Warning
 
-function App() {
-  return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <Routes>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/recipes" element={<RecipesList />} />
-      </Routes>
-    </Suspense>
-  );
-}
+**Problem:** `Warning: Memory leak in useEffect`
+
+**Solution:**
+```jsx
+// Clean up in useEffect
+useEffect(() => {
+  return () => {
+    // Cleanup code
+  };
+}, [dependency]);
 ```
 
 ---
 
-## 🐛 استكشاف الأخطاء
+## 🎓 Learning Resources
 
-### المشكلة: CORS Error
-```bash
-# الحل: تأكد من أن API يدعم CORS
-# أو استخدم Proxy في vite.config.js
-```
-
-### المشكلة: Token مفقود
-```jsx
-// تأكد من حفظ Token بعد الدخول
-localStorage.setItem('token', response.data.token);
-```
-
-### المشكلة: Form يرسل بيانات فارغة
-```jsx
-// استخدم handleSubmit من React Hook Form
-const { handleSubmit } = useForm();
-<form onSubmit={handleSubmit(onSubmit)}>
-```
-
-### المشكلة: Performance بطيء
-```jsx
-// استخدم useMemo و useCallback
-const memoizedValue = useMemo(() => expensiveOperation(), [dependency]);
-const memoizedCallback = useCallback(() => doSomething(), [dependency]);
-```
+- [React Documentation](https://react.dev)
+- [React Router Documentation](https://reactrouter.com)
+- [Bootstrap Documentation](https://getbootstrap.com/docs)
+- [Axios Documentation](https://axios-http.com/docs)
+- [React Hook Form Documentation](https://react-hook-form.com)
 
 ---
 
-## 📞 التواصل والدعم
+## 🤝 Contributing
 
-للمزيد من المعلومات:
-- 📧 البريد الإلكتروني: support@example.com
-- 💬 Discord: your-discord-server
-- 🐙 GitHub: your-github-repo
+To contribute to this project:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
 ---
 
-**تم الإنشاء بـ ❤️ باستخدام React و Vite**
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 📧 Contact
+
+For questions or suggestions, please contact the development team.
+
+---
+
+**Happy Coding!** 🚀
