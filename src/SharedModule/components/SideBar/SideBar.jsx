@@ -69,6 +69,13 @@ export default function SideBar() {
             <MenuItem component={<Link to={"/dashboard"}></Link>} icon={<i className="fa-solid fa-house"></i>}> Home </MenuItem>
 
             <MenuItem component={<Link to={"/dashboard/RecipesList"}></Link>} icon={<i className="fa-solid fa-utensils"></i>}> Recipes </MenuItem>
+            
+            <MenuItem component={<Link to={"/dashboard/search"}></Link>} icon={<i className="fa-solid fa-magnifying-glass"></i>}> Search </MenuItem>
+            
+            <MenuItem component={<Link to={"/dashboard/meal-planner"}></Link>} icon={<i className="fa-solid fa-calendar-days"></i>}> Meal Plan </MenuItem>
+            
+            <MenuItem component={<Link to={"/dashboard/dashboard"}></Link>} icon={<i className="fa-solid fa-chart-line"></i>}> Dashboard </MenuItem>
+            
             {jwtDecode?.userGroup === "SuperAdmin" ? <>
               <MenuItem component={<Link to={"/dashboard/UserList"}></Link>} icon={<i className="fa-solid fa-user-group"></i>}> Users </MenuItem>
               <MenuItem component={<Link to={"/dashboard/CategoriesList"}></Link>} icon={<i className="fa-solid fa-layer-group"></i>}> Categories </MenuItem>
