@@ -19,13 +19,13 @@ export default function ChangePass({handleClose}) {
     console.log(values);
     let token = localStorage.getItem("token");
     try {
-      let { data } = await axios.put("https://upskilling-egypt.com:443/api/v1/Users/ChangePassword", values, { headers: { Authorization: token } });
+      let { data } = await axios.put("https://upskilling-egypt.com:3006/api/v1/Users/ChangePassword", values, { headers: { Authorization: token } });
       console.log(data);
       toast.success(data.message);
       handleClose()
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.message||"There's a mistake.",{ duration: 800 });
     }
     setIsLoading(false);
   }

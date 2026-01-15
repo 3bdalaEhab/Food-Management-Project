@@ -7,7 +7,7 @@ export async function apiGetRecipes(pageNum,  nameSearch, tagIdSearch, categoryI
   console.log( {"pageNum":pageNum,"nameSearch":nameSearch, "tagIdSearch":tagIdSearch,"categoryIdSearch":categoryIdSearch});
     let token = localStorage.getItem("token")
     try {
-      const data = await axios.get(`https://upskilling-egypt.com:443/api/v1/Recipe/`,
+      const data = await axios.get(`https://upskilling-egypt.com:3006/api/v1/Recipe/`,
       {
           params: {
             pageNumber:pageNum,
@@ -30,7 +30,7 @@ export async function apiGetRecipes(pageNum,  nameSearch, tagIdSearch, categoryI
 export async function apiDeleteRecipe(id) {
     let token = localStorage.getItem("token")
     try {
-      const data = await axios.delete(`https://upskilling-egypt.com:443/api/v1/Recipe/${id}`,
+      const data = await axios.delete(`https://upskilling-egypt.com:3006/api/v1/Recipe/${id}`,
         { headers: { Authorization: token } })
         toast("Deleted", { icon: "😟" });
 console.log(data);

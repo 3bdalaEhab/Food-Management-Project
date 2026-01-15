@@ -14,13 +14,13 @@ export default function VerifyAccountUser() {
 
     async function apiVerifyAccountUser(values) {
         try {
-            const { data } = await axios.put(`https://upskilling-egypt.com:443/api/v1/Users/verify/`, values);
+            const { data } = await axios.put(`https://upskilling-egypt.com:3006/api/v1/Users/verify/`, values);
             console.log(data);
             navigate("/Login")
             toast.success(data.message);
             return data
         } catch (error) {
-            toast.error(error?.response?.data?.message)
+            toast.error(error?.response?.data?.message||"There's a mistake.",{ duration: 800 })
             console.log(error);
         }
         setIsLoading(false)

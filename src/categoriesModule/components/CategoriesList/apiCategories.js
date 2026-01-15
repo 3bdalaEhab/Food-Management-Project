@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 export async function apiAddCategories(data) {
     let token = localStorage.getItem("token")
     try {
-        const response = await axios.post(`https://upskilling-egypt.com:443/api/v1/Category/`, data,
+        const response = await axios.post(`https://upskilling-egypt.com:3006/api/v1/Category/`, data,
             { headers: { Authorization: token } })
         toast.success(response.statusText)
         return response.data
@@ -19,7 +19,7 @@ export async function apiAddCategories(data) {
 export async function apiShowCategories(pageNumber,name) {
     let token = localStorage.getItem("token")
     try {
-        const data = await axios.get(`https://upskilling-egypt.com:443/api/v1/Category/?pageSize=${5}&pageNumber=${pageNumber}&name=${name}`,
+        const data = await axios.get(`https://upskilling-egypt.com:3006/api/v1/Category/?pageSize=${5}&pageNumber=${pageNumber}&name=${name}`,
             { headers: { Authorization: token } })
         return data
     } catch (error) {
@@ -32,7 +32,7 @@ export async function apiShowCategories(pageNumber,name) {
 export async function apiDeleteCategories(categoryId) {
     let token = localStorage.getItem("token");
     try {
-        const { data } = await axios.delete(`https://upskilling-egypt.com:443/api/v1/Category/${categoryId}`, {
+        const { data } = await axios.delete(`https://upskilling-egypt.com:3006/api/v1/Category/${categoryId}`, {
             headers: { Authorization: token }
         });
         toast("Deleted", { icon: "😟" });
@@ -48,7 +48,7 @@ export async function apiDeleteCategories(categoryId) {
 export async function apiUpdateCategories(categoryData, categoryId) {
     let token = localStorage.getItem("token")
     try {
-        const data = await axios.put(`https://upskilling-egypt.com:443/api/v1/Category/${categoryId}`, categoryData,
+        const data = await axios.put(`https://upskilling-egypt.com:3006/api/v1/Category/${categoryId}`, categoryData,
             { headers: { Authorization: token } })
         toast("Updated", { icon: "😊" });
         return data
