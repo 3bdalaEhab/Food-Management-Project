@@ -1,53 +1,340 @@
-@keyframes slideUpDown {
-    0% {
-      transform: translateY(10px);
-    }
-    50% {
-      transform: translateY(-30px);
-    }
-    100% {
-      transform: translateY(10px);
-    }
-  }
-  
-  .animated-image {
-    animation: slideUpDown 2.5s linear infinite;
-  }
-  /* ================
-   */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+  --sidebar-color: #2c3e50;
+  --transition-speed: 0.3s;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
 
-  
-  
-  /* تعريف التأثيرات الحركية للصورة */
-  @keyframes slideInFromTop {
-    0% {
-      opacity: 0;
-      transform: translateY(-50px); 
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+}
+
+/* ==================== Animations ==================== */
+@keyframes slideUpDown {
+  0% {
+    transform: translateY(10px);
   }
-  
-  .animated-heading {
-    animation: slideInFromLeft 1.5s ease-in-out forwards; 
+  50% {
+    transform: translateY(-30px);
   }
-  
- /* تعريف التأثيرات الحركية للفقرة */
+  100% {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes slideInFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes slideInFromLeft {
-    0% {
-      opacity: 0;
-      transform: translateX(-50px); /* بداية التحريك من اليسار خارج الشاشة */
-    }
-    50% {
-        transform: translateX(100px); /* تحريك النص إلى اليمين */
-      }
-    100% {
-      opacity: 1;
-      transform: translateX(0); /* النهاية: دخول الفقرة بالكامل */
-    }
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
   }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Animation Classes */
+.animated-image {
+  animation: slideUpDown 2.5s linear infinite;
+}
+
+.animated-heading {
+  animation: slideInFromLeft 1.5s ease-in-out forwards;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-in-right {
+  animation: slideInFromRight 0.5s ease-in-out;
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ==================== Global Styles ==================== */
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: color var(--transition-speed) ease;
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+button {
+  transition: all var(--transition-speed) ease;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+input, textarea, select {
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-speed) ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+/* ==================== Utility Classes ==================== */
+.text-truncate-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.text-truncate-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+.gap-1 { gap: 0.5rem; }
+.gap-2 { gap: 1rem; }
+.gap-3 { gap: 1.5rem; }
+.gap-4 { gap: 2rem; }
+
+/* ==================== Form Styles ==================== */
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: #e9ecef;
+  opacity: 1;
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--dark-color);
+  margin-bottom: 0.5rem;
+}
+
+.invalid-feedback {
+  color: var(--danger-color);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* ==================== Table Styles ==================== */
+.table {
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.table thead th {
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+  background-color: #f8f9fa;
+}
+
+.table tbody tr {
+  transition: background-color var(--transition-speed) ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* ==================== Badge Styles ==================== */
+.badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+/* ==================== Alert Styles ==================== */
+.alert {
+  border-radius: 6px;
+  border: none;
+  animation: slideInFromTop 0.5s ease-in-out;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.alert-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+/* ==================== Modal Styles ==================== */
+.modal-content {
+  border: none;
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+  border-bottom: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+}
+
+.modal-header .btn-close {
+  filter: brightness(0.5);
+}
+
+.modal-header .btn-close:focus {
+  filter: brightness(0);
+  box-shadow: none;
+}
+
+/* ==================== Responsive Styles ==================== */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .text-truncate-2 {
+    -webkit-line-clamp: 1;
+  }
+}
+
+@media (max-width: 576px) {
+  .gap-1 { gap: 0.25rem; }
+  .gap-2 { gap: 0.5rem; }
+  .gap-3 { gap: 1rem; }
+
+  button {
+    width: 100% !important;
+  }
+}
+
+/* ==================== Scrollbar Styles ==================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
   
   /* تطبيق التأثيرات على الفقرة */
   .animated-paragraph {
