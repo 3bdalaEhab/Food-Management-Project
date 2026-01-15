@@ -1,12 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, ProgressBar, Badge } from 'react-bootstrap';
-import { useFetch } from '../../hooks/useFetch';
-import { useAuth } from '../../hooks/useAuth';
-import { axiosInstance } from '../../api/axiosInstance';
-import { API_ENDPOINTS } from '../../api/endpoints';
-import { Spinner } from '../../SharedModule/components/Pagination/Spinner';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
-import toast from 'react-hot-toast';
+import { Container, Row, Col, Card, ProgressBar, Badge, Spinner } from 'react-bootstrap';
+import { useAuth } from '@/hooks/useAuth';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import './UserDashboard.css';
 
 function UserDashboard() {
@@ -69,7 +64,15 @@ function UserDashboard() {
     { title: 'Created', value: stats.recipesCreated || 0, color: 'info', icon: '✨' }
   ];
 
-  if (loading) return <Spinner />;
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '60vh' }}>
+        <Spinner animation="border" role="status" variant="primary">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    );
+  }
 
   return (
     <Container className="py-4 user-dashboard-container">

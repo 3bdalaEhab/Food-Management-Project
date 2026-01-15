@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
-import { useAdvancedSearch } from '../hooks/useAdvancedSearch';
-import { Spinner } from '../SharedModule/components/Pagination/Spinner';
+import { Container, Row, Col, Form, Button, Card, Spinner } from 'react-bootstrap';
+import { useAdvancedSearch } from '@/hooks/useAdvancedSearch';
 import toast from 'react-hot-toast';
 import './AdvancedSearch.css';
 

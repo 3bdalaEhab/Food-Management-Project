@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Container, Row, Col, Card, Button, Badge, Modal, Form } from 'react-bootstrap';
-import { useMealPlanner } from '../../hooks/useMealPlanner';
+import { useMealPlanner } from '@/hooks/useMealPlanner';
 import { format, startOfWeek, addDays } from 'date-fns';
 import { Download, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
 import toast from 'react-hot-toast';
