@@ -43,7 +43,6 @@ const navigate = useNavigate()
   }
 
   const onSubmit = async (values) => {
-    console.log(values);
     setIsLoading(true)
     let formData = appendToFormData(values)
     apiRegister(formData)
@@ -90,7 +89,10 @@ const navigate = useNavigate()
                             <i className="icon fa-solid fa-user"></i>
                           </span>
                           <input
-                            placeholder="UserName"
+                              
+                              
+                              
+                              placeholder="UserName"
                             {...register("userName", {
                               required: "UserName is required",
                               maxLength: {
@@ -124,7 +126,10 @@ const navigate = useNavigate()
                             <i className="icon fa-solid fa-envelope"></i>
                           </span>
                           <input
-                            placeholder="Enter your E-mail"
+                              
+                              
+                              
+                              placeholder="Enter your E-mail"
                             {
                             ...register("email", {
                               required: "Email is required",
@@ -161,7 +166,10 @@ const navigate = useNavigate()
                             <i className="icon fa-solid fa-location-dot"></i>
                           </span>
                           <input
-                            placeholder="Country"
+                              
+                              
+                              
+                              placeholder="Country"
                             {...register("country", {
                               required: {
                                 value: true,
@@ -192,7 +200,10 @@ const navigate = useNavigate()
                           <span className="input-group-text rounded-end-0 bg-light">
                             <i className="icon fa-solid fa-phone"></i>                          </span>
                           <input
-                            placeholder="PhoneNumber"
+                              
+                              
+                              
+                              placeholder="PhoneNumber"
                             {...register("phoneNumber", {
                               pattern: {
                                 value: /^(\+2)?01[0125][0-9]{8}$/,
@@ -223,7 +234,10 @@ const navigate = useNavigate()
                             <i className="icon fa-solid fa-lock"></i>
                           </span>
                           <input
-                            placeholder="Password"
+                              
+                              
+                              
+                              placeholder="Password"
                             {...register("password", {
                               required: {
                                 value: true,
@@ -261,7 +275,10 @@ const navigate = useNavigate()
                           </span>
 
                           <input
-                            placeholder="confirm-Password"
+                              
+                              
+                              
+                              placeholder="confirm-Password"
                             {...register("confirmPassword", {
                               required: "Confirm Password is required",
                               validate: (value) => value === confirmPassword || "Passwords do not match"

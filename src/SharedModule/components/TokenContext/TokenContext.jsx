@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import {jwtDecode} from 'jwt-decode'; 
 import { createContext,  useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -9,23 +8,6 @@ export default function TokenContextProvider({ children }) {
   
   const [Token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  // const [JwtToken, setJwtToken] = useState({});
-
-//  useEffect(() => {
-//   jwtToken()
-//  }, [])
- 
-
-  // let jwtToken = ()=> {
-  //   let token = localStorage.getItem("token");
-  //   if (token) {
-  //     let jwtTok = jwtDecode(token);
-  //     setJwtToken(jwtTok);
-  //   } else {
-  //     setJwtToken({});
-  //   }
-  // }
-
 
   async function collLogin(values) {
     console.log(values);
@@ -38,8 +20,7 @@ export default function TokenContextProvider({ children }) {
       setIsLoading(false);
 
     } catch (error) {
-      console.log(error);
-      toast.error(error?.response?.data?.message, { duration: 800 });
+      toast.error(error?.response?.data?.message||"There's a mistake.",{ duration: 800 });
       setIsLoading(false);
     }
   }
