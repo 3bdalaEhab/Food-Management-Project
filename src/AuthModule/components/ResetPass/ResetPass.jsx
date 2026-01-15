@@ -18,6 +18,7 @@ export default function ResetPass() {
   const newPassword = watch("password");
   
   async function resetPassEmail(values) {
+    setIsLoading(true)
     try {
       let { data } = await axios.post("https://upskilling-egypt.com:3006/api/v1/Users/Reset", values);
       toast.success(data?.message, { duration: 2000 });
@@ -26,15 +27,14 @@ export default function ResetPass() {
       console.log(error);
       toast.error(error?.response?.data?.message||"There's a mistake.",{ duration: 800 });
 
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
-
   }
 
   
   const onSubmit = async (values) => {
-    setIsLoading(true)
-    resetPassEmail(values)
+    await resetPassEmail(values)
   };
 
 
@@ -180,7 +180,10 @@ export default function ResetPass() {
                       {errors.confirmPassword && <div className="mt-1 py-1 alert alert-danger">{errors.confirmPassword.message}</div>}
                     </div>
 
-                    <button className="mt-3 w-100 border-0 text-white bg-btn py-2 rounded-3">
+                    <button
+                      className="mt-3 w-100 border-0 text-white bg-btn py-2 rounded-3"
+                      disabled={isLoading}
+                    >
                       {isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Submit"}
                     </button>
                   </form>

@@ -6,31 +6,21 @@ import { tokenContext } from "../../../SharedModule/components/TokenContext/Toke
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(true);
-    const { collLogin, isLoading, Token, setToken } = useContext(tokenContext)
+    const { collLogin, isLoading, Token } = useContext(tokenContext)
     const navigate = useNavigate()
 
-    function navigateAfterLogin() {
+    useEffect(() => {
         if (Token) {
             navigate("/dashboard")
         }
-    }
-    useEffect(() => {
-        if (Token) {
-            navigateAfterLogin()
-        }
-        return setToken(null)
-    }, [Token])
+    }, [Token, navigate])
 
     let collApiLogin = (values) => {
         collLogin(values)
 
     }
 
-    const { register, handleSubmit, formState: { errors },setValue} = useForm();
-    useEffect(() => {
-  setValue("email","abdalaehab3@gmail.com")
-  setValue("password","Ae123****")
-    }, [])
+    const { register, handleSubmit, formState: { errors }} = useForm();
     
     const onSubmit = async (values) => {
         collApiLogin(values)
@@ -139,7 +129,10 @@ export default function Login() {
                                                 Forgot Password?
                                             </Link>
                                         </div>
-                                        <button className="mt-3 w-100 border-0 text-white bg-btn py-2 rounded-3">
+                                        <button
+                                            className="mt-3 w-100 border-0 text-white bg-btn py-2 rounded-3"
+                                            disabled={isLoading}
+                                        >
 
                                             {isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Login"}
                                         </button>

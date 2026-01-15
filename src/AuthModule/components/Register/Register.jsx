@@ -17,17 +17,21 @@ const navigate = useNavigate()
 
 
   async function apiRegister(formData) {
+    setIsLoading(true);
     try {
-      const { data } = await axios.post(`https://upskilling-egypt.com:3006/api/v1/Users/Register`, formData);
-      navigate("/VerifyAccountUser")
+      const { data } = await axios.post(
+        `https://upskilling-egypt.com:3006/api/v1/Users/Register`,
+        formData
+      );
       toast.success(data.message);
-      return data
+      navigate("/VerifyAccountUser");
+      return data;
     } catch (error) {
-      toast.error(error?.response?.data?.message||"There's a mistake.",{ duration: 800 })
+      toast.error(error?.response?.data?.message || "There's a mistake.", { duration: 800 });
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false)
-
   }
 
   function appendToFormData(values) {
@@ -43,10 +47,8 @@ const navigate = useNavigate()
   }
 
   const onSubmit = async (values) => {
-    setIsLoading(true)
-    let formData = appendToFormData(values)
-    apiRegister(formData)
-
+    const formData = appendToFormData(values);
+    await apiRegister(formData);
   }
 
 
@@ -306,8 +308,10 @@ const navigate = useNavigate()
                     </div>
 
                     <div className="w-100  text-center">
-                      <button className="mt-3 w-50 mx-auto  text-center border-0 text-white bg-btn py-2 rounded-3">
-
+                      <button
+                        className="mt-3 w-50 mx-auto  text-center border-0 text-white bg-btn py-2 rounded-3"
+                        disabled={isLoading}
+                      >
                         {isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Register"}
                       </button>
                     </div>

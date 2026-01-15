@@ -10,6 +10,7 @@ export default function ForgotPass() {
   const [isLoading, setIsLoading] = useState(false);
 
   async function ApiForgotPassEmail(values) {
+    setIsLoading(true);
     try {
       let { message } = await ForgotPassEmail(values)
       toast.success(message, { duration: 800 });
@@ -17,16 +18,16 @@ export default function ForgotPass() {
         navigate("/ResetPass")
       }, 800);
     } catch (error) {
-      toast.error("This didn't work.", { duration: 800 });
+      toast.error(error?.response?.data?.message || "This didn't work.", { duration: 800 });
       console.log(error);
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   const { register, handleSubmit, formState: { errors }, } = useForm();
   const onSubmit = async (values) => {
-    setIsLoading(true)
-    ApiForgotPassEmail(values)
+    await ApiForgotPassEmail(values)
   }
 
 
@@ -91,8 +92,10 @@ export default function ForgotPass() {
 
 
 
-                    <button className="mt-5 w-100 border-0 text-white bg-btn py-2 rounded-3">
-
+                    <button
+                      className="mt-5 w-100 border-0 text-white bg-btn py-2 rounded-3"
+                      disabled={isLoading}
+                    >
                       {isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Submit"}
                     </button>
                   </form>

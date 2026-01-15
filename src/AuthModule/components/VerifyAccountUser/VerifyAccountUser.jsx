@@ -13,6 +13,7 @@ export default function VerifyAccountUser() {
 
 
     async function apiVerifyAccountUser(values) {
+    setIsLoading(true)
         try {
             const { data } = await axios.put(`https://upskilling-egypt.com:3006/api/v1/Users/verify/`, values);
             console.log(data);
@@ -22,15 +23,13 @@ export default function VerifyAccountUser() {
         } catch (error) {
             toast.error(error?.response?.data?.message||"There's a mistake.",{ duration: 800 })
             console.log(error);
+    } finally {
+      setIsLoading(false)
         }
-        setIsLoading(false)
-
     }
 
-    const onSubmit = (values) => {
-        setIsLoading(true)
-        console.log(values)
-        apiVerifyAccountUser(values)
+    const onSubmit = async (values) => {
+        await apiVerifyAccountUser(values)
     }
 
 
@@ -126,9 +125,11 @@ export default function VerifyAccountUser() {
                                             <Link to={"/Register"}>Register Now?</Link>
 
                                         </div>
-                                        <button className="mt-3 w-100 border-0 text-white bg-btn py-2 rounded-3">
-
-                                            {isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Submit"}
+                                        <button
+                                          className="mt-3 w-100 border-0 text-white bg-btn py-2 rounded-3"
+                                          disabled={isLoading}
+                                        >
+                                          {isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Submit"}
                                         </button>
                                     </form>
                                 </div>
