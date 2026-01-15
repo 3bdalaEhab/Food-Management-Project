@@ -15,6 +15,15 @@ const FavoriteList = lazy(() =>
   import('@/UserModule/components/FavoriteList/FavoriteList')
 );
 const UserList = lazy(() => import('@/UserModule/components/UserList/UserList'));
+const AdvancedSearch = lazy(() =>
+  import('@/RecipesModule/components/AdvancedSearch/AdvancedSearch')
+);
+const MealPlanner = lazy(() =>
+  import('@/HomeModule/components/MealPlanner/MealPlanner')
+);
+const UserDashboard = lazy(() =>
+  import('@/UserModule/components/UserDashboard/UserDashboard')
+);
 
 export const protectedRoutes = [
   { index: true, element: <Home /> },
@@ -23,4 +32,7 @@ export const protectedRoutes = [
   { path: ROUTES.PROTECTED.CATEGORIES, element: <CategoriesList /> },
   { path: ROUTES.PROTECTED.FAVORITES, element: <FavoriteList /> },
   { path: ROUTES.PROTECTED.USERS, element: <UserList /> },
+  { path: 'search', element: <AdvancedSearch /> },
+  { path: 'meal-planner', element: <MealPlanner /> },
+  { path: 'dashboard', element: <UserDashboard /> },
 ];

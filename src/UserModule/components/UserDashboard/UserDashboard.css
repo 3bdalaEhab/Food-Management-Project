@@ -1,0 +1,300 @@
+.user-dashboard-container {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  padding-bottom: 3rem;
+}
+
+.welcome-section {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.welcome-section h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.welcome-section p {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+}
+
+.stat-card {
+  background: white;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  position: relative;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #0d6efd, #0d6efd);
+}
+
+.stat-card:nth-child(2)::before {
+  background: linear-gradient(90deg, #dc3545, #dc3545);
+}
+
+.stat-card:nth-child(3)::before {
+  background: linear-gradient(90deg, #198754, #198754);
+}
+
+.stat-card:nth-child(4)::before {
+  background: linear-gradient(90deg, #0dcaf0, #0dcaf0);
+}
+
+.stat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.stat-card body {
+  padding: 1.5rem;
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.stat-title {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.chart-card {
+  background: white;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.chart-card .card-header {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1.25rem;
+  background: #f8f9fa !important;
+}
+
+.chart-card h5 {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.activity-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  gap: 12px;
+  height: 300px;
+  padding: 20px 0;
+}
+
+.activity-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.bar-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: auto;
+  order: 3;
+}
+
+.bar-container {
+  height: 200px;
+  width: 100%;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  order: 2;
+}
+
+.bar-fill {
+  width: 100%;
+  background: linear-gradient(180deg, #0d6efd, #0a58ca);
+  border-radius: 4px 4px 0 0;
+  transition: all 0.3s ease;
+}
+
+.bar-container:hover .bar-fill {
+  background: linear-gradient(180deg, #0a58ca, #084298);
+}
+
+.bar-value {
+  font-size: 12px;
+  font-weight: 700;
+  color: #2c3e50;
+  order: 1;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.category-name {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.category-bar {
+  height: 24px;
+  border-radius: 4px;
+  background: #e9ecef;
+}
+
+.category-bar .progress-bar {
+  background: linear-gradient(90deg, #0d6efd, #0a58ca);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 24px;
+  color: white;
+}
+
+.activity-card {
+  background: white;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.activity-card .card-header {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1.25rem;
+  background: #f8f9fa !important;
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0;
+}
+
+.activity-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-marker {
+  width: 12px;
+  height: 12px;
+  background: #0d6efd;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-action {
+  margin: 0 0 4px 0;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.activity-recipe {
+  margin: 0 0 6px 0;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.activity-date {
+  color: #bdc3c7;
+  font-size: 0.85rem;
+}
+
+.summary-card {
+  background: white;
+  border: none;
+  border-radius: 12px;
+}
+
+.summary-item {
+  padding: 2rem 1rem;
+  border-left: 1px solid #e0e0e0;
+}
+
+.summary-item:first-child {
+  border-left: none;
+}
+
+.summary-item h6 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.summary-item h3 {
+  margin-top: 0.5rem;
+  font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .welcome-section h1 {
+    font-size: 1.75rem;
+  }
+
+  .activity-chart {
+    height: 250px;
+    gap: 8px;
+  }
+
+  .bar-container {
+    height: 150px;
+  }
+
+  .summary-item {
+    border-left: none;
+    border-top: 1px solid #e0e0e0;
+    padding: 1.5rem 1rem;
+  }
+
+  .summary-item:first-child {
+    border-top: none;
+  }
+}
