@@ -1,0 +1,42 @@
+import apiClient from "@/lib/api-client";
+import type {
+    LoginCredentials,
+    RegisterData,
+    ForgotPasswordData,
+    ResetPasswordData,
+    VerifyAccountData,
+    AuthResponse,
+} from "./types";
+
+// Auth API endpoints
+export const authApi = {
+    // Login
+    login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
+        const { data } = await apiClient.post<AuthResponse>("/Users/Login", credentials);
+        return data;
+    },
+
+    // Register
+    register: async (userData: RegisterData): Promise<AuthResponse> => {
+        const { data } = await apiClient.post<AuthResponse>("/Users/Register", userData);
+        return data;
+    },
+
+    // Forgot Password - Request reset code
+    forgotPassword: async (emailData: ForgotPasswordData): Promise<{ message: string }> => {
+        const { data } = await apiClient.post<{ message: string }>("/Users/Reset/Request", emailData);
+        return data;
+    },
+
+    // Reset Password - With code
+    resetPassword: async (resetData: ResetPasswordData): Promise<{ message: string }> => {
+        const { data } = await apiClient.post<{ message: string }>("/Users/Reset", resetData);
+        return data;
+    },
+
+    // Verify Account
+    verifyAccount: async (verifyData: VerifyAccountData): Promise<{ message: string }> => {
+        const { data } = await apiClient.put<{ message: string }>("/Users/verify", verifyData);
+        return data;
+    },
+};
