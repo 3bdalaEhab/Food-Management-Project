@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-    Sparkles,
     Utensils,
     DollarSign,
     Upload,
@@ -73,7 +72,7 @@ export function RecipeForm({
         },
     });
 
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             setValue("recipeImage", file);
@@ -83,24 +82,24 @@ export function RecipeForm({
             };
             reader.readAsDataURL(file);
         }
-    };
+    }, [setValue]);
 
-    const nextStep = async () => {
+    const nextStep = useCallback(async () => {
         const fields: (keyof RecipeFormData)[] = step === 1 ? ["name", "tagId", "price"] : [];
         const isStepValid = await trigger(fields);
         if (isStepValid) setStep(2);
-    };
+    }, [step, trigger]);
 
-    const prevStep = () => setStep(1);
+    const prevStep = useCallback(() => setStep(1), []);
 
-    const onFormSubmit = (data: RecipeFormData) => {
+    const onFormSubmit = useCallback((data: RecipeFormData) => {
         // Ensure legacy fields are handled if API expects them
         const submissionData = {
             ...data,
             categoriesIds: [] // Explicitly sending empty array for Taxonomy Core
         };
         onSubmit(submissionData as CreateRecipeData);
-    };
+    }, [onSubmit]);
 
     const stepVariants = {
         hidden: { opacity: 0, x: 20 },

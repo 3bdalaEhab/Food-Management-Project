@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import {
     Camera,
     Lock,
-    Sparkles,
     BadgeCheck,
     ChefHat,
     Loader2,
@@ -23,7 +22,7 @@ import {
 
 import { useAuthStore, useAppStore } from "@/stores";
 import { ChangePasswordForm } from "./change-password-form";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui";
+import { Dialog, DialogContent } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { SEO } from "@/components/shared/seo";
 
@@ -53,7 +52,7 @@ export function ProfilePage() {
         visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+            transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as any }
         },
         exit: { opacity: 0, y: -20, transition: { duration: 0.3 } }
     };

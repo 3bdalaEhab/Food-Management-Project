@@ -1,10 +1,10 @@
 import { Bell, Search, Sun, Moon, Globe, User, Menu, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button, Tooltip } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { useAuthStore, useAppStore } from "@/stores";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 export function Navbar() {
     const { t } = useTranslation();
@@ -23,14 +23,14 @@ export function Navbar() {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const toggleTheme = () => {
+    const toggleTheme = useCallback(() => {
         setTheme(theme === "dark" ? "light" : "dark");
-    };
+    }, [theme, setTheme]);
 
-    const selectLanguage = (lang: "en" | "ar") => {
+    const selectLanguage = useCallback((lang: "en" | "ar") => {
         setLanguage(lang);
         setIsLangOpen(false);
-    };
+    }, [setLanguage]);
 
     return (
         <header
@@ -67,19 +67,13 @@ export function Navbar() {
             <div className="flex items-center gap-2">
                 {/* Language Tactical Interface */}
                 <div className="relative" ref={langRef}>
-                    <Tooltip content={t('navbar.language')} side="bottom">
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => setIsLangOpen(!isLangOpen)}
-                            className={cn(
-                                "text-neutral-600 dark:text-neutral-400 group relative",
-                                isLangOpen && "bg-primary-500/10 text-primary-500"
-                            )}
-                        >
-                            <Globe className={cn("w-5 h-5 transition-transform duration-500", isLangOpen && "rotate-180")} />
-                        </Button>
-                    </Tooltip>
+                    <button
+                        onClick={() => setIsLangOpen(!isLangOpen)}
+                        className="w-10 h-10 rounded-xl bg-[var(--sidebar-background)]/80 backdrop-blur-xl border border-[var(--border)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--sidebar-accent)] transition-all shadow-md"
+                        aria-label={t('navbar.language')}
+                    >
+                        <Globe size={18} className={cn("transition-transform duration-500", isLangOpen && "rotate-180")} />
+                    </button>
 
                     <AnimatePresence>
                         {isLangOpen && (
@@ -120,34 +114,29 @@ export function Navbar() {
                 </div>
 
                 {/* Theme Toggle */}
-                <Tooltip content={t('navbar.theme')} side="bottom">
-                    <motion.div whileTap={{ scale: 0.95 }}>
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={toggleTheme}
-                            className="text-neutral-600 dark:text-neutral-400"
-                        >
-                            {theme === "dark" ? (
-                                <Sun className="w-5 h-5" />
-                            ) : (
-                                <Moon className="w-5 h-5" />
-                            )}
-                        </Button>
-                    </motion.div>
-                </Tooltip>
+                <button
+                    onClick={toggleTheme}
+                    className="w-10 h-10 rounded-xl bg-[var(--sidebar-background)]/80 backdrop-blur-xl border border-[var(--border)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--sidebar-accent)] transition-all shadow-md"
+                    aria-label={t('navbar.theme')}
+                >
+                    <AnimatePresence mode="wait" initial={false}>
+                        {theme === 'dark' ? (
+                            <motion.div key="moon">
+                                <Moon size={18} />
+                            </motion.div>
+                        ) : (
+                            <motion.div key="sun">
+                                <Sun size={18} />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </button>
 
                 {/* Notifications */}
-                <Tooltip content={t('navbar.notifications')} side="bottom">
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="text-neutral-600 dark:text-neutral-400 relative"
-                    >
-                        <Bell className="w-5 h-5" />
-                        <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
-                    </Button>
-                </Tooltip>
+                <button className="relative w-10 h-10 rounded-xl bg-[var(--sidebar-background)]/80 backdrop-blur-xl border border-[var(--border)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--sidebar-accent)] transition-all shadow-md" aria-label={t('navbar.notifications')}>
+                    <Bell size={18} />
+                    <span className="absolute -top-0.5 -end-0.5 w-3 h-3 bg-red-500 border-2 border-[var(--background)] rounded-full animate-pulse" />
+                </button>
 
                 {/* User Identity Port */}
                 <div className="flex items-center gap-4 pl-6 border-l border-white/10 group cursor-pointer hover:opacity-80 transition-opacity">

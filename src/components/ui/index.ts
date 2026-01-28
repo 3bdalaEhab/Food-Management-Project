@@ -17,4 +17,3 @@ export {
     DialogTitle,
     DialogDescription,
 } from "./dialog";
-export { Tooltip } from "./tooltip";

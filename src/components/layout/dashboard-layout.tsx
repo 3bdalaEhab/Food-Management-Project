@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sidebar } from "./sidebar";
 import { Navbar } from "./navbar";
 import { useAppStore } from "@/stores";
-import { cn } from "@/lib/utils";
 import { DashboardBackground } from "./dashboard-background";
 import { CommandPalette } from "./command-palette";
 import { MobileDrawer } from "./mobile-drawer";

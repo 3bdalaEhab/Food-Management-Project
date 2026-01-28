@@ -87,6 +87,15 @@ const resources = {
                 master_identity: "Master Identity Port",
                 master_desc: "These credentials represent your professional entity within the culinary network.",
                 edit_portfolio: "Edit Portfolio",
+                tabs: {
+                    identity: "Identity Matrix",
+                    security: "Security Vault",
+                    preferences: "System Config"
+                },
+                preferences: {
+                    theme_protocol: "Visual Protocol",
+                    lang_protocol: "Language Matrix"
+                }
             },
             categories: {
                 title: "Taxonomy Studio",
@@ -247,11 +256,11 @@ const resources = {
             },
             profile: {
                 identity_port: "إعدادات الهوية",
-                security_active: "الأمان مكثف",
+                security_active: "الأمان مفعّل",
                 core: "النظام الأساسي",
                 description: "إدارة ملفك الشخصي وبروتوكولات الأمان وبيانات الهوية الخاصة بك بأعلى المعايير المهنية.",
                 execution_hub: "مركز التحكم",
-                update_asset: "تحديث الصغرة",
+                update_asset: "تحديث الصورة",
                 security_protocol: "بروتوكول الأمان",
                 verified: "حساب موثق",
                 verified_desc: "بيانات الاعتماد متزامنة بالكامل",
@@ -262,6 +271,15 @@ const resources = {
                 master_identity: "إدارة الهوية",
                 master_desc: "هذه البيانات تمثل كيانك المهني داخل منصة الطهي.",
                 edit_portfolio: "تعديل الملف",
+                tabs: {
+                    identity: "بيانات الهوية",
+                    security: "الحماية والأمان",
+                    preferences: "التفضيلات"
+                },
+                preferences: {
+                    theme_protocol: "بروتوكول المظهر",
+                    lang_protocol: "بروتوكول اللغة"
+                }
             },
             categories: {
                 title: "استوديو التصنيفات",

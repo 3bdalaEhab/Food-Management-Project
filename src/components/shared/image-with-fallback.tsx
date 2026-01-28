@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -23,16 +23,16 @@ export const ImageWithFallback = ({
         setIsLoading(true);
     }, [src]);
 
-    const handleError = () => {
+    const handleError = useCallback(() => {
         if (!hasError) {
             setHasError(true);
             setImgSrc(fallbackSrc);
         }
-    };
+    }, [hasError, fallbackSrc]);
 
-    const handleLoad = () => {
+    const handleLoad = useCallback(() => {
         setIsLoading(false);
-    };
+    }, []);
 
     return (
         <div className={cn("relative overflow-hidden bg-[var(--muted)]", className)}>

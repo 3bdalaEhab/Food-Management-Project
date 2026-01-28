@@ -1,7 +1,6 @@
 import { memo } from "react";
 import { motion } from "framer-motion";
 import { FolderTree, Edit3, Trash2, Hash, Calendar, Clock } from "lucide-react";
-import { Tooltip } from "@/components/ui/tooltip";
 import type { Category } from "../types";
 import { cn } from "@/lib/utils";
 
@@ -80,28 +79,26 @@ export const CategoryCard = memo(({
                     </div>
                 </div>
             </div>
-
-            <div className={cn("relative z-10 flex items-center gap-3", viewMode === "grid" ? "mt-8 pt-6 w-full justify-center border-t border-[var(--border)] border-dashed" : "")}>
-                <Tooltip content="Modify Node" side="top">
-                    <motion.button
-                        whileHover={{ scale: 1.1, backgroundColor: "var(--primary-500)", color: "white" }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={() => onEdit(category)}
-                        className="w-10 h-10 rounded-xl bg-[var(--background)]/50 border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)] transition-all shadow-md group/btn"
-                    >
-                        <Edit3 size={16} className="group-hover/btn:rotate-12 transition-transform" />
-                    </motion.button>
-                </Tooltip>
-                <Tooltip content="Purge Node" side="top">
-                    <motion.button
-                        whileHover={{ scale: 1.1, backgroundColor: "#ef4444", color: "white" }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={() => onDelete(category.id)}
-                        className="w-10 h-10 rounded-xl bg-[var(--background)]/50 border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)] transition-all shadow-md group/btn"
-                    >
-                        <Trash2 size={16} className="group-hover/btn:scale-110 transition-transform" />
-                    </motion.button>
-                </Tooltip>
+            {/* Tactical Action Cluster - Top End */}
+            <div className="absolute top-6 end-6 flex gap-2 ltr:translate-x-12 rtl:-translate-x-12 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
+                <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => onEdit(category)}
+                    className="w-10 h-10 rounded-xl bg-black/60 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white hover:bg-blue-500 hover:border-blue-500 transition-all shadow-2xl"
+                    aria-label="Edit category"
+                >
+                    <Edit3 size={16} />
+                </motion.button>
+                <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => onDelete(category.id)}
+                    className="w-10 h-10 rounded-xl bg-black/60 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white hover:bg-red-500 hover:border-red-500 transition-all shadow-2xl"
+                    aria-label="Delete category"
+                >
+                    <Trash2 size={16} />
+                </motion.button>
             </div>
         </motion.div>
     );

@@ -18,7 +18,6 @@ import { cn } from "@/lib/utils";
 import { useAuthStore, useAppStore, selectIsAdmin } from "@/stores";
 import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
-import { Tooltip } from "@/components/ui/tooltip";
 
 interface NavItem {
     icon: React.ElementType;
@@ -146,6 +145,7 @@ export function Sidebar() {
                                     ? "bg-[var(--sidebar-accent)] text-[var(--sidebar-foreground)] shadow-sm border border-[var(--sidebar-border)]"
                                     : "text-[var(--muted-foreground)] hover:text-[var(--sidebar-foreground)] hover:bg-[var(--sidebar-accent)]"
                             )}
+                            aria-label={t(`sidebar.${item.labelKey}`)}
                         >
                             <div className={cn(
                                 "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-500 relative",
@@ -191,11 +191,7 @@ export function Sidebar() {
 
                     return (
                         <div key={item.href}>
-                            {sidebarCollapsed ? (
-                                <Tooltip content={t(`sidebar.${item.labelKey}`)} side={isRtl ? "left" : "right"}>
-                                    {navItemContent}
-                                </Tooltip>
-                            ) : navItemContent}
+                            {navItemContent}
                         </div>
                     );
                 })}
@@ -228,22 +224,21 @@ export function Sidebar() {
                     )}
                 </Link>
 
-                <Tooltip content={t('sidebar.logout')} side={isRtl ? "left" : "right"}>
-                    <button
-                        onClick={logout}
-                        className={cn(
-                            "w-full flex items-center gap-3 p-3 rounded-2xl text-[var(--muted-foreground)] hover:text-white hover:bg-red-500 transition-all group overflow-hidden border border-transparent font-sans",
-                            sidebarCollapsed && "justify-center h-14 w-14 p-0 mx-auto"
-                        )}
-                    >
-                        <LogOut size={18} className={cn("transition-transform font-sans", isRtl ? "group-hover:translate-x-1" : "group-hover:-translate-x-1")} />
-                        {!sidebarCollapsed && (
-                            <span className="text-[10px] font-black uppercase tracking-[0.3em] italic">
-                                SHUTDOWN_CORE
-                            </span>
-                        )}
-                    </button>
-                </Tooltip>
+                <button
+                    onClick={logout}
+                    className={cn(
+                        "w-full flex items-center gap-3 p-3 rounded-2xl text-[var(--muted-foreground)] hover:text-white hover:bg-red-500 transition-all group overflow-hidden border border-transparent font-sans",
+                        sidebarCollapsed && "justify-center h-14 w-14 p-0 mx-auto"
+                    )}
+                    aria-label={t('sidebar.logout')}
+                >
+                    <LogOut size={18} className={cn("transition-transform font-sans", isRtl ? "group-hover:translate-x-1" : "group-hover:-translate-x-1")} />
+                    {!sidebarCollapsed && (
+                        <span className="text-[10px] font-black uppercase tracking-[0.3em] italic">
+                            SHUTDOWN_CORE
+                        </span>
+                    )}
+                </button>
 
                 {!sidebarCollapsed && (
                     <div className="flex items-center justify-between px-2 pt-2 opacity-30">

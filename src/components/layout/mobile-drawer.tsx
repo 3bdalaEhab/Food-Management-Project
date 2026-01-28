@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
+import { useMemo, useCallback } from "react";
 import {
     X,
     ChefHat,
@@ -10,7 +11,6 @@ import {
     Heart,
     Settings,
     LogOut,
-    Menu,
     Sparkles
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -25,13 +25,20 @@ export function MobileDrawer() {
     const isAdmin = useAuthStore(selectIsAdmin);
     const isRtl = language === "ar";
 
-    const navItems = [
+    const navItems = useMemo(() => [
         { icon: LayoutDashboard, label: t('sidebar.dashboard'), href: "/dashboard" },
         { icon: UtensilsCrossed, label: t('sidebar.recipes'), href: "/dashboard/recipes" },
         { icon: FolderOpen, label: t('sidebar.categories'), href: "/dashboard/categories", adminOnly: true },
         { icon: Users, label: t('sidebar.users'), href: "/dashboard/users", adminOnly: true },
         { icon: Heart, label: t('sidebar.favorites'), href: "/dashboard/favorites" },
-    ].filter(item => !item.adminOnly || isAdmin);
+    ].filter(item => !item.adminOnly || isAdmin), [t, isAdmin]);
+
+    const handleClose = useCallback(() => setMobileMenuOpen(false), [setMobileMenuOpen]);
+
+    const handleLogout = useCallback(() => {
+        logout();
+        setMobileMenuOpen(false);
+    }, [logout, setMobileMenuOpen]);
 
     return (
         <AnimatePresence>
@@ -42,7 +49,7 @@ export function MobileDrawer() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        onClick={() => setMobileMenuOpen(false)}
+                        onClick={handleClose}
                         className="fixed inset-0 z-[60] bg-neutral-950/80 backdrop-blur-xl lg:hidden"
                     />
 
@@ -59,7 +66,7 @@ export function MobileDrawer() {
                     >
                         {/* Header: Identity Port */}
                         <div className="p-8 border-b border-white/10 flex items-center justify-between">
-                            <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-4 group">
+                            <Link to="/dashboard" onClick={handleClose} className="flex items-center gap-4 group">
                                 <div className="w-12 h-12 rounded-2xl bg-primary-500 flex items-center justify-center shadow-2xl shadow-primary-500/20">
                                     <ChefHat className="text-white" size={24} />
                                 </div>
@@ -71,7 +78,7 @@ export function MobileDrawer() {
                                 </div>
                             </Link>
                             <button
-                                onClick={() => setMobileMenuOpen(false)}
+                                onClick={handleClose}
                                 className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-neutral-500 hover:text-white transition-colors"
                             >
                                 <X size={20} />
@@ -91,7 +98,7 @@ export function MobileDrawer() {
                                     <Link
                                         key={item.href}
                                         to={item.href}
-                                        onClick={() => setMobileMenuOpen(false)}
+                                        onClick={handleClose}
                                         className={cn(
                                             "flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 relative overflow-hidden group",
                                             isActive
@@ -118,7 +125,7 @@ export function MobileDrawer() {
                         <div className="p-8 border-t border-white/10 space-y-4 bg-neutral-900/50">
                             <Link
                                 to="/dashboard/profile"
-                                onClick={() => setMobileMenuOpen(false)}
+                                onClick={handleClose}
                                 className="flex items-center gap-4 p-4 rounded-2xl text-neutral-500 hover:bg-white/5 transition-all group"
                             >
                                 <Settings size={20} className="group-hover:rotate-45 transition-transform" />
@@ -126,10 +133,7 @@ export function MobileDrawer() {
                             </Link>
 
                             <button
-                                onClick={() => {
-                                    logout();
-                                    setMobileMenuOpen(false);
-                                }}
+                                onClick={handleLogout}
                                 className="w-full flex items-center gap-4 p-4 rounded-2xl text-red-500 hover:bg-red-500 hover:text-white transition-all group"
                             >
                                 <LogOut size={20} className="group-hover:-translate-x-1 transition-transform" />

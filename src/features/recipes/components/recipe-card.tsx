@@ -1,7 +1,6 @@
 import { memo } from "react";
 import { motion } from "framer-motion";
 import { Utensils, Clock, Edit2, Trash2, Heart, Zap, Hash } from "lucide-react";
-import { Tooltip } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/stores";
 import { ImageWithFallback } from "@/components/shared/image-with-fallback";
@@ -63,29 +62,27 @@ export const RecipeCard = memo(({
 
                     {/* Floating Tactical Actions - Top End */}
                     <div className="absolute top-5 end-5 flex flex-col gap-2 ltr:translate-x-8 rtl:-translate-x-8 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300 ease-out">
-                        <Tooltip content={favorite ? 'Remove Favorite' : 'Mark Favorite'} side="left">
-                            <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={() => toggleFavorite(recipe.id)}
-                                className={cn(
-                                    "w-10 h-10 rounded-xl flex items-center justify-center backdrop-blur-3xl border transition-all shadow-xl",
-                                    favorite ? 'bg-red-500 text-white border-red-500' : 'bg-black/50 text-white border-white/10 hover:bg-primary-500 hover:border-primary-500'
-                                )}
-                            >
-                                <Heart className={cn("w-4 h-4", favorite && "fill-current")} />
-                            </motion.button>
-                        </Tooltip>
-                        <Tooltip content="Refine Data" side="left">
-                            <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={() => onEdit?.(recipe)}
-                                className="w-10 h-10 bg-black/50 hover:bg-white hover:text-black border border-white/10 backdrop-blur-3xl rounded-xl flex items-center justify-center text-white transition-all shadow-xl"
-                            >
-                                <Edit2 className="w-4 h-4" />
-                            </motion.button>
-                        </Tooltip>
+                        <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => toggleFavorite(recipe.id)}
+                            className={cn(
+                                "w-10 h-10 rounded-xl flex items-center justify-center backdrop-blur-3xl border transition-all shadow-xl",
+                                favorite ? 'bg-red-500 text-white border-red-500' : 'bg-black/50 text-white border-white/10 hover:bg-primary-500 hover:border-primary-500'
+                            )}
+                            aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
+                        >
+                            <Heart className={cn("w-4 h-4", favorite && "fill-current")} />
+                        </motion.button>
+                        <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => onEdit?.(recipe)}
+                            className="w-10 h-10 rounded-xl bg-black/50 backdrop-blur-3xl border border-white/10 flex items-center justify-center text-white hover:bg-blue-500 hover:border-blue-500 transition-all shadow-xl"
+                            aria-label="Edit recipe"
+                        >
+                            <Edit2 className="w-4 h-4" />
+                        </motion.button>
                     </div>
 
                     {/* Price Hub Overlay - Bottom */}
@@ -132,16 +129,16 @@ export const RecipeCard = memo(({
                             </div>
                         </div>
 
-                        <Tooltip content="Purge Record" side="left">
-                            <motion.button
-                                whileHover={{ scale: 1.1, color: "#ef4444" }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={() => onDelete?.(recipe.id)}
-                                className="text-[var(--muted-foreground)]/50 hover:text-red-500 transition-colors p-2"
-                            >
-                                <Trash2 size={16} />
-                            </motion.button>
-                        </Tooltip>
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => onDelete?.(recipe.id)}
+                            className="premium-button premium-button-danger h-12 flex-1 group"
+                            aria-label="Delete recipe"
+                        >
+                            <Trash2 size={18} className="group-hover:-rotate-12 transition-transform" />
+                            <span className="font-black italic uppercase tracking-widest text-[10px]">Purge</span>
+                        </motion.button>
                     </div>
                 </div>
             </div>

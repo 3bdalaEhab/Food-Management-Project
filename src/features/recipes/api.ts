@@ -3,7 +3,6 @@ import type {
     RecipesResponse,
     Recipe,
     Tag,
-    Category,
     CreateRecipeData,
     UpdateRecipeData
 } from "./types";
