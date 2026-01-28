@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { motion } from "framer-motion";
-import { FolderTree, Edit3, Trash2, Hash } from "lucide-react";
+import { FolderTree, Edit3, Trash2, Hash, Calendar, Clock } from "lucide-react";
 import { Tooltip } from "@/components/ui/tooltip";
 import type { Category } from "../types";
 import { cn } from "@/lib/utils";
@@ -18,6 +18,9 @@ export const CategoryCard = memo(({
     onDelete,
     viewMode
 }: CategoryCardProps) => {
+    const formattedDate = new Date(category.creationDate).toLocaleDateString();
+    const formattedUpdate = new Date(category.modificationDate).toLocaleDateString();
+
     return (
         <motion.div
             layout

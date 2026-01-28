@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useLogin } from "../hooks";
 import { loginSchema, type LoginFormData } from "../schemas";
 import { AuthWrapper } from "./auth-wrapper";
+import { DemoCredentials } from "./demo-credentials";
 
 export function LoginPage() {
     const { t } = useTranslation();
@@ -21,6 +22,7 @@ export function LoginPage() {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors, isValid },
     } = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema),
@@ -29,6 +31,11 @@ export function LoginPage() {
 
     const onSubmit = (data: LoginFormData) => {
         login(data);
+    };
+
+    const handleDemoFill = (email: string, pass: string) => {
+        setValue("email", email, { shouldValidate: true });
+        setValue("password", pass, { shouldValidate: true });
     };
 
     return (
@@ -100,6 +107,10 @@ export function LoginPage() {
                     )}
                 </button>
             </form>
-        </AuthWrapper>
+
+            <div className="mt-8">
+                <DemoCredentials onFill={handleDemoFill} />
+            </div>
+        </AuthWrapper >
     );
 }
