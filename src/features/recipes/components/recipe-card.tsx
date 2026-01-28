@@ -39,7 +39,7 @@ export const RecipeCard = memo(({
             {/* Elite Industrial Glow Shadow */}
             <div className="absolute -inset-1 bg-gradient-to-r from-primary-500/20 to-primary-600/20 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-            <div className="relative h-full glass-card rounded-[3rem] overflow-hidden flex flex-col border border-[var(--border)] bg-white/40 dark:bg-black/40 backdrop-blur-3xl shadow-2xl transition-all duration-500 group-hover:border-primary-500/40">
+            <div className="relative h-full glass-card rounded-[3rem] overflow-hidden flex flex-col border border-[var(--border)] bg-[var(--sidebar-background)]/80 backdrop-blur-3xl shadow-2xl transition-all duration-500 group-hover:border-primary-500/40">
                 {/* Visual Content Port */}
                 <div className="relative h-72 overflow-hidden bg-neutral-900">
                     <motion.img
@@ -57,13 +57,13 @@ export const RecipeCard = memo(({
 
                     {/* Elite Tactical Badges */}
                     <div className="absolute top-6 left-6 flex flex-col gap-2">
-                        <div className="flex items-center gap-2 px-4 py-1.5 bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+                        <div className="flex items-center gap-2 px-4 py-1.5 bg-[var(--background)]/80 backdrop-blur-xl border border-[var(--border)] rounded-2xl shadow-2xl">
                             <Zap size={12} className="text-primary-500 fill-primary-500 animate-pulse" />
-                            <span className="text-[10px] font-black uppercase tracking-widest text-white italic">{recipe.tag.name}</span>
+                            <span className="text-[10px] font-black uppercase tracking-widest text-[var(--foreground)] italic">{recipe.tag.name}</span>
                         </div>
-                        <div className="flex items-center gap-2 px-4 py-1.5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl">
+                        <div className="flex items-center gap-2 px-4 py-1.5 bg-[var(--background)]/40 backdrop-blur-xl border border-[var(--border)] rounded-2xl">
                             <Hash size={10} className="text-primary-500" />
-                            <span className="text-[10px] font-black uppercase tracking-widest text-white/60">NODE_{recipe.id}</span>
+                            <span className="text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">NODE_{recipe.id}</span>
                         </div>
                     </div>
 
@@ -75,8 +75,8 @@ export const RecipeCard = memo(({
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => toggleFavorite(recipe.id)}
                                 className={cn(
-                                    "w-12 h-12 rounded-2xl flex items-center justify-center backdrop-blur-3xl border border-white/20 transition-all shadow-2xl",
-                                    favorite ? 'bg-red-500 text-white border-red-400/50 shadow-red-500/40' : 'bg-black/60 text-white hover:bg-primary-500'
+                                    "w-12 h-12 rounded-2xl flex items-center justify-center backdrop-blur-3xl border transition-all shadow-2xl",
+                                    favorite ? 'bg-red-500 text-white border-red-400/50 shadow-red-500/40' : 'bg-[var(--background)]/80 text-[var(--foreground)] border-[var(--border)] hover:bg-primary-500 hover:text-white'
                                 )}
                             >
                                 <Heart className={cn("w-5 h-5", favorite && "fill-current")} />
@@ -87,7 +87,7 @@ export const RecipeCard = memo(({
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => onEdit?.(recipe)}
-                                className="w-12 h-12 bg-black/60 hover:bg-neutral-900 border border-white/20 backdrop-blur-3xl rounded-2xl flex items-center justify-center text-white transition-all shadow-2xl group/btn"
+                                className="w-12 h-12 bg-[var(--background)]/80 hover:bg-neutral-900 hover:text-white border border-[var(--border)] backdrop-blur-3xl rounded-2xl flex items-center justify-center text-[var(--foreground)] transition-all shadow-2xl group/btn"
                             >
                                 <Edit2 className="w-5 h-5 group-hover/btn:text-primary-500" />
                             </motion.button>
@@ -96,16 +96,16 @@ export const RecipeCard = memo(({
 
                     {/* Price Hub Overlay */}
                     <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 bg-[var(--background)]/40 p-3 rounded-2xl backdrop-blur-md border border-[var(--border)]">
                             <TrendingUp size={16} className="text-primary-500" />
                             <div className="flex flex-col">
-                                <span className="text-[8px] font-black text-white/40 uppercase tracking-[0.3em]">Market_Value</span>
+                                <span className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em]">Market_Value</span>
                                 <span className="text-2xl font-black text-primary-500 tracking-tighter italic leading-none">${recipe.price}</span>
                             </div>
                         </div>
-                        <div className="p-3 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 flex flex-col items-end">
-                            <span className="text-[8px] font-black text-white/40 uppercase tracking-widest mb-1">Execution</span>
-                            <div className="flex items-center gap-1.5 text-white">
+                        <div className="p-3 bg-[var(--background)]/60 backdrop-blur-xl rounded-2xl border border-[var(--border)] flex flex-col items-end">
+                            <span className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-1">Execution</span>
+                            <div className="flex items-center gap-1.5 text-[var(--foreground)]">
                                 <Clock size={12} className="text-primary-500" />
                                 <span className="text-[10px] font-bold uppercase tracking-tight">25 MIN</span>
                             </div>
@@ -142,7 +142,7 @@ export const RecipeCard = memo(({
                                 whileHover={{ scale: 1.1, backgroundColor: "#ef4444", color: "white" }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => onDelete?.(recipe.id)}
-                                className="w-12 h-12 rounded-[1.25rem] bg-neutral-950/5 dark:bg-white/5 text-neutral-400 flex items-center justify-center transition-all group/trash shadow-inner"
+                                className="w-12 h-12 rounded-[1.25rem] bg-[var(--background)]/50 text-[var(--muted-foreground)] flex items-center justify-center transition-all group/trash shadow-inner border border-[var(--border)]"
                             >
                                 <Trash2 size={18} className="transition-transform group-hover/trash:rotate-12" />
                             </motion.button>

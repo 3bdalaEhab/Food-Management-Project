@@ -113,7 +113,7 @@ export function ProfilePage() {
             >
                 {/* Management Column */}
                 <div className="lg:col-span-1 space-y-8">
-                    <div className="glass-card rounded-[3.5rem] p-10 border border-[var(--border)] shadow-2xl space-y-8 relative overflow-hidden bg-white/40 dark:bg-black/20 backdrop-blur-3xl">
+                    <div className="glass-card rounded-[3.5rem] p-10 border border-[var(--border)] shadow-2xl space-y-8 relative overflow-hidden bg-[var(--sidebar-background)]/80 backdrop-blur-3xl">
                         <div className="space-y-4">
                             <h3 className="text-xs font-black uppercase tracking-[0.3em] text-[var(--muted-foreground)] flex items-center gap-2">
                                 <Zap size={14} className="text-primary-500" />
@@ -153,7 +153,7 @@ export function ProfilePage() {
 
                 {/* Data Ecosystem */}
                 <div className="lg:col-span-2 space-y-8">
-                    <div className="glass-card rounded-[4rem] p-12 md:p-16 border border-[var(--border)] shadow-2xl space-y-12 relative overflow-hidden bg-white/40 dark:bg-black/20 backdrop-blur-3xl">
+                    <div className="glass-card rounded-[4rem] p-12 md:p-16 border border-[var(--border)] shadow-2xl space-y-12 relative overflow-hidden bg-[var(--sidebar-background)]/80 backdrop-blur-3xl">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                             {/* Email */}
                             <motion.div variants={itemVariant} className="space-y-3">

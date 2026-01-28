@@ -68,7 +68,7 @@ export function Sidebar() {
                 isRtl ? "right-0" : "left-0",
                 "bg-[var(--sidebar-background)] border-[var(--sidebar-border)]",
                 isRtl ? "border-l" : "border-r",
-                "flex flex-col shadow-[20px_0_50px_rgba(0,0,0,0.05)]",
+                "flex flex-col shadow-[20px_0_50px_rgba(0,0,0,0.02)] overflow-hidden",
                 "selection:bg-primary-500/30"
             )}
         >
@@ -148,7 +148,7 @@ export function Sidebar() {
                 )}
 
                 {/* Navigation: Tactical Nodes */}
-                <nav className="flex-1 px-3 py-6 space-y-2 overflow-y-auto no-scrollbar scroll-smooth">
+                <nav className="flex-1 px-3 py-6 space-y-2 overflow-y-auto overflow-x-hidden no-scrollbar scroll-smooth min-h-0">
                     {filteredNavItems.map((item) => {
                         const isActive = location.pathname === item.href;
                         const Icon = item.icon;

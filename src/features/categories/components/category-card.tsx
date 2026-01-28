@@ -27,10 +27,10 @@ export const CategoryCard = memo(({
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             style={{ willChange: 'transform, opacity' }}
             className={cn(
-                "group relative glass-card rounded-[3rem] p-10 overflow-hidden border border-[var(--border)] bg-white/40 dark:bg-black/40 backdrop-blur-3xl shadow-2xl transition-all duration-500 flex",
+                "group relative glass-card rounded-[3rem] p-10 overflow-hidden border border-[var(--border)] bg-[var(--sidebar-background)]/80 backdrop-blur-3xl shadow-2xl transition-all duration-500 flex",
                 viewMode === "grid"
                     ? "flex-col items-center text-center justify-between min-h-[18rem] hover:border-primary-500/40"
-                    : "flex-row items-center justify-between hover:bg-white/60 dark:hover:bg-white/5"
+                    : "flex-row items-center justify-between hover:bg-[var(--background)] hover:border-primary-500/30"
             )}
         >
             {/* Elite Industrial Glow Shadow */}
@@ -40,8 +40,8 @@ export const CategoryCard = memo(({
 
             <div className={cn("relative z-10 flex items-center gap-8", viewMode === "grid" ? "flex-col" : "flex-row")}>
                 <div className="relative">
-                    <div className="w-24 h-24 rounded-[2.5rem] bg-neutral-950 flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:bg-primary-500 transition-all duration-700 relative overflow-hidden">
-                        <FolderTree size={40} className="text-white relative z-10" />
+                    <div className="w-24 h-24 rounded-[2.5rem] bg-[var(--background)] border border-[var(--border)] flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:bg-primary-500 group-hover:border-primary-500 transition-all duration-700 relative overflow-hidden">
+                        <FolderTree size={40} className="text-primary-500 group-hover:text-white relative z-10 transition-colors" />
                         <motion.div
                             animate={{ rotate: 360 }}
                             transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
@@ -77,7 +77,7 @@ export const CategoryCard = memo(({
                         whileHover={{ scale: 1.1, backgroundColor: "var(--primary-500)", color: "white" }}
                         whileTap={{ scale: 0.9 }}
                         onClick={() => onEdit(category)}
-                        className="w-16 h-16 rounded-[1.5rem] bg-neutral-950/5 dark:bg-white/5 flex items-center justify-center text-neutral-400 transition-all shadow-xl group/btn"
+                        className="w-16 h-16 rounded-[1.5rem] bg-[var(--background)]/50 border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)] transition-all shadow-xl group/btn"
                     >
                         <Edit3 size={24} className="group-hover/btn:rotate-12 transition-transform" />
                     </motion.button>
@@ -87,7 +87,7 @@ export const CategoryCard = memo(({
                         whileHover={{ scale: 1.1, backgroundColor: "#ef4444", color: "white" }}
                         whileTap={{ scale: 0.9 }}
                         onClick={() => onDelete(category.id)}
-                        className="w-16 h-16 rounded-[1.5rem] bg-neutral-950/5 dark:bg-white/5 flex items-center justify-center text-neutral-400 transition-all shadow-xl group/btn"
+                        className="w-16 h-16 rounded-[1.5rem] bg-[var(--background)]/50 border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)] transition-all shadow-xl group/btn"
                     >
                         <Trash2 size={24} className="group-hover/btn:scale-110 transition-transform" />
                     </motion.button>

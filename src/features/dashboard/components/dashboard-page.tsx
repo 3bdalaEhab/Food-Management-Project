@@ -193,7 +193,7 @@ export function DashboardPage() {
                         <span className="text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)] border border-[var(--border)] px-3 py-1 rounded-full">{t('dashboard.real_time')}</span>
                     </div>
 
-                    <div className="glass-card rounded-[3.5rem] overflow-hidden border border-[var(--border)] bg-white/40 dark:bg-black/40 backdrop-blur-3xl p-10 shadow-2xl">
+                    <div className="glass-card rounded-[3.5rem] overflow-hidden border border-[var(--border)] bg-[var(--sidebar-background)] backdrop-blur-3xl p-10 shadow-2xl">
                         <div className="space-y-6">
                             {[
                                 { action: t('dashboard.vault_update'), item: t('dashboard.pasta_carbonara'), time: t('dashboard.2_min_ago'), icon: UtensilsCrossed },
@@ -233,7 +233,7 @@ export function DashboardPage() {
                         <h2 className="text-2xl font-black tracking-tighter text-[var(--foreground)] uppercase italic">{t('dashboard.shortcuts')}</h2>
                     </div>
 
-                    <div className="glass-card rounded-[3rem] border border-[var(--border)] bg-white/30 backdrop-blur-3xl p-8 space-y-4">
+                    <div className="glass-card rounded-[3rem] border border-[var(--border)] bg-[var(--sidebar-background)]/80 backdrop-blur-3xl p-8 space-y-4">
                         <Link to="/dashboard/recipes" className="flex items-center gap-4 p-5 rounded-3xl bg-[var(--sidebar-background)] text-[var(--foreground)] border border-[var(--border)] hover:border-primary-500 transition-all group overflow-hidden relative">
                             <div className="w-10 h-10 rounded-xl bg-[var(--background)] flex items-center justify-center shrink-0">
                                 <UtensilsCrossed size={18} className="text-primary-500" />

@@ -126,13 +126,13 @@ export function UsersPage() {
                                 key={user.id}
                                 variants={itemVariant}
                                 layout
-                                className="group relative glass-card rounded-[3rem] p-8 overflow-hidden border border-[var(--border)] bg-white/40 dark:bg-black/20 backdrop-blur-3xl shadow-2xl transition-all duration-500 flex flex-col lg:flex-row lg:items-center justify-between gap-8 hover:bg-white/60 hover:border-primary-500/30"
+                                className="group relative glass-card rounded-[3rem] p-8 overflow-hidden border border-[var(--border)] bg-[var(--sidebar-background)] backdrop-blur-3xl shadow-2xl transition-all duration-500 flex flex-col lg:flex-row lg:items-center justify-between gap-8 hover:bg-[var(--background)] hover:border-primary-500/30"
                             >
                                 <div className="absolute inset-0 bg-primary-500/0 group-hover:bg-primary-500/5 blur-3xl transition-all" />
 
                                 <div className="relative z-10 flex items-center gap-8">
                                     <div className="relative">
-                                        <div className="w-20 h-20 rounded-[2rem] bg-[var(--background)] overflow-hidden flex items-center justify-center border-4 border-white dark:border-neutral-800 shadow-2xl group-hover:scale-110 transition-transform duration-700">
+                                        <div className="w-20 h-20 rounded-[2rem] bg-[var(--background)] overflow-hidden flex items-center justify-center border-4 border-[var(--border)] shadow-2xl group-hover:scale-110 transition-transform duration-700">
                                             {user.imagePath ? (
                                                 <img src={user.imagePath} alt={user.userName} className="w-full h-full object-cover" />
                                             ) : (
