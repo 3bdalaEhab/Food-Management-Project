@@ -1,44 +1,61 @@
 import { Outlet } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Sidebar } from "./sidebar";
 import { Navbar } from "./navbar";
 import { useAppStore } from "@/stores";
 import { cn } from "@/lib/utils";
+import { DashboardBackground } from "./dashboard-background";
 
 export function DashboardLayout() {
     const sidebarCollapsed = useAppStore((state) => state.sidebarCollapsed);
 
     return (
-        <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
-            {/* Sidebar */}
+        <div className="relative min-h-screen bg-neutral-50 dark:bg-[#050505] selection:bg-primary-500/30">
+            {/* Cinematic Layer */}
+            <DashboardBackground />
+
+            {/* Sidebar Control Layer */}
             <Sidebar />
 
-            {/* Main Content */}
+            {/* Master Content Orchestrator */}
             <motion.main
                 initial={false}
                 animate={{
-                    marginLeft: sidebarCollapsed ? 80 : 280,
+                    paddingLeft: sidebarCollapsed ? "80px" : "280px",
                 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className={cn(
-                    "min-h-screen",
-                    "transition-all duration-300"
-                )}
+                transition={{
+                    duration: 0.5,
+                    ease: [0.16, 1, 0.3, 1]
+                }}
+                className="relative min-h-screen z-10"
             >
-                {/* Navbar */}
-                <Navbar />
+                {/* Fixed Top Interface */}
+                <div className="sticky top-0 z-30 px-6 py-4">
+                    <Navbar />
+                </div>
 
-                {/* Page Content */}
-                <div className="p-6">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3 }}
-                    >
-                        <Outlet />
-                    </motion.div>
+                {/* Scoping the Viewport for Content */}
+                <div className="px-6 pb-12 pt-4">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key="dashboard-content"
+                            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                            exit={{ opacity: 0, y: -30, filter: "blur(10px)" }}
+                            transition={{
+                                duration: 0.6,
+                                ease: [0.16, 1, 0.3, 1]
+                            }}
+                            className="w-full max-w-[1600px] mx-auto"
+                        >
+                            <Outlet />
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
             </motion.main>
+
+            {/* Subtle Vignette for Cinema Experience */}
+            <div className="fixed inset-0 pointer-events-none shadow-[inset_0_0_100px_rgba(0,0,0,0.1)] z-40" />
         </div>
     );
 }

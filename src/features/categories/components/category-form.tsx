@@ -6,11 +6,14 @@ import {
     Loader2,
     CheckCircle2,
     X,
-    Sparkles
+    Sparkles,
+    Zap,
+    Activity
 } from "lucide-react";
 import * as z from "zod";
 
 import type { CreateCategoryData } from "../types";
+import { cn } from "@/lib/utils";
 
 const categorySchema = z.object({
     name: z.string().min(3, "Name must be at least 3 characters"),
@@ -51,68 +54,77 @@ export function CategoryForm({
 
     return (
         <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-md mx-auto"
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full max-w-2xl mx-auto"
         >
-            <div className="glass-card rounded-[2.5rem] p-8 md:p-10 border border-white/40 shadow-2xl relative overflow-hidden">
-                <div className="absolute top-[-20%] right-[-10%] w-40 h-40 bg-primary-500/10 rounded-full blur-[60px]" />
+            <div className="glass-card rounded-[4rem] p-10 md:p-14 border border-white/20 dark:border-white/5 shadow-2xl overflow-hidden relative bg-white/40 dark:bg-black/20 backdrop-blur-3xl">
+                {/* Tactical Polish */}
+                <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] bg-primary-500/10 rounded-full blur-[100px]" />
 
                 <div className="relative z-10">
-                    <div className="flex items-center justify-between mb-8">
-                        <div className="space-y-1">
-                            <div className="flex items-center gap-2 text-primary-600 font-black uppercase tracking-[0.2em] text-[10px]">
-                                <Sparkles size={12} />
-                                Category Studio
+                    <div className="flex items-center justify-between mb-12 border-b border-white/10 pb-8">
+                        <div className="space-y-3">
+                            <div className="flex items-center gap-3">
+                                <div className="px-3 py-1 rounded-full bg-neutral-900 border border-white/10 flex items-center gap-2">
+                                    <Sparkles size={10} className="text-primary-500" />
+                                    <span className="text-[9px] font-black uppercase tracking-widest text-white">Elite Node</span>
+                                </div>
+                                <div className="px-3 py-1 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
+                                    <Activity size={10} className="text-primary-500" />
+                                    <span className="text-[9px] font-black uppercase tracking-widest text-primary-400">Tactical Hub</span>
+                                </div>
                             </div>
-                            <h2 className="text-2xl font-black text-neutral-900 tracking-tight">{title}</h2>
+                            <h2 className="text-4xl font-black text-neutral-900 dark:text-white tracking-tighter uppercase leading-none italic">{title}</h2>
                         </div>
                         <button
                             onClick={onCancel}
-                            className="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-neutral-200 transition-all"
+                            className="w-14 h-14 rounded-2xl bg-neutral-900 flex items-center justify-center text-white/50 hover:text-white hover:bg-primary-500 transition-all shadow-xl group"
                         >
-                            <X size={18} />
+                            <X size={20} className="group-hover:rotate-90 transition-transform" />
                         </button>
                     </div>
 
-                    <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
-                        <div className="space-y-2">
-                            <label className="text-[11px] font-black text-neutral-500 uppercase tracking-[0.1em] ml-1">
-                                Category Name
+                    <form onSubmit={handleSubmit(onFormSubmit as any)} className="space-y-10">
+                        <div className="space-y-4">
+                            <label className="text-[11px] font-black text-neutral-500 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+                                <Zap size={14} className="text-primary-500" />
+                                Taxonomy Identity
                             </label>
-                            <div className="relative group">
-                                <Tag className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:text-primary-500 transition-colors" size={18} />
+                            <div className="group relative">
+                                <Tag className="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:text-primary-500 transition-colors" size={20} />
                                 <input
                                     {...register("name")}
-                                    className="premium-input pl-12 h-14"
-                                    placeholder="Ex: Main Courses"
+                                    className="premium-input bg-white/50 dark:bg-white/5 border-white/10 h-20 pl-16 font-black uppercase tracking-tight text-xl"
+                                    placeholder="INITIATING_CORE_NAME"
                                 />
                             </div>
                             {errors.name && (
-                                <p className="text-[10px] text-error font-black ml-1 animate-in fade-in slide-in-from-left-2">
+                                <p className="text-[10px] text-primary-500 font-black ml-2 uppercase tracking-tighter animate-pulse">
                                     {errors.name.message}
                                 </p>
                             )}
                         </div>
 
-                        <div className="flex gap-3 pt-4">
+                        <div className="flex gap-6 pt-6">
                             <button
                                 type="button"
                                 onClick={onCancel}
-                                className="premium-button flex-1 py-4 bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+                                className="h-18 px-10 rounded-[2rem] bg-neutral-900 text-white/50 font-black uppercase tracking-widest text-xs hover:text-white hover:bg-neutral-800 transition-all shadow-xl"
                             >
-                                Cancel
+                                ABORT
                             </button>
                             <button
                                 type="submit"
                                 disabled={isPending || !isValid}
-                                className="premium-button premium-button-primary flex-[1.5] py-4"
+                                className="premium-button premium-button-primary flex-1 h-18 text-lg font-black uppercase tracking-[0.2em] relative overflow-hidden group shadow-2xl shadow-primary-500/20"
                             >
                                 {isPending ? <Loader2 className="animate-spin" /> : (
-                                    <>
-                                        <span>Save Category</span>
-                                        <CheckCircle2 size={18} />
-                                    </>
+                                    <div className="flex items-center gap-4">
+                                        <span>Sync Protocol</span>
+                                        <CheckCircle2 size={24} className="group-hover:scale-110 transition-transform" />
+                                    </div>
                                 )}
                             </button>
                         </div>
