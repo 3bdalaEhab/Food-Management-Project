@@ -57,7 +57,7 @@ export function CategoryForm({
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="w-full max-w-2xl mx-auto"
         >
-            <div className="glass-card rounded-[4rem] p-10 md:p-14 border border-[var(--border)] shadow-2xl overflow-hidden relative bg-white/40 dark:bg-black/20 backdrop-blur-3xl">
+            <div className="glass-card rounded-[4rem] p-10 md:p-14 border border-[var(--border)] shadow-2xl overflow-hidden relative bg-[var(--sidebar-background)]/80 backdrop-blur-3xl">
                 {/* Tactical Polish */}
                 <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] bg-primary-500/10 rounded-full blur-[100px]" />
 
@@ -65,9 +65,9 @@ export function CategoryForm({
                     <div className="flex items-center justify-between mb-12 border-b border-[var(--border)] pb-8">
                         <div className="space-y-3">
                             <div className="flex items-center gap-3">
-                                <div className="px-3 py-1 rounded-full bg-neutral-900 border border-[var(--border)] flex items-center gap-2">
+                                <div className="px-3 py-1 rounded-full bg-[var(--background)] border border-[var(--border)] flex items-center gap-2">
                                     <Sparkles size={10} className="text-primary-500" />
-                                    <span className="text-[9px] font-black uppercase tracking-widest text-white">Elite Node</span>
+                                    <span className="text-[9px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">Elite Node</span>
                                 </div>
                                 <div className="px-3 py-1 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
                                     <Zap size={10} className="text-primary-500" />
@@ -78,7 +78,7 @@ export function CategoryForm({
                         </div>
                         <button
                             onClick={onCancel}
-                            className="w-14 h-14 rounded-2xl bg-neutral-900 flex items-center justify-center text-white/50 hover:text-white hover:bg-primary-500 transition-all shadow-xl group"
+                            className="w-14 h-14 rounded-2xl bg-[var(--background)] border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)] hover:text-white hover:bg-primary-500 hover:border-primary-500 transition-all shadow-xl group"
                         >
                             <X size={20} className="group-hover:rotate-90 transition-transform" />
                         </button>
@@ -86,12 +86,12 @@ export function CategoryForm({
 
                     <form onSubmit={handleSubmit(onFormSubmit as any)} className="space-y-10">
                         <div className="space-y-4">
-                            <label className="text-[11px] font-black text-neutral-500 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
+                            <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
                                 <Zap size={14} className="text-primary-500" />
                                 Taxonomy Identity
                             </label>
                             <div className="group relative">
-                                <Tag className="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:text-primary-500 transition-colors" size={20} />
+                                <Tag className="absolute left-6 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" size={20} />
                                 <input
                                     {...register("name")}
                                     className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] h-20 pl-16 font-black uppercase tracking-tight text-xl"
@@ -109,7 +109,7 @@ export function CategoryForm({
                             <button
                                 type="button"
                                 onClick={onCancel}
-                                className="h-18 px-10 rounded-[2rem] bg-neutral-900 text-white/50 font-black uppercase tracking-widest text-xs hover:text-white hover:bg-neutral-800 transition-all shadow-xl"
+                                className="h-18 px-10 rounded-[2rem] bg-[var(--background)] border border-[var(--border)] text-[var(--muted-foreground)] font-black uppercase tracking-widest text-xs hover:text-[var(--foreground)] hover:bg-[var(--background)]/80 transition-all shadow-xl"
                             >
                                 ABORT
                             </button>

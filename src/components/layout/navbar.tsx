@@ -57,7 +57,7 @@ export function Navbar() {
                         <Search className="w-4 h-4 text-[var(--muted-foreground)] group-hover:text-primary-500 transition-colors" />
                         <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)] group-hover:text-[var(--foreground)] transition-colors">{t('navbar.search')}</span>
                         <div className="ml-auto flex items-center gap-2">
-                            <kbd className="px-2 py-0.5 rounded-lg bg-neutral-900 dark:bg-neutral-800 text-[9px] font-black text-white/40 border border-white/10">⌘K</kbd>
+                            <kbd className="px-2 py-0.5 rounded-lg bg-[var(--sidebar-background)] text-[9px] font-black text-[var(--muted-foreground)] border border-[var(--border)]">⌘K</kbd>
                         </div>
                     </div>
                 </div>
@@ -88,7 +88,7 @@ export function Navbar() {
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                 className={cn(
-                                    "absolute top-14 w-48 p-2 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 shadow-2xl backdrop-blur-3xl z-50",
+                                    "absolute top-14 w-48 p-2 rounded-2xl bg-[var(--sidebar-background)] border border-[var(--border)] shadow-2xl backdrop-blur-3xl z-50",
                                     language === "ar" ? "left-0" : "right-0"
                                 )}
                             >
@@ -164,7 +164,7 @@ export function Navbar() {
                     </div>
                     <div className={cn(
                         "w-12 h-12 rounded-2xl p-0.5 border shadow-2xl group-hover:scale-105 transition-transform duration-500 overflow-hidden relative",
-                        user?.role === "SuperAdmin" ? "bg-red-500 border-red-500/50" : "bg-neutral-900 border-white/10"
+                        user?.role === "SuperAdmin" ? "bg-red-500 border-red-500/50" : "bg-[var(--sidebar-background)] border-[var(--border)]"
                     )}>
                         <div className={cn(
                             "w-full h-full rounded-[0.9rem] flex items-center justify-center text-white font-black text-sm italic",

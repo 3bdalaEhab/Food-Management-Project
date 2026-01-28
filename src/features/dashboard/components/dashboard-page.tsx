@@ -1,11 +1,10 @@
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import {
     UtensilsCrossed,
     FolderOpen,
     Users,
     Heart,
-    TrendingUp,
     Plus,
     ArrowRight,
     Sparkles,
@@ -20,61 +19,7 @@ import { useTranslation } from "react-i18next";
 import { staggeredItemVariants } from "@/components/shared/page-wrapper";
 import { SEO } from "@/components/shared/seo";
 
-// --- Elite Sub-Components ---
-const StatCard = memo(({
-    icon: Icon,
-    label,
-    value,
-    trend,
-    color,
-    delay,
-}: {
-    icon: React.ElementType;
-    label: string;
-    value: string;
-    trend?: string;
-    color: string;
-    delay: number;
-}) => {
-    return (
-        <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay, duration: 0.5, ease: "easeOut" }}
-            className="group relative"
-            role="status"
-            aria-label={`${label}: ${value}`}
-        >
-            <div className="absolute inset-0 bg-primary-500/5 blur-2xl group-hover:bg-primary-500/10 transition-all rounded-[2.5rem]" />
-            <div className="relative glass-card rounded-[2.5rem] p-8 border border-[var(--border)] bg-white/40 dark:bg-black/20 backdrop-blur-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all hover:translate-y-[-5px] overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-500/20 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
-
-                <div className="flex flex-col gap-6">
-                    <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center shadow-2xl", color)}>
-                        <Icon className="w-7 h-7 text-white" aria-hidden="true" />
-                    </div>
-
-                    <div className="space-y-1">
-                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)]">{label}</p>
-                        <div className="flex items-end gap-3">
-                            <p className="text-4xl font-black text-[var(--foreground)] tracking-tighter">{value}</p>
-                            {trend && (
-                                <div className="flex items-center gap-1 text-green-500 mb-1.5" aria-label={`Trend: up by ${trend}`}>
-                                    <TrendingUp className="w-3 h-3" />
-                                    <span className="text-[10px] font-black uppercase">{trend}</span>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </motion.div>
-    );
-});
-
-StatCard.displayName = "StatCard";
-
-import { cn } from "@/lib/utils";
+import { StatCard } from "./stat-card";
 
 export function DashboardPage() {
     const { t } = useTranslation();

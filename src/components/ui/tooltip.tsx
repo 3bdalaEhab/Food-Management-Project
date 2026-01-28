@@ -39,10 +39,10 @@ export const Tooltip = ({
     };
 
     const arrowStyles: Record<string, string> = {
-        top: "bottom-[-4px] left-1/2 -translate-x-1/2 border-t-neutral-900 border-x-transparent border-t-[4px] border-x-[4px] border-b-0",
-        bottom: "top-[-4px] left-1/2 -translate-x-1/2 border-b-neutral-900 border-x-transparent border-b-[4px] border-x-[4px] border-t-0",
-        left: "right-[-4px] top-1/2 -translate-y-1/2 border-l-neutral-900 border-y-transparent border-l-[4px] border-y-[4px] border-r-0",
-        right: "left-[-4px] top-1/2 -translate-y-1/2 border-r-neutral-900 border-y-transparent border-r-[4px] border-y-[4px] border-l-0"
+        top: "bottom-[-4px] left-1/2 -translate-x-1/2 border-t-[var(--sidebar-background)] border-x-transparent border-t-[4px] border-x-[4px] border-b-0",
+        bottom: "top-[-4px] left-1/2 -translate-x-1/2 border-b-[var(--sidebar-background)] border-x-transparent border-b-[4px] border-x-[4px] border-t-0",
+        left: "right-[-4px] top-1/2 -translate-y-1/2 border-l-[var(--sidebar-background)] border-y-transparent border-l-[4px] border-y-[4px] border-r-0",
+        right: "left-[-4px] top-1/2 -translate-y-1/2 border-r-[var(--sidebar-background)] border-y-transparent border-r-[4px] border-y-[4px] border-l-0"
     };
 
     return (
@@ -65,7 +65,7 @@ export const Tooltip = ({
                         )}
                     >
                         <div className={cn(
-                            "bg-neutral-950 text-white text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 rounded-xl shadow-2xl border border-white/10 backdrop-blur-xl relative overflow-hidden",
+                            "bg-[var(--sidebar-background)] text-[var(--foreground)] text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 rounded-xl shadow-2xl border border-[var(--border)] backdrop-blur-xl relative overflow-hidden",
                             className
                         )}>
                             {/* Industrial Scanline Effect */}

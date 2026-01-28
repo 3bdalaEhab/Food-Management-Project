@@ -17,15 +17,15 @@ export function Toaster({ ...props }: ToasterProps) {
             toastOptions={{
                 classNames: {
                     toast:
-                        "toast group bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 border-neutral-200 dark:border-neutral-800 shadow-2xl rounded-2xl p-4",
+                        "toast group bg-[var(--sidebar-background)] text-[var(--foreground)] border-[var(--border)] shadow-2xl rounded-2xl p-4",
                     title: "font-black uppercase tracking-tight text-sm italic",
-                    description: "text-[11px] font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-widest",
+                    description: "text-[11px] font-bold text-[var(--muted-foreground)] uppercase tracking-widest",
                     actionButton:
                         "bg-primary-500 text-white rounded-xl font-black uppercase tracking-widest text-[10px] px-4",
                     cancelButton:
-                        "bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 rounded-xl font-black uppercase tracking-widest text-[10px] px-4",
+                        "bg-[var(--sidebar-accent)] text-[var(--muted-foreground)] rounded-xl font-black uppercase tracking-widest text-[10px] px-4",
                     closeButton:
-                        "bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 border-neutral-200 dark:border-neutral-700",
+                        "bg-[var(--sidebar-accent)] text-[var(--muted-foreground)] border-[var(--border)]",
                 },
             }}
             {...props}

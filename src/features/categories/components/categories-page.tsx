@@ -16,9 +16,10 @@ import { useCategories, useDeleteCategory, useCreateCategory, useUpdateCategory 
 import { CategoryCard } from "./category-card";
 import { CategoryForm } from "./category-form";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui";
-import type { Category, CreateCategoryData } from "../types";
+import { Category, CreateCategoryData } from "../types";
 import { cn } from "@/lib/utils";
 import { SEO } from "@/components/shared/seo";
+import { DeleteConfirmation } from "@/components/shared/delete-confirmation";
 
 export function CategoriesPage() {
     const { t } = useTranslation();
@@ -27,12 +28,13 @@ export function CategoriesPage() {
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
     const [isCreateOpen, setIsCreateOpen] = useState(false);
     const [isUpdateOpen, setIsUpdateOpen] = useState(false);
+    const [deleteId, setDeleteId] = useState<number | null>(null);
 
     const { data: categoriesData, isLoading } = useCategories({
         name: search,
     });
 
-    const { mutate: deleteCategory } = useDeleteCategory();
+    const { mutate: deleteCategory, isPending: isDeleting } = useDeleteCategory();
     const { mutate: createCategory, isPending: isCreating } = useCreateCategory();
     const { mutate: updateCategory, isPending: isUpdating } = useUpdateCategory();
 
@@ -105,7 +107,7 @@ export function CategoriesPage() {
                         placeholder={t('categories.search')}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="premium-input pl-16 h-18 bg-[var(--background)]/50 border-[var(--border)] backdrop-blur-3xl font-black uppercase tracking-widest text-sm"
+                        className="premium-input pl-16 h-18 bg-[var(--background)]/50 border-[var(--border)] backdrop-blur-3xl font-bold tracking-wide text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]"
                     />
                 </div>
 
@@ -157,7 +159,7 @@ export function CategoriesPage() {
                                     setSelectedCategory(cat);
                                     setIsUpdateOpen(true);
                                 }}
-                                onDelete={(id) => deleteCategory(id)}
+                                onDelete={(id) => setDeleteId(id)}
                             />
                         ))}
                     </AnimatePresence>
@@ -223,6 +225,20 @@ export function CategoriesPage() {
                     )}
                 </DialogContent>
             </Dialog>
+
+            <DeleteConfirmation
+                isOpen={deleteId !== null}
+                onClose={() => setDeleteId(null)}
+                onConfirm={() => {
+                    if (deleteId) {
+                        deleteCategory(deleteId, {
+                            onSuccess: () => setDeleteId(null)
+                        });
+                    }
+                }}
+                isDeleting={isDeleting}
+                itemName={`CATEGORY_NODE_${deleteId}`}
+            />
         </div>
     );
 }

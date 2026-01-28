@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
     Sparkles,
     Utensils,
@@ -10,21 +10,25 @@ import {
     Loader2,
     CheckCircle2,
     X,
-    Zap,
     Activity,
-    ChefHat
+    ArrowRight,
+    ArrowLeft,
+    Zap,
+    FileText,
+    Image as ImageIcon
 } from "lucide-react";
 import * as z from "zod";
 
-import { useTags, useCategories } from "../hooks";
+import { useTags } from "../hooks";
 import type { CreateRecipeData } from "../types";
 
+// Schema - Taxonomy Core (Categories) Removed
 const recipeSchema = z.object({
-    name: z.string().min(3, "Name must be at least 3 characters"),
-    description: z.string().min(10, "Description must be at least 10 characters"),
-    price: z.string().min(1, "Price is required"),
-    tagId: z.number().min(1, "Tag is required"),
-    categoriesIds: z.array(z.number()).min(1, "At least one category is required"),
+    name: z.string().min(3, "IDENTITY REQUIRED"),
+    description: z.string().min(10, "DATA STREAM TOO SHORT"),
+    price: z.string().min(1, "VALUE REQUIRED"),
+    tagId: z.number().min(1, "CLASSIFICATION REQUIRED"),
+    // categoriesIds removed as per Protocol Update
     recipeImage: z.any().optional(),
 });
 
@@ -38,6 +42,8 @@ interface RecipeFormProps {
     title: string;
 }
 
+type Step = 1 | 2;
+
 export function RecipeForm({
     initialData,
     onSubmit,
@@ -45,14 +51,15 @@ export function RecipeForm({
     isPending,
     title
 }: RecipeFormProps) {
+    const [step, setStep] = useState<Step>(1);
     const [previewImage, setPreviewImage] = useState<string | null>(null);
     const { data: tags } = useTags();
-    const { data: categoriesData } = useCategories();
 
     const {
         register,
         handleSubmit,
         setValue,
+        trigger,
         formState: { errors, isValid },
     } = useForm<RecipeFormData>({
         resolver: zodResolver(recipeSchema),
@@ -62,7 +69,7 @@ export function RecipeForm({
             description: initialData?.description || "",
             price: initialData?.price || "",
             tagId: initialData?.tagId ? Number(initialData.tagId) : undefined,
-            categoriesIds: initialData?.categoriesIds || [],
+            // categoriesIds ignored
         },
     });
 
@@ -78,8 +85,27 @@ export function RecipeForm({
         }
     };
 
+    const nextStep = async () => {
+        const fields: (keyof RecipeFormData)[] = step === 1 ? ["name", "tagId", "price"] : [];
+        const isStepValid = await trigger(fields);
+        if (isStepValid) setStep(2);
+    };
+
+    const prevStep = () => setStep(1);
+
     const onFormSubmit = (data: RecipeFormData) => {
-        onSubmit(data as CreateRecipeData);
+        // Ensure legacy fields are handled if API expects them
+        const submissionData = {
+            ...data,
+            categoriesIds: [] // Explicitly sending empty array for Taxonomy Core
+        };
+        onSubmit(submissionData as CreateRecipeData);
+    };
+
+    const stepVariants = {
+        hidden: { opacity: 0, x: 20 },
+        visible: { opacity: 1, x: 0 },
+        exit: { opacity: 0, x: -20 }
     };
 
     return (
@@ -87,171 +113,176 @@ export function RecipeForm({
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-5xl mx-auto"
+            className="w-full max-w-2xl mx-auto"
         >
-            <div className="glass-card rounded-[4rem] p-10 md:p-16 border border-[var(--border)] shadow-2xl overflow-hidden relative bg-white/40 dark:bg-black/20 backdrop-blur-3xl">
-                {/* Background Tactical Polish */}
-                <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] bg-primary-500/10 rounded-full blur-[120px]" />
-                <div className="absolute bottom-[-10%] left-[-5%] w-[30%] h-[30%] bg-neutral-900/10 rounded-full blur-[100px]" />
+            <div className="glass-card rounded-[3rem] p-6 md:p-10 border border-[var(--border)] shadow-2xl overflow-hidden relative bg-[var(--sidebar-background)]/90 backdrop-blur-3xl">
 
-                <div className="relative z-10">
-                    {/* Header Protocol */}
-                    <div className="flex items-center justify-between mb-16 border-b border-[var(--border)] pb-10">
-                        <div className="space-y-4">
-                            <div className="flex items-center gap-3">
-                                <div className="px-4 py-1.5 rounded-full bg-neutral-900 border border-[var(--border)] flex items-center gap-2">
-                                    <Sparkles size={12} className="text-primary-500" />
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-white/60 text-white">Elite Protocol</span>
-                                </div>
-                                <div className="px-4 py-1.5 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
-                                    <Activity size={12} className="text-primary-500 animate-pulse" />
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-primary-400">Tactical UI</span>
-                                </div>
+                {/* Protocol Header */}
+                <div className="flex items-center justify-between mb-8 pb-6 border-b border-[var(--border)]">
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-3">
+                            <div className="px-3 py-1 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-1.5">
+                                <Activity size={10} className="text-primary-500 animate-pulse" />
+                                <span className="text-[9px] font-black uppercase tracking-widest text-primary-400">New Protocol</span>
                             </div>
-                            <h2 className="text-5xl font-black text-neutral-900 dark:text-white tracking-tighter uppercase leading-none italic">{title}</h2>
+                            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)]">Step {step} / 2</span>
                         </div>
-                        <button
-                            onClick={onCancel}
-                            className="w-16 h-16 rounded-[2rem] bg-neutral-900 flex items-center justify-center text-white/50 hover:text-white hover:bg-primary-500 transition-all shadow-xl group"
-                        >
-                            <X size={24} className="group-hover:rotate-90 transition-transform" />
-                        </button>
+                        <h2 className="text-3xl font-black text-[var(--foreground)] tracking-tighter uppercase leading-none italic">{title}</h2>
+                    </div>
+                    <button
+                        onClick={onCancel}
+                        className="w-12 h-12 rounded-2xl bg-[var(--background)] border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)] hover:text-white hover:bg-primary-500 hover:border-primary-500 transition-all shadow-lg group"
+                    >
+                        <X size={20} className="group-hover:rotate-90 transition-transform" />
+                    </button>
+                </div>
+
+                <form onSubmit={handleSubmit(onFormSubmit)} className="w-full">
+                    {/* Progress Line */}
+                    <div className="w-full h-1 bg-[var(--border)] rounded-full mb-8 overflow-hidden">
+                        <motion.div
+                            animate={{ width: step === 1 ? "50%" : "100%" }}
+                            className="h-full bg-primary-500 shadow-[0_0_10px_rgba(255,107,38,0.5)]"
+                        />
                     </div>
 
-                    <form onSubmit={handleSubmit(onFormSubmit as any)} className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                        {/* Master Visual Port */}
-                        <div className="lg:col-span-4 space-y-6">
-                            <label className="text-[11px] font-black text-neutral-500 uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
-                                <Zap size={14} className="text-primary-500" />
-                                Asset Port
-                            </label>
-
-                            <div className="relative aspect-[4/5] rounded-[3.5rem] overflow-hidden bg-neutral-900 border-2 border-dashed border-[var(--border)] hover:border-primary-500 transition-all duration-700 group cursor-pointer shadow-2xl">
-                                {previewImage ? (
-                                    <>
-                                        <img src={previewImage} alt="Preview" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-                                        <div className="absolute inset-0 bg-neutral-950/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                                            <button
-                                                type="button"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    setPreviewImage(null);
-                                                    setValue("recipeImage", null);
-                                                }}
-                                                className="w-20 h-20 rounded-full bg-red-500 text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-transform"
-                                            >
-                                                <X size={32} />
-                                            </button>
+                    <AnimatePresence mode="wait">
+                        {step === 1 && (
+                            <motion.div
+                                key="step1"
+                                variants={stepVariants}
+                                initial="hidden"
+                                animate="visible"
+                                exit="exit"
+                                className="space-y-6"
+                            >
+                                {/* Grid Layout for Compactness */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {/* Image Upload - Compact */}
+                                    <div className="md:col-span-2 flex justify-center mb-2">
+                                        <div className="relative group cursor-pointer">
+                                            <div className="w-28 h-28 rounded-[2rem] bg-[var(--background)] border-2 border-dashed border-[var(--border)] flex items-center justify-center overflow-hidden transition-all group-hover:border-primary-500/50 shadow-inner">
+                                                {previewImage ? (
+                                                    <img src={previewImage} alt="Preview" className="w-full h-full object-cover" />
+                                                ) : (
+                                                    <div className="flex flex-col items-center gap-2">
+                                                        <ImageIcon className="text-[var(--muted-foreground)]/30 w-8 h-8" />
+                                                        <span className="text-[8px] font-black uppercase text-[var(--muted-foreground)]/50">Upload</span>
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <label className="absolute -bottom-2 -right-2 w-10 h-10 bg-primary-500 text-white rounded-xl flex items-center justify-center cursor-pointer hover:scale-110 transition-all shadow-lg ring-4 ring-[var(--sidebar-background)]">
+                                                <Upload size={16} />
+                                                <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} />
+                                            </label>
                                         </div>
-                                    </>
-                                ) : (
-                                    <label className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer group-hover:bg-white/5 transition-colors">
-                                        <div className="w-24 h-24 rounded-[3rem] bg-white shadow-2xl flex items-center justify-center text-primary-500 mb-6 group-hover:scale-110 transition-transform duration-700">
-                                            <Upload size={40} />
-                                        </div>
-                                        <span className="text-[var(--muted-foreground)] font-black uppercase tracking-[0.2em] text-xs">Transmit Content</span>
-                                        <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} />
-                                    </label>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Tactical Specifications */}
-                        <div className="lg:col-span-8 space-y-8">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                {/* Name Input */}
-                                <div className="space-y-3">
-                                    <label className="text-[11px] font-black text-neutral-500 uppercase tracking-[0.3em] ml-2">Identity Hub</label>
-                                    <div className="group relative">
-                                        <Utensils className="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                        <input {...register("name")} className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] h-16 pl-16 font-bold uppercase tracking-tight" placeholder="Ex: PROTOCOL_SALMON" />
                                     </div>
-                                    {errors.name && <p className="text-[10px] text-primary-500 font-black ml-2 uppercase tracking-tighter">{errors.name.message}</p>}
-                                </div>
 
-                                {/* Price Input */}
-                                <div className="space-y-3">
-                                    <label className="text-[11px] font-black text-neutral-500 uppercase tracking-[0.3em] ml-2">Value Exchange</label>
-                                    <div className="group relative">
-                                        <DollarSign className="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                        <input {...register("price")} className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] h-16 pl-16 font-black italic text-xl" placeholder="0.00" />
+                                    {/* Name */}
+                                    <div className="space-y-2 md:col-span-2">
+                                        <label className="text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-2 flex items-center gap-2">
+                                            <Utensils size={10} className="text-primary-500" />
+                                            Identity Hub
+                                        </label>
+                                        <input
+                                            {...register("name")}
+                                            className="premium-input bg-[var(--background)]/50 border-[var(--border)] h-14 pl-6 font-bold uppercase tracking-tight text-sm w-full rounded-2xl focus:border-primary-500 transition-all outline-none"
+                                            placeholder="PROTOCOL_NAME"
+                                        />
+                                        {errors.name && <p className="text-[9px] text-primary-500 font-bold ml-2 uppercase tracking-tighter">{errors.name.message}</p>}
                                     </div>
-                                    {errors.price && <p className="text-[10px] text-primary-500 font-black ml-2 uppercase tracking-tighter">{errors.price.message}</p>}
-                                </div>
 
-                                {/* Tag Selection */}
-                                <div className="space-y-3">
-                                    <label className="text-[11px] font-black text-neutral-500 uppercase tracking-[0.3em] ml-2">Classification</label>
-                                    <div className="group relative">
-                                        <Zap className="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:text-primary-500 transition-colors pointer-events-none" size={20} />
+                                    {/* Price */}
+                                    <div className="space-y-2">
+                                        <label className="text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-2 flex items-center gap-2">
+                                            <DollarSign size={10} className="text-primary-500" />
+                                            Value
+                                        </label>
+                                        <input
+                                            {...register("price")}
+                                            className="premium-input bg-[var(--background)]/50 border-[var(--border)] h-14 pl-6 font-black italic text-lg w-full rounded-2xl focus:border-primary-500 transition-all outline-none"
+                                            placeholder="0.00"
+                                        />
+                                        {errors.price && <p className="text-[9px] text-primary-500 font-bold ml-2 uppercase tracking-tighter">{errors.price.message}</p>}
+                                    </div>
+
+                                    {/* Classification (Tags) */}
+                                    <div className="space-y-2">
+                                        <label className="text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-2 flex items-center gap-2">
+                                            <Zap size={10} className="text-primary-500" />
+                                            Class
+                                        </label>
                                         <select
                                             {...register("tagId", { valueAsNumber: true })}
-                                            className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] h-16 pl-16 font-black uppercase text-xs tracking-widest appearance-none"
+                                            className="premium-input bg-[var(--background)]/50 border-[var(--border)] h-14 pl-6 font-black uppercase text-xs tracking-widest w-full rounded-2xl focus:border-primary-500 transition-all outline-none appearance-none"
                                         >
-                                            <option value="">Select Class</option>
-                                            {tags?.map(t => <option key={t.id} value={t.id} className="bg-neutral-900 text-white">{t.name}</option>)}
+                                            <option value="">SELECT CLASS</option>
+                                            {tags?.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                                         </select>
+                                        {errors.tagId && <p className="text-[9px] text-primary-500 font-bold ml-2 uppercase tracking-tighter">{errors.tagId.message}</p>}
                                     </div>
-                                    {errors.tagId && <p className="text-[10px] text-primary-500 font-black ml-2 uppercase">{errors.tagId.message}</p>}
                                 </div>
 
-                                {/* Category Selection */}
-                                <div className="space-y-3">
-                                    <label className="text-[11px] font-black text-neutral-500 uppercase tracking-[0.3em] ml-2">Taxonomy Core</label>
-                                    <div className="group relative">
-                                        <ChefHat className="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:text-primary-500 transition-colors pointer-events-none" size={20} />
-                                        <select
-                                            multiple
-                                            className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] h-32 pl-16 font-black uppercase text-xs tracking-widest pt-5"
-                                            onChange={(e) => {
-                                                const options = Array.from(e.target.selectedOptions, option => Number(option.value));
-                                                setValue("categoriesIds", options);
-                                            }}
-                                        >
-                                            {categoriesData?.data?.map(c => <option key={c.id} value={c.id} className="bg-neutral-900 text-white p-2 mb-1 rounded-lg">{c.name}</option>)}
-                                        </select>
-                                    </div>
-                                    {errors.categoriesIds && <p className="text-[10px] text-primary-500 font-black ml-2 uppercase">{errors.categoriesIds.message}</p>}
-                                </div>
-                            </div>
-
-                            {/* Description Terminal */}
-                            <div className="space-y-3">
-                                <label className="text-[11px] font-black text-neutral-500 uppercase tracking-[0.3em] ml-2">Data Stream (Description)</label>
-                                <textarea
-                                    {...register("description")}
-                                    className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] min-h-[160px] py-6 px-6 font-bold leading-relaxed text-sm"
-                                    placeholder="INITIATING NARRATIVE STREAM..."
-                                />
-                                {errors.description && <p className="text-[10px] text-primary-500 font-black ml-2 uppercase">{errors.description.message}</p>}
-                            </div>
-
-                            {/* Execution Controls */}
-                            <div className="flex gap-6 pt-10 border-t border-white/10">
                                 <button
                                     type="button"
-                                    onClick={onCancel}
-                                    className="h-18 px-10 rounded-[2rem] bg-neutral-900 text-white/50 font-black uppercase tracking-widest text-xs hover:text-white hover:bg-neutral-800 transition-all shadow-xl"
+                                    onClick={nextStep}
+                                    className="w-full h-14 mt-4 rounded-2xl bg-primary-500 text-white font-black uppercase tracking-widest hover:bg-primary-600 transition-all flex items-center justify-center gap-2 shadow-[0_20px_40px_-10px_rgba(255,107,38,0.4)]"
                                 >
-                                    ABORT
+                                    <span>Proceed to Data</span>
+                                    <ArrowRight size={18} />
                                 </button>
-                                <button
-                                    type="submit"
-                                    disabled={isPending || !isValid}
-                                    className="premium-button premium-button-primary flex-1 h-18 text-lg font-black uppercase tracking-[0.2em] relative overflow-hidden group shadow-[0_32px_64px_-12px_rgba(255,107,38,0.5)]"
-                                >
-                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                                    {isPending ? <Loader2 className="animate-spin w-8 h-8" /> : (
-                                        <div className="flex items-center gap-4">
-                                            <span>INITIALIZE MASTERPIECE</span>
-                                            <CheckCircle2 size={24} className="group-hover:rotate-12 transition-transform" />
-                                        </div>
-                                    )}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                            </motion.div>
+                        )}
+
+                        {step === 2 && (
+                            <motion.div
+                                key="step2"
+                                variants={stepVariants}
+                                initial="hidden"
+                                animate="visible"
+                                exit="exit"
+                                className="space-y-6"
+                            >
+                                {/* Description Terminal */}
+                                <div className="space-y-2 h-[300px]">
+                                    <label className="text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-2 flex items-center gap-2">
+                                        <FileText size={10} className="text-primary-500" />
+                                        Data Stream
+                                    </label>
+                                    <textarea
+                                        {...register("description")}
+                                        className="premium-input w-full h-full bg-[var(--background)]/50 border-[var(--border)] rounded-3xl p-6 font-bold leading-relaxed text-sm resize-none focus:border-primary-500 transition-all outline-none"
+                                        placeholder="INITIATING NARRATIVE STREAM..."
+                                    />
+                                    {errors.description && <p className="text-[9px] text-primary-500 font-bold ml-2 uppercase tracking-tighter">{errors.description.message}</p>}
+                                </div>
+
+                                <div className="flex gap-4">
+                                    <button
+                                        type="button"
+                                        onClick={prevStep}
+                                        className="h-14 w-16 rounded-2xl border border-[var(--border)] flex items-center justify-center hover:bg-[var(--background)] transition-all"
+                                    >
+                                        <ArrowLeft size={20} className="text-[var(--muted-foreground)]" />
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        disabled={isPending || !isValid}
+                                        className="flex-1 h-14 rounded-2xl bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-500/30 hover:shadow-primary-500/50 transition-all flex items-center justify-center gap-3 group relative overflow-hidden"
+                                    >
+                                        <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                                        {isPending ? <Loader2 className="animate-spin w-6 h-6" /> : (
+                                            <>
+                                                <span className="font-black uppercase tracking-widest text-sm">Initialize Masterpiece</span>
+                                                <CheckCircle2 size={20} className="group-hover:rotate-12 transition-transform" />
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </form>
             </div>
         </motion.div>
     );

@@ -57,14 +57,14 @@ export const useAppStore = create<AppState>()(
     persist(
         (set, get) => ({
             // Theme
-            theme: "system",
+            theme: "light",
             setTheme: (theme: Theme) => {
                 applyTheme(theme);
                 set({ theme });
             },
 
             // Language
-            language: "en",
+            language: "ar",
             setLanguage: (language: Language) => {
                 applyLanguage(language);
                 set({ language });

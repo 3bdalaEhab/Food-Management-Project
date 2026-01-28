@@ -1,9 +1,10 @@
 import { memo } from "react";
 import { motion } from "framer-motion";
-import { Utensils, Clock, Edit2, Trash2, Heart, Zap, TrendingUp, Layers, Hash } from "lucide-react";
+import { Utensils, Clock, Edit2, Trash2, Heart, Zap, Hash } from "lucide-react";
 import { Tooltip } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/stores";
+import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 import type { Recipe } from "../types";
 
 interface RecipeCardProps {
@@ -37,49 +38,42 @@ export const RecipeCard = memo(({
             aria-label={`Recipe: ${recipe.name}`}
         >
             {/* Elite Industrial Glow Shadow */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary-500/20 to-primary-600/20 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary-500/20 to-primary-600/20 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-            <div className="relative h-full glass-card rounded-[3rem] overflow-hidden flex flex-col border border-[var(--border)] bg-[var(--sidebar-background)]/80 backdrop-blur-3xl shadow-2xl transition-all duration-500 group-hover:border-primary-500/40">
+            <div className="relative h-full glass-card rounded-[2.5rem] overflow-hidden flex flex-col border border-[var(--border)] bg-[var(--sidebar-background)]/95 backdrop-blur-3xl shadow-2xl transition-all duration-500 group-hover:border-primary-500/40 group-hover:shadow-primary-500/10">
                 {/* Visual Content Port */}
-                <div className="relative h-72 overflow-hidden bg-neutral-900">
-                    <motion.img
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
+                <div className="relative h-64 overflow-hidden bg-[var(--muted)] shrink-0">
+                    <ImageWithFallback
                         src={imageUrl}
                         alt={recipe.name}
-                        className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                        className="w-full h-full group-hover:scale-110 transition-transform duration-700 ease-out"
                         loading="lazy"
                     />
 
                     {/* Atmospheric Lighting Overlays */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent opacity-40" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
 
-                    {/* Elite Tactical Badges */}
-                    <div className="absolute top-6 left-6 flex flex-col gap-2">
-                        <div className="flex items-center gap-2 px-4 py-1.5 bg-[var(--background)]/80 backdrop-blur-xl border border-[var(--border)] rounded-2xl shadow-2xl">
-                            <Zap size={12} className="text-primary-500 fill-primary-500 animate-pulse" />
-                            <span className="text-[10px] font-black uppercase tracking-widest text-[var(--foreground)] italic">{recipe.tag.name}</span>
-                        </div>
-                        <div className="flex items-center gap-2 px-4 py-1.5 bg-[var(--background)]/40 backdrop-blur-xl border border-[var(--border)] rounded-2xl">
-                            <Hash size={10} className="text-primary-500" />
-                            <span className="text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">NODE_{recipe.id}</span>
+                    {/* Elite Tactical Badges - Top Start */}
+                    <div className="absolute top-5 start-5 flex flex-col gap-2">
+                        <div className="flex items-center gap-2 px-3 py-1.5 bg-black/60 backdrop-blur-md border border-white/10 rounded-xl shadow-lg">
+                            <Zap size={10} className="text-primary-500 fill-primary-500 animate-pulse" />
+                            <span className="text-[9px] font-black uppercase tracking-widest text-white">{recipe.tag.name}</span>
                         </div>
                     </div>
 
-                    {/* Floating Tactical Actions */}
-                    <div className="absolute top-6 right-6 flex flex-col gap-3 translate-x-12 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 ease-out">
+                    {/* Floating Tactical Actions - Top End */}
+                    <div className="absolute top-5 end-5 flex flex-col gap-2 ltr:translate-x-8 rtl:-translate-x-8 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300 ease-out">
                         <Tooltip content={favorite ? 'Remove Favorite' : 'Mark Favorite'} side="left">
                             <motion.button
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => toggleFavorite(recipe.id)}
                                 className={cn(
-                                    "w-12 h-12 rounded-2xl flex items-center justify-center backdrop-blur-3xl border transition-all shadow-2xl",
-                                    favorite ? 'bg-red-500 text-white border-red-400/50 shadow-red-500/40' : 'bg-[var(--background)]/80 text-[var(--foreground)] border-[var(--border)] hover:bg-primary-500 hover:text-white'
+                                    "w-10 h-10 rounded-xl flex items-center justify-center backdrop-blur-3xl border transition-all shadow-xl",
+                                    favorite ? 'bg-red-500 text-white border-red-500' : 'bg-black/50 text-white border-white/10 hover:bg-primary-500 hover:border-primary-500'
                                 )}
                             >
-                                <Heart className={cn("w-5 h-5", favorite && "fill-current")} />
+                                <Heart className={cn("w-4 h-4", favorite && "fill-current")} />
                             </motion.button>
                         </Tooltip>
                         <Tooltip content="Refine Data" side="left">
@@ -87,64 +81,65 @@ export const RecipeCard = memo(({
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => onEdit?.(recipe)}
-                                className="w-12 h-12 bg-[var(--background)]/80 hover:bg-neutral-900 hover:text-white border border-[var(--border)] backdrop-blur-3xl rounded-2xl flex items-center justify-center text-[var(--foreground)] transition-all shadow-2xl group/btn"
+                                className="w-10 h-10 bg-black/50 hover:bg-white hover:text-black border border-white/10 backdrop-blur-3xl rounded-xl flex items-center justify-center text-white transition-all shadow-xl"
                             >
-                                <Edit2 className="w-5 h-5 group-hover/btn:text-primary-500" />
+                                <Edit2 className="w-4 h-4" />
                             </motion.button>
                         </Tooltip>
                     </div>
 
-                    {/* Price Hub Overlay */}
-                    <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
-                        <div className="flex items-center gap-3 bg-[var(--background)]/40 p-3 rounded-2xl backdrop-blur-md border border-[var(--border)]">
-                            <TrendingUp size={16} className="text-primary-500" />
-                            <div className="flex flex-col">
-                                <span className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em]">Market_Value</span>
-                                <span className="text-2xl font-black text-primary-500 tracking-tighter italic leading-none">${recipe.price}</span>
+                    {/* Price Hub Overlay - Bottom */}
+                    <div className="absolute bottom-5 start-5 end-5 flex items-end justify-between">
+                        <div className="flex flex-col">
+                            <span className="text-[8px] font-black text-white/60 uppercase tracking-[0.2em] mb-1">Value Exchange</span>
+                            <div className="flex items-baseline gap-1 text-white">
+                                <span className="text-lg font-bold text-primary-500">$</span>
+                                <span className="text-3xl font-black tracking-tighter italic shadow-black drop-shadow-lg">{recipe.price}</span>
                             </div>
                         </div>
-                        <div className="p-3 bg-[var(--background)]/60 backdrop-blur-xl rounded-2xl border border-[var(--border)] flex flex-col items-end">
-                            <span className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-1">Execution</span>
-                            <div className="flex items-center gap-1.5 text-[var(--foreground)]">
-                                <Clock size={12} className="text-primary-500" />
-                                <span className="text-[10px] font-bold uppercase tracking-tight">25 MIN</span>
-                            </div>
+                        <div className="px-3 py-1.5 bg-black/60 backdrop-blur-md rounded-xl border border-white/10 flex items-center gap-1.5">
+                            <Clock size={10} className="text-primary-500" />
+                            <span className="text-[9px] font-bold uppercase tracking-wider text-white">25 MIN</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Industrial Metadata & Content Section */}
-                <div className="p-8 flex flex-col flex-1 relative bg-gradient-to-br from-transparent to-primary-500/5">
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-2 opacity-60">
-                            <Layers size={14} className="text-primary-500" />
-                            <span className="text-[9px] font-black uppercase tracking-[0.4em] text-neutral-500 dark:text-white/60">Culinary_Object</span>
+                <div className="p-6 flex flex-col flex-1 relative bg-gradient-to-br from-[var(--sidebar-background)] to-[var(--background)]">
+                    <div className="space-y-3 mb-6">
+                        <div className="flex items-center gap-2 opacity-50">
+                            <Hash size={10} className="text-primary-500" />
+                            <span className="text-[10px] font-bold tracking-widest text-[var(--muted-foreground)]">ID: #{recipe.id.toString().padStart(4, '0')}</span>
                         </div>
-                        <h3 className="text-3xl font-black text-[var(--foreground)] tracking-tighter leading-none group-hover:text-primary-500 transition-colors uppercase italic">
+                        <h3 className="text-2xl font-bold text-[var(--foreground)] tracking-tight leading-none group-hover:text-primary-500 transition-colors line-clamp-1">
                             {recipe.name}
                         </h3>
-                        <p className="text-[var(--muted-foreground)] text-sm font-bold leading-relaxed line-clamp-2 italic">
+                        <p className="text-[var(--muted-foreground)] text-xs font-medium leading-relaxed line-clamp-2 h-10">
                             {recipe.description}
                         </p>
                     </div>
 
-                    <div className="mt-auto pt-10 flex items-center justify-between border-t border-black/5 dark:border-white/5">
-                        <div className="flex flex-col">
-                            <span className="text-[8px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)] mb-2">Primary_Taxonomy</span>
-                            <div className="flex items-center gap-2 px-4 py-2 bg-[var(--background)] rounded-2xl border border-[var(--border)]">
-                                <Utensils size={14} className="text-primary-500" />
-                                <span className="text-[11px] font-black uppercase tracking-widest text-[var(--foreground)]">{recipe.category?.[0]?.name || "GENERAL"}</span>
+                    <div className="mt-auto pt-5 flex items-center justify-between border-t border-[var(--border)] border-dashed">
+                        <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-full bg-[var(--background)] border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)]">
+                                <Utensils size={12} />
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-[9px] font-medium text-[var(--muted-foreground)]">Category</span>
+                                <span className="text-[11px] font-bold text-[var(--foreground)] tracking-wider">
+                                    {recipe.category?.[0]?.name || "N/A"}
+                                </span>
                             </div>
                         </div>
 
-                        <Tooltip content="Purge Record" side="top">
+                        <Tooltip content="Purge Record" side="left">
                             <motion.button
-                                whileHover={{ scale: 1.1, backgroundColor: "#ef4444", color: "white" }}
+                                whileHover={{ scale: 1.1, color: "#ef4444" }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => onDelete?.(recipe.id)}
-                                className="w-12 h-12 rounded-[1.25rem] bg-[var(--background)]/50 text-[var(--muted-foreground)] flex items-center justify-center transition-all group/trash shadow-inner border border-[var(--border)]"
+                                className="text-[var(--muted-foreground)]/50 hover:text-red-500 transition-colors p-2"
                             >
-                                <Trash2 size={18} className="transition-transform group-hover/trash:rotate-12" />
+                                <Trash2 size={16} />
                             </motion.button>
                         </Tooltip>
                     </div>

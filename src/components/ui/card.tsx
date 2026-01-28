@@ -8,15 +8,15 @@ const cardVariants = cva(
         variants: {
             variant: {
                 default:
-                    "bg-white border border-neutral-200 dark:bg-neutral-900 dark:border-neutral-800",
+                    "bg-[var(--sidebar-background)] border border-[var(--border)]",
                 elevated:
-                    "bg-white border border-neutral-200 shadow-lg hover:shadow-xl dark:bg-neutral-900 dark:border-neutral-800",
+                    "bg-[var(--sidebar-background)] border border-[var(--border)] shadow-lg hover:shadow-xl",
                 glass:
-                    "bg-white/70 backdrop-blur-xl border border-white/20 dark:bg-neutral-900/70 dark:border-neutral-700/30",
+                    "bg-[var(--sidebar-background)]/70 backdrop-blur-xl border border-[var(--border)]",
                 gradient:
-                    "bg-gradient-to-br from-primary-500/10 to-secondary-500/10 border border-primary-200/50 dark:from-primary-500/20 dark:to-secondary-500/20 dark:border-primary-700/30",
+                    "bg-gradient-to-br from-primary-500/10 to-secondary-500/10 border border-primary-500/20",
                 outline:
-                    "border-2 border-neutral-300 bg-transparent dark:border-neutral-700",
+                    "border-2 border-[var(--border)] bg-transparent",
                 ghost: "bg-transparent",
             },
             padding: {
@@ -76,7 +76,7 @@ const CardTitle = React.forwardRef<
     <h3
         ref={ref}
         className={cn(
-            "text-xl font-semibold leading-none tracking-tight text-neutral-900 dark:text-neutral-50",
+            "text-xl font-semibold leading-none tracking-tight text-[var(--foreground)]",
             className
         )}
         {...props}
@@ -90,7 +90,7 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
     <p
         ref={ref}
-        className={cn("text-sm text-neutral-500 dark:text-neutral-400", className)}
+        className={cn("text-sm text-[var(--muted-foreground)]", className)}
         {...props}
     />
 ));

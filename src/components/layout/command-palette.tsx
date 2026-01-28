@@ -17,6 +17,7 @@ import { useAuthStore, selectIsAdmin } from "@/stores";
 import { useRecipes } from "@/features/recipes/hooks";
 import { cn } from "@/lib/utils";
 import { Plus, Heart } from "lucide-react";
+import { useDebounce } from "@/lib/hooks/use-debounce";
 
 interface CommandItemProps {
     icon: React.ElementType;
@@ -42,12 +43,12 @@ const CommandItem = memo(({
         onClick={onSelect}
         className={cn(
             "w-full p-5 rounded-3xl flex items-center gap-6 transition-all relative overflow-hidden group text-left",
-            active ? "bg-primary-500 text-white shadow-[0_20px_40px_rgba(255,107,38,0.2)]" : "hover:bg-white/5 text-neutral-400 hover:text-white"
+            active ? "bg-primary-500 text-white shadow-[0_20px_40px_rgba(255,107,38,0.2)]" : "hover:bg-[var(--background)] text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
         )}
     >
         <div className={cn(
             "w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-xl",
-            active ? "bg-white/20" : "bg-neutral-900 group-hover:bg-white/10"
+            active ? "bg-white/20" : "bg-[var(--background)] group-hover:bg-[var(--sidebar-background)] border border-[var(--border)]"
         )}>
             <Icon size={20} className={cn(active ? "text-white" : "text-primary-500")} />
         </div>
@@ -77,9 +78,13 @@ export function CommandPalette() {
     const [open, setOpen] = useState(false);
     const [search, setSearch] = useState("");
     const [activeIndex, setActiveIndex] = useState(0);
+    const debouncedSearch = useDebounce(search, 300);
     const navigate = useNavigate();
     const isAdmin = useAuthStore(selectIsAdmin);
-    const { data: recipesData } = useRecipes({ name: search });
+
+    const { data: recipesData } = useRecipes({
+        name: debouncedSearch
+    });
 
     const navigationItems = [
         {
@@ -206,29 +211,21 @@ export function CommandPalette() {
             {open && (
                 <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-4 md:px-0">
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={() => setOpen(false)}
-                        className="absolute inset-0 bg-neutral-950/80 backdrop-blur-2xl"
-                    />
-
-                    <motion.div
                         initial={{ opacity: 0, scale: 0.95, y: -20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: -20 }}
                         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                        className="relative w-full max-w-2xl glass-card rounded-[3.5rem] bg-[#0c0c0c]/90 border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] overflow-hidden"
+                        className="relative w-full max-w-2xl glass-card rounded-[3.5rem] bg-[var(--sidebar-background)] border border-[var(--border)] shadow-2xl overflow-hidden"
                     >
                         {/* Search Input Section */}
-                        <div className="p-8 border-b border-white/5 space-y-6">
+                        <div className="p-8 border-b border-[var(--border)] space-y-6">
                             <div className="flex items-center justify-between opacity-40">
                                 <div className="flex items-center gap-3">
                                     <Sparkles size={14} className="text-primary-500" />
                                     <span className="text-[10px] font-black uppercase tracking-[0.3em]">System Command Terminal</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <kbd className="px-2 py-0.5 rounded-md bg-white/5 text-[9px] font-black">ESC</kbd>
+                                    <kbd className="px-2 py-0.5 rounded-md bg-[var(--background)] border border-[var(--border)] text-[9px] font-black">ESC</kbd>
                                     <span className="text-[9px] font-black">TO ABORT</span>
                                 </div>
                             </div>
@@ -244,7 +241,7 @@ export function CommandPalette() {
                                         setActiveIndex(0);
                                     }}
                                     onKeyDown={handleKeyDown}
-                                    className="w-full bg-white/5 border border-white/5 rounded-[2rem] h-20 pl-16 pr-8 text-xl font-black uppercase tracking-widest focus:outline-none focus:border-primary-500/50 focus:bg-white/10 transition-all text-white placeholder:text-neutral-700"
+                                    className="w-full bg-[var(--background)] border border-[var(--border)] rounded-[2rem] h-20 pl-16 pr-8 text-xl font-black uppercase tracking-widest focus:outline-none focus:border-primary-500/50 focus:bg-[var(--background)]/80 transition-all text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/30"
                                 />
                             </div>
                         </div>
@@ -262,8 +259,8 @@ export function CommandPalette() {
                                 ))
                             ) : (
                                 <div className="py-20 flex flex-col items-center justify-center text-center space-y-6">
-                                    <div className="w-20 h-20 rounded-[2rem] bg-neutral-900 flex items-center justify-center border border-white/5">
-                                        <Zap size={32} className="text-neutral-700" />
+                                    <div className="w-20 h-20 rounded-[2rem] bg-[var(--background)] flex items-center justify-center border border-[var(--border)]">
+                                        <Zap size={32} className="text-[var(--muted-foreground)]/20" />
                                     </div>
                                     <div className="space-y-1">
                                         <h3 className="text-xl font-black uppercase tracking-widest text-white italic">Zero Results Found</h3>
@@ -274,19 +271,19 @@ export function CommandPalette() {
                         </div>
 
                         {/* Bottom Action Rail */}
-                        <div className="p-6 bg-neutral-900/50 border-t border-white/5 flex items-center justify-between">
+                        <div className="p-6 bg-[var(--background)] border-t border-[var(--border)] flex items-center justify-between">
                             <div className="flex items-center gap-6">
-                                <div className="flex items-center gap-2 text-[9px] font-black text-neutral-500 uppercase tracking-widest">
+                                <div className="flex items-center gap-2 text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-widest">
                                     <div className="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse" />
                                     Terminal Online
                                 </div>
-                                <div className="flex items-center gap-3">
-                                    <kbd className="px-2 py-0.5 rounded-md bg-white/5 text-[9px] font-black">↑↓</kbd>
-                                    <span className="text-[9px] font-black text-neutral-600">NAVIGATE</span>
+                                <div className="flex items-center gap-3 text-[var(--muted-foreground)]">
+                                    <kbd className="px-2 py-0.5 rounded-md bg-[var(--background)] border border-[var(--border)] text-[9px] font-black text-[var(--foreground)]">↑↓</kbd>
+                                    <span className="text-[9px] font-black">NAVIGATE</span>
                                 </div>
-                                <div className="flex items-center gap-3">
-                                    <kbd className="px-2 py-0.5 rounded-md bg-white/5 text-[9px] font-black">ENTER</kbd>
-                                    <span className="text-[9px] font-black text-neutral-600">EXECUTE</span>
+                                <div className="flex items-center gap-3 text-[var(--muted-foreground)]">
+                                    <kbd className="px-2 py-0.5 rounded-md bg-[var(--background)] border border-[var(--border)] text-[9px] font-black text-[var(--foreground)]">ENTER</kbd>
+                                    <span className="text-[9px] font-black">EXECUTE</span>
                                 </div>
                             </div>
                             <Sparkles size={14} className="text-primary-500/30" />

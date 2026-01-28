@@ -14,6 +14,21 @@ const resources = {
                 logout: "Eject Session",
                 management: "MANAGEMENT"
             },
+            common: {
+                search: "Search",
+                cancel: "Cancel",
+                submit: "Sync",
+                delete: "Purge",
+                edit: "Refine",
+                success: "Success",
+                error: "System Error"
+            },
+            delete_confirmation: {
+                title: "Purge Confirmation",
+                message: "Are you sure you want to permanently purge this node? This operation is irreversible.",
+                confirm: "Authorize Purge",
+                cancel: "Abort Protocol"
+            },
             navbar: {
                 search: "Scan Archives...",
                 language: "Language Port",
@@ -161,16 +176,19 @@ const resources = {
                     confirm: "Confirm Secret",
                     update: "Update Credentials",
                     back: "Back to"
+                },
+                verify: {
+                    title: "Identity",
+                    suffix: "Verify",
+                    subtitle: "We've transmitted a code to your terminal",
+                    badge: "Account Activation Protocol",
+                    target_email: "Target Email",
+                    universal_key: "Universal Key",
+                    initialize_identity: "Initialize Identity",
+                    protocol_failed: "Protocol failed?",
+                    resend: "Resend Transmission",
+                    abort: "Abort to Login"
                 }
-            },
-            common: {
-                search: "Search",
-                cancel: "Abort",
-                submit: "Sync",
-                delete: "Purge",
-                edit: "Refine",
-                success: "Execution Successful",
-                error: "System Failure"
             }
         }
     },
@@ -333,6 +351,18 @@ const resources = {
                     confirm: "تأكيد السر",
                     update: "تحديث البيانات",
                     back: "العودة إلى"
+                },
+                verify: {
+                    title: "تفعيل",
+                    suffix: "الحساب",
+                    subtitle: "لقد تم إرسال الرمز إلى جهازك الخاص",
+                    badge: "بروتوكول تفعيل الهوية",
+                    target_email: "البريد المستهدف",
+                    universal_key: "المفتاح العالمي",
+                    initialize_identity: "تهيئة الهوية",
+                    protocol_failed: "فشل البروتوكول؟",
+                    resend: "إعادة الإرسال",
+                    abort: "عودة للدخول"
                 }
             },
             common: {
@@ -343,6 +373,12 @@ const resources = {
                 edit: "تعديل",
                 success: "تمت العملية بنجاح",
                 error: "خطأ في النظام"
+            },
+            delete_confirmation: {
+                title: "تأكيد التطهير",
+                message: "هل أنت متأكد أنك تريد تطهير هذا الكيان نهائياً من القبو؟ هذا الإجراء لا يمكن التراجع عنه.",
+                confirm: "تخويل التطهير",
+                cancel: "إيقاف البروتوكول"
             }
         }
     }
@@ -350,7 +386,7 @@ const resources = {
 
 i18n.use(initReactI18next).init({
     resources,
-    lng: "en",
+    lng: "ar",
     fallbackLng: "en",
     interpolation: {
         escapeValue: false

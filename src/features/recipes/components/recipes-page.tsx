@@ -20,12 +20,14 @@ import { RecipeForm } from "./recipe-form";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { SEO } from "@/components/shared/seo";
+import { DeleteConfirmation } from "@/components/shared/delete-confirmation";
 
 export function RecipesPage() {
     const { t } = useTranslation();
     const [search, setSearch] = useState("");
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
     const [isCreateOpen, setIsCreateOpen] = useState(false);
+    const [deleteId, setDeleteId] = useState<number | null>(null);
 
     const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
@@ -41,7 +43,7 @@ export function RecipesPage() {
         pageNumber: 1
     });
 
-    const { mutate: deleteRecipe } = useDeleteRecipe();
+    const { mutate: deleteRecipe, isPending: isDeleting } = useDeleteRecipe();
     const { mutate: createRecipe, isPending: isCreating } = useCreateRecipe();
 
     const container = {
@@ -129,13 +131,13 @@ export function RecipesPage() {
                         placeholder={t('recipes.search')}
                         value={search}
                         onChange={handleSearchChange}
-                        className="premium-input pl-16 h-18 bg-[var(--background)]/50 border-[var(--border)] backdrop-blur-3xl font-black uppercase tracking-widest text-sm"
+                        className="premium-input pl-16 h-18 bg-[var(--background)]/50 border-[var(--border)] backdrop-blur-3xl font-bold tracking-wide text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]"
                         aria-label="Search recipes"
                     />
                 </div>
 
                 <div className="flex gap-4 w-full lg:w-auto">
-                    <button className="h-18 px-8 bg-[var(--background)]/50 border border-[var(--border)] backdrop-blur-3xl rounded-[1.5rem] flex items-center gap-3 font-black text-[11px] uppercase tracking-[0.2em] text-[var(--muted-foreground)] hover:border-primary-500 hover:text-primary-500 transition-all shadow-sm">
+                    <button className="h-18 px-8 bg-[var(--background)]/50 border border-[var(--border)] backdrop-blur-3xl rounded-[1.5rem] flex items-center gap-3 font-bold text-[11px] tracking-wider text-[var(--muted-foreground)] hover:border-primary-500 hover:text-primary-500 transition-all shadow-sm">
                         <Filter size={18} />
                         Refinement
                     </button>
@@ -193,7 +195,7 @@ export function RecipesPage() {
                                 <RecipeCard
                                     key={recipe.id}
                                     recipe={recipe}
-                                    onDelete={(id) => deleteRecipe(id)}
+                                    onDelete={(id) => setDeleteId(id)}
                                 />
                             ))}
                         </AnimatePresence>
@@ -216,6 +218,20 @@ export function RecipesPage() {
                     </div>
                 )
             }
+
+            <DeleteConfirmation
+                isOpen={deleteId !== null}
+                onClose={() => setDeleteId(null)}
+                onConfirm={() => {
+                    if (deleteId) {
+                        deleteRecipe(deleteId, {
+                            onSuccess: () => setDeleteId(null)
+                        });
+                    }
+                }}
+                isDeleting={isDeleting}
+                itemName={`RECIPE_NODE_${deleteId}`}
+            />
         </div >
     );
 }

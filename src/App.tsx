@@ -10,6 +10,7 @@ import { Toaster } from "@/components/ui";
 import { ProtectedRoute } from "@/components/auth";
 import { DashboardLayout } from "@/components/layout";
 import { DashboardBackground } from "@/components/layout/dashboard-background";
+import { AuthLayout } from "@/features/auth/components/auth-layout";
 
 // Lazy load pages for code splitting
 const LoginPage = lazy(() =>
@@ -107,11 +108,13 @@ function App() {
                 <Suspense fallback={<PageLoader />}>
                     <Routes>
                         {/* Public Auth Routes */}
-                        <Route path="/" element={<Navigate to="/login" replace />} />
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route path="/register" element={<RegisterPage />} />
-                        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-                        <Route path="/reset-password" element={<ResetPasswordPage />} />
+                        <Route element={<AuthLayout />}>
+                            <Route path="/" element={<Navigate to="/login" replace />} />
+                            <Route path="/login" element={<LoginPage />} />
+                            <Route path="/register" element={<RegisterPage />} />
+                            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                            <Route path="/reset-password" element={<ResetPasswordPage />} />
+                        </Route>
 
                         {/* Protected Dashboard Routes */}
                         <Route

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
     Camera,
@@ -11,30 +11,30 @@ import {
     Zap,
     Activity,
     ShieldCheck,
-    ArrowRight
+    ArrowRight,
+    UserCircle,
+    Settings2,
+    Palette,
+    Globe,
+    Moon,
+    Sun,
+    Terminal
 } from "lucide-react";
 
-import { useAuthStore } from "@/stores";
+import { useAuthStore, useAppStore } from "@/stores";
 import { ChangePasswordForm } from "./change-password-form";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, Button } from "@/components/ui";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui";
+import { cn } from "@/lib/utils";
+import { SEO } from "@/components/shared/seo";
+
+type Tab = "identity" | "security" | "preferences";
 
 export function ProfilePage() {
     const { t } = useTranslation();
     const { user } = useAuthStore();
+    const { theme, setTheme, language, setLanguage } = useAppStore();
+    const [activeTab, setActiveTab] = useState<Tab>("identity");
     const [isChangePassOpen, setIsChangePassOpen] = useState(false);
-
-    const container = {
-        hidden: { opacity: 0 },
-        show: {
-            opacity: 1,
-            transition: { staggerChildren: 0.1 }
-        }
-    };
-
-    const itemVariant = {
-        hidden: { opacity: 0, y: 20 },
-        show: { opacity: 1, y: 0 }
-    };
 
     if (!user) return (
         <div className="flex items-center justify-center py-40">
@@ -42,167 +42,309 @@ export function ProfilePage() {
         </div>
     );
 
+    const tabs = [
+        { id: "identity" as const, label: t('profile.tabs.identity'), icon: UserCircle },
+        { id: "security" as const, label: t('profile.tabs.security'), icon: ShieldCheck },
+        { id: "preferences" as const, label: t('profile.tabs.preferences'), icon: Settings2 },
+    ];
+
+    const containerVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+        },
+        exit: { opacity: 0, y: -20, transition: { duration: 0.3 } }
+    };
+
     return (
-        <div className="space-y-12 pb-24">
-            {/* World Class Header */}
+        <div className="space-y-12 pb-24 font-sans selection:bg-primary-500/30">
+            <SEO title={`${user.userName} | Account Hub`} />
+
+            {/* Elite Header Protcol */}
             <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="relative overflow-hidden rounded-[4rem] bg-[var(--sidebar-background)] p-12 md:p-16 text-[var(--foreground)] border border-[var(--border)] shadow-2xl"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="relative overflow-hidden rounded-[3.5rem] bg-[var(--sidebar-background)] border border-[var(--border)] shadow-[0_64px_128px_-32px_rgba(0,0,0,0.4)] backdrop-blur-3xl"
             >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_-20%,oklch(0.65_0.3_45/0.2)_0%,transparent_50%)]" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_120%,oklch(0.58_0.17_145/0.1)_0%,transparent_50%)]" />
-                <div className="absolute top-0 right-0 p-12 opacity-5">
-                    <BadgeCheck size={220} strokeWidth={0.5} className="text-[var(--foreground)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_-20%,oklch(0.6_0.28_45/0.15)_0%,transparent_50%)]" />
+                <div className="absolute top-0 right-0 p-12 opacity-[0.03]">
+                    <BadgeCheck size={280} strokeWidth={0.5} className="text-[var(--foreground)]" />
                 </div>
 
-                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-10">
+                <div className="relative z-10 p-10 md:p-16 flex flex-col md:flex-row md:items-center justify-between gap-12">
                     <div className="space-y-8 flex-1">
-                        <div className="flex flex-wrap items-center gap-4">
-                            <div className="px-5 py-2 rounded-full bg-[var(--background)] border border-[var(--border)] flex items-center gap-2">
-                                <Sparkles size={14} className="text-primary-500" />
-                                <span className="text-[11px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">{t('profile.identity_port')}</span>
+                        <div className="flex flex-wrap items-center gap-3">
+                            <div className="px-4 py-1.5 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
+                                <Activity size={12} className="text-primary-500 animate-pulse" />
+                                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-primary-400">{t('profile.security_active')}</span>
                             </div>
-                            <div className="px-5 py-2 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
-                                <Activity size={14} className="text-primary-500 animate-pulse" />
-                                <span className="text-[11px] font-black uppercase tracking-widest text-primary-400">{t('profile.security_active')}</span>
-                            </div>
-                            <div className="px-5 py-2 rounded-full bg-[var(--background)] border border-[var(--border)] flex items-center gap-2">
-                                <ShieldCheck size={14} className="text-green-500" />
-                                <span className="text-[11px] font-black uppercase tracking-widest text-[var(--muted-foreground)]/40">ELITE_SYSCALL_OK</span>
+                            <div className="px-4 py-1.5 rounded-full bg-[var(--background)]/50 border border-[var(--border)] flex items-center gap-2">
+                                <Terminal size={12} className="text-[var(--muted-foreground)]" />
+                                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-[var(--muted-foreground)]">SYSCALL_MAPPED</span>
                             </div>
                         </div>
 
-                        <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-none uppercase italic">
-                            Culinary <span className="text-primary-500 italic">{t('profile.core')}</span>
-                        </h1>
-                        <p className="text-[var(--muted-foreground)] font-bold max-w-2xl tracking-tight text-xl leading-relaxed">
-                            {t('profile.description')}
-                        </p>
+                        <div className="space-y-2">
+                            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-none uppercase italic">
+                                Culinary <span className="text-primary-500">{t('profile.core')}</span>
+                            </h1>
+                            <p className="text-[var(--muted-foreground)] font-bold max-w-xl tracking-tight text-lg italic opacity-80">
+                                {t('profile.description')}
+                            </p>
+                        </div>
                     </div>
 
+                    {/* Operator Avatar Module */}
                     <div className="relative group shrink-0">
-                        <div className="absolute inset-0 bg-primary-500 blur-3xl opacity-20 group-hover:opacity-40 transition-opacity" />
-                        <div className="relative flex flex-col items-center gap-6 bg-[var(--background)]/80 border border-[var(--border)] p-10 rounded-[4rem] backdrop-blur-3xl shadow-2xl">
-                            <div className="w-40 h-40 rounded-[3rem] bg-[var(--sidebar-background)] overflow-hidden border-4 border-[var(--border)] shadow-2xl relative group/avatar">
+                        <div className="absolute inset-0 bg-primary-500 blur-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-1000" />
+                        <div className="relative flex flex-col items-center gap-6 bg-[var(--background)]/40 border border-[var(--border)] p-8 rounded-[3.5rem] backdrop-blur-3xl shadow-2xl">
+                            <div className="w-32 h-32 rounded-[2.5rem] bg-[var(--sidebar-background)] overflow-hidden border-2 border-[var(--border)] shadow-2xl relative group/avatar">
                                 {user.imagePath ? (
-                                    <img src={user.imagePath} alt={user.userName} className="w-full h-full object-cover transition-transform duration-700 group-hover/avatar:scale-110" />
+                                    <img src={user.imagePath} alt={user.userName} className="w-full h-full object-cover transition-transform duration-1000 group-hover/avatar:scale-110" />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--background)] to-[var(--sidebar-background)]">
-                                        <ChefHat className="text-[var(--muted-foreground)]/10" size={60} />
+                                        <ChefHat className="text-[var(--muted-foreground)]/20" size={50} />
                                     </div>
                                 )}
-                                <div className="absolute inset-0 bg-primary-500/40 opacity-0 group-hover/avatar:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                                    <Camera size={24} className="text-white" />
+                                <div className="absolute inset-0 bg-primary-500/40 opacity-0 group-hover/avatar:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">
+                                    <Camera size={20} className="text-white drop-shadow-md" />
                                 </div>
                             </div>
-                            <div className="text-center space-y-1">
-                                <h2 className="text-3xl font-black italic uppercase tracking-tighter text-[var(--foreground)]">{user.userName}</h2>
-                                <p className="text-[10px] font-black text-primary-500 uppercase tracking-[0.4em]">{user.role}</p>
+                            <div className="text-center">
+                                <h2 className="text-2xl font-black italic uppercase tracking-tighter text-[var(--foreground)] leading-none mb-1">{user.userName}</h2>
+                                <p className="text-[10px] font-black text-primary-500 uppercase tracking-[0.4em] opacity-80">{user.role}</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                {/* Tactical Tab Navigation */}
+                <div className="relative z-10 px-10 md:px-16 border-t border-[var(--border)] bg-[var(--background)]/20 backdrop-blur-md">
+                    <div className="flex overflow-x-auto no-scrollbar gap-8">
+                        {tabs.map((tab) => {
+                            const Icon = tab.icon;
+                            const isActive = activeTab === tab.id;
+                            return (
+                                <button
+                                    key={tab.id}
+                                    onClick={() => setActiveTab(tab.id)}
+                                    className={cn(
+                                        "relative py-8 flex items-center gap-3 transition-all group shrink-0",
+                                        isActive ? "text-primary-500" : "text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+                                    )}
+                                >
+                                    <Icon size={18} className={cn("transition-transform", isActive ? "scale-110" : "group-hover:scale-110")} />
+                                    <span className="text-xs font-black uppercase tracking-[0.2em] italic">{tab.label}</span>
+                                    {isActive && (
+                                        <motion.div
+                                            layoutId="profile-tab-active"
+                                            className="absolute bottom-0 left-0 right-0 h-1 bg-primary-500 rounded-t-full shadow-[0_-4px_12px_rgba(255,107,38,0.5)]"
+                                        />
+                                    )}
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
             </motion.div>
 
-            <motion.div
-                variants={container}
-                initial="hidden"
-                animate="show"
-                className="grid grid-cols-1 lg:grid-cols-3 gap-10"
-            >
-                {/* Management Column */}
-                <div className="lg:col-span-1 space-y-8">
-                    <div className="glass-card rounded-[3.5rem] p-10 border border-[var(--border)] shadow-2xl space-y-8 relative overflow-hidden bg-[var(--sidebar-background)]/80 backdrop-blur-3xl">
-                        <div className="space-y-4">
-                            <h3 className="text-xs font-black uppercase tracking-[0.3em] text-[var(--muted-foreground)] flex items-center gap-2">
-                                <Zap size={14} className="text-primary-500" />
-                                {t('profile.execution_hub')}
-                            </h3>
-                            <div className="h-px bg-[var(--border)]" />
-                        </div>
-
-                        <div className="space-y-4">
-                            <button
-                                className="w-full premium-button premium-button-primary h-18 text-sm group overflow-hidden relative"
-                                onClick={() => { }}
-                            >
-                                <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                                <Camera size={20} />
-                                <span className="font-black uppercase tracking-widest text-xs">{t('profile.update_asset')}</span>
-                            </button>
-                            <button
-                                className="w-full h-18 rounded-[2rem] font-black uppercase tracking-widest text-[10px] border-2 border-[var(--border)] flex items-center justify-center gap-3 hover:bg-neutral-900 hover:text-white transition-all group shadow-xl"
-                                onClick={() => setIsChangePassOpen(true)}
-                            >
-                                <Lock size={18} className="group-hover:rotate-12 transition-transform" />
-                                <span>{t('profile.security_protocol')}</span>
-                            </button>
-                        </div>
-
-                        <div className="p-8 rounded-[2.5rem] bg-[var(--sidebar-background)] text-[var(--foreground)] relative overflow-hidden group border border-[var(--border)] shadow-xl">
-                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,oklch(0.65_0.3_45/0.2)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity" />
-                            <div className="relative z-10 space-y-4">
-                                <ShieldCheck className="text-primary-500" size={32} />
-                                <h4 className="text-xl font-black italic tracking-tighter leading-none">{t('profile.verified')}</h4>
-                                <p className="text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-widest leading-relaxed">{t('profile.verified_desc')}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Data Ecosystem */}
-                <div className="lg:col-span-2 space-y-8">
-                    <div className="glass-card rounded-[4rem] p-12 md:p-16 border border-[var(--border)] shadow-2xl space-y-12 relative overflow-hidden bg-[var(--sidebar-background)]/80 backdrop-blur-3xl">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                            {/* Email */}
-                            <motion.div variants={itemVariant} className="space-y-3">
-                                <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em] ml-2">{t('profile.archive_address')}</label>
-                                <span className="font-black text-[var(--foreground)] uppercase tracking-tight text-lg">{user.email}</span>
-                            </motion.div>
-
-                            {/* Phone */}
-                            <motion.div variants={itemVariant} className="space-y-3">
-                                <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em] ml-2">{t('profile.comm_freq')}</label>
-                                <span className="font-black text-[var(--foreground)] uppercase tracking-tight text-lg">{user.phoneNumber || "UNMAPPED"}</span>
-                            </motion.div>
-
-                            {/* Region */}
-                            <motion.div variants={itemVariant} className="space-y-3">
-                                <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em] ml-2">{t('profile.geospatial')}</label>
-                                <span className="font-black text-[var(--foreground)] uppercase tracking-tight text-lg">{user.country || "GLOBAL_UNIT"}</span>
-                            </motion.div>
-
-                            {/* Status */}
-                            <motion.div variants={itemVariant} className="space-y-3">
-                                <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em] ml-2">{t('profile.auth_level')}</label>
-                                <div className="flex items-center gap-5 bg-primary-500/5 dark:bg-primary-500/10 h-20 px-8 rounded-[2rem] border border-primary-500/20 shadow-xl group hover:bg-primary-500/20 transition-all">
-                                    <Zap className="text-primary-500 fill-primary-500" size={24} />
-                                    <span className="font-black text-primary-500 uppercase tracking-[0.2em] text-sm">ELITE_CONTRIBUTOR</span>
+            {/* Dynamic Content Display */}
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={activeTab}
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    className="grid grid-cols-1 lg:grid-cols-12 gap-10"
+                >
+                    {activeTab === "identity" && (
+                        <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-3 gap-10">
+                            {/* Identity Intel Card */}
+                            <div className="lg:col-span-2 glass-card rounded-[3.5rem] p-10 md:p-14 border border-[var(--border)] shadow-2xl space-y-12 bg-[var(--sidebar-background)]/80 backdrop-blur-3xl">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                    <div className="space-y-4">
+                                        <label className="text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em] flex items-center gap-2">
+                                            <Globe size={12} className="text-primary-500" />
+                                            {t('profile.geospatial')}
+                                        </label>
+                                        <div className="text-2xl font-black italic uppercase tracking-tighter text-[var(--foreground)] h-16 flex items-center px-6 bg-[var(--background)]/50 rounded-2xl border border-[var(--border)]">
+                                            {user.country || "GLOBAL_NODE"}
+                                        </div>
+                                    </div>
+                                    <div className="space-y-4">
+                                        <label className="text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em] flex items-center gap-2">
+                                            <Zap size={12} className="text-primary-500" />
+                                            {t('profile.auth_level')}
+                                        </label>
+                                        <div className="text-2xl font-black italic uppercase tracking-tighter text-primary-500 h-16 flex items-center px-6 bg-primary-500/5 rounded-2xl border border-primary-500/20">
+                                            {user.role}
+                                        </div>
+                                    </div>
+                                    <div className="md:col-span-2 space-y-4">
+                                        <label className="text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em] flex items-center gap-2">
+                                            <UserCircle size={12} className="text-primary-500" />
+                                            {t('profile.archive_address')}
+                                        </label>
+                                        <div className="text-2xl font-black italic uppercase tracking-tighter text-[var(--foreground)] h-16 flex items-center px-6 bg-[var(--background)]/50 rounded-2xl border border-[var(--border)]">
+                                            {user.email}
+                                        </div>
+                                    </div>
                                 </div>
-                            </motion.div>
-                        </div>
-
-                        <div className="pt-10 border-t border-[var(--border)] flex flex-col md:flex-row md:items-center justify-between gap-8">
-                            <div className="space-y-2">
-                                <h4 className="text-xs font-black uppercase tracking-[0.3em] text-[var(--foreground)]">{t('profile.master_identity')}</h4>
-                                <p className="text-sm font-bold text-[var(--muted-foreground)] max-w-md">{t('profile.master_desc')}</p>
+                                <div className="pt-10 border-t border-[var(--border)] flex flex-col md:flex-row md:items-center justify-between gap-8">
+                                    <div className="space-y-1">
+                                        <h4 className="text-xs font-black uppercase tracking-[0.2em]">{t('profile.master_identity')}</h4>
+                                        <p className="text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-widest">{t('profile.master_desc')}</p>
+                                    </div>
+                                    <button className="premium-button premium-button-primary h-16 px-10 group">
+                                        <span className="font-black italic uppercase tracking-widest text-[10px]">{t('profile.edit_portfolio')}</span>
+                                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                    </button>
+                                </div>
                             </div>
-                            <Button className="premium-button premium-button-primary h-18 px-12 group">
-                                <span className="font-black uppercase tracking-widest text-xs">{t('profile.edit_portfolio')}</span>
-                                <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            </motion.div>
 
-            {/* Elite Change Password Modal */}
-            <Dialog open={isChangePassOpen} onOpenChange={setIsChangePassOpen} >
-                <DialogContent className="max-w-2xl bg-transparent border-none p-0 overflow-visible shadow-none">
-                    <DialogHeader className="sr-only">
-                        <DialogTitle>Security Protocol Refinement</DialogTitle>
-                    </DialogHeader>
+                            {/* Tactical Status Card */}
+                            <div className="lg:col-span-1 space-y-8">
+                                <div className="p-10 rounded-[3rem] bg-gradient-to-br from-primary-500 to-primary-600 border border-primary-400 text-white shadow-[0_32px_64px_-16px_oklch(0.6_0.28_45/0.4)] relative overflow-hidden group hover:scale-105 transition-all duration-500">
+                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,white/20_0%,transparent_50%)]" />
+                                    <div className="relative z-10 space-y-6">
+                                        <BadgeCheck size={48} className="drop-shadow-lg" />
+                                        <div className="space-y-2">
+                                            <h4 className="text-2xl font-black italic uppercase tracking-tighter">{t('profile.verified')}</h4>
+                                            <p className="text-[10px] font-black uppercase tracking-widest opacity-80 leading-relaxed">{t('profile.verified_desc')}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="p-10 rounded-[3rem] bg-[var(--sidebar-background)] border border-[var(--border)] text-[var(--foreground)] shadow-xl relative overflow-hidden group">
+                                    <div className="space-y-4">
+                                        <Activity size={32} className="text-primary-500" />
+                                        <h4 className="text-xl font-black italic uppercase tracking-tighter">Operational_Status</h4>
+                                        <div className="flex items-center gap-2">
+                                            <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+                                            <span className="text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">SYSCALL_MAPPED_OK</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {activeTab === "security" && (
+                        <div className="lg:col-span-12">
+                            <div className="glass-card rounded-[3.5rem] p-12 md:p-16 border border-[var(--border)] shadow-2xl bg-[var(--sidebar-background)]/80 backdrop-blur-3xl flex flex-col items-center text-center space-y-10">
+                                <div className="w-24 h-24 bg-primary-500/10 rounded-3xl flex items-center justify-center border border-primary-500/20 shadow-xl">
+                                    <ShieldCheck size={48} className="text-primary-500" />
+                                </div>
+                                <div className="space-y-4 max-w-2xl">
+                                    <h3 className="text-4xl font-black italic uppercase tracking-tighter text-[var(--foreground)]">{t('profile.security_protocol')}</h3>
+                                    <p className="text-[11px] font-black uppercase tracking-[0.4em] text-[var(--muted-foreground)] mb-8">Protocol_Layer_4_Authentication</p>
+                                    <p className="text-sm font-bold text-[var(--muted-foreground)] italic leading-relaxed">
+                                        Enhance your tactical security by refining your access credentials. We recommend monthly rotation of security keys to maintain maximum operational integrity.
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={() => setIsChangePassOpen(true)}
+                                    className="premium-button premium-button-primary h-18 px-16 text-sm group"
+                                >
+                                    <Lock size={20} />
+                                    <span className="font-black italic uppercase tracking-widest">{t('profile.security_protocol')}</span>
+                                    <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {activeTab === "preferences" && (
+                        <div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-2 gap-10">
+                            {/* Theme Control Hub */}
+                            <div className="glass-card rounded-[3.5rem] p-10 md:p-12 border border-[var(--border)] shadow-2xl bg-[var(--sidebar-background)]/80 backdrop-blur-3xl space-y-10">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 bg-primary-500/10 rounded-2xl flex items-center justify-center border border-primary-500/20">
+                                            <Palette size={24} className="text-primary-500" />
+                                        </div>
+                                        <div>
+                                            <h4 className="text-lg font-black italic uppercase tracking-tighter leading-none mb-1">{t('profile.preferences.theme_protocol')}</h4>
+                                            <p className="text-[9px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">Aesthetic_Controller</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex bg-[var(--background)] border border-[var(--border)] rounded-2xl p-1 shadow-lg">
+                                        <button
+                                            onClick={() => setTheme('light')}
+                                            className={cn(
+                                                "w-12 h-12 rounded-xl flex items-center justify-center transition-all",
+                                                theme === 'light' ? "bg-primary-500 text-white shadow-xl" : "text-[var(--muted-foreground)] hover:text-primary-500"
+                                            )}
+                                        >
+                                            <Sun size={20} />
+                                        </button>
+                                        <button
+                                            onClick={() => setTheme('dark')}
+                                            className={cn(
+                                                "w-12 h-12 rounded-xl flex items-center justify-center transition-all",
+                                                theme === 'dark' ? "bg-primary-500 text-white shadow-xl" : "text-[var(--muted-foreground)] hover:text-primary-500"
+                                            )}
+                                        >
+                                            <Moon size={20} />
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="p-8 rounded-[2rem] border-2 border-dashed border-[var(--border)] text-center space-y-4 group hover:border-primary-500/30 transition-all">
+                                    <p className="text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-widest leading-relaxed italic">
+                                        The application dynamically adjusts its semantic color matrix based on your selection. Current Protocol: <span className="text-primary-500">{theme.toUpperCase()}</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Language Control Hub */}
+                            <div className="glass-card rounded-[3.5rem] p-10 md:p-12 border border-[var(--border)] shadow-2xl bg-[var(--sidebar-background)]/80 backdrop-blur-3xl space-y-10">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 bg-primary-500/10 rounded-2xl flex items-center justify-center border border-primary-500/20">
+                                            <Globe size={24} className="text-primary-500" />
+                                        </div>
+                                        <div>
+                                            <h4 className="text-lg font-black italic uppercase tracking-tighter leading-none mb-1">{t('profile.preferences.lang_protocol')}</h4>
+                                            <p className="text-[9px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">Linguistic_Controller</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex bg-[var(--background)] border border-[var(--border)] rounded-2xl p-1 shadow-lg overflow-hidden">
+                                        <button
+                                            onClick={() => setLanguage('en')}
+                                            className={cn(
+                                                "px-4 h-12 font-black uppercase text-[10px] tracking-widest transition-all",
+                                                language === 'en' ? "bg-primary-500 text-white" : "text-[var(--muted-foreground)] hover:text-primary-500"
+                                            )}
+                                        >
+                                            EN_US
+                                        </button>
+                                        <button
+                                            onClick={() => setLanguage('ar')}
+                                            className={cn(
+                                                "px-4 h-12 font-black uppercase text-[10px] tracking-widest transition-all",
+                                                language === 'ar' ? "bg-primary-500 text-white" : "text-[var(--muted-foreground)] hover:text-primary-500"
+                                            )}
+                                        >
+                                            AR_ME
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="p-8 rounded-[2rem] border-2 border-dashed border-[var(--border)] text-center space-y-4 group hover:border-primary-500/30 transition-all">
+                                    <p className="text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-widest leading-relaxed italic">
+                                        Operational directions and text flow matrices are reconfigured based on your linguistic protocol. Current: <span className="text-primary-500">{language.toUpperCase()}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </motion.div>
+            </AnimatePresence>
+
+            {/* Change Password Modal Integration */}
+            <Dialog open={isChangePassOpen} onOpenChange={setIsChangePassOpen}>
+                <DialogContent className="max-w-xl bg-transparent border-none p-0 overflow-visible shadow-none">
                     <ChangePasswordForm
                         onSuccess={() => setIsChangePassOpen(false)}
                         onCancel={() => setIsChangePassOpen(false)}
@@ -212,3 +354,19 @@ export function ProfilePage() {
         </div>
     );
 }
+
+const ChevronRight = ({ size, className }: { size?: number, className?: string }) => (
+    <motion.svg
+        width={size || 24}
+        height={size || 24}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={className}
+    >
+        <path d="m9 18 6-6-6-6" />
+    </motion.svg>
+);

@@ -219,32 +219,35 @@
     color: var(--color-primary-100);
   }
 
-  /* Scrollbar */
+  /* Scrollbar - Industrial Cinematic */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--muted);
+    background: var(--background);
     border-radius: var(--radius-full);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--color-neutral-300);
+    background: var(--muted);
     border-radius: var(--radius-full);
+    border: 3px solid var(--background);
+    transition: all 0.3s ease;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-neutral-400);
+    background: var(--color-neutral-300);
   }
 
   .dark ::-webkit-scrollbar-thumb {
-    background: var(--color-neutral-700);
+    background: var(--color-neutral-800);
+    border: 3px solid var(--background);
   }
 
   .dark ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-neutral-600);
+    background: var(--color-neutral-700);
   }
 }
 

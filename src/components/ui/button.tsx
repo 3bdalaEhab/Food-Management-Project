@@ -15,11 +15,11 @@ const buttonVariants = cva(
                 default:
                     "bg-primary-500 text-white shadow-md hover:bg-primary-600 hover:shadow-lg focus-visible:ring-primary-500",
                 secondary:
-                    "bg-neutral-100 text-neutral-900 hover:bg-neutral-200 focus-visible:ring-neutral-500 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-700",
+                    "bg-[var(--muted)] text-[var(--foreground)] hover:bg-[var(--sidebar-accent)] focus-visible:ring-primary-500",
                 outline:
-                    "border-2 border-neutral-300 bg-transparent hover:bg-neutral-100 focus-visible:ring-neutral-500 dark:border-neutral-700 dark:hover:bg-neutral-800",
+                    "border-2 border-[var(--border)] bg-transparent hover:bg-[var(--muted)] focus-visible:ring-primary-500",
                 ghost:
-                    "hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-neutral-100",
+                    "hover:bg-[var(--muted)] hover:text-[var(--foreground)]",
                 destructive:
                     "bg-red-500 text-white shadow-md hover:bg-red-600 hover:shadow-lg focus-visible:ring-red-500",
                 success:
