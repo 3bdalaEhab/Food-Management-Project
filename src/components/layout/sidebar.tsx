@@ -139,7 +139,7 @@ export function Sidebar() {
             {/* Footer */}
             <div className="p-4 border-t border-neutral-200 dark:border-neutral-800 space-y-2">
                 <Link
-                    to="/dashboard/settings"
+                    to="/dashboard/profile"
                     className={cn(
                         "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all",
                         "text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800"

@@ -10,13 +10,15 @@ import {
     Sparkles
 } from "lucide-react";
 
-import { useRecipes, useDeleteRecipe } from "../hooks";
+import { useRecipes, useDeleteRecipe, useCreateRecipe } from "../hooks";
 import { RecipeCard } from "./recipe-card";
-import { Skeleton } from "@/components/ui";
+import { RecipeForm } from "./recipe-form";
+import { Skeleton, Dialog } from "@/components/ui";
 
 export function RecipesPage() {
     const [search, setSearch] = useState("");
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+    const [isCreateOpen, setIsCreateOpen] = useState(false);
 
     // In a real app, we'd handle pagination, but for now we'll fetch the first page
     const { data: recipesData, isLoading } = useRecipes({
@@ -26,6 +28,7 @@ export function RecipesPage() {
     });
 
     const { mutate: deleteRecipe } = useDeleteRecipe();
+    const { mutate: createRecipe, isPending: isCreating } = useCreateRecipe();
 
     const container = {
         hidden: { opacity: 0 },
@@ -58,12 +61,30 @@ export function RecipesPage() {
                 <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    onClick={() => setIsCreateOpen(true)}
                     className="premium-button premium-button-primary shadow-xl shadow-primary-500/20"
                 >
                     <Plus size={20} />
                     <span>Create New Recipe</span>
                 </motion.button>
             </div>
+
+            <Dialog
+                open={isCreateOpen}
+                onClose={() => setIsCreateOpen(false)}
+                title="Create Masterpiece"
+            >
+                <RecipeForm
+                    title="New Creation"
+                    onCancel={() => setIsCreateOpen(false)}
+                    onSubmit={(data) => {
+                        createRecipe(data, {
+                            onSuccess: () => setIsCreateOpen(false)
+                        });
+                    }}
+                    isPending={isCreating}
+                />
+            </Dialog>
 
             {/* toolbar */}
             <div className="flex flex-col md:flex-row gap-4">

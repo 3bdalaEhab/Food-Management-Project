@@ -25,8 +25,17 @@ const ResetPasswordPage = lazy(() =>
 const DashboardPage = lazy(() =>
     import("@/features/dashboard").then((m) => ({ default: m.DashboardPage }))
 );
+const ProfilePage = lazy(() =>
+    import("@/features/users").then((m) => ({ default: m.ProfilePage }))
+);
 const RecipesPage = lazy(() =>
     import("@/features/recipes").then((m) => ({ default: m.RecipesPage }))
+);
+const CategoriesPage = lazy(() =>
+    import("@/features/categories").then((m) => ({ default: m.CategoriesPage }))
+);
+const UsersPage = lazy(() =>
+    import("@/features/users").then((m) => ({ default: m.UsersPage }))
 );
 
 // Loading fallback
@@ -45,23 +54,7 @@ function PageLoader() {
     );
 }
 
-function CategoriesPage() {
-    return (
-        <div className="text-center py-20">
-            <h1 className="text-3xl font-bold mb-4">Categories</h1>
-            <p className="text-neutral-500">Coming soon...</p>
-        </div>
-    );
-}
 
-function UsersPage() {
-    return (
-        <div className="text-center py-20">
-            <h1 className="text-3xl font-bold mb-4">Users</h1>
-            <p className="text-neutral-500">Coming soon...</p>
-        </div>
-    );
-}
 
 function FavoritesPage() {
     return (
@@ -128,6 +121,8 @@ function App() {
                             <Route path="categories" element={<CategoriesPage />} />
                             <Route path="users" element={<UsersPage />} />
                             <Route path="favorites" element={<FavoritesPage />} />
+                            <Route path="profile" element={<ProfilePage />} />
+                            <Route path="settings" element={<Navigate to="profile" replace />} />
                         </Route>
 
                         {/* 404 */}

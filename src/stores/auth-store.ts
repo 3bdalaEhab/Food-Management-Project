@@ -18,6 +18,9 @@ export interface User {
     userName: string;
     email: string;
     role: "SuperAdmin" | "SystemUser";
+    country?: string;
+    phoneNumber?: string;
+    imagePath?: string | null;
 }
 
 // Auth state type

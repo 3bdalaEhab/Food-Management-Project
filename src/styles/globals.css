@@ -415,7 +415,7 @@
   }
 
   .premium-input {
-    @apply w-full bg-white/50 border border-neutral-200 rounded-2xl px-5 py-4 text-neutral-900 font-semibold placeholder:text-neutral-400 focus:bg-white focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 outline-none;
+    @apply w-full bg-white border border-neutral-200 shadow-sm rounded-2xl px-5 py-4 text-neutral-900 font-semibold placeholder:text-neutral-400 hover:border-neutral-300 focus:bg-white focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 outline-none;
   }
 
   .premium-button {
@@ -446,7 +446,6 @@
 
 .badge-error {
   @apply bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300;
-}
 }
 
 /* ================================
