@@ -41,26 +41,47 @@ export function DashboardBackground() {
     ], []);
 
     return (
-        <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 bg-[#f8fafc] dark:bg-[#050505]">
-            {/* Soft Ambient Mesh */}
-            <motion.div
-                animate={{
-                    scale: [1, 1.2, 1],
-                    x: ['-10%', '10%', '-10%'],
-                    y: ['-10%', '10%', '-10%'],
-                }}
-                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_30%,rgba(255,107,38,0.03)_0%,transparent_50%)] blur-[100px]"
-            />
+        <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 bg-[#f8fafc] dark:bg-[#020202]">
+            {/* World-Class Chromatic Mesh Engine */}
+            <div className="absolute inset-0 z-0">
+                <motion.div
+                    animate={{
+                        scale: [1, 1.3, 1],
+                        rotate: [0, 45, 0],
+                        x: ['-5%', '5%', '-5%'],
+                    }}
+                    transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -top-[10%] -left-[10%] w-[80%] h-[80%] bg-[radial-gradient(circle_at_center,oklch(0.65_0.3_45/0.08)_0%,transparent_70%)] blur-[140px]"
+                />
+                <motion.div
+                    animate={{
+                        scale: [1.3, 1, 1.3],
+                        rotate: [45, 0, 45],
+                        y: ['-5%', '5%', '-5%'],
+                    }}
+                    transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -bottom-[10%] -right-[10%] w-[70%] h-[70%] bg-[radial-gradient(circle_at_center,oklch(0.6_0.2_145/0.06)_0%,transparent_70%)] blur-[120px]"
+                />
+                <motion.div
+                    animate={{
+                        scale: [1, 1.4, 1],
+                        opacity: [0.3, 0.5, 0.3],
+                    }}
+                    transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[60%] bg-[radial-gradient(circle_at_center,oklch(0.6_0.15_250/0.04)_0%,transparent_70%)] blur-[160px]"
+                />
+            </div>
 
-            <div className="absolute inset-0 z-10 opacity-40">
+            <div className="absolute inset-0 z-10 opacity-20">
                 {assets.map((asset, i) => (
                     <FloatingAsset key={i} {...asset} />
                 ))}
             </div>
 
-            {/* Subtle Grain */}
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay" />
+            {/* Industrial Texture Layers */}
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.04] mix-blend-overlay z-20" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 dark:via-transparent to-white dark:to-[#020202] opacity-90 z-20" />
+            <div className="absolute inset-0 shadow-[inset_0_0_200px_rgba(0,0,0,0.05)] dark:shadow-[inset_0_0_200px_rgba(0,0,0,0.5)] z-20" />
         </div>
     );
 }

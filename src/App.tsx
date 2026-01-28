@@ -57,30 +57,54 @@ function PageLoader() {
 
 
 function FavoritesPage() {
+    const { t } = useTranslation();
     return (
-        <div className="text-center py-20">
-            <h1 className="text-3xl font-bold mb-4">Favorites</h1>
-            <p className="text-neutral-500">Coming soon...</p>
-        </div>
+        <PageWrapper>
+            <div className="min-h-[60vh] flex flex-col items-center justify-center text-center space-y-8">
+                <div className="w-24 h-24 rounded-[2rem] bg-neutral-900 flex items-center justify-center shadow-2xl relative overflow-hidden group">
+                    <div className="absolute inset-0 bg-primary-500 opacity-20 animate-pulse" />
+                    <Heart className="w-10 h-10 text-primary-500 relative z-10" />
+                </div>
+                <div className="space-y-2">
+                    <h1 className="text-4xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter italic">
+                        {t('sidebar.favorites')} <span className="text-primary-500">Vault</span>
+                    </h1>
+                    <p className="text-neutral-500 font-bold uppercase tracking-widest text-xs max-w-sm mx-auto">
+                        This high-performance collection module is currently under synchronization. Stay tuned for elite curation.
+                    </p>
+                </div>
+            </div>
+        </PageWrapper>
     );
 }
 
 function NotFoundPage() {
     return (
-        <div className="min-h-screen flex items-center justify-center bg-neutral-50 dark:bg-neutral-950">
-            <div className="text-center">
-                <h1 className="text-9xl font-bold text-primary-500">404</h1>
-                <p className="text-2xl font-medium text-neutral-700 dark:text-neutral-300 mb-4">
-                    Page Not Found
-                </p>
-                <p className="text-neutral-500 mb-8">
-                    The page you're looking for doesn't exist.
-                </p>
+        <div className="min-h-screen flex items-center justify-center bg-neutral-50 dark:bg-[#050505] p-8 overflow-hidden relative">
+            <DashboardBackground />
+            <div className="relative z-10 text-center space-y-12 max-w-2xl">
+                <div className="relative">
+                    <h1 className="text-[15rem] font-black text-neutral-900 dark:text-white leading-none tracking-tighter opacity-10 italic">404</h1>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-40 h-40 rounded-[3rem] bg-primary-500 flex items-center justify-center shadow-[0_0_100px_rgba(249,115,22,0.4)] rotate-12">
+                            <Zap size={80} className="text-white -rotate-12" />
+                        </div>
+                    </div>
+                </div>
+                <div className="space-y-4">
+                    <h2 className="text-4xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter px-8">
+                        Protocol <span className="text-primary-500">Deviation</span> Detected
+                    </h2>
+                    <p className="text-neutral-500 font-bold uppercase tracking-[0.2em] text-xs">
+                        The requested node does not exist in the current culinary neural network.
+                    </p>
+                </div>
                 <a
                     href="/dashboard"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-primary-500 text-white rounded-xl font-medium hover:bg-primary-600 transition-colors"
+                    className="premium-button premium-button-primary px-12 h-16 inline-flex items-center justify-center group"
                 >
-                    Go to Dashboard
+                    <span className="font-black uppercase tracking-widest text-sm">Return to Core</span>
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
             </div>
         </div>

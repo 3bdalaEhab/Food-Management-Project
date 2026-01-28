@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Plus,
@@ -23,6 +23,14 @@ export function RecipesPage() {
     const [search, setSearch] = useState("");
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
     const [isCreateOpen, setIsCreateOpen] = useState(false);
+
+    const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value);
+    }, []);
+
+    const toggleViewMode = useCallback((mode: "grid" | "list") => {
+        setViewMode(mode);
+    }, []);
 
     const { data: recipesData, isLoading } = useRecipes({
         name: search,
@@ -115,8 +123,9 @@ export function RecipesPage() {
                         type="text"
                         placeholder="SEARCH ARCHIVES..."
                         value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        onChange={handleSearchChange}
                         className="premium-input pl-16 h-18 bg-white/40 dark:bg-white/5 border-white/20 dark:border-white/5 backdrop-blur-3xl font-black uppercase tracking-widest text-sm"
+                        aria-label="Search recipes"
                     />
                 </div>
 
@@ -126,9 +135,11 @@ export function RecipesPage() {
                         Refinement
                     </button>
 
-                    <div className="h-18 bg-neutral-950 p-2 rounded-[1.5rem] flex shadow-2xl">
+                    <div className="h-18 bg-neutral-950 p-2 rounded-[1.5rem] flex shadow-2xl" role="tablist" aria-label="View mode">
                         <button
-                            onClick={() => setViewMode("grid")}
+                            onClick={() => toggleViewMode("grid")}
+                            role="tab"
+                            aria-selected={viewMode === "grid"}
                             className={cn(
                                 "w-14 rounded-xl flex items-center justify-center transition-all",
                                 viewMode === 'grid' ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/30' : 'text-white/40 hover:text-white'
@@ -137,7 +148,9 @@ export function RecipesPage() {
                             <LayoutGrid size={20} />
                         </button>
                         <button
-                            onClick={() => setViewMode("list")}
+                            onClick={() => toggleViewMode("list")}
+                            role="tab"
+                            aria-selected={viewMode === "list"}
                             className={cn(
                                 "w-14 rounded-xl flex items-center justify-center transition-all",
                                 viewMode === 'list' ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/30' : 'text-white/40 hover:text-white'

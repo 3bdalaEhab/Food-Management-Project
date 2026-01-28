@@ -8,18 +8,19 @@
 @theme {
   /* ===== COLOR PALETTE ===== */
 
-  /* Primary - Fresh Green (Food/Nature themed) */
-  --color-primary-50: oklch(0.97 0.02 145);
-  --color-primary-100: oklch(0.94 0.04 145);
-  --color-primary-200: oklch(0.88 0.08 145);
-  --color-primary-300: oklch(0.78 0.12 145);
-  --color-primary-400: oklch(0.68 0.15 145);
-  --color-primary-500: oklch(0.58 0.17 145);
-  --color-primary-600: oklch(0.50 0.16 145);
-  --color-primary-700: oklch(0.42 0.14 145);
-  --color-primary-800: oklch(0.35 0.11 145);
-  --color-primary-900: oklch(0.28 0.08 145);
-  --color-primary-950: oklch(0.18 0.05 145);
+  /* Primary - Vibrant Culinary Orange (Flame/Energy) */
+  --color-primary-50: oklch(0.97 0.02 55);
+  --color-primary-100: oklch(0.94 0.04 55);
+  --color-primary-200: oklch(0.88 0.1 55);
+  --color-primary-300: oklch(0.8 0.18 55);
+  --color-primary-400: oklch(0.7 0.23 55);
+  --color-primary-500: oklch(0.6 0.28 45);
+  /* Electric Orange core */
+  --color-primary-600: oklch(0.52 0.25 40);
+  --color-primary-700: oklch(0.45 0.22 35);
+  --color-primary-800: oklch(0.35 0.18 30);
+  --color-primary-900: oklch(0.25 0.15 25);
+  --color-primary-950: oklch(0.15 0.1 20);
 
   /* Secondary - Warm Orange (Appetite stimulating) */
   --color-secondary-50: oklch(0.98 0.02 65);
@@ -33,7 +34,7 @@
   --color-secondary-800: oklch(0.40 0.12 40);
   --color-secondary-900: oklch(0.32 0.08 38);
 
-  /* Neutral - Slate (Modern & Clean) */
+  /* Neutral - Midnight Slate (Industrial & Deep) */
   --color-neutral-50: oklch(0.98 0.005 250);
   --color-neutral-100: oklch(0.96 0.007 250);
   --color-neutral-200: oklch(0.92 0.010 250);
@@ -41,10 +42,13 @@
   --color-neutral-400: oklch(0.70 0.020 250);
   --color-neutral-500: oklch(0.55 0.025 250);
   --color-neutral-600: oklch(0.45 0.025 250);
-  --color-neutral-700: oklch(0.35 0.020 250);
-  --color-neutral-800: oklch(0.25 0.015 250);
-  --color-neutral-900: oklch(0.15 0.010 250);
-  --color-neutral-950: oklch(0.10 0.008 250);
+  --color-neutral-700: oklch(0.32 0.025 260);
+  /* Deeper Slate */
+  --color-neutral-800: oklch(0.22 0.020 260);
+  --color-neutral-900: oklch(0.12 0.015 260);
+  /* Midnight Charcoal */
+  --color-neutral-950: oklch(0.06 0.01 260);
+  /* True Midnight */
 
   /* Semantic Colors */
   --color-success: oklch(0.65 0.18 145);
@@ -52,10 +56,12 @@
   --color-error: oklch(0.55 0.22 25);
   --color-info: oklch(0.60 0.15 240);
 
-  /* Surface Colors */
-  --color-surface: oklch(0.99 0.002 250);
-  --color-surface-elevated: oklch(1.00 0.000 0);
-  --color-surface-overlay: oklch(0.97 0.005 250);
+  /* Surfaces - Industrial Gradients */
+  --color-surface-glow: oklch(0.6 0.28 45 / 0.15);
+  --color-dark-surface: oklch(0.08 0.01 260);
+  /* Midnight Pro Background */
+  --color-dark-elevated: oklch(0.12 0.015 260);
+  --color-dark-overlay: oklch(0.15 0.012 260);
 
   /* Dark Mode Surfaces */
   --color-dark-surface: oklch(0.13 0.015 260);

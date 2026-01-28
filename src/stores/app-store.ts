@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import i18n from "i18next";
 
 type Theme = "light" | "dark" | "system";
 type Language = "en" | "ar";
@@ -44,6 +45,7 @@ function applyLanguage(language: Language) {
     const root = window.document.documentElement;
     root.dir = language === "ar" ? "rtl" : "ltr";
     root.lang = language;
+    i18n.changeLanguage(language);
 }
 
 export const useAppStore = create<AppState>()(

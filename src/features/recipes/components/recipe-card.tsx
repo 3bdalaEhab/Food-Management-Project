@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion } from "framer-motion";
 import { Utensils, Clock, Edit2, Trash2, Heart, Sparkles, Zap, TrendingUp } from "lucide-react";
 import type { Recipe } from "../types";
@@ -10,13 +11,13 @@ interface RecipeCardProps {
     isFavorite?: boolean;
 }
 
-export function RecipeCard({
+export const RecipeCard = memo(({
     recipe,
     onEdit,
     onDelete,
     onToggleFavorite,
     isFavorite
-}: RecipeCardProps) {
+}: RecipeCardProps) => {
     const imageUrl = recipe.imagePath
         ? `https://upskilling-egypt.com:3006/${recipe.imagePath}`
         : "/placeholder-recipe.jpg";
@@ -29,6 +30,8 @@ export function RecipeCard({
             whileHover={{ y: -10 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="group relative h-full"
+            role="article"
+            aria-label={`Recipe: ${recipe.name}`}
         >
             {/* Elite Glow Effect */}
             <div className="absolute inset-0 bg-primary-500/0 group-hover:bg-primary-500/5 blur-3xl transition-all rounded-[3.5rem]" />
@@ -57,6 +60,7 @@ export function RecipeCard({
                     <div className="absolute top-6 right-6 flex flex-col gap-3 translate-x-12 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 delay-100">
                         <button
                             onClick={() => onToggleFavorite?.(recipe.id)}
+                            aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
                             className={`w-12 h-12 rounded-2xl flex items-center justify-center backdrop-blur-2xl border border-white/20 transition-all hover:scale-110 active:scale-95 ${isFavorite ? 'bg-red-500 text-white shadow-xl shadow-red-500/20' : 'bg-white/10 text-white hover:bg-primary-500'
                                 }`}
                         >
@@ -64,6 +68,7 @@ export function RecipeCard({
                         </button>
                         <button
                             onClick={() => onEdit?.(recipe)}
+                            aria-label="Edit recipe"
                             className="w-12 h-12 bg-white/10 hover:bg-neutral-900 border border-white/20 backdrop-blur-2xl rounded-2xl flex items-center justify-center text-white transition-all hover:scale-110 active:scale-95 group/btn"
                         >
                             <Edit2 className="w-5 h-5 group-hover/btn:text-primary-500" />
@@ -116,6 +121,7 @@ export function RecipeCard({
 
                         <button
                             onClick={() => onDelete?.(recipe.id)}
+                            aria-label="Delete recipe"
                             className="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-400 hover:bg-red-500 hover:text-white transition-all group/trash"
                         >
                             <Trash2 size={16} className="transition-transform group-hover/trash:scale-110" />
@@ -125,4 +131,6 @@ export function RecipeCard({
             </div>
         </motion.div>
     );
-}
+});
+
+RecipeCard.displayName = "RecipeCard";

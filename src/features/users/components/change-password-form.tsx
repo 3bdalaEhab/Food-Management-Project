@@ -14,6 +14,7 @@ import {
     ShieldAlert
 } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import * as z from "zod";
 
 import { toast } from "sonner";
@@ -41,6 +42,7 @@ interface ChangePasswordFormProps {
 }
 
 export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormProps) {
+    const { t } = useTranslation();
     const [isPending, setIsPending] = useState(false);
     const [showPasswords, setShowPasswords] = useState({ old: false, new: false, confirm: false });
 
@@ -57,10 +59,10 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
         setIsPending(true);
         try {
             await apiClient.put("/Users/ChangePassword", data);
-            toast.success("Security credentials updated successfully!");
+            toast.success(t('common.success'));
             onSuccess();
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to update password");
+            toast.error(error.response?.data?.message || t('common.error'));
         } finally {
             setIsPending(false);
         }
@@ -77,9 +79,9 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="w-full max-w-2xl mx-auto"
         >
-            <div className="glass-card rounded-[4rem] p-10 md:p-14 border border-white/20 dark:border-white/5 bg-white/40 dark:bg-black/40 backdrop-blur-3xl shadow-2xl overflow-hidden relative">
+            <div className="glass-card rounded-[4rem] p-10 md:p-14 border border-white/20 dark:border-white/5 shadow-2xl overflow-hidden relative bg-white/40 dark:bg-black/20 backdrop-blur-3xl">
                 {/* Security Polish */}
-                <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-primary-500/10 rounded-full blur-[100px]" />
+                <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-primary-500/10 rounded-full blur-[120px]" />
 
                 <div className="relative z-10">
                     <div className="flex items-center justify-between mb-12 border-b border-white/10 pb-8">
@@ -190,7 +192,7 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
                                 onClick={onCancel}
                                 className="h-18 px-10 rounded-[2rem] bg-neutral-900 text-white/50 font-black uppercase tracking-widest text-xs hover:text-white hover:bg-neutral-800 transition-all shadow-xl"
                             >
-                                ABORT
+                                {t('common.cancel')}
                             </button>
                             <button
                                 type="submit"
@@ -199,7 +201,7 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
                             >
                                 {isPending ? <Loader2 className="animate-spin" /> : (
                                     <div className="flex items-center gap-4">
-                                        <span className="font-black uppercase tracking-[0.2em]">Sync Security</span>
+                                        <span className="font-black uppercase tracking-[0.2em]">{t('common.submit')}</span>
                                         <ShieldCheck size={28} className="group-hover:scale-110 transition-transform" />
                                     </div>
                                 )}
