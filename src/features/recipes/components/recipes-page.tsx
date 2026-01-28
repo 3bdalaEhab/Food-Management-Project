@@ -124,13 +124,13 @@ export function RecipesPage() {
                         placeholder="SEARCH ARCHIVES..."
                         value={search}
                         onChange={handleSearchChange}
-                        className="premium-input pl-16 h-18 bg-white/40 dark:bg-white/5 border-white/20 dark:border-white/5 backdrop-blur-3xl font-black uppercase tracking-widest text-sm"
+                        className="premium-input pl-16 h-18 bg-white/40 dark:bg-white/5 border-[var(--border)] backdrop-blur-3xl font-black uppercase tracking-widest text-sm"
                         aria-label="Search recipes"
                     />
                 </div>
 
                 <div className="flex gap-4 w-full lg:w-auto">
-                    <button className="h-18 px-8 bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/5 backdrop-blur-3xl rounded-[1.5rem] flex items-center gap-3 font-black text-[11px] uppercase tracking-[0.2em] text-neutral-500 hover:border-primary-500 hover:text-primary-500 transition-all shadow-xl shadow-neutral-200/20">
+                    <button className="h-18 px-8 bg-white/40 dark:bg-white/5 border border-[var(--border)] backdrop-blur-3xl rounded-[1.5rem] flex items-center gap-3 font-black text-[11px] uppercase tracking-[0.2em] text-[var(--muted-foreground)] hover:border-primary-500 hover:text-primary-500 transition-all shadow-xl shadow-neutral-200/20">
                         <Filter size={18} />
                         Refinement
                     </button>
@@ -199,8 +199,8 @@ export function RecipesPage() {
                         <div className="absolute inset-0 bg-primary-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                         <ChefHat size={48} className="text-white relative z-10" />
                     </div>
-                    <h3 className="text-3xl font-black text-neutral-900 tracking-tighter mb-2">VAULT IS EMPTY</h3>
-                    <p className="text-neutral-400 font-bold mb-10 uppercase tracking-widest text-[11px]">System awaiting new culinary protocol initialization</p>
+                    <h3 className="text-3xl font-black text-[var(--foreground)] tracking-tighter mb-2">VAULT IS EMPTY</h3>
+                    <p className="text-[var(--muted-foreground)] font-bold mb-10 uppercase tracking-widest text-[11px]">System awaiting new culinary protocol initialization</p>
                     <button
                         onClick={() => setIsCreateOpen(true)}
                         className="premium-button premium-button-primary px-10 h-16 group"

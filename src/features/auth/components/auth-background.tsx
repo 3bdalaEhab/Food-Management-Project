@@ -47,7 +47,7 @@ export function AuthBackground() {
     ], []);
 
     return (
-        <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 bg-[#0a0a0a]">
+        <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 bg-[var(--background)]">
             {/* Liquid Mesh Gradients */}
             <motion.div
                 animate={{
@@ -79,7 +79,7 @@ export function AuthBackground() {
 
             {/* Cinematic Noise & Overlay */}
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] mix-blend-overlay" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0a]/50 to-[#0a0a0a]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--background)]/50 to-[var(--background)]" />
         </div>
     );
 }

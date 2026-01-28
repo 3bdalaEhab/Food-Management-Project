@@ -10,7 +10,6 @@ import {
     Phone,
     Globe,
     ChefHat,
-    Sparkles,
     ArrowLeft,
     ArrowRight,
     Image as ImageIcon,
@@ -103,7 +102,7 @@ export function RegisterPage() {
                 </div>
 
                 {/* Main Glass Card */}
-                <div className="glass-card rounded-[4rem] p-10 md:p-16 shadow-[0_64px_128px_-32px_rgba(0,0,0,0.8)] border border-white/10 backdrop-blur-[60px] bg-white/[0.03]">
+                <div className="glass-card rounded-[4rem] p-10 md:p-16 shadow-[0_64px_128px_-32px_rgba(0,0,0,0.8)] border border-[var(--border)] backdrop-blur-[60px] bg-white/[0.03]">
                     <div className="relative z-10 flex flex-col items-center">
                         {/* Header Evolution */}
                         <div className="flex flex-col items-center text-center space-y-6 mb-12">
@@ -169,7 +168,7 @@ export function RegisterPage() {
                                                 <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Identity Name</label>
                                                 <div className="group relative">
                                                     <User className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                                    <input {...register("userName")} placeholder="John_Doe" className="premium-input bg-white/[0.03] border-white/10 text-white placeholder:text-white/10 h-16 pl-14 group-focus-within:border-primary-500/50 group-focus-within:bg-white/[0.05]" />
+                                                    <input {...register("userName")} placeholder="John_Doe" className="premium-input bg-white/[0.03] border-[var(--border)] text-white placeholder:text-white/10 h-16 pl-14 group-focus-within:border-primary-500/50 group-focus-within:bg-white/[0.05]" />
                                                 </div>
                                                 {errors.userName && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase tracking-tighter">{errors.userName.message}</p>}
                                             </div>
@@ -178,7 +177,7 @@ export function RegisterPage() {
                                                 <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Universal Email</label>
                                                 <div className="group relative">
                                                     <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                                    <input {...register("email")} placeholder="master@kitchen.io" className="premium-input bg-white/[0.03] border-white/10 text-white placeholder:text-white/10 h-16 pl-14 group-focus-within:border-primary-500/50 group-focus-within:bg-white/[0.05]" />
+                                                    <input {...register("email")} placeholder="master@kitchen.io" className="premium-input bg-white/[0.03] border-[var(--border)] text-white placeholder:text-white/10 h-16 pl-14 group-focus-within:border-primary-500/50 group-focus-within:bg-white/[0.05]" />
                                                 </div>
                                                 {errors.email && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase tracking-tighter">{errors.email.message}</p>}
                                             </div>
@@ -209,7 +208,7 @@ export function RegisterPage() {
                                                 <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Geographical Domain</label>
                                                 <div className="group relative">
                                                     <Globe className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                                    <input {...register("country")} placeholder="Global Presence" className="premium-input bg-white/[0.03] border-white/10 text-white placeholder:text-white/10 h-16 pl-14" />
+                                                    <input {...register("country")} placeholder="Global Presence" className="premium-input bg-white/[0.03] border-[var(--border)] text-white placeholder:text-white/10 h-16 pl-14" />
                                                 </div>
                                                 {errors.country && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.country.message}</p>}
                                             </div>
@@ -218,7 +217,7 @@ export function RegisterPage() {
                                                 <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Comm Channel</label>
                                                 <div className="group relative">
                                                     <Phone className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                                    <input {...register("phoneNumber")} placeholder="Secure Line" className="premium-input bg-white/[0.03] border-white/10 text-white placeholder:text-white/10 h-16 pl-14" />
+                                                    <input {...register("phoneNumber")} placeholder="Secure Line" className="premium-input bg-white/[0.03] border-[var(--border)] text-white placeholder:text-white/10 h-16 pl-14" />
                                                 </div>
                                                 {errors.phoneNumber && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.phoneNumber.message}</p>}
                                             </div>
@@ -258,7 +257,7 @@ export function RegisterPage() {
                                                 <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Access Credentials</label>
                                                 <div className="group relative">
                                                     <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                                    <input {...register("password")} type="password" placeholder="••••••••" className="premium-input bg-white/[0.03] border-white/10 text-white h-16 pl-14" />
+                                                    <input {...register("password")} type="password" placeholder="••••••••" className="premium-input bg-white/[0.03] border-[var(--border)] text-white h-16 pl-14" />
                                                 </div>
                                                 {errors.password && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.password.message}</p>}
                                             </div>
@@ -267,7 +266,7 @@ export function RegisterPage() {
                                                 <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Key Verification</label>
                                                 <div className="group relative">
                                                     <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                                    <input {...register("confirmPassword")} type="password" placeholder="••••••••" className="premium-input bg-white/[0.03] border-white/10 text-white h-16 pl-14" />
+                                                    <input {...register("confirmPassword")} type="password" placeholder="••••••••" className="premium-input bg-white/[0.03] border-[var(--border)] text-white h-16 pl-14" />
                                                 </div>
                                                 {errors.confirmPassword && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.confirmPassword.message}</p>}
                                             </div>

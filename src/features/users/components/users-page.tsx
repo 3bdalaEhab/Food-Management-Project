@@ -9,7 +9,6 @@ import {
     ShieldCheck,
     UserX,
     Sparkles,
-    ChevronRight,
     ChefHat,
     Zap,
     Activity,
@@ -18,8 +17,6 @@ import {
 } from "lucide-react";
 
 import { useUsers, useDeleteUser } from "../hooks";
-import { Skeleton } from "@/components/ui";
-import { cn } from "@/lib/utils";
 
 export function UsersPage() {
     const [search, setSearch] = useState("");
@@ -98,7 +95,7 @@ export function UsersPage() {
                         placeholder="SCAN COLLABORATORS (NAME/ROLE)..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="premium-input pl-16 h-18 bg-white/40 dark:bg-white/5 border-white/20 dark:border-white/5 backdrop-blur-3xl font-black uppercase tracking-widest text-sm"
+                        className="premium-input pl-16 h-18 bg-white/40 dark:bg-white/5 border-[var(--border)] backdrop-blur-3xl font-black uppercase tracking-widest text-sm"
                     />
                 </div>
             </div>
@@ -107,7 +104,7 @@ export function UsersPage() {
             {isLoading ? (
                 <div className="space-y-6">
                     {[1, 2, 3, 4, 5].map((i) => (
-                        <div key={i} className="glass-card rounded-[3rem] p-8 flex items-center gap-8 animate-pulse bg-white/30 border-white/20">
+                        <div key={i} className="glass-card rounded-[3rem] p-8 flex items-center gap-8 animate-pulse bg-white/30 dark:bg-white/5 border border-[var(--border)]">
                             <div className="w-20 h-20 rounded-[2rem] bg-neutral-200" />
                             <div className="flex-1 space-y-4">
                                 <div className="h-8 w-1/4 bg-neutral-200 rounded-full" />
@@ -129,7 +126,7 @@ export function UsersPage() {
                                 key={user.id}
                                 variants={itemVariant}
                                 layout
-                                className="group relative glass-card rounded-[3rem] p-8 overflow-hidden border border-white/20 dark:border-white/5 bg-white/40 backdrop-blur-3xl shadow-2xl transition-all duration-500 flex flex-col lg:flex-row lg:items-center justify-between gap-8 hover:bg-white/60 hover:border-primary-500/30"
+                                className="group relative glass-card rounded-[3rem] p-8 overflow-hidden border border-[var(--border)] bg-white/40 dark:bg-black/20 backdrop-blur-3xl shadow-2xl transition-all duration-500 flex flex-col lg:flex-row lg:items-center justify-between gap-8 hover:bg-white/60 hover:border-primary-500/30"
                             >
                                 <div className="absolute inset-0 bg-primary-500/0 group-hover:bg-primary-500/5 blur-3xl transition-all" />
 
@@ -150,9 +147,9 @@ export function UsersPage() {
                                     <div className="space-y-2">
                                         <div className="flex items-center gap-2 opacity-40 group-hover:opacity-100 transition-opacity">
                                             <Zap size={10} className="text-primary-500 fill-primary-500" />
-                                            <span className="text-[9px] font-black uppercase tracking-[0.3em] text-neutral-500 dark:text-white">Authorized Agent</span>
+                                            <span className="text-[9px] font-black uppercase tracking-[0.3em] text-[var(--muted-foreground)]">Authorized Agent</span>
                                         </div>
-                                        <h3 className="text-3xl font-black text-neutral-900 dark:text-white tracking-tighter uppercase italic leading-none group-hover:text-primary-500 transition-colors">
+                                        <h3 className="text-3xl font-black text-[var(--foreground)] tracking-tighter uppercase italic leading-none group-hover:text-primary-500 transition-colors">
                                             {user.userName}
                                         </h3>
                                         <div className="flex flex-wrap items-center gap-6">
@@ -160,7 +157,7 @@ export function UsersPage() {
                                                 <Users size={12} className="text-primary-500" />
                                                 {user.group.name}
                                             </span>
-                                            <span className="flex items-center gap-2 text-[10px] font-black text-neutral-400 uppercase tracking-widest border-l border-white/20 pl-6 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">
+                                            <span className="flex items-center gap-2 text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-widest border-l border-[var(--border)] pl-6 group-hover:text-[var(--foreground)] transition-colors">
                                                 <Mail size={12} className="text-primary-500" />
                                                 {user.email}
                                             </span>
@@ -169,17 +166,17 @@ export function UsersPage() {
                                 </div>
 
                                 <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:flex items-center gap-8 lg:gap-14">
-                                    <div className="space-y-2 lg:border-l lg:border-white/20 lg:pl-10">
-                                        <p className="text-[9px] font-black text-neutral-400 uppercase tracking-[0.2em]">Deployment Region</p>
-                                        <div className="flex items-center gap-3 text-neutral-900 dark:text-white font-black text-xs uppercase italic tracking-wider">
+                                    <div className="space-y-2 lg:border-l lg:border-[var(--border)] lg:pl-10">
+                                        <p className="text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em]">Deployment Region</p>
+                                        <div className="flex items-center gap-3 text-[var(--foreground)] font-black text-xs uppercase italic tracking-wider">
                                             <Globe size={16} className="text-primary-500" />
                                             {user.country}
                                         </div>
                                     </div>
 
-                                    <div className="space-y-2 lg:border-l lg:border-white/20 lg:pl-10">
-                                        <p className="text-[9px] font-black text-neutral-400 uppercase tracking-[0.2em]">Comm Channel</p>
-                                        <div className="flex items-center gap-3 text-neutral-900 dark:text-white font-black text-xs uppercase italic tracking-wider">
+                                    <div className="space-y-2 lg:border-l lg:border-[var(--border)] lg:pl-10">
+                                        <p className="text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em]">Comm Channel</p>
+                                        <div className="flex items-center gap-3 text-[var(--foreground)] font-black text-xs uppercase italic tracking-wider">
                                             <Phone size={16} className="text-primary-500" />
                                             {user.phoneNumber}
                                         </div>
@@ -207,8 +204,8 @@ export function UsersPage() {
                         <div className="absolute inset-0 bg-primary-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                         <ShieldAlert size={48} className="text-white relative z-10" />
                     </div>
-                    <h3 className="text-4xl font-black text-neutral-900 tracking-tighter mb-2">FLEET IS DISCONNECTED</h3>
-                    <p className="text-neutral-400 font-bold mb-10 uppercase tracking-widest text-[11px]">System awaiting collaborator synchronization</p>
+                    <h3 className="text-4xl font-black text-[var(--foreground)] tracking-tighter mb-2">FLEET IS DISCONNECTED</h3>
+                    <p className="text-[var(--muted-foreground)] font-bold mb-10 uppercase tracking-widest text-[11px]">System awaiting collaborator synchronization</p>
                     <button className="premium-button premium-button-primary h-16 px-10 group">
                         <span>Initialize Sync</span>
                         <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />

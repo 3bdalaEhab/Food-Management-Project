@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
     Mail,
     Lock,
@@ -50,7 +50,7 @@ export function LoginPage() {
                     </div>
                 </div>
 
-                <div className="glass-card rounded-[4rem] p-10 md:p-16 shadow-[0_64px_128px_-32px_rgba(0,0,0,0.8)] border border-white/10 backdrop-blur-[60px] bg-white/[0.03]">
+                <div className="glass-card rounded-[4rem] p-10 md:p-16 shadow-[0_64px_128px_-32px_rgba(0,0,0,0.8)] border border-[var(--border)] backdrop-blur-[60px] bg-white/[0.03]">
                     <div className="flex flex-col items-center">
                         {/* Header Evolution */}
                         <div className="flex flex-col items-center text-center space-y-6 mb-12">
@@ -84,7 +84,7 @@ export function LoginPage() {
                                             {...register("email")}
                                             type="email"
                                             placeholder="agent@culinary.io"
-                                            className="premium-input bg-white/[0.03] border-white/10 text-white placeholder:text-white/10 h-16 pl-14 group-focus-within:border-primary-500/50 group-focus-within:bg-white/[0.05]"
+                                            className="premium-input bg-white/[0.03] border-[var(--border)] text-white placeholder:text-white/10 h-16 pl-14 group-focus-within:border-primary-500/50 group-focus-within:bg-white/[0.05]"
                                         />
                                     </div>
                                     {errors.email && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase tracking-tighter">{errors.email.message}</p>}
@@ -93,7 +93,7 @@ export function LoginPage() {
                                 <div className="space-y-2">
                                     <div className="flex items-center justify-between px-1">
                                         <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em]">Security Key</label>
-                                        <Link to="/forgot-password" size="sm" className="text-[11px] font-black uppercase text-primary-500 hover:text-primary-400 transition-colors tracking-widest">
+                                        <Link to="/forgot-password" className="text-[11px] font-black uppercase text-primary-500 hover:text-primary-400 transition-colors tracking-widest">
                                             Restore?
                                         </Link>
                                     </div>
@@ -103,7 +103,7 @@ export function LoginPage() {
                                             {...register("password")}
                                             type="password"
                                             placeholder="••••••••"
-                                            className="premium-input bg-white/[0.03] border-white/10 text-white placeholder:text-white/10 h-16 pl-14 group-focus-within:border-primary-500/50 group-focus-within:bg-white/[0.05]"
+                                            className="premium-input bg-white/[0.03] border-[var(--border)] text-white placeholder:text-white/10 h-16 pl-14 group-focus-within:border-primary-500/50 group-focus-within:bg-white/[0.05]"
                                         />
                                     </div>
                                     {errors.password && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase tracking-tighter">{errors.password.message}</p>}

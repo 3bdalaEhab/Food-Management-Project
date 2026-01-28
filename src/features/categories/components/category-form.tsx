@@ -7,13 +7,11 @@ import {
     CheckCircle2,
     X,
     Sparkles,
-    Zap,
-    Activity
+    Zap
 } from "lucide-react";
 import * as z from "zod";
 
 import type { CreateCategoryData } from "../types";
-import { cn } from "@/lib/utils";
 
 const categorySchema = z.object({
     name: z.string().min(3, "Name must be at least 3 characters"),
@@ -59,24 +57,24 @@ export function CategoryForm({
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="w-full max-w-2xl mx-auto"
         >
-            <div className="glass-card rounded-[4rem] p-10 md:p-14 border border-white/20 dark:border-white/5 shadow-2xl overflow-hidden relative bg-white/40 dark:bg-black/20 backdrop-blur-3xl">
+            <div className="glass-card rounded-[4rem] p-10 md:p-14 border border-[var(--border)] shadow-2xl overflow-hidden relative bg-white/40 dark:bg-black/20 backdrop-blur-3xl">
                 {/* Tactical Polish */}
                 <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] bg-primary-500/10 rounded-full blur-[100px]" />
 
                 <div className="relative z-10">
-                    <div className="flex items-center justify-between mb-12 border-b border-white/10 pb-8">
+                    <div className="flex items-center justify-between mb-12 border-b border-[var(--border)] pb-8">
                         <div className="space-y-3">
                             <div className="flex items-center gap-3">
-                                <div className="px-3 py-1 rounded-full bg-neutral-900 border border-white/10 flex items-center gap-2">
+                                <div className="px-3 py-1 rounded-full bg-neutral-900 border border-[var(--border)] flex items-center gap-2">
                                     <Sparkles size={10} className="text-primary-500" />
                                     <span className="text-[9px] font-black uppercase tracking-widest text-white">Elite Node</span>
                                 </div>
                                 <div className="px-3 py-1 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
-                                    <Activity size={10} className="text-primary-500" />
+                                    <Zap size={10} className="text-primary-500" />
                                     <span className="text-[9px] font-black uppercase tracking-widest text-primary-400">Tactical Hub</span>
                                 </div>
                             </div>
-                            <h2 className="text-4xl font-black text-neutral-900 dark:text-white tracking-tighter uppercase leading-none italic">{title}</h2>
+                            <h2 className="text-4xl font-black text-[var(--foreground)] tracking-tighter uppercase leading-none italic">{title}</h2>
                         </div>
                         <button
                             onClick={onCancel}
@@ -96,7 +94,7 @@ export function CategoryForm({
                                 <Tag className="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:text-primary-500 transition-colors" size={20} />
                                 <input
                                     {...register("name")}
-                                    className="premium-input bg-white/50 dark:bg-white/5 border-white/10 h-20 pl-16 font-black uppercase tracking-tight text-xl"
+                                    className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] h-20 pl-16 font-black uppercase tracking-tight text-xl"
                                     placeholder="INITIATING_CORE_NAME"
                                 />
                             </div>

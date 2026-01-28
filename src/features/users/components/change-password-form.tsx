@@ -19,7 +19,6 @@ import * as z from "zod";
 
 import { toast } from "sonner";
 import apiClient from "@/lib/api-client";
-import { cn } from "@/lib/utils";
 
 const changePasswordSchema = z.object({
     oldPassword: z.string().min(1, "Current password is required"),
@@ -79,15 +78,15 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="w-full max-w-2xl mx-auto"
         >
-            <div className="glass-card rounded-[4rem] p-10 md:p-14 border border-white/20 dark:border-white/5 shadow-2xl overflow-hidden relative bg-white/40 dark:bg-black/20 backdrop-blur-3xl">
+            <div className="glass-card rounded-[4rem] p-10 md:p-14 border border-[var(--border)] shadow-2xl overflow-hidden relative bg-white/40 dark:bg-black/20 backdrop-blur-3xl">
                 {/* Security Polish */}
                 <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-primary-500/10 rounded-full blur-[120px]" />
 
                 <div className="relative z-10">
-                    <div className="flex items-center justify-between mb-12 border-b border-white/10 pb-8">
+                    <div className="flex items-center justify-between mb-12 border-b border-[var(--border)] pb-8">
                         <div className="space-y-3">
                             <div className="flex items-center gap-3">
-                                <div className="px-3 py-1 rounded-full bg-neutral-900 border border-white/10 flex items-center gap-2 text-white">
+                                <div className="px-3 py-1 rounded-full bg-neutral-900 border border-[var(--border)] flex items-center gap-2 text-white">
                                     <ShieldCheck size={10} className="text-primary-500" />
                                     <span className="text-[9px] font-black uppercase tracking-widest">Security Core</span>
                                 </div>
@@ -96,7 +95,7 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
                                     <span className="text-[9px] font-black uppercase tracking-widest">Refining Protocol</span>
                                 </div>
                             </div>
-                            <h2 className="text-4xl font-black text-neutral-900 dark:text-white tracking-tighter uppercase italic leading-none">Security <span className="text-primary-500">Sync</span></h2>
+                            <h2 className="text-4xl font-black text-[var(--foreground)] tracking-tighter uppercase italic leading-none">Security <span className="text-primary-500">Sync</span></h2>
                         </div>
                         <button
                             onClick={onCancel}
@@ -118,7 +117,7 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
                                 <input
                                     {...register("oldPassword")}
                                     type={showPasswords.old ? "text" : "password"}
-                                    className="premium-input bg-white/50 dark:bg-white/5 border-white/10 h-20 pl-16 pr-16 font-black uppercase tracking-widest text-lg"
+                                    className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] h-20 pl-16 pr-16 font-black uppercase tracking-widest text-lg"
                                     placeholder="••••••••••••"
                                 />
                                 <button
@@ -143,7 +142,7 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
                                     <input
                                         {...register("newPassword")}
                                         type={showPasswords.new ? "text" : "password"}
-                                        className="premium-input bg-white/50 dark:bg-white/5 border-white/10 h-20 pl-16 pr-16 font-black uppercase tracking-widest text-lg"
+                                        className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] h-20 pl-16 pr-16 font-black uppercase tracking-widest text-lg"
                                         placeholder="NEW_KEY"
                                     />
                                     <button
@@ -169,7 +168,7 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
                                     <input
                                         {...register("confirmNewPassword")}
                                         type={showPasswords.confirm ? "text" : "password"}
-                                        className="premium-input bg-white/50 dark:bg-white/5 border-white/10 h-20 pl-16 pr-16 font-black uppercase tracking-widest text-lg"
+                                        className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] h-20 pl-16 pr-16 font-black uppercase tracking-widest text-lg"
                                         placeholder="CONFIRM_KEY"
                                     />
                                     <button

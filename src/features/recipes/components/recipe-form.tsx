@@ -23,7 +23,7 @@ const recipeSchema = z.object({
     name: z.string().min(3, "Name must be at least 3 characters"),
     description: z.string().min(10, "Description must be at least 10 characters"),
     price: z.string().min(1, "Price is required"),
-    tagId: z.coerce.number().min(1, "Tag is required"),
+    tagId: z.number().min(1, "Tag is required"),
     categoriesIds: z.array(z.number()).min(1, "At least one category is required"),
     recipeImage: z.any().optional(),
 });
@@ -61,7 +61,7 @@ export function RecipeForm({
             name: initialData?.name || "",
             description: initialData?.description || "",
             price: initialData?.price || "",
-            tagId: initialData?.tagId,
+            tagId: initialData?.tagId ? Number(initialData.tagId) : undefined,
             categoriesIds: initialData?.categoriesIds || [],
         },
     });
@@ -89,17 +89,17 @@ export function RecipeForm({
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="w-full max-w-5xl mx-auto"
         >
-            <div className="glass-card rounded-[4rem] p-10 md:p-16 border border-white/20 dark:border-white/5 shadow-2xl overflow-hidden relative bg-white/40 dark:bg-black/20 backdrop-blur-3xl">
+            <div className="glass-card rounded-[4rem] p-10 md:p-16 border border-[var(--border)] shadow-2xl overflow-hidden relative bg-white/40 dark:bg-black/20 backdrop-blur-3xl">
                 {/* Background Tactical Polish */}
                 <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] bg-primary-500/10 rounded-full blur-[120px]" />
                 <div className="absolute bottom-[-10%] left-[-5%] w-[30%] h-[30%] bg-neutral-900/10 rounded-full blur-[100px]" />
 
                 <div className="relative z-10">
                     {/* Header Protocol */}
-                    <div className="flex items-center justify-between mb-16 border-b border-white/10 pb-10">
+                    <div className="flex items-center justify-between mb-16 border-b border-[var(--border)] pb-10">
                         <div className="space-y-4">
                             <div className="flex items-center gap-3">
-                                <div className="px-4 py-1.5 rounded-full bg-neutral-900 border border-white/10 flex items-center gap-2">
+                                <div className="px-4 py-1.5 rounded-full bg-neutral-900 border border-[var(--border)] flex items-center gap-2">
                                     <Sparkles size={12} className="text-primary-500" />
                                     <span className="text-[10px] font-black uppercase tracking-widest text-white/60 text-white">Elite Protocol</span>
                                 </div>
@@ -126,7 +126,7 @@ export function RecipeForm({
                                 Asset Port
                             </label>
 
-                            <div className="relative aspect-[4/5] rounded-[3.5rem] overflow-hidden bg-neutral-900 border-2 border-dashed border-white/10 hover:border-primary-500 transition-all duration-700 group cursor-pointer shadow-2xl">
+                            <div className="relative aspect-[4/5] rounded-[3.5rem] overflow-hidden bg-neutral-900 border-2 border-dashed border-[var(--border)] hover:border-primary-500 transition-all duration-700 group cursor-pointer shadow-2xl">
                                 {previewImage ? (
                                     <>
                                         <img src={previewImage} alt="Preview" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
@@ -149,7 +149,7 @@ export function RecipeForm({
                                         <div className="w-24 h-24 rounded-[3rem] bg-white shadow-2xl flex items-center justify-center text-primary-500 mb-6 group-hover:scale-110 transition-transform duration-700">
                                             <Upload size={40} />
                                         </div>
-                                        <span className="text-white/40 font-black uppercase tracking-[0.2em] text-xs">Transmit Content</span>
+                                        <span className="text-[var(--muted-foreground)] font-black uppercase tracking-[0.2em] text-xs">Transmit Content</span>
                                         <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} />
                                     </label>
                                 )}
@@ -164,7 +164,7 @@ export function RecipeForm({
                                     <label className="text-[11px] font-black text-neutral-500 uppercase tracking-[0.3em] ml-2">Identity Hub</label>
                                     <div className="group relative">
                                         <Utensils className="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                        <input {...register("name")} className="premium-input bg-white/50 dark:bg-white/5 border-white/10 h-16 pl-16 font-bold uppercase tracking-tight" placeholder="Ex: PROTOCOL_SALMON" />
+                                        <input {...register("name")} className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] h-16 pl-16 font-bold uppercase tracking-tight" placeholder="Ex: PROTOCOL_SALMON" />
                                     </div>
                                     {errors.name && <p className="text-[10px] text-primary-500 font-black ml-2 uppercase tracking-tighter">{errors.name.message}</p>}
                                 </div>
@@ -174,7 +174,7 @@ export function RecipeForm({
                                     <label className="text-[11px] font-black text-neutral-500 uppercase tracking-[0.3em] ml-2">Value Exchange</label>
                                     <div className="group relative">
                                         <DollarSign className="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                        <input {...register("price")} className="premium-input bg-white/50 dark:bg-white/5 border-white/10 h-16 pl-16 font-black italic text-xl" placeholder="0.00" />
+                                        <input {...register("price")} className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] h-16 pl-16 font-black italic text-xl" placeholder="0.00" />
                                     </div>
                                     {errors.price && <p className="text-[10px] text-primary-500 font-black ml-2 uppercase tracking-tighter">{errors.price.message}</p>}
                                 </div>
@@ -185,8 +185,8 @@ export function RecipeForm({
                                     <div className="group relative">
                                         <Zap className="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:text-primary-500 transition-colors pointer-events-none" size={20} />
                                         <select
-                                            {...register("tagId")}
-                                            className="premium-input bg-white/50 dark:bg-white/5 border-white/10 h-16 pl-16 font-black uppercase text-xs tracking-widest appearance-none"
+                                            {...register("tagId", { valueAsNumber: true })}
+                                            className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] h-16 pl-16 font-black uppercase text-xs tracking-widest appearance-none"
                                         >
                                             <option value="">Select Class</option>
                                             {tags?.map(t => <option key={t.id} value={t.id} className="bg-neutral-900 text-white">{t.name}</option>)}
@@ -202,7 +202,7 @@ export function RecipeForm({
                                         <ChefHat className="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:text-primary-500 transition-colors pointer-events-none" size={20} />
                                         <select
                                             multiple
-                                            className="premium-input bg-white/50 dark:bg-white/5 border-white/10 h-32 pl-16 font-black uppercase text-xs tracking-widest pt-5"
+                                            className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] h-32 pl-16 font-black uppercase text-xs tracking-widest pt-5"
                                             onChange={(e) => {
                                                 const options = Array.from(e.target.selectedOptions, option => Number(option.value));
                                                 setValue("categoriesIds", options);
@@ -220,7 +220,7 @@ export function RecipeForm({
                                 <label className="text-[11px] font-black text-neutral-500 uppercase tracking-[0.3em] ml-2">Data Stream (Description)</label>
                                 <textarea
                                     {...register("description")}
-                                    className="premium-input bg-white/50 dark:bg-white/5 border-white/10 min-h-[160px] py-6 px-6 font-bold leading-relaxed text-sm"
+                                    className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] min-h-[160px] py-6 px-6 font-bold leading-relaxed text-sm"
                                     placeholder="INITIATING NARRATIVE STREAM..."
                                 />
                                 {errors.description && <p className="text-[10px] text-primary-500 font-black ml-2 uppercase">{errors.description.message}</p>}

@@ -48,7 +48,7 @@ export function ResetPasswordPage() {
                     </div>
                 </div>
 
-                <div className="glass-card rounded-[4rem] p-10 md:p-16 shadow-[0_64px_128px_-32px_rgba(0,0,0,0.8)] border border-white/10 backdrop-blur-[60px] bg-white/[0.03]">
+                <div className="glass-card rounded-[4rem] p-10 md:p-16 shadow-[0_64px_128px_-32px_rgba(0,0,0,0.8)] border border-[var(--border)] backdrop-blur-[60px] bg-white/[0.03]">
                     <div className="flex flex-col items-center">
                         {/* Status Icon */}
                         <motion.div
@@ -75,7 +75,7 @@ export function ResetPasswordPage() {
                                     <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Universal Identity</label>
                                     <div className="group relative">
                                         <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                        <input {...register("email")} placeholder="you@example.com" className="premium-input bg-white/[0.03] border-white/10 text-white h-16 pl-14" />
+                                        <input {...register("email")} placeholder="you@example.com" className="premium-input bg-white/[0.03] border-[var(--border)] text-white h-16 pl-14" />
                                     </div>
                                     {errors.email && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.email.message}</p>}
                                 </div>
@@ -84,7 +84,7 @@ export function ResetPasswordPage() {
                                     <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Verification Code</label>
                                     <div className="group relative">
                                         <Hash className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                        <input {...register("seed")} placeholder="Enter Code" className="premium-input bg-white/[0.03] border-white/10 text-white h-16 pl-14 font-black tracking-widest" />
+                                        <input {...register("seed")} placeholder="Enter Code" className="premium-input bg-white/[0.03] border-[var(--border)] text-white h-16 pl-14 font-black tracking-widest" />
                                     </div>
                                     {errors.seed && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.seed.message}</p>}
                                 </div>
@@ -93,7 +93,7 @@ export function ResetPasswordPage() {
                                     <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">New Secret</label>
                                     <div className="group relative">
                                         <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                        <input {...register("password")} type="password" placeholder="••••••••" className="premium-input bg-white/[0.03] border-white/10 text-white h-16 pl-14" />
+                                        <input {...register("password")} type="password" placeholder="••••••••" className="premium-input bg-white/[0.03] border-[var(--border)] text-white h-16 pl-14" />
                                     </div>
                                     {errors.password && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.password.message}</p>}
                                 </div>
@@ -102,7 +102,7 @@ export function ResetPasswordPage() {
                                     <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Confirm Secret</label>
                                     <div className="group relative">
                                         <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                        <input {...register("confirmPassword")} type="password" placeholder="••••••••" className="premium-input bg-white/[0.03] border-white/10 text-white h-16 pl-14" />
+                                        <input {...register("confirmPassword")} type="password" placeholder="••••••••" className="premium-input bg-white/[0.03] border-[var(--border)] text-white h-16 pl-14" />
                                     </div>
                                     {errors.confirmPassword && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.confirmPassword.message}</p>}
                                 </div>

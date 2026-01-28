@@ -1,13 +1,17 @@
 import { useEffect, lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useTranslation } from "react-i18next";
+import { Heart, Zap, ArrowRight } from "lucide-react";
 
 import { queryClient } from "@/lib/query-client";
 import { useAuthStore } from "@/stores";
 import { Toaster } from "@/components/ui";
 import { ProtectedRoute } from "@/components/auth";
 import { DashboardLayout } from "@/components/layout";
+import { PageWrapper } from "@/components/shared/page-wrapper";
+import { DashboardBackground } from "@/components/layout/dashboard-background";
 
 // Lazy load pages for code splitting
 const LoginPage = lazy(() =>
@@ -54,8 +58,6 @@ function PageLoader() {
     );
 }
 
-
-
 function FavoritesPage() {
     const { t } = useTranslation();
     return (
@@ -99,13 +101,13 @@ function NotFoundPage() {
                         The requested node does not exist in the current culinary neural network.
                     </p>
                 </div>
-                <a
-                    href="/dashboard"
+                <Link
+                    to="/dashboard"
                     className="premium-button premium-button-primary px-12 h-16 inline-flex items-center justify-center group"
                 >
                     <span className="font-black uppercase tracking-widest text-sm">Return to Core</span>
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </a>
+                </Link>
             </div>
         </div>
     );

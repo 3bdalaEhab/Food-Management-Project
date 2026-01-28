@@ -56,17 +56,17 @@
   --color-error: oklch(0.55 0.22 25);
   --color-info: oklch(0.60 0.15 240);
 
-  /* Surfaces - Industrial Gradients */
-  --color-surface-glow: oklch(0.6 0.28 45 / 0.15);
-  --color-dark-surface: oklch(0.08 0.01 260);
-  /* Midnight Pro Background */
-  --color-dark-elevated: oklch(0.12 0.015 260);
-  --color-dark-overlay: oklch(0.15 0.012 260);
+  /* Surfaces - Industrial Hub */
+  --color-surface: oklch(0.98 0.005 250);
+  --color-surface-elevated: oklch(1 0 0);
+  --color-surface-overlay: oklch(0.96 0.007 250);
+  --color-surface-glow: oklch(0.6 0.28 45 / 0.1);
 
-  /* Dark Mode Surfaces */
-  --color-dark-surface: oklch(0.13 0.015 260);
-  --color-dark-elevated: oklch(0.18 0.015 260);
-  --color-dark-overlay: oklch(0.22 0.012 260);
+  /* Midnight Pro System (Dark Mode) */
+  --color-dark-surface: oklch(0.06 0.01 260);
+  --color-dark-elevated: oklch(0.1 0.015 260);
+  --color-dark-overlay: oklch(0.14 0.012 260);
+  --color-dark-glow: oklch(0.6 0.28 45 / 0.15);
 
   /* ===== TYPOGRAPHY ===== */
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -146,29 +146,42 @@
 
 @layer base {
   :root {
+    /* THEME_ENGINE_ACTIVE */
     color-scheme: light;
-    --background: var(--color-surface);
-    --foreground: var(--color-neutral-900);
-    --muted: var(--color-neutral-100);
-    --muted-foreground: var(--color-neutral-500);
-    --border: var(--color-neutral-200);
-    --input: var(--color-neutral-200);
+    --background: oklch(0.99 0 0);
+    --foreground: oklch(0.15 0.01 260);
+    --muted: oklch(0.96 0.02 260);
+    --muted-foreground: oklch(0.45 0.02 260);
+    --border: oklch(0.92 0.01 260);
+    --input: oklch(0.92 0.01 260);
     --ring: var(--color-primary-500);
-    --card: var(--color-surface-elevated);
-    --card-foreground: var(--color-neutral-900);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.15 0.01 260);
+
+    /* Sidebar - Tactical Light */
+    --sidebar-background: oklch(1 0 0);
+    --sidebar-foreground: oklch(0.25 0.01 260);
+    --sidebar-border: oklch(0.92 0.01 260);
+    --sidebar-accent: oklch(0.96 0.02 260);
   }
 
   .dark {
     color-scheme: dark;
-    --background: var(--color-dark-surface);
-    --foreground: var(--color-neutral-50);
-    --muted: var(--color-dark-elevated);
-    --muted-foreground: var(--color-neutral-400);
-    --border: var(--color-neutral-800);
-    --input: var(--color-neutral-800);
-    --ring: var(--color-primary-400);
-    --card: var(--color-dark-elevated);
-    --card-foreground: var(--color-neutral-50);
+    --background: oklch(0.06 0.01 260);
+    --foreground: oklch(0.98 0 0);
+    --muted: oklch(0.14 0.012 260);
+    --muted-foreground: oklch(0.65 0.02 260);
+    --border: oklch(0.18 0.01 260);
+    --input: oklch(0.18 0.01 260);
+    --ring: var(--color-primary-500);
+    --card: oklch(0.1 0.015 260);
+    --card-foreground: oklch(0.98 0 0);
+
+    /* Sidebar - Tactical Midnight */
+    --sidebar-background: oklch(0.08 0.01 260);
+    --sidebar-foreground: oklch(0.98 0 0);
+    --sidebar-border: oklch(0.16 0.01 260);
+    --sidebar-accent: oklch(0.14 0.012 260);
   }
 
   * {
@@ -421,7 +434,7 @@
   }
 
   .premium-input {
-    @apply w-full bg-white border border-neutral-200 shadow-sm rounded-2xl px-5 py-4 text-neutral-900 font-semibold placeholder:text-neutral-400 hover:border-neutral-300 focus:bg-white focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 outline-none;
+    @apply w-full bg-[var(--background)] border border-[var(--border)] shadow-sm rounded-2xl px-5 py-4 text-[var(--foreground)] font-semibold placeholder:text-[var(--muted-foreground)] hover:border-primary-500/50 focus:bg-[var(--background)] focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 outline-none;
   }
 
   .premium-button {

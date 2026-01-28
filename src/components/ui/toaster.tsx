@@ -1,11 +1,14 @@
 import { Toaster as Sonner } from "sonner";
+import { useAppStore } from "@/stores";
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
 export function Toaster({ ...props }: ToasterProps) {
+    const theme = useAppStore((state) => state.theme);
+
     return (
         <Sonner
-            theme="system"
+            theme={theme as any}
             className="toaster group"
             position="top-center"
             expand={true}
@@ -14,15 +17,15 @@ export function Toaster({ ...props }: ToasterProps) {
             toastOptions={{
                 classNames: {
                     toast:
-                        "group toast group-[.toaster]:bg-white group-[.toaster]:text-neutral-900 group-[.toaster]:border-neutral-200 group-[.toaster]:shadow-xl group-[.toaster]:rounded-xl dark:group-[.toaster]:bg-neutral-900 dark:group-[.toaster]:text-neutral-50 dark:group-[.toaster]:border-neutral-800",
-                    title: "group-[.toast]:font-semibold",
-                    description: "group-[.toast]:text-neutral-500 dark:group-[.toast]:text-neutral-400",
+                        "toast group bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 border-neutral-200 dark:border-neutral-800 shadow-2xl rounded-2xl p-4",
+                    title: "font-black uppercase tracking-tight text-sm italic",
+                    description: "text-[11px] font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-widest",
                     actionButton:
-                        "group-[.toast]:bg-primary-500 group-[.toast]:text-white group-[.toast]:rounded-lg",
+                        "bg-primary-500 text-white rounded-xl font-black uppercase tracking-widest text-[10px] px-4",
                     cancelButton:
-                        "group-[.toast]:bg-neutral-100 group-[.toast]:text-neutral-500 group-[.toast]:rounded-lg",
+                        "bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 rounded-xl font-black uppercase tracking-widest text-[10px] px-4",
                     closeButton:
-                        "group-[.toast]:bg-neutral-100 group-[.toast]:text-neutral-500 group-[.toast]:border-neutral-200 dark:group-[.toast]:bg-neutral-800 dark:group-[.toast]:text-neutral-400 dark:group-[.toast]:border-neutral-700",
+                        "bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 border-neutral-200 dark:border-neutral-700",
                 },
             }}
             {...props}

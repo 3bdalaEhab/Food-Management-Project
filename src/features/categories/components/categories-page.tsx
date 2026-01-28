@@ -6,18 +6,16 @@ import {
     LayoutGrid,
     List,
     Sparkles,
-    Edit3,
     FolderTree,
     Zap,
-    Activity,
-    ArrowRight,
-    Trash2
+    ArrowRight
 } from "lucide-react";
 
 import { useCategories, useDeleteCategory, useCreateCategory, useUpdateCategory } from "../hooks";
+import { CategoryCard } from "./category-card";
 import { CategoryForm } from "./category-form";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui";
-import type { Category } from "../types";
+import type { Category, CreateCategoryData } from "../types";
 import { cn } from "@/lib/utils";
 
 export function CategoriesPage() {
@@ -43,10 +41,6 @@ export function CategoriesPage() {
         }
     };
 
-    const itemVariant = {
-        hidden: { opacity: 0, scale: 0.9 },
-        show: { opacity: 1, scale: 1 }
-    };
 
     return (
         <div className="space-y-12 pb-24">
@@ -105,7 +99,7 @@ export function CategoriesPage() {
                         placeholder="SEARCH ARCHIVES..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="premium-input pl-16 h-18 bg-white/40 dark:bg-white/5 border-white/20 dark:border-white/5 backdrop-blur-3xl font-black uppercase tracking-widest text-sm"
+                        className="premium-input pl-16 h-18 bg-white/40 dark:bg-white/5 border-[var(--border)] backdrop-blur-3xl font-black uppercase tracking-widest text-sm"
                     />
                 </div>
 
@@ -137,7 +131,7 @@ export function CategoriesPage() {
             {isLoading ? (
                 <div className={`grid gap-8 ${viewMode === "grid" ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" : "grid-cols-1"}`}>
                     {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                        <div key={i} className="glass-card rounded-[3rem] p-10 h-56 animate-pulse bg-white/30 backdrop-blur-3xl border-white/20" />
+                        <div key={i} className="glass-card rounded-[3rem] p-10 h-56 animate-pulse bg-white/30 dark:bg-white/5 backdrop-blur-3xl border border-[var(--border)]" />
                     ))}
                 </div>
             ) : categoriesData?.data?.length ? (
@@ -149,52 +143,16 @@ export function CategoriesPage() {
                 >
                     <AnimatePresence mode="popLayout">
                         {categoriesData.data.map((category) => (
-                            <motion.div
+                            <CategoryCard
                                 key={category.id}
-                                variants={itemVariant}
-                                layout
-                                className={cn(
-                                    "group relative glass-card rounded-[3rem] p-10 overflow-hidden border border-white/20 dark:border-white/5 bg-white/40 backdrop-blur-3xl shadow-2xl transition-all duration-500 flex",
-                                    viewMode === "grid"
-                                        ? "flex-col items-center text-center justify-between min-h-[16rem] hover:y-[-10px] hover:border-primary-500/30"
-                                        : "flex-row items-center justify-between hover:bg-white/60"
-                                )}
-                            >
-                                <div className="absolute inset-0 bg-primary-500/0 group-hover:bg-primary-500/5 blur-3xl transition-all" />
-
-                                <div className={cn("relative z-10 flex items-center gap-8", viewMode === "grid" ? "flex-col" : "flex-row")}>
-                                    <div className="w-20 h-20 rounded-[2rem] bg-neutral-900 flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:bg-primary-500 transition-all duration-700">
-                                        <FolderTree size={36} className="text-white" />
-                                    </div>
-                                    <div className="space-y-3">
-                                        <div className="flex items-center justify-center lg:justify-start gap-2 opacity-40 group-hover:opacity-100 transition-opacity">
-                                            <Sparkles size={12} className="text-primary-500" />
-                                            <span className="text-[9px] font-black uppercase tracking-[0.3em] text-neutral-500 dark:text-white">Active Node</span>
-                                        </div>
-                                        <h3 className="text-2xl font-black text-neutral-900 dark:text-white tracking-tighter uppercase leading-none italic group-hover:text-primary-500 transition-colors">
-                                            {category.name}
-                                        </h3>
-                                    </div>
-                                </div>
-
-                                <div className={cn("relative z-10 flex items-center gap-4", viewMode === "grid" ? "mt-8" : "")}>
-                                    <button
-                                        onClick={() => {
-                                            setSelectedCategory(category);
-                                            setIsUpdateOpen(true);
-                                        }}
-                                        className="w-14 h-14 rounded-2xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-neutral-400 hover:bg-neutral-900 hover:text-primary-500 transition-all shadow-xl group/btn"
-                                    >
-                                        <Edit3 size={22} className="group-hover/btn:rotate-12 transition-transform" />
-                                    </button>
-                                    <button
-                                        onClick={() => deleteCategory(category.id)}
-                                        className="w-14 h-14 rounded-2xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-neutral-400 hover:bg-red-500 hover:text-white transition-all shadow-xl group/btn"
-                                    >
-                                        <Trash2 size={22} className="group-hover/btn:scale-110 transition-transform" />
-                                    </button>
-                                </div>
-                            </motion.div>
+                                category={category}
+                                viewMode={viewMode}
+                                onEdit={(cat) => {
+                                    setSelectedCategory(cat);
+                                    setIsUpdateOpen(true);
+                                }}
+                                onDelete={(id) => deleteCategory(id)}
+                            />
                         ))}
                     </AnimatePresence>
                 </motion.div>
@@ -204,8 +162,8 @@ export function CategoriesPage() {
                         <div className="absolute inset-0 bg-primary-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                         <FolderTree size={48} className="text-white relative z-10" />
                     </div>
-                    <h3 className="text-3xl font-black text-neutral-900 tracking-tighter mb-2">ARCHIVE IS EMPTY</h3>
-                    <p className="text-neutral-400 font-bold mb-10 uppercase tracking-widest text-[11px]">System awaiting taxonomy core initialization</p>
+                    <h3 className="text-3xl font-black text-[var(--foreground)] tracking-tighter mb-2">ARCHIVE IS EMPTY</h3>
+                    <p className="text-[var(--muted-foreground)] font-bold mb-10 uppercase tracking-widest text-[11px]">System awaiting taxonomy core initialization</p>
                     <button
                         onClick={() => setIsCreateOpen(true)}
                         className="premium-button premium-button-primary h-16 px-10 group"
@@ -223,7 +181,7 @@ export function CategoriesPage() {
                         <DialogTitle>New Category Protocol</DialogTitle>
                     </DialogHeader>
                     <CategoryForm
-                        onSuccess={(data) => {
+                        onSubmit={(data: CreateCategoryData) => {
                             createCategory(data);
                             setIsCreateOpen(false);
                         }}
@@ -248,7 +206,7 @@ export function CategoriesPage() {
                     {selectedCategory && (
                         <CategoryForm
                             initialData={selectedCategory}
-                            onSuccess={(data) => {
+                            onSubmit={(data: CreateCategoryData) => {
                                 updateCategory({ id: selectedCategory.id, ...data });
                                 setIsUpdateOpen(false);
                             }}

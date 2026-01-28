@@ -45,7 +45,7 @@ const StatCard = memo(({
             aria-label={`${label}: ${value}`}
         >
             <div className="absolute inset-0 bg-primary-500/5 blur-2xl group-hover:bg-primary-500/10 transition-all rounded-[2.5rem]" />
-            <div className="relative glass-card rounded-[2.5rem] p-8 border border-white/20 dark:border-white/5 bg-white/40 dark:bg-black/20 backdrop-blur-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all hover:translate-y-[-5px] overflow-hidden group">
+            <div className="relative glass-card rounded-[2.5rem] p-8 border border-[var(--border)] bg-white/40 dark:bg-black/20 backdrop-blur-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all hover:translate-y-[-5px] overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-500/20 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
 
                 <div className="flex flex-col gap-6">
@@ -54,9 +54,9 @@ const StatCard = memo(({
                     </div>
 
                     <div className="space-y-1">
-                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-400">{label}</p>
+                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)]">{label}</p>
                         <div className="flex items-end gap-3">
-                            <p className="text-4xl font-black text-neutral-900 dark:text-white tracking-tighter">{value}</p>
+                            <p className="text-4xl font-black text-[var(--foreground)] tracking-tighter">{value}</p>
                             {trend && (
                                 <div className="flex items-center gap-1 text-green-500 mb-1.5" aria-label={`Trend: up by ${trend}`}>
                                     <TrendingUp className="w-3 h-3" />
@@ -86,7 +86,7 @@ export function DashboardPage() {
             label: t('dashboard.recipes_vault'),
             value: "156",
             trend: "+12.5%",
-            color: "bg-neutral-900",
+            color: "bg-[var(--sidebar-background)] border border-[var(--border)]",
         },
         {
             icon: FolderOpen,
@@ -100,7 +100,7 @@ export function DashboardPage() {
             label: t('dashboard.managed_fleet'),
             value: "1.2k",
             trend: "+18.9%",
-            color: "bg-neutral-900",
+            color: "bg-[var(--sidebar-background)] border border-[var(--border)]",
         },
         {
             icon: Heart,
@@ -183,12 +183,12 @@ export function DashboardPage() {
                     <div className="flex items-center justify-between px-4">
                         <div className="flex items-center gap-3">
                             <Clock className="text-primary-500" size={24} />
-                            <h2 className="text-2xl font-black tracking-tighter text-neutral-900 dark:text-white uppercase italic">{t('dashboard.stream_feed')}</h2>
+                            <h2 className="text-2xl font-black tracking-tighter text-[var(--foreground)] uppercase italic">{t('dashboard.stream_feed')}</h2>
                         </div>
-                        <span className="text-[10px] font-black uppercase tracking-widest text-neutral-400 border border-neutral-200 dark:border-white/10 px-3 py-1 rounded-full">{t('dashboard.real_time')}</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)] border border-[var(--border)] px-3 py-1 rounded-full">{t('dashboard.real_time')}</span>
                     </div>
 
-                    <div className="glass-card rounded-[3.5rem] overflow-hidden border border-white/20 dark:border-white/5 bg-white/40 dark:bg-black/40 backdrop-blur-3xl p-10 shadow-2xl">
+                    <div className="glass-card rounded-[3.5rem] overflow-hidden border border-[var(--border)] bg-white/40 dark:bg-black/40 backdrop-blur-3xl p-10 shadow-2xl">
                         <div className="space-y-6">
                             {[
                                 { action: t('dashboard.vault_update'), item: t('dashboard.pasta_carbonara'), time: t('dashboard.2_min_ago'), icon: UtensilsCrossed },
@@ -206,9 +206,9 @@ export function DashboardPage() {
                                     <div className="flex-1 space-y-1">
                                         <div className="flex items-center justify-between">
                                             <span className="text-[9px] font-black uppercase tracking-widest text-primary-500">{activity.action}</span>
-                                            <span className="text-[9px] font-black uppercase tracking-widest text-neutral-400">{activity.time}</span>
+                                            <span className="text-[9px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">{activity.time}</span>
                                         </div>
-                                        <p className="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-tight">{activity.item}</p>
+                                        <p className="text-sm font-black text-[var(--foreground)] uppercase tracking-tight">{activity.item}</p>
                                     </div>
                                 </div>
                             ))}
@@ -225,10 +225,10 @@ export function DashboardPage() {
                 >
                     <div className="flex items-center gap-3 px-4">
                         <Sparkles className="text-primary-500" size={24} />
-                        <h2 className="text-2xl font-black tracking-tighter text-neutral-900 dark:text-white uppercase italic">{t('dashboard.shortcuts')}</h2>
+                        <h2 className="text-2xl font-black tracking-tighter text-[var(--foreground)] uppercase italic">{t('dashboard.shortcuts')}</h2>
                     </div>
 
-                    <div className="glass-card rounded-[3rem] border border-white/20 dark:border-white/5 bg-white/30 backdrop-blur-3xl p-8 space-y-4">
+                    <div className="glass-card rounded-[3rem] border border-[var(--border)] bg-white/30 backdrop-blur-3xl p-8 space-y-4">
                         <Link to="/dashboard/recipes" className="flex items-center gap-4 p-5 rounded-3xl bg-neutral-900 text-white hover:bg-primary-500 transition-all group overflow-hidden relative">
                             <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
                                 <UtensilsCrossed size={18} />
@@ -240,11 +240,11 @@ export function DashboardPage() {
                             <ArrowRight className="absolute right-6 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all" />
                         </Link>
 
-                        <Link to="/dashboard/categories" className="flex items-center gap-4 p-5 rounded-3xl bg-white border border-neutral-200 dark:border-white/10 hover:border-primary-500 transition-all group relative">
-                            <div className="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center shrink-0 group-hover:bg-primary-500/10">
-                                <FolderOpen size={18} className="text-neutral-500 group-hover:text-primary-500" />
+                        <Link to="/dashboard/categories" className="flex items-center gap-4 p-5 rounded-3xl bg-white/40 dark:bg-white/5 border border-[var(--border)] hover:border-primary-500 transition-all group relative">
+                            <div className="w-10 h-10 rounded-xl bg-[var(--background)] flex items-center justify-center shrink-0 group-hover:bg-primary-500/10">
+                                <FolderOpen size={18} className="text-[var(--muted-foreground)] group-hover:text-primary-500" />
                             </div>
-                            <div className="flex flex-col text-neutral-900 dark:text-white">
+                            <div className="flex flex-col text-[var(--foreground)]">
                                 <span className="font-black uppercase tracking-widest text-[10px]">{t('dashboard.taxonomy')}</span>
                                 <span className="text-xs font-bold opacity-60">{t('dashboard.organize_categories')}</span>
                             </div>

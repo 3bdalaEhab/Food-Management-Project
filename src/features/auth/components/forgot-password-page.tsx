@@ -45,7 +45,7 @@ export function ForgotPasswordPage() {
                     </div>
                 </div>
 
-                <div className="glass-card rounded-[4rem] p-10 md:p-16 shadow-[0_64px_128px_-32px_rgba(0,0,0,0.8)] border border-white/10 backdrop-blur-[60px] bg-white/[0.03]">
+                <div className="glass-card rounded-[4rem] p-10 md:p-16 shadow-[0_64px_128px_-32px_rgba(0,0,0,0.8)] border border-[var(--border)] backdrop-blur-[60px] bg-white/[0.03]">
                     <div className="flex flex-col items-center">
                         {/* Status Icon */}
                         <motion.div
@@ -75,7 +75,7 @@ export function ForgotPasswordPage() {
                                         {...register("email")}
                                         type="email"
                                         placeholder="agent@culinary.io"
-                                        className="premium-input bg-white/[0.03] border-white/10 text-white placeholder:text-white/10 h-16 pl-14 group-focus-within:border-primary-500/50 group-focus-within:bg-white/[0.05]"
+                                        className="premium-input bg-white/[0.03] border-[var(--border)] text-white placeholder:text-white/10 h-16 pl-14 group-focus-within:border-primary-500/50 group-focus-within:bg-white/[0.05]"
                                     />
                                 </div>
                                 {errors.email && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase tracking-tighter">{errors.email.message}</p>}

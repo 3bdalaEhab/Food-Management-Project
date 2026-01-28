@@ -6,20 +6,23 @@ import {
     FolderOpen,
     Users,
     Heart,
-    Settings,
     ChevronLeft,
     ChevronRight,
     LogOut,
     ChefHat,
-    Sparkles,
     Zap,
-    ShieldCheck,
-    Box
+    Box,
+    Globe,
+    Cpu,
+    ShieldAlert,
+    Terminal,
+    Fingerprint
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuthStore, useAppStore, selectIsAdmin } from "@/stores";
 import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
+import { Tooltip } from "@/components/ui/tooltip";
 
 interface NavItem {
     icon: React.ElementType;
@@ -45,211 +48,232 @@ export function Sidebar() {
     const { sidebarCollapsed, toggleSidebar, language } = useAppStore();
 
     const isRtl = language === "ar";
+    const springConfig: any = { type: "spring", stiffness: 400, damping: 40 };
 
     const filteredNavItems = useMemo(() =>
         navItems.filter((item) => !item.adminOnly || isAdmin),
         [isAdmin]
     );
 
-    const springConfig = { type: "spring", stiffness: 300, damping: 30 };
-
     return (
         <motion.aside
             initial={false}
             animate={{
-                width: sidebarCollapsed ? 96 : 300,
+                width: sidebarCollapsed ? 88 : 280,
                 x: 0
             }}
             transition={springConfig}
             className={cn(
                 "fixed top-0 z-50 h-screen",
                 isRtl ? "right-0" : "left-0",
-                "bg-white/40 dark:bg-black/30 backdrop-blur-[40px] saturate-150",
+                "bg-[var(--sidebar-background)] border-[var(--sidebar-border)]",
                 isRtl ? "border-l" : "border-r",
-                "border-white/20 dark:border-white/5",
-                "flex flex-col overflow-hidden",
-                "shadow-[0_0_80px_rgba(0,0,0,0.1)] dark:shadow-[0_0_80px_rgba(0,0,0,0.4)]"
+                "flex flex-col shadow-[20px_0_50px_rgba(0,0,0,0.05)]",
+                "selection:bg-primary-500/30"
             )}
         >
-            {/* Elite Brand Hub */}
-            <div className="relative flex items-center justify-between px-6 h-28 border-b border-white/10 overflow-hidden">
-                <Link to="/dashboard" className="flex items-center gap-5 group">
-                    <motion.div
-                        whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
-                        className="w-14 h-14 rounded-2xl bg-neutral-950 flex items-center justify-center shadow-2xl relative overflow-hidden group-hover:shadow-primary-500/40 transition-shadow duration-500"
-                    >
-                        <div className="absolute inset-0 bg-primary-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                        <ChefHat className="w-7 h-7 text-white relative z-10" />
-                    </motion.div>
+            {/* Cinematic Tactical Layers */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_start_top,var(--color-primary-500/0.05)_0%,transparent_40%)] pointer-events-none" />
 
-                    <AnimatePresence mode="wait">
+            {/* Toggle Interface - Floating Geometric Controller */}
+            <button
+                onClick={toggleSidebar}
+                className={cn(
+                    "absolute top-8 w-8 h-8 bg-primary-500 text-white rounded-lg flex items-center justify-center transition-all z-[60] shadow-[0_10px_20px_rgba(255,107,38,0.3)] hover:scale-110 active:scale-95 group",
+                    isRtl ? "-left-4" : "-right-4"
+                )}
+            >
+                {sidebarCollapsed ? (isRtl ? <ChevronLeft size={16} /> : <ChevronRight size={16} />) : (isRtl ? <ChevronRight size={16} /> : <ChevronLeft size={16} />)}
+
+                {/* Visual Anchor Line */}
+                <div className={cn(
+                    "absolute top-1/2 -translate-y-1/2 w-4 h-[1px] bg-primary-500/50 -z-10 group-hover:w-6 transition-all",
+                    isRtl ? "left-full" : "right-full"
+                )} />
+            </button>
+
+            <div className="flex flex-col h-full overflow-hidden">
+                {/* Header: Brand Protocol */}
+                <div className="relative h-24 flex items-center px-6 shrink-0 border-b border-[var(--sidebar-border)]">
+                    <Link to="/dashboard" className="flex items-center gap-4 group">
+                        <div className="w-12 h-12 rounded-xl bg-primary-500 flex items-center justify-center shadow-[0_0_20px_rgba(255,107,38,0.3)] relative overflow-hidden shrink-0">
+                            <ChefHat className="w-6 h-6 text-neutral-950 relative z-10" />
+                            <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                                className="absolute inset-0 bg-white/10 opacity-30"
+                            />
+                        </div>
                         {!sidebarCollapsed && (
                             <motion.div
-                                initial={{ opacity: 0, x: -20, filter: "blur(10px)" }}
-                                animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                                exit={{ opacity: 0, x: -20, filter: "blur(10px)" }}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
                                 className="flex flex-col"
                             >
-                                <span className="font-black text-2xl text-neutral-900 dark:text-white tracking-tighter leading-none uppercase italic">
-                                    CULINARY<span className="text-primary-500 italic">HUB</span>
+                                <span className="font-black text-lg text-[var(--sidebar-foreground)] tracking-widest leading-none uppercase italic">
+                                    CULINARY
+                                    <span className="text-primary-500 block text-[10px] tracking-[0.4em] not-italic mt-1">COMMAND</span>
                                 </span>
-                                <div className="flex items-center gap-2 mt-1">
-                                    <span className="text-[9px] uppercase font-black tracking-[0.2em] text-neutral-400">OS_CORE_v4</span>
-                                    <div className="w-1 h-1 rounded-full bg-primary-500 animate-pulse" />
-                                </div>
                             </motion.div>
                         )}
-                    </AnimatePresence>
-                </Link>
-
-                <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={toggleSidebar}
-                    className={cn(
-                        "absolute top-1/2 -translate-y-1/2 w-10 h-10 bg-neutral-950 text-white rounded-2xl hidden lg:flex items-center justify-center hover:bg-primary-500 transition-all shadow-[0_10px_30px_-5px_rgba(0,0,0,0.5)] ring-4 ring-white/5 dark:ring-black/20",
-                        isRtl ? "-left-5" : "-right-5"
-                    )}
-                >
-                    {sidebarCollapsed ? (isRtl ? <ChevronLeft size={18} /> : <ChevronRight size={18} />) : (isRtl ? <ChevronRight size={18} /> : <ChevronLeft size={18} />)}
-                </motion.button>
-            </div>
-
-            {/* User Identity Port (If Expanded) */}
-            <AnimatePresence>
-                {!sidebarCollapsed && user && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        className="px-6 py-8"
-                    >
-                        <Link to="/dashboard/profile" className="flex items-center gap-4 p-4 rounded-3xl bg-neutral-950 text-white shadow-2xl relative group overflow-hidden border border-white/5 hover:border-primary-500/50 transition-colors">
-                            <div className="absolute inset-0 bg-primary-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                            <div className="w-12 h-12 rounded-2xl bg-neutral-900 overflow-hidden border border-white/10 relative">
-                                {user.imagePath ? (
-                                    <img src={user.imagePath} alt={user.userName} className="w-full h-full object-cover" />
-                                ) : (
-                                    <div className="w-full h-full flex items-center justify-center">
-                                        <ChefHat size={20} className="text-white/20" />
-                                    </div>
-                                )}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-black truncate uppercase italic tracking-tight">{user.userName}</p>
-                                <p className="text-[9px] font-black text-primary-500 uppercase tracking-widest">{user.role}</p>
-                            </div>
-                            <ShieldCheck size={16} className="text-primary-500 opacity-50" />
-                        </Link>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-
-            {/* Sidebar Hub Transition */}
-            <div className="flex-1 px-4 py-4 space-y-3 overflow-y-auto no-scrollbar">
-                {!sidebarCollapsed && (
-                    <p className="px-6 text-[10px] font-black text-neutral-400 uppercase tracking-[0.4em] mb-4">Tactical_Systems</p>
-                )}
-
-                {filteredNavItems.map((item) => {
-                    const isActive = location.pathname === item.href;
-                    const Icon = item.icon;
-
-                    return (
-                        <Link
-                            key={item.href}
-                            to={item.href}
-                            className={cn(
-                                "flex items-center gap-5 px-5 py-4 rounded-[2rem] transition-all duration-500",
-                                "group relative overflow-hidden",
-                                isActive
-                                    ? "bg-neutral-950 text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)]"
-                                    : "text-neutral-500 dark:text-neutral-400 hover:bg-white dark:hover:bg-white/5 hover:text-neutral-900 dark:hover:text-white"
-                            )}
-                        >
-                            <div className={cn(
-                                "w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-500 relative",
-                                isActive ? "bg-primary-500 shadow-[0_0_20px_rgba(255,107,38,0.4)]" : "bg-neutral-100 dark:bg-white/5 group-hover:bg-primary-500/10 group-active:scale-95"
-                            )}>
-                                <Icon className={cn(
-                                    "w-5.5 h-5.5 transition-colors duration-500",
-                                    isActive ? "text-white" : "text-neutral-400 group-hover:text-primary-500"
-                                )} />
-                                {isActive && (
-                                    <motion.div
-                                        layoutId="glow"
-                                        className="absolute inset-0 bg-primary-500/20 blur-xl rounded-full"
-                                    />
-                                )}
-                            </div>
-
-                            {!sidebarCollapsed && (
-                                <span className="font-black uppercase tracking-[0.15em] text-[11px] italic">
-                                    {t(`sidebar.${item.labelKey}`)}
-                                </span>
-                            )}
-
-                            {isActive && (
-                                <motion.div
-                                    layoutId="active-marker"
-                                    transition={springConfig}
-                                    className={cn(
-                                        "absolute top-1/2 -translate-y-1/2 w-2 h-10 bg-primary-500",
-                                        isRtl ? "left-0 rounded-r-2xl" : "right-0 rounded-l-2xl"
-                                    )}
-                                />
-                            )}
-                        </Link>
-                    );
-                })}
-
-                <div className="pt-8 opacity-40">
-                    <div className="h-px bg-white/10 mx-6 mb-8" />
+                    </Link>
                 </div>
-            </div>
 
-            {/* Tactical Footer Console */}
-            <div className="p-6 border-t border-white/10 space-y-4">
-                <Link
-                    to="/dashboard/profile"
-                    className={cn(
-                        "flex items-center gap-5 p-4 rounded-[1.5rem] text-neutral-500 hover:bg-neutral-950 hover:text-white transition-all group relative overflow-hidden",
-                        sidebarCollapsed && "justify-center"
-                    )}
-                >
-                    <div className="absolute inset-0 bg-primary-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <Settings
-                        size={22}
-                        className="group-hover:rotate-90 transition-transform duration-700 relative z-10"
-                    />
-                    {!sidebarCollapsed && (
-                        <span className="text-[11px] font-black uppercase tracking-[0.2em] relative z-10 italic">
-                            {t('sidebar.settings')}
-                        </span>
-                    )}
-                </Link>
-
-                <button
-                    onClick={logout}
-                    className={cn(
-                        "w-full flex items-center gap-5 p-4 rounded-[1.5rem] text-red-500/60 hover:bg-red-500 hover:text-white transition-all group shadow-xl",
-                        sidebarCollapsed && "justify-center"
-                    )}
-                >
-                    <LogOut size={22} className={cn("transition-transform", isRtl ? "group-hover:translate-x-1" : "group-hover:-translate-x-1")} />
-                    {!sidebarCollapsed && (
-                        <span className="text-[11px] font-black uppercase tracking-[0.2em] italic">
-                            {t('sidebar.logout')}
-                        </span>
-                    )}
-                </button>
-
+                {/* Role HUD: Protocol Identifier */}
                 {!sidebarCollapsed && (
-                    <div className="pt-4 flex items-center justify-between px-2 opacity-20">
-                        <Box size={14} />
-                        <span className="text-[8px] font-black uppercase tracking-widest">Sys_v4.5.12_Stable</span>
+                    <div className="px-6 pt-6 shrink-0">
+                        <div className={cn(
+                            "flex items-center gap-3 p-3 rounded-2xl border transition-all duration-500",
+                            isAdmin
+                                ? "bg-red-500/10 border-red-500/30 shadow-[0_10px_30px_rgba(239,68,68,0.1)]"
+                                : "bg-primary-500/10 border-primary-500/30 shadow-[0_10px_30px_rgba(255,107,38,0.1)]"
+                        )}>
+                            <div className={cn(
+                                "w-9 h-9 rounded-xl flex items-center justify-center shrink-0",
+                                isAdmin ? "bg-red-500 text-white shadow-[0_5px_15px_rgba(239,68,68,0.4)]" : "bg-primary-500 text-white shadow-[0_5px_15px_rgba(255,107,38,0.4)]"
+                            )}>
+                                {isAdmin ? <ShieldAlert size={18} /> : <Terminal size={18} />}
+                            </div>
+                            <div className="flex flex-col min-w-0">
+                                <span className="text-[9px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">AUTH_LEVEL</span>
+                                <span className={cn(
+                                    "text-[12px] font-black uppercase tracking-tighter truncate",
+                                    isAdmin ? "text-red-500" : "text-primary-500"
+                                )}>
+                                    {isAdmin ? "ADMIN_STRATEGIST" : "FIELD_OPERATOR"}
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 )}
+
+                {/* Navigation: Tactical Nodes */}
+                <nav className="flex-1 px-3 py-6 space-y-2 overflow-y-auto no-scrollbar scroll-smooth">
+                    {filteredNavItems.map((item) => {
+                        const isActive = location.pathname === item.href;
+                        const Icon = item.icon;
+
+                        const navItemContent = (
+                            <Link
+                                to={item.href}
+                                className={cn(
+                                    "flex items-center transition-all duration-300 group relative",
+                                    sidebarCollapsed
+                                        ? "justify-center h-14 w-14 mx-auto rounded-xl mb-3"
+                                        : "gap-4 px-4 py-3 rounded-2xl mx-1",
+                                    isActive
+                                        ? "bg-[var(--sidebar-accent)] text-[var(--sidebar-foreground)] shadow-sm border border-[var(--sidebar-border)]"
+                                        : "text-[var(--muted-foreground)] hover:text-[var(--sidebar-foreground)] hover:bg-[var(--sidebar-accent)]"
+                                )}
+                            >
+                                <div className={cn(
+                                    "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-500 relative",
+                                    isActive
+                                        ? isAdmin ? "bg-red-500 text-white shadow-lg" : "bg-primary-500 text-white shadow-lg"
+                                        : "bg-[var(--background)] border border-[var(--sidebar-border)] group-hover:border-primary-500/50"
+                                )}>
+                                    <Icon size={isActive ? 20 : 18} className="relative z-10" />
+                                    {isActive && (
+                                        <motion.div
+                                            layoutId="active-glow"
+                                            className={cn(
+                                                "absolute inset-0 blur-xl rounded-full opacity-40",
+                                                isAdmin ? "bg-red-500" : "bg-primary-500"
+                                            )}
+                                        />
+                                    )}
+                                </div>
+
+                                {!sidebarCollapsed && (
+                                    <div className="flex flex-col min-w-0">
+                                        <span className="text-[11px] font-black uppercase tracking-[0.2em] italic truncate">
+                                            {t(`sidebar.${item.labelKey}`)}
+                                        </span>
+                                        <span className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-widest mt-0.5 group-hover:text-primary-500 transition-colors">
+                                            NODE_0{filteredNavItems.indexOf(item) + 1}
+                                        </span>
+                                    </div>
+                                )}
+
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="active-pill"
+                                        className={cn(
+                                            "absolute w-1 h-6 rounded-full",
+                                            isAdmin ? "bg-red-500 shadow-red-500/50" : "bg-primary-500 shadow-primary-500/50",
+                                            isRtl ? "left-0" : "right-0"
+                                        )}
+                                    />
+                                )}
+                            </Link>
+                        );
+
+                        return (
+                            <div key={item.href}>
+                                {sidebarCollapsed ? (
+                                    <Tooltip content={t(`sidebar.${item.labelKey}`)} side={isRtl ? "left" : "right"}>
+                                        {navItemContent}
+                                    </Tooltip>
+                                ) : navItemContent}
+                            </div>
+                        );
+                    })}
+                </nav>
+
+                {/* Footer: User Identity & Exit Protocol */}
+                <div className="p-4 shrink-0 border-t border-[var(--sidebar-border)] space-y-4">
+                    <Link
+                        to="/dashboard/profile"
+                        className={cn(
+                            "flex items-center gap-3 p-3 rounded-2xl bg-[var(--sidebar-accent)] border border-[var(--sidebar-border)] transition-all group relative overflow-hidden hover:border-primary-500/30",
+                            sidebarCollapsed && "justify-center h-14 w-14 p-0 mx-auto"
+                        )}
+                    >
+                        <div className="w-10 h-10 rounded-xl bg-[var(--background)] overflow-hidden border border-[var(--sidebar-border)] group-hover:border-primary-500/50 transition-colors shrink-0 flex items-center justify-center">
+                            {user?.imagePath ? (
+                                <img src={user.imagePath} alt={user.userName} className="w-full h-full object-cover" />
+                            ) : (
+                                <Fingerprint size={20} className="text-[var(--muted-foreground)] group-hover:text-primary-500 transition-colors" />
+                            )}
+                        </div>
+                        {!sidebarCollapsed && (
+                            <div className="flex-1 min-w-0">
+                                <p className="text-[12px] font-black text-[var(--sidebar-foreground)] uppercase italic tracking-tighter truncate">{user?.userName || "GUEST_USER"}</p>
+                                <div className="flex items-center gap-1.5 opacity-60">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                                    <span className="text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-widest">ACTIVE_TERM</span>
+                                </div>
+                            </div>
+                        )}
+                    </Link>
+
+                    <Tooltip content={t('sidebar.logout')} side={isRtl ? "left" : "right"}>
+                        <button
+                            onClick={logout}
+                            className={cn(
+                                "w-full flex items-center gap-3 p-3 rounded-2xl text-[var(--muted-foreground)] hover:text-white hover:bg-red-500 transition-all group overflow-hidden border border-transparent font-sans",
+                                sidebarCollapsed && "justify-center h-14 w-14 p-0 mx-auto"
+                            )}
+                        >
+                            <LogOut size={18} className={cn("transition-transform font-sans", isRtl ? "group-hover:translate-x-1" : "group-hover:-translate-x-1")} />
+                            {!sidebarCollapsed && (
+                                <span className="text-[10px] font-black uppercase tracking-[0.3em] italic">
+                                    SHUTDOWN_CORE
+                                </span>
+                            )}
+                        </button>
+                    </Tooltip>
+
+                    {!sidebarCollapsed && (
+                        <div className="flex items-center justify-between px-2 pt-2 opacity-30">
+                            <div className="flex gap-1.5">
+                                <Box size={12} className="text-[var(--muted-foreground)]" />
+                                <Cpu size={12} className="text-primary-500" />
+                            </div>
+                            <span className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-widest tabular-nums font-mono">V4.9.STABLE</span>
+                        </div>
+                    )}
+                </div>
             </div>
         </motion.aside>
     );
