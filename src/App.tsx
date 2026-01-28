@@ -2,15 +2,13 @@ import { useEffect, lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useTranslation } from "react-i18next";
-import { Heart, Zap, ArrowRight } from "lucide-react";
+import { Zap, ArrowRight } from "lucide-react";
 
 import { queryClient } from "@/lib/query-client";
 import { useAuthStore } from "@/stores";
 import { Toaster } from "@/components/ui";
 import { ProtectedRoute } from "@/components/auth";
 import { DashboardLayout } from "@/components/layout";
-import { PageWrapper } from "@/components/shared/page-wrapper";
 import { DashboardBackground } from "@/components/layout/dashboard-background";
 
 // Lazy load pages for code splitting
@@ -58,27 +56,9 @@ function PageLoader() {
     );
 }
 
-function FavoritesPage() {
-    const { t } = useTranslation();
-    return (
-        <PageWrapper>
-            <div className="min-h-[60vh] flex flex-col items-center justify-center text-center space-y-8">
-                <div className="w-24 h-24 rounded-[2rem] bg-neutral-900 flex items-center justify-center shadow-2xl relative overflow-hidden group">
-                    <div className="absolute inset-0 bg-primary-500 opacity-20 animate-pulse" />
-                    <Heart className="w-10 h-10 text-primary-500 relative z-10" />
-                </div>
-                <div className="space-y-2">
-                    <h1 className="text-4xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter italic">
-                        {t('sidebar.favorites')} <span className="text-primary-500">Vault</span>
-                    </h1>
-                    <p className="text-neutral-500 font-bold uppercase tracking-widest text-xs max-w-sm mx-auto">
-                        This high-performance collection module is currently under synchronization. Stay tuned for elite curation.
-                    </p>
-                </div>
-            </div>
-        </PageWrapper>
-    );
-}
+const FavoritesPage = lazy(() =>
+    import("@/features/recipes").then((m) => ({ default: m.FavoritesPage }))
+);
 
 function NotFoundPage() {
     return (

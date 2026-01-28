@@ -36,8 +36,8 @@ export function Navbar() {
         <header
             className={cn(
                 "h-20 rounded-[2rem] px-8 flex items-center justify-between",
-                "bg-white/40 dark:bg-neutral-900/40 backdrop-blur-3xl",
-                "border border-white/20 dark:border-white/5 shadow-2xl transition-all duration-500"
+                "bg-[var(--sidebar-background)]/80 backdrop-blur-3xl",
+                "border border-[var(--border)] shadow-2xl transition-all duration-500"
             )}
             role="banner"
         >
@@ -53,9 +53,9 @@ export function Navbar() {
                 </Button>
                 <div className="relative group w-full max-w-md hidden md:block">
                     <div className="absolute inset-0 bg-primary-500/0 group-hover:bg-primary-500/5 blur-xl transition-all rounded-2xl" />
-                    <div className="relative flex items-center gap-4 px-6 h-12 bg-white/50 dark:bg-black/20 border border-white/20 dark:border-white/5 rounded-2xl backdrop-blur-xl group-hover:border-primary-500/30 transition-all cursor-pointer">
-                        <Search className="w-4 h-4 text-neutral-400 group-hover:text-primary-500 transition-colors" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">{t('navbar.search')}</span>
+                    <div className="relative flex items-center gap-4 px-6 h-12 bg-[var(--background)]/50 border border-[var(--border)] rounded-2xl backdrop-blur-xl group-hover:border-primary-500/30 transition-all cursor-pointer">
+                        <Search className="w-4 h-4 text-[var(--muted-foreground)] group-hover:text-primary-500 transition-colors" />
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)] group-hover:text-[var(--foreground)] transition-colors">{t('navbar.search')}</span>
                         <div className="ml-auto flex items-center gap-2">
                             <kbd className="px-2 py-0.5 rounded-lg bg-neutral-900 dark:bg-neutral-800 text-[9px] font-black text-white/40 border border-white/10">⌘K</kbd>
                         </div>

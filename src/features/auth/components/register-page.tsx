@@ -19,13 +19,16 @@ import {
     Zap
 } from "lucide-react";
 
+import { useTranslation } from "react-i18next";
 import { useRegister } from "../hooks";
 import { registerSchema, type RegisterFormData } from "../schemas";
 import { AuthBackground } from "./auth-background";
+import { SEO } from "@/components/shared/seo";
 
 type Step = 1 | 2 | 3;
 
 export function RegisterPage() {
+    const { t } = useTranslation();
     const [step, setStep] = useState<Step>(1);
     const [previewImage, setPreviewImage] = useState<string | null>(null);
     const { mutate: registerUser, isPending } = useRegister();
@@ -78,6 +81,10 @@ export function RegisterPage() {
 
     return (
         <div className="relative min-h-screen flex items-center justify-center overflow-hidden py-20 px-4 font-sans selection:bg-primary-500/30">
+            <SEO
+                title={t('auth.register.secure_identity')}
+                description={t('auth.register.subtitle')}
+            />
             <AuthBackground />
 
             <motion.div
@@ -96,7 +103,7 @@ export function RegisterPage() {
                     />
                     <div className="flex items-center gap-3">
                         <Zap size={14} className="text-primary-500 fill-primary-500" />
-                        <span className="text-[12px] font-black uppercase tracking-[0.4em] text-white/40">Secure Identity Initialization</span>
+                        <span className="text-[12px] font-black uppercase tracking-[0.4em] text-[var(--muted-foreground)]">{t('auth.register.secure_identity')}</span>
                         <Zap size={14} className="text-primary-500 fill-primary-500" />
                     </div>
                 </div>
@@ -115,10 +122,10 @@ export function RegisterPage() {
                             </motion.div>
 
                             <div className="space-y-2">
-                                <h1 className="text-5xl font-black text-white tracking-tighter leading-none">
-                                    Join the <span className="text-primary-500">Elite</span>
+                                <h1 className="text-5xl font-black text-[var(--foreground)] tracking-tighter leading-none">
+                                    {t('auth.register.title')} <span className="text-primary-500">{t('auth.register.suffix')}</span>
                                 </h1>
-                                <p className="text-white/40 font-bold tracking-tight">Configure your professional culinary agent</p>
+                                <p className="text-[var(--muted-foreground)] font-bold tracking-tight">{t('auth.register.subtitle')}</p>
                             </div>
 
                             <div className="flex items-center gap-3">
@@ -145,13 +152,13 @@ export function RegisterPage() {
                                     >
                                         <div className="flex flex-col items-center space-y-4">
                                             <div className="relative group cursor-pointer">
-                                                <div className="w-32 h-32 rounded-[3.5rem] bg-white/5 border-2 border-dashed border-white/10 flex items-center justify-center overflow-hidden transition-all group-hover:border-primary-500/50 shadow-2xl relative">
+                                                <div className="w-32 h-32 rounded-[3.5rem] bg-[var(--background)]/50 border-2 border-dashed border-[var(--border)] flex items-center justify-center overflow-hidden transition-all group-hover:border-primary-500/50 shadow-2xl relative">
                                                     {previewImage ? (
                                                         <img src={previewImage} alt="Preview" className="w-full h-full object-cover" />
                                                     ) : (
                                                         <div className="flex flex-col items-center gap-2">
-                                                            <ImageIcon className="text-white/20 w-8 h-8" />
-                                                            <span className="text-[9px] font-black text-white/20 uppercase tracking-widest">Upload Portrait</span>
+                                                            <ImageIcon className="text-[var(--muted-foreground)]/30 w-8 h-8" />
+                                                            <span className="text-[9px] font-black text-[var(--muted-foreground)]/30 uppercase tracking-widest">{t('auth.register.upload_portrait')}</span>
                                                         </div>
                                                     )}
                                                     <div className="absolute inset-0 bg-primary-500/20 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -165,19 +172,19 @@ export function RegisterPage() {
 
                                         <div className="grid grid-cols-1 gap-5">
                                             <div className="space-y-2">
-                                                <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Identity Name</label>
+                                                <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-1">{t('auth.register.identity_name')}</label>
                                                 <div className="group relative">
-                                                    <User className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                                    <input {...register("userName")} placeholder="John_Doe" className="premium-input bg-white/[0.03] border-[var(--border)] text-white placeholder:text-white/10 h-16 pl-14 group-focus-within:border-primary-500/50 group-focus-within:bg-white/[0.05]" />
+                                                    <User className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={20} />
+                                                    <input {...register("userName")} placeholder="John_Doe" className="premium-input bg-[var(--background)]/50 border-[var(--border)] text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/40 h-16 pl-14 group-focus-within:border-primary-500/50" />
                                                 </div>
                                                 {errors.userName && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase tracking-tighter">{errors.userName.message}</p>}
                                             </div>
 
                                             <div className="space-y-2">
-                                                <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Universal Email</label>
+                                                <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-1">{t('auth.register.universal_email')}</label>
                                                 <div className="group relative">
-                                                    <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                                    <input {...register("email")} placeholder="master@kitchen.io" className="premium-input bg-white/[0.03] border-[var(--border)] text-white placeholder:text-white/10 h-16 pl-14 group-focus-within:border-primary-500/50 group-focus-within:bg-white/[0.05]" />
+                                                    <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={20} />
+                                                    <input {...register("email")} placeholder="master@kitchen.io" className="premium-input bg-[var(--background)]/50 border-[var(--border)] text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/40 h-16 pl-14 group-focus-within:border-primary-500/50" />
                                                 </div>
                                                 {errors.email && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase tracking-tighter">{errors.email.message}</p>}
                                             </div>
@@ -188,7 +195,7 @@ export function RegisterPage() {
                                             onClick={nextStep}
                                             className="premium-button premium-button-primary w-full h-16 text-lg tracking-widest group shadow-[0_25px_50px_-12px_rgba(255,107,38,0.5)]"
                                         >
-                                            <span>Continue Protocol</span>
+                                            <span>{t('auth.register.continue')}</span>
                                             <ArrowRight size={22} className="group-hover:translate-x-2 transition-transform" />
                                         </button>
                                     </motion.div>
@@ -205,19 +212,19 @@ export function RegisterPage() {
                                     >
                                         <div className="space-y-6">
                                             <div className="space-y-2">
-                                                <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Geographical Domain</label>
+                                                <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-1">{t('auth.register.geographical_domain')}</label>
                                                 <div className="group relative">
-                                                    <Globe className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                                    <input {...register("country")} placeholder="Global Presence" className="premium-input bg-white/[0.03] border-[var(--border)] text-white placeholder:text-white/10 h-16 pl-14" />
+                                                    <Globe className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={20} />
+                                                    <input {...register("country")} placeholder="Global Presence" className="premium-input bg-[var(--background)]/50 border-[var(--border)] text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/40 h-16 pl-14" />
                                                 </div>
                                                 {errors.country && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.country.message}</p>}
                                             </div>
 
                                             <div className="space-y-2">
-                                                <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Comm Channel</label>
+                                                <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-1">{t('auth.register.comm_channel')}</label>
                                                 <div className="group relative">
-                                                    <Phone className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                                    <input {...register("phoneNumber")} placeholder="Secure Line" className="premium-input bg-white/[0.03] border-[var(--border)] text-white placeholder:text-white/10 h-16 pl-14" />
+                                                    <Phone className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={20} />
+                                                    <input {...register("phoneNumber")} placeholder="Secure Line" className="premium-input bg-[var(--background)]/50 border-[var(--border)] text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/40 h-16 pl-14" />
                                                 </div>
                                                 {errors.phoneNumber && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.phoneNumber.message}</p>}
                                             </div>
@@ -229,14 +236,14 @@ export function RegisterPage() {
                                                 onClick={prevStep}
                                                 className="h-16 flex-1 rounded-3xl bg-white/5 border border-white/10 text-white font-black uppercase tracking-widest hover:bg-white/10 transition-all shadow-xl"
                                             >
-                                                Previous
+                                                {t('auth.register.previous')}
                                             </button>
                                             <button
                                                 type="button"
                                                 onClick={nextStep}
                                                 className="premium-button premium-button-primary h-16 flex-[2] text-lg group shadow-[0_25px_50px_-12px_rgba(255,107,38,0.5)]"
                                             >
-                                                <span>Validate</span>
+                                                <span>{t('auth.register.validate')}</span>
                                                 <ArrowRight size={22} className="group-hover:translate-x-2 transition-transform" />
                                             </button>
                                         </div>
@@ -254,19 +261,19 @@ export function RegisterPage() {
                                     >
                                         <div className="space-y-6">
                                             <div className="space-y-2">
-                                                <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Access Credentials</label>
+                                                <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-1">{t('auth.register.access_credentials')}</label>
                                                 <div className="group relative">
-                                                    <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                                    <input {...register("password")} type="password" placeholder="••••••••" className="premium-input bg-white/[0.03] border-[var(--border)] text-white h-16 pl-14" />
+                                                    <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={20} />
+                                                    <input {...register("password")} type="password" placeholder="••••••••" className="premium-input bg-[var(--background)]/50 border-[var(--border)] text-[var(--foreground)] h-16 pl-14" />
                                                 </div>
                                                 {errors.password && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.password.message}</p>}
                                             </div>
 
                                             <div className="space-y-2">
-                                                <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Key Verification</label>
+                                                <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-1">{t('auth.register.key_verification')}</label>
                                                 <div className="group relative">
-                                                    <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                                    <input {...register("confirmPassword")} type="password" placeholder="••••••••" className="premium-input bg-white/[0.03] border-[var(--border)] text-white h-16 pl-14" />
+                                                    <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={20} />
+                                                    <input {...register("confirmPassword")} type="password" placeholder="••••••••" className="premium-input bg-[var(--background)]/50 border-[var(--border)] text-[var(--foreground)] h-16 pl-14" />
                                                 </div>
                                                 {errors.confirmPassword && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.confirmPassword.message}</p>}
                                             </div>
@@ -276,9 +283,9 @@ export function RegisterPage() {
                                             <button
                                                 type="button"
                                                 onClick={prevStep}
-                                                className="h-16 flex-1 rounded-3xl bg-white/5 border border-white/10 text-white font-black uppercase tracking-widest hover:bg-white/10 transition-all"
+                                                className="h-16 flex-1 rounded-3xl bg-white/5 border border-white/10 text-white font-black uppercase tracking-widest hover:bg-white/10 transition-all font-sans"
                                             >
-                                                Revise
+                                                {t('auth.register.revise')}
                                             </button>
                                             <button
                                                 type="submit"
@@ -289,8 +296,8 @@ export function RegisterPage() {
                                                     <Loader2 className="animate-spin w-8 h-8" />
                                                 ) : (
                                                     <div className="flex items-center gap-3">
-                                                        <span className="font-black text-xl italic uppercase tracking-tighter">Initialize Agent</span>
-                                                        <CheckCircle2 size={24} className="group-hover:rotate-12 transition-transform text-white/80" />
+                                                        <span className="font-black text-xl italic uppercase tracking-tighter">{t('auth.register.initialize_agent')}</span>
+                                                        <CheckCircle2 size={24} className="group-hover:rotate-12 transition-transform opacity-80" />
                                                     </div>
                                                 )}
                                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
@@ -301,10 +308,10 @@ export function RegisterPage() {
                             </AnimatePresence>
                         </form>
 
-                        <div className="mt-12 pt-10 border-t border-white/5 w-full text-center">
-                            <Link to="/login" className="inline-flex items-center gap-2 text-sm font-bold text-white/30 hover:text-white transition-all group">
+                        <div className="mt-12 pt-10 border-t border-[var(--border)] w-full text-center">
+                            <Link to="/login" className="inline-flex items-center gap-2 text-sm font-bold text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-all group">
                                 <ArrowLeft size={16} className="group-hover:-translate-x-2 transition-transform" />
-                                Already authenticated? <span className="text-primary-500 font-black uppercase ml-1">Initiate Access</span>
+                                {t('auth.register.already_authenticated')} <span className="text-primary-500 font-black uppercase ml-1">{t('auth.register.initiate_access')}</span>
                             </Link>
                         </div>
                     </div>

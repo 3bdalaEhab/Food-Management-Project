@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import { useAuthStore, selectIsAdmin } from "@/stores";
 import { useTranslation } from "react-i18next";
 import { staggeredItemVariants } from "@/components/shared/page-wrapper";
+import { SEO } from "@/components/shared/seo";
 
 // --- Elite Sub-Components ---
 const StatCard = memo(({
@@ -113,11 +114,15 @@ export function DashboardPage() {
 
     return (
         <div className="space-y-10" role="main">
+            <SEO
+                title={t('dashboard.title') || 'Command Center'}
+                description={t('dashboard.description')}
+            />
             {/* World Class Header */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative overflow-hidden rounded-[4rem] bg-neutral-950 p-12 text-white border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)]"
+                className="relative overflow-hidden rounded-[4rem] bg-[var(--sidebar-background)] p-12 text-[var(--foreground)] border border-[var(--border)] shadow-2xl"
             >
                 {/* Elite Chromatic Mesh */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_-20%,oklch(0.6_0.28_45/0.2)_0%,transparent_50%)]" />
@@ -129,20 +134,20 @@ export function DashboardPage() {
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
                     <div className="space-y-6">
                         <div className="flex items-center gap-3">
-                            <div className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 flex items-center gap-2">
+                            <div className="px-4 py-1.5 rounded-full bg-[var(--background)] border border-[var(--border)] flex items-center gap-2">
                                 <Activity size={12} className="text-primary-500 animate-pulse" />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-white/60">{t('dashboard.system_online')}</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">{t('dashboard.system_online')}</span>
                             </div>
                             <div className="px-4 py-1.5 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
                                 <Zap size={12} className="text-primary-500" />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-primary-400">{t('dashboard.elite_access')}</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-primary-500">{t('dashboard.elite_access')}</span>
                             </div>
                         </div>
 
-                        <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-none">
+                        <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-none text-[var(--foreground)]">
                             {t('dashboard.welcome')}, <span className="text-primary-500 italic">Chef {user?.userName?.split(' ')[0] || t('navbar.expert')}</span>
                         </h1>
-                        <p className="text-white/40 font-bold max-w-2xl tracking-tight text-lg">
+                        <p className="text-[var(--muted-foreground)] font-bold max-w-2xl tracking-tight text-lg">
                             {t('dashboard.description')}
                         </p>
 
@@ -153,7 +158,7 @@ export function DashboardPage() {
                                     <span className="font-black uppercase tracking-widest text-xs">{t('dashboard.new_protocol')}</span>
                                 </Link>
                             )}
-                            <Link to="/dashboard/recipes" className="premium-button bg-white/5 border-white/10 text-white hover:bg-white/10 px-8 h-14 group">
+                            <Link to="/dashboard/recipes" className="premium-button bg-[var(--background)] border border-[var(--border)] text-[var(--foreground)] hover:bg-[var(--muted)] px-8 h-14 group">
                                 <span className="font-black uppercase tracking-widest text-xs">{t('dashboard.access_vault')}</span>
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Link>
@@ -198,9 +203,9 @@ export function DashboardPage() {
                             ].map((activity, index) => (
                                 <div
                                     key={index}
-                                    className="flex items-start gap-6 group cursor-pointer hover:bg-white/40 dark:hover:bg-white/5 p-4 rounded-3xl transition-all"
+                                    className="flex items-start gap-6 group cursor-pointer hover:bg-[var(--background)]/50 p-4 rounded-3xl transition-all"
                                 >
-                                    <div className="w-12 h-12 rounded-2xl bg-neutral-900 flex items-center justify-center border border-white/10 shrink-0">
+                                    <div className="w-12 h-12 rounded-2xl bg-[var(--sidebar-background)] flex items-center justify-center border border-[var(--border)] shrink-0">
                                         <activity.icon className="w-5 h-5 text-primary-500" />
                                     </div>
                                     <div className="flex-1 space-y-1">
@@ -229,24 +234,24 @@ export function DashboardPage() {
                     </div>
 
                     <div className="glass-card rounded-[3rem] border border-[var(--border)] bg-white/30 backdrop-blur-3xl p-8 space-y-4">
-                        <Link to="/dashboard/recipes" className="flex items-center gap-4 p-5 rounded-3xl bg-neutral-900 text-white hover:bg-primary-500 transition-all group overflow-hidden relative">
-                            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
-                                <UtensilsCrossed size={18} />
+                        <Link to="/dashboard/recipes" className="flex items-center gap-4 p-5 rounded-3xl bg-[var(--sidebar-background)] text-[var(--foreground)] border border-[var(--border)] hover:border-primary-500 transition-all group overflow-hidden relative">
+                            <div className="w-10 h-10 rounded-xl bg-[var(--background)] flex items-center justify-center shrink-0">
+                                <UtensilsCrossed size={18} className="text-primary-500" />
                             </div>
                             <div className="flex flex-col">
                                 <span className="font-black uppercase tracking-widest text-[10px]">{t('dashboard.studio')}</span>
-                                <span className="text-xs font-bold opacity-60">{t('dashboard.manage_recipes')}</span>
+                                <span className="text-xs font-bold text-[var(--muted-foreground)]">{t('dashboard.manage_recipes')}</span>
                             </div>
                             <ArrowRight className="absolute right-6 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all" />
                         </Link>
 
-                        <Link to="/dashboard/categories" className="flex items-center gap-4 p-5 rounded-3xl bg-white/40 dark:bg-white/5 border border-[var(--border)] hover:border-primary-500 transition-all group relative">
+                        <Link to="/dashboard/categories" className="flex items-center gap-4 p-5 rounded-3xl bg-[var(--sidebar-background)] border border-[var(--border)] hover:border-primary-500 transition-all group relative">
                             <div className="w-10 h-10 rounded-xl bg-[var(--background)] flex items-center justify-center shrink-0 group-hover:bg-primary-500/10">
                                 <FolderOpen size={18} className="text-[var(--muted-foreground)] group-hover:text-primary-500" />
                             </div>
                             <div className="flex flex-col text-[var(--foreground)]">
                                 <span className="font-black uppercase tracking-widest text-[10px]">{t('dashboard.taxonomy')}</span>
-                                <span className="text-xs font-bold opacity-60">{t('dashboard.organize_categories')}</span>
+                                <span className="text-xs font-bold text-[var(--muted-foreground)]/60">{t('dashboard.organize_categories')}</span>
                             </div>
                         </Link>
 

@@ -12,11 +12,14 @@ import {
     ShieldCheck
 } from "lucide-react";
 
+import { useTranslation } from "react-i18next";
 import { useLogin } from "../hooks";
 import { loginSchema, type LoginFormData } from "../schemas";
 import { AuthBackground } from "./auth-background";
+import { SEO } from "@/components/shared/seo";
 
 export function LoginPage() {
+    const { t } = useTranslation();
     const { mutate: login, isPending } = useLogin();
 
     const {
@@ -34,6 +37,10 @@ export function LoginPage() {
 
     return (
         <div className="relative min-h-screen flex items-center justify-center overflow-hidden py-20 px-4 font-sans selection:bg-primary-500/30">
+            <SEO
+                title={t('auth.login.title') + ' ' + t('auth.login.suffix')}
+                description={t('auth.login.subtitle')}
+            />
             <AuthBackground />
 
             <motion.div
@@ -44,9 +51,9 @@ export function LoginPage() {
             >
                 {/* Secure Badge Accent */}
                 <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-max">
-                    <div className="flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-3xl rounded-full border border-white/10 shadow-2xl">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-[var(--background)]/50 backdrop-blur-3xl rounded-full border border-[var(--border)] shadow-2xl">
                         <ShieldCheck size={14} className="text-primary-500" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/50">Culinary Vault Security</span>
+                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--muted-foreground)]">{t('auth.login.security_badge')}</span>
                     </div>
                 </div>
 
@@ -63,12 +70,12 @@ export function LoginPage() {
                             </motion.div>
 
                             <div className="space-y-2">
-                                <h1 className="text-5xl font-black text-white tracking-tighter leading-none">
-                                    Master <span className="text-primary-500">Access</span>
+                                <h1 className="text-5xl font-black text-[var(--foreground)] tracking-tighter leading-none">
+                                    {t('auth.login.title')} <span className="text-primary-500">{t('auth.login.suffix')}</span>
                                 </h1>
-                                <p className="text-white/40 font-bold tracking-tight flex items-center gap-2 justify-center">
+                                <p className="text-[var(--muted-foreground)] font-bold tracking-tight flex items-center gap-2 justify-center">
                                     <Sparkles size={16} className="text-primary-500" />
-                                    Enter the world-class culinary studio
+                                    {t('auth.login.subtitle')}
                                 </p>
                             </div>
                         </div>
@@ -77,7 +84,7 @@ export function LoginPage() {
                         <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-6">
                             <div className="space-y-4">
                                 <div className="space-y-2">
-                                    <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Central Identity</label>
+                                    <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-1">{t('auth.login.identity')}</label>
                                     <div className="group relative">
                                         <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
                                         <input
@@ -92,9 +99,9 @@ export function LoginPage() {
 
                                 <div className="space-y-2">
                                     <div className="flex items-center justify-between px-1">
-                                        <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em]">Security Key</label>
+                                        <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em]">{t('auth.login.security_key')}</label>
                                         <Link to="/forgot-password" className="text-[11px] font-black uppercase text-primary-500 hover:text-primary-400 transition-colors tracking-widest">
-                                            Restore?
+                                            <span dir="ltr">{t('auth.login.forgot')}</span>
                                         </Link>
                                     </div>
                                     <div className="group relative">
@@ -120,16 +127,16 @@ export function LoginPage() {
                                     <Loader2 className="animate-spin w-8 h-8" />
                                 ) : (
                                     <div className="flex items-center gap-3">
-                                        <span className="font-black italic uppercase tracking-tighter">Authorize Protocol</span>
+                                        <span className="font-black italic uppercase tracking-tighter">{t('auth.login.authorize')}</span>
                                         <ChevronRight size={24} className="group-hover:translate-x-2 transition-transform text-white/80" />
                                     </div>
                                 )}
                             </button>
                         </form>
 
-                        <div className="mt-14 pt-10 border-t border-white/5 w-full text-center">
-                            <Link to="/register" className="inline-flex items-center gap-2 text-sm font-bold text-white/30 hover:text-white transition-all group">
-                                New to the culinary fleet? <span className="text-primary-500 font-black uppercase ml-1">Initialize Identity</span>
+                        <div className="mt-14 pt-10 border-t border-[var(--border)] w-full text-center">
+                            <Link to="/register" className="inline-flex items-center gap-2 text-sm font-bold text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-all group">
+                                {t('auth.login.new_to_fleet')} <span className="text-primary-500 font-black uppercase ml-1">{t('auth.login.initiate_identity')}</span>
                             </Link>
                         </div>
                     </div>
@@ -137,7 +144,7 @@ export function LoginPage() {
 
                 {/* Secure Badge Footer */}
                 <div className="mt-10 flex items-center justify-center gap-6 grayscale opacity-20 hover:grayscale-0 hover:opacity-100 transition-all duration-1000">
-                    <p className="text-[10px] font-black text-white uppercase tracking-[0.5em]">System Core v4.0</p>
+                    <p className="text-[10px] font-black text-white uppercase tracking-[0.5em]">{t('auth.login.system_core')}</p>
                 </div>
             </motion.div>
         </div>

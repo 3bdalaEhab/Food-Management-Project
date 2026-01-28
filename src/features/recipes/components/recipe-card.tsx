@@ -3,23 +3,23 @@ import { motion } from "framer-motion";
 import { Utensils, Clock, Edit2, Trash2, Heart, Zap, TrendingUp, Layers, Hash } from "lucide-react";
 import { Tooltip } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { useAppStore } from "@/stores";
 import type { Recipe } from "../types";
 
 interface RecipeCardProps {
     recipe: Recipe;
     onEdit?: (recipe: Recipe) => void;
     onDelete?: (id: number) => void;
-    onToggleFavorite?: (id: number) => void;
-    isFavorite?: boolean;
 }
 
 export const RecipeCard = memo(({
     recipe,
     onEdit,
     onDelete,
-    onToggleFavorite,
-    isFavorite
 }: RecipeCardProps) => {
+    const { toggleFavorite, isFavorite } = useAppStore();
+    const favorite = isFavorite(recipe.id);
+
     const imageUrl = recipe.imagePath
         ? `https://upskilling-egypt.com:3006/${recipe.imagePath}`
         : "/placeholder-recipe.jpg";
@@ -69,17 +69,17 @@ export const RecipeCard = memo(({
 
                     {/* Floating Tactical Actions */}
                     <div className="absolute top-6 right-6 flex flex-col gap-3 translate-x-12 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 ease-out">
-                        <Tooltip content={isFavorite ? 'Remove Favorite' : 'Mark Favorite'} side="left">
+                        <Tooltip content={favorite ? 'Remove Favorite' : 'Mark Favorite'} side="left">
                             <motion.button
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
-                                onClick={() => onToggleFavorite?.(recipe.id)}
+                                onClick={() => toggleFavorite(recipe.id)}
                                 className={cn(
                                     "w-12 h-12 rounded-2xl flex items-center justify-center backdrop-blur-3xl border border-white/20 transition-all shadow-2xl",
-                                    isFavorite ? 'bg-red-500 text-white border-red-400/50 shadow-red-500/40' : 'bg-black/60 text-white hover:bg-primary-500'
+                                    favorite ? 'bg-red-500 text-white border-red-400/50 shadow-red-500/40' : 'bg-black/60 text-white hover:bg-primary-500'
                                 )}
                             >
-                                <Heart className={cn("w-5 h-5", isFavorite && "fill-current")} />
+                                <Heart className={cn("w-5 h-5", favorite && "fill-current")} />
                             </motion.button>
                         </Tooltip>
                         <Tooltip content="Refine Data" side="left">

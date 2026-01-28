@@ -48,48 +48,48 @@ export function ProfilePage() {
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative overflow-hidden rounded-[4rem] bg-neutral-950 p-12 md:p-16 text-white border border-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)]"
+                className="relative overflow-hidden rounded-[4rem] bg-[var(--sidebar-background)] p-12 md:p-16 text-[var(--foreground)] border border-[var(--border)] shadow-2xl"
             >
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_-20%,oklch(0.65_0.3_45/0.2)_0%,transparent_50%)]" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_120%,oklch(0.58_0.17_145/0.1)_0%,transparent_50%)]" />
                 <div className="absolute top-0 right-0 p-12 opacity-5">
-                    <BadgeCheck size={220} strokeWidth={0.5} />
+                    <BadgeCheck size={220} strokeWidth={0.5} className="text-[var(--foreground)]" />
                 </div>
 
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-10">
                     <div className="space-y-8 flex-1">
                         <div className="flex flex-wrap items-center gap-4">
-                            <div className="px-5 py-2 rounded-full bg-white/5 border border-white/10 flex items-center gap-2">
+                            <div className="px-5 py-2 rounded-full bg-[var(--background)] border border-[var(--border)] flex items-center gap-2">
                                 <Sparkles size={14} className="text-primary-500" />
-                                <span className="text-[11px] font-black uppercase tracking-widest text-white/60">{t('profile.identity_port')}</span>
+                                <span className="text-[11px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">{t('profile.identity_port')}</span>
                             </div>
                             <div className="px-5 py-2 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
                                 <Activity size={14} className="text-primary-500 animate-pulse" />
                                 <span className="text-[11px] font-black uppercase tracking-widest text-primary-400">{t('profile.security_active')}</span>
                             </div>
-                            <div className="px-5 py-2 rounded-full bg-white/5 border border-white/10 flex items-center gap-2">
+                            <div className="px-5 py-2 rounded-full bg-[var(--background)] border border-[var(--border)] flex items-center gap-2">
                                 <ShieldCheck size={14} className="text-green-500" />
-                                <span className="text-[11px] font-black uppercase tracking-widest text-white/40">ELITE_SYSCALL_OK</span>
+                                <span className="text-[11px] font-black uppercase tracking-widest text-[var(--muted-foreground)]/40">ELITE_SYSCALL_OK</span>
                             </div>
                         </div>
 
                         <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-none uppercase italic">
                             Culinary <span className="text-primary-500 italic">{t('profile.core')}</span>
                         </h1>
-                        <p className="text-white/40 font-bold max-w-2xl tracking-tight text-xl leading-relaxed">
+                        <p className="text-[var(--muted-foreground)] font-bold max-w-2xl tracking-tight text-xl leading-relaxed">
                             {t('profile.description')}
                         </p>
                     </div>
 
                     <div className="relative group shrink-0">
                         <div className="absolute inset-0 bg-primary-500 blur-3xl opacity-20 group-hover:opacity-40 transition-opacity" />
-                        <div className="relative flex flex-col items-center gap-6 bg-white/5 border border-white/10 p-10 rounded-[4rem] backdrop-blur-3xl shadow-2xl">
-                            <div className="w-40 h-40 rounded-[3rem] bg-neutral-900 overflow-hidden border-4 border-white/20 shadow-2xl relative group/avatar">
+                        <div className="relative flex flex-col items-center gap-6 bg-[var(--background)]/80 border border-[var(--border)] p-10 rounded-[4rem] backdrop-blur-3xl shadow-2xl">
+                            <div className="w-40 h-40 rounded-[3rem] bg-[var(--sidebar-background)] overflow-hidden border-4 border-[var(--border)] shadow-2xl relative group/avatar">
                                 {user.imagePath ? (
                                     <img src={user.imagePath} alt={user.userName} className="w-full h-full object-cover transition-transform duration-700 group-hover/avatar:scale-110" />
                                 ) : (
-                                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-950">
-                                        <ChefHat className="text-white/10" size={60} />
+                                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--background)] to-[var(--sidebar-background)]">
+                                        <ChefHat className="text-[var(--muted-foreground)]/10" size={60} />
                                     </div>
                                 )}
                                 <div className="absolute inset-0 bg-primary-500/40 opacity-0 group-hover/avatar:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
@@ -97,7 +97,7 @@ export function ProfilePage() {
                                 </div>
                             </div>
                             <div className="text-center space-y-1">
-                                <h2 className="text-3xl font-black italic uppercase tracking-tighter">{user.userName}</h2>
+                                <h2 className="text-3xl font-black italic uppercase tracking-tighter text-[var(--foreground)]">{user.userName}</h2>
                                 <p className="text-[10px] font-black text-primary-500 uppercase tracking-[0.4em]">{user.role}</p>
                             </div>
                         </div>
@@ -140,7 +140,7 @@ export function ProfilePage() {
                             </button>
                         </div>
 
-                        <div className="p-8 rounded-[2.5rem] bg-neutral-950 text-white relative overflow-hidden group border border-white/5">
+                        <div className="p-8 rounded-[2.5rem] bg-[var(--sidebar-background)] text-[var(--foreground)] relative overflow-hidden group border border-[var(--border)] shadow-xl">
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,oklch(0.65_0.3_45/0.2)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity" />
                             <div className="relative z-10 space-y-4">
                                 <ShieldCheck className="text-primary-500" size={32} />

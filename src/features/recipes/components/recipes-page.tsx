@@ -13,13 +13,16 @@ import {
     UtensilsCrossed
 } from "lucide-react";
 
+import { useTranslation } from "react-i18next";
 import { useRecipes, useDeleteRecipe, useCreateRecipe } from "../hooks";
 import { RecipeCard } from "./recipe-card";
 import { RecipeForm } from "./recipe-form";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui";
 import { cn } from "@/lib/utils";
+import { SEO } from "@/components/shared/seo";
 
 export function RecipesPage() {
+    const { t } = useTranslation();
     const [search, setSearch] = useState("");
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
     const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -51,6 +54,10 @@ export function RecipesPage() {
 
     return (
         <div className="space-y-12 pb-24">
+            <SEO
+                title={t('recipes.title')}
+                description={t('recipes.description')}
+            />
             {/* Elite Header Concept */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
@@ -67,20 +74,19 @@ export function RecipesPage() {
                         <div className="flex items-center gap-3">
                             <div className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 flex items-center gap-2">
                                 <Sparkles size={12} className="text-primary-500" />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-white/60">Culinary Studio</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-white/60">{t('recipes.subtitle')}</span>
                             </div>
                             <div className="px-4 py-1.5 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
                                 <Zap size={12} className="text-primary-500" />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-primary-400">Creation Mode</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-primary-400">{t('recipes.mode')}</span>
                             </div>
                         </div>
 
                         <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-none">
-                            Recipes <span className="text-primary-500 italic">Vault</span>
+                            {t('recipes.header_title')} <span className="text-primary-500 italic">{t('recipes.header_suffix')}</span>
                         </h1>
                         <p className="text-white/40 font-bold max-w-xl tracking-tight text-lg">
-                            Manage your high-performance culinary assets. <br className="hidden md:block" />
-                            Add, refine, and orchestrate with scientific precision.
+                            {t('recipes.description')}
                         </p>
                     </div>
 
@@ -91,7 +97,7 @@ export function RecipesPage() {
                         className="premium-button premium-button-primary h-16 px-10 group shadow-[0_20px_50px_rgba(255,107,38,0.3)]"
                     >
                         <Plus size={24} className="group-hover:rotate-90 transition-transform" />
-                        <span className="font-black uppercase tracking-widest text-sm">Initialize Recipe</span>
+                        <span className="font-black uppercase tracking-widest text-sm">{t('recipes.add')}</span>
                     </motion.button>
                 </div>
             </motion.div>
@@ -121,7 +127,7 @@ export function RecipesPage() {
                     <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:text-primary-500 transition-colors" size={20} />
                     <input
                         type="text"
-                        placeholder="SEARCH ARCHIVES..."
+                        placeholder={t('recipes.search')}
                         value={search}
                         onChange={handleSearchChange}
                         className="premium-input pl-16 h-18 bg-white/40 dark:bg-white/5 border-[var(--border)] backdrop-blur-3xl font-black uppercase tracking-widest text-sm"
@@ -199,13 +205,13 @@ export function RecipesPage() {
                         <div className="absolute inset-0 bg-primary-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                         <ChefHat size={48} className="text-white relative z-10" />
                     </div>
-                    <h3 className="text-3xl font-black text-[var(--foreground)] tracking-tighter mb-2">VAULT IS EMPTY</h3>
-                    <p className="text-[var(--muted-foreground)] font-bold mb-10 uppercase tracking-widest text-[11px]">System awaiting new culinary protocol initialization</p>
+                    <h3 className="text-3xl font-black text-[var(--foreground)] tracking-tighter mb-2">{t('recipes.empty')}</h3>
+                    <p className="text-[var(--muted-foreground)] font-bold mb-10 uppercase tracking-widest text-[11px]">{t('recipes.empty_desc')}</p>
                     <button
                         onClick={() => setIsCreateOpen(true)}
                         className="premium-button premium-button-primary px-10 h-16 group"
                     >
-                        <span>Start First Protocol</span>
+                        <span>{t('recipes.start_first')}</span>
                         <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
                     </button>
                 </div>

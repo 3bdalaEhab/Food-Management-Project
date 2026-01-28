@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Mail, Lock, ArrowLeft, ShieldCheck, Hash, Loader2, Sparkles, CheckCircle, Zap } from "lucide-react";
 
+import { useTranslation } from "react-i18next";
 import { useResetPassword } from "../hooks";
 import { resetPasswordSchema, type ResetPasswordFormData } from "../schemas";
 import { AuthBackground } from "./auth-background";
+import { SEO } from "@/components/shared/seo";
 
 export function ResetPasswordPage() {
+    const { t } = useTranslation();
     const { mutate: resetPassword, isPending } = useResetPassword();
 
     const {
@@ -32,6 +35,10 @@ export function ResetPasswordPage() {
 
     return (
         <div className="relative min-h-screen flex items-center justify-center overflow-hidden py-20 px-4 font-sans selection:bg-primary-500/30">
+            <SEO
+                title={t('auth.reset.title') + ' ' + t('auth.reset.suffix')}
+                description={t('auth.reset.subtitle')}
+            />
             <AuthBackground />
 
             <motion.div
@@ -42,9 +49,9 @@ export function ResetPasswordPage() {
             >
                 {/* Title Accent */}
                 <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-max">
-                    <div className="flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-3xl rounded-full border border-white/10 shadow-2xl">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-[var(--background)]/50 backdrop-blur-3xl rounded-full border border-[var(--border)] shadow-2xl">
                         <Zap size={14} className="text-primary-500 fill-primary-500" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/50">Credential Reset Terminal</span>
+                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--muted-foreground)]">{t('auth.reset.badge')}</span>
                     </div>
                 </div>
 
@@ -59,12 +66,12 @@ export function ResetPasswordPage() {
                         </motion.div>
 
                         <div className="text-center space-y-4 mb-12">
-                            <h1 className="text-4xl font-black text-white tracking-tighter leading-none">
-                                Reset <span className="text-primary-500 text-5xl">Vault</span>
+                            <h1 className="text-4xl font-black text-[var(--foreground)] tracking-tighter leading-none">
+                                {t('auth.reset.title')} <span className="text-primary-500 text-5xl">{t('auth.reset.suffix')}</span>
                             </h1>
-                            <p className="text-white/40 font-bold tracking-tight flex items-center gap-2 justify-center">
+                            <p className="text-[var(--muted-foreground)] font-bold tracking-tight flex items-center gap-2 justify-center">
                                 <Sparkles size={16} className="text-primary-500" />
-                                Almost there! Secure your access now
+                                {t('auth.reset.subtitle')}
                             </p>
                         </div>
 
@@ -72,37 +79,37 @@ export function ResetPasswordPage() {
                         <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-8">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2 md:col-span-2">
-                                    <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Universal Identity</label>
+                                    <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-1">{t('auth.reset.identity')}</label>
                                     <div className="group relative">
-                                        <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                        <input {...register("email")} placeholder="you@example.com" className="premium-input bg-white/[0.03] border-[var(--border)] text-white h-16 pl-14" />
+                                        <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={20} />
+                                        <input {...register("email")} placeholder="you@example.com" className="premium-input bg-[var(--background)]/50 border-[var(--border)] text-[var(--foreground)] h-16 pl-14" />
                                     </div>
                                     {errors.email && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.email.message}</p>}
                                 </div>
 
                                 <div className="space-y-2 md:col-span-2">
-                                    <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Verification Code</label>
+                                    <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-1">{t('auth.reset.code')}</label>
                                     <div className="group relative">
-                                        <Hash className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                        <input {...register("seed")} placeholder="Enter Code" className="premium-input bg-white/[0.03] border-[var(--border)] text-white h-16 pl-14 font-black tracking-widest" />
+                                        <Hash className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={20} />
+                                        <input {...register("seed")} placeholder="Enter Code" className="premium-input bg-[var(--background)]/50 border-[var(--border)] text-[var(--foreground)] h-16 pl-14 font-black tracking-widest" />
                                     </div>
                                     {errors.seed && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.seed.message}</p>}
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">New Secret</label>
+                                    <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-1">{t('auth.reset.secret')}</label>
                                     <div className="group relative">
-                                        <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                        <input {...register("password")} type="password" placeholder="••••••••" className="premium-input bg-white/[0.03] border-[var(--border)] text-white h-16 pl-14" />
+                                        <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={20} />
+                                        <input {...register("password")} type="password" placeholder="••••••••" className="premium-input bg-[var(--background)]/50 border-[var(--border)] text-[var(--foreground)] h-16 pl-14" />
                                     </div>
                                     {errors.password && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.password.message}</p>}
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-[11px] font-black text-white/30 uppercase tracking-[0.2em] ml-1">Confirm Secret</label>
+                                    <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-1">{t('auth.reset.confirm')}</label>
                                     <div className="group relative">
-                                        <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                        <input {...register("confirmPassword")} type="password" placeholder="••••••••" className="premium-input bg-white/[0.03] border-[var(--border)] text-white h-16 pl-14" />
+                                        <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={20} />
+                                        <input {...register("confirmPassword")} type="password" placeholder="••••••••" className="premium-input bg-[var(--background)]/50 border-[var(--border)] text-[var(--foreground)] h-16 pl-14" />
                                     </div>
                                     {errors.confirmPassword && <p className="text-[10px] text-primary-400 font-black ml-1 uppercase">{errors.confirmPassword.message}</p>}
                                 </div>
@@ -118,17 +125,17 @@ export function ResetPasswordPage() {
                                     <Loader2 className="animate-spin w-8 h-8" />
                                 ) : (
                                     <div className="flex items-center gap-3">
-                                        <span className="font-black italic uppercase tracking-tighter">Update Credentials</span>
+                                        <span className="font-black italic uppercase tracking-tighter">{t('auth.reset.update')}</span>
                                         <CheckCircle size={22} className="group-hover:rotate-12 transition-transform text-white/80" />
                                     </div>
                                 )}
                             </button>
                         </form>
 
-                        <div className="mt-14 pt-10 border-t border-white/5 w-full text-center">
-                            <Link to="/login" className="inline-flex items-center gap-2 text-sm font-bold text-white/30 hover:text-white transition-all group">
+                        <div className="mt-14 pt-10 border-t border-[var(--border)] w-full text-center">
+                            <Link to="/login" className="inline-flex items-center gap-2 text-sm font-bold text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-all group">
                                 <ArrowLeft size={16} className="group-hover:-translate-x-2 transition-transform" />
-                                Back to <span className="text-primary-500 font-black uppercase ml-1">Sign In</span>
+                                {t('auth.reset.back')} <span className="text-primary-500 font-black uppercase ml-1">{t('auth.forgot.sign_in')}</span>
                             </Link>
                         </div>
                     </div>

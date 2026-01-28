@@ -22,6 +22,11 @@ interface AppState {
     // Mobile menu
     mobileMenuOpen: boolean;
     setMobileMenuOpen: (open: boolean) => void;
+
+    // Favorites
+    favorites: number[];
+    toggleFavorite: (recipeId: number) => void;
+    isFavorite: (recipeId: number) => boolean;
 }
 
 // Apply theme to document
@@ -79,6 +84,21 @@ export const useAppStore = create<AppState>()(
             setMobileMenuOpen: (open: boolean) => {
                 set({ mobileMenuOpen: open });
             },
+
+            // Favorites
+            favorites: [],
+            toggleFavorite: (recipeId: number) => {
+                const { favorites } = get();
+                const isFav = favorites.includes(recipeId);
+                if (isFav) {
+                    set({ favorites: favorites.filter(id => id !== recipeId) });
+                } else {
+                    set({ favorites: [...favorites, recipeId] });
+                }
+            },
+            isFavorite: (recipeId: number) => {
+                return get().favorites.includes(recipeId);
+            },
         }),
         {
             name: "app-storage",
@@ -87,6 +107,7 @@ export const useAppStore = create<AppState>()(
                 theme: state.theme,
                 language: state.language,
                 sidebarCollapsed: state.sidebarCollapsed,
+                favorites: state.favorites,
             }),
             onRehydrateStorage: () => (state) => {
                 if (state) {

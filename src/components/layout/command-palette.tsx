@@ -14,7 +14,9 @@ import {
 } from "lucide-react";
 
 import { useAuthStore, selectIsAdmin } from "@/stores";
+import { useRecipes } from "@/features/recipes/hooks";
 import { cn } from "@/lib/utils";
+import { Plus, Heart } from "lucide-react";
 
 interface CommandItemProps {
     icon: React.ElementType;
@@ -77,6 +79,7 @@ export function CommandPalette() {
     const [activeIndex, setActiveIndex] = useState(0);
     const navigate = useNavigate();
     const isAdmin = useAuthStore(selectIsAdmin);
+    const { data: recipesData } = useRecipes({ name: search });
 
     const navigationItems = [
         {
@@ -120,9 +123,39 @@ export function CommandPalette() {
             path: "/dashboard/profile",
             keywords: "profile, settings, account, password"
         }
-    ].filter(item => !item.isAdmin || isAdmin);
+    ].filter((item: any) => !item.isAdmin || isAdmin);
 
-    const filteredItems = navigationItems.filter(item =>
+    const quickActions = [
+        {
+            icon: Plus,
+            label: "Initialize Protocol",
+            description: "CREATE NEW CULINARY MISSION",
+            category: "ACTION",
+            path: "/dashboard/recipes/new",
+            keywords: "create, add, new, recipe"
+        },
+        {
+            icon: Heart,
+            label: "Curated Vault",
+            description: "ACCESS FAVORITE COLLECTIONS",
+            category: "ACTION",
+            path: "/dashboard/favorites",
+            keywords: "favorites, likes, heart"
+        }
+    ].filter((item: any) => !item.isAdmin || isAdmin);
+
+    const recipeResults = (recipesData?.data || []).slice(0, 5).map((recipe: any) => ({
+        icon: UtensilsCrossed,
+        label: recipe.name,
+        description: `SYSC_UID_${recipe.id} | ${recipe.price} EGP`,
+        category: "RECIPE",
+        path: `/dashboard/recipes?id=${recipe.id}`, // Navigate to recipes page with filter or details
+        keywords: recipe.name + " " + recipe.description
+    }));
+
+    const allItems = [...navigationItems, ...quickActions, ...recipeResults];
+
+    const filteredItems = allItems.filter(item =>
         item.label.toLowerCase().includes(search.toLowerCase()) ||
         item.keywords.toLowerCase().includes(search.toLowerCase()) ||
         item.description.toLowerCase().includes(search.toLowerCase())

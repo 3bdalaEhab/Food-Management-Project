@@ -149,20 +149,20 @@
     /* THEME_ENGINE_ACTIVE */
     color-scheme: light;
     --background: oklch(0.99 0 0);
-    --foreground: oklch(0.15 0.01 260);
-    --muted: oklch(0.96 0.02 260);
-    --muted-foreground: oklch(0.45 0.02 260);
+    --foreground: oklch(0.12 0.012 260);
+    --muted: oklch(0.97 0.015 260);
+    --muted-foreground: oklch(0.35 0.02 260);
     --border: oklch(0.92 0.01 260);
     --input: oklch(0.92 0.01 260);
     --ring: var(--color-primary-500);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.15 0.01 260);
+    --card: oklch(0.995 0 0);
+    --card-foreground: oklch(0.12 0.012 260);
 
     /* Sidebar - Tactical Light */
     --sidebar-background: oklch(1 0 0);
-    --sidebar-foreground: oklch(0.25 0.01 260);
-    --sidebar-border: oklch(0.92 0.01 260);
-    --sidebar-accent: oklch(0.96 0.02 260);
+    --sidebar-foreground: oklch(0.2 0.01 260);
+    --sidebar-border: oklch(0.94 0.01 260);
+    --sidebar-accent: oklch(0.97 0.015 260);
   }
 
   .dark {
@@ -422,15 +422,19 @@
 
   /* Premium Components */
   .glass-card {
-    background: rgba(255, 255, 255, 0.75);
+    background: oklch(1 0 0 / 0.6);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid oklch(0.15 0.01 260 / 0.08);
+    color: var(--foreground);
+    box-shadow: 0 8px 32px 0 oklch(0.15 0.01 260 / 0.03);
   }
 
   .dark .glass-card {
-    background: rgba(18, 18, 18, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: oklch(0.1 0.015 260 / 0.75);
+    border: 1px solid oklch(1 0 0 / 0.1);
+    color: var(--foreground);
+    box-shadow: none;
   }
 
   .premium-input {
@@ -438,7 +442,11 @@
   }
 
   .premium-button {
-    @apply inline-flex items-center justify-center gap-2 bg-neutral-900 text-white font-black rounded-2xl px-8 py-4 hover:bg-neutral-800 hover:shadow-2xl hover:shadow-neutral-900/20 active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none;
+    @apply inline-flex items-center justify-center gap-2 bg-neutral-950 text-white font-black rounded-2xl px-8 py-4 hover:bg-neutral-900 shadow-xl hover:shadow-2xl hover:shadow-neutral-950/20 active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .dark .premium-button {
+    @apply bg-neutral-100 text-neutral-950 hover:bg-white hover:shadow-white/10;
   }
 
   .premium-button-primary {

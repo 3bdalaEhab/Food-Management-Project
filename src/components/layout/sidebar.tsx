@@ -97,7 +97,7 @@ export function Sidebar() {
                 <div className="relative h-24 flex items-center px-6 shrink-0 border-b border-[var(--sidebar-border)]">
                     <Link to="/dashboard" className="flex items-center gap-4 group">
                         <div className="w-12 h-12 rounded-xl bg-primary-500 flex items-center justify-center shadow-[0_0_20px_rgba(255,107,38,0.3)] relative overflow-hidden shrink-0">
-                            <ChefHat className="w-6 h-6 text-neutral-950 relative z-10" />
+                            <ChefHat className="w-6 h-6 text-white relative z-10" />
                             <motion.div
                                 animate={{ rotate: 360 }}
                                 transition={{ duration: 15, repeat: Infinity, ease: "linear" }}

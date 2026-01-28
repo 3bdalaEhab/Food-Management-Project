@@ -14,7 +14,7 @@ export function DashboardLayout() {
     const sidebarCollapsed = useAppStore((state) => state.sidebarCollapsed);
 
     return (
-        <div className="relative min-h-screen bg-neutral-50 dark:bg-[#050505] selection:bg-primary-500/30">
+        <div className="relative min-h-screen bg-[var(--background)] selection:bg-primary-500/30">
             {/* Cinematic Layer */}
             <DashboardBackground />
 

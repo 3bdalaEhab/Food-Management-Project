@@ -11,14 +11,17 @@ import {
     ArrowRight
 } from "lucide-react";
 
+import { useTranslation } from "react-i18next";
 import { useCategories, useDeleteCategory, useCreateCategory, useUpdateCategory } from "../hooks";
 import { CategoryCard } from "./category-card";
 import { CategoryForm } from "./category-form";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui";
 import type { Category, CreateCategoryData } from "../types";
 import { cn } from "@/lib/utils";
+import { SEO } from "@/components/shared/seo";
 
 export function CategoriesPage() {
+    const { t } = useTranslation();
     const [search, setSearch] = useState("");
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
@@ -44,6 +47,10 @@ export function CategoriesPage() {
 
     return (
         <div className="space-y-12 pb-24">
+            <SEO
+                title={t('categories.title')}
+                description={t('categories.description')}
+            />
             {/* World Class Header */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
@@ -60,20 +67,19 @@ export function CategoriesPage() {
                         <div className="flex items-center gap-3">
                             <div className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 flex items-center gap-2">
                                 <Sparkles size={12} className="text-primary-500" />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-white/60">Culinary Taxonomy</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-white/60">{t('categories.subtitle')}</span>
                             </div>
                             <div className="px-4 py-1.5 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
                                 <Zap size={12} className="text-primary-500" />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-primary-400">Elite Management</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-primary-400">{t('categories.management')}</span>
                             </div>
                         </div>
 
                         <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-none uppercase italic">
-                            Category <span className="text-primary-500 italic">Studio</span>
+                            {t('categories.header_title')} <span className="text-primary-500 italic">{t('categories.header_suffix')}</span>
                         </h1>
                         <p className="text-white/40 font-bold max-w-xl tracking-tight text-lg">
-                            Orchestrate your culinary hierarchy. Define protocols, <br className="hidden md:block" />
-                            organize assets, and scale with industrial precision.
+                            {t('categories.description')}
                         </p>
                     </div>
 
@@ -84,7 +90,7 @@ export function CategoriesPage() {
                         className="premium-button premium-button-primary h-16 px-10 group shadow-[0_20px_50px_rgba(255,107,38,0.3)]"
                     >
                         <Plus size={24} className="group-hover:rotate-90 transition-transform" />
-                        <span className="font-black uppercase tracking-widest text-sm">Create Taxonomy</span>
+                        <span className="font-black uppercase tracking-widest text-sm">{t('categories.add')}</span>
                     </motion.button>
                 </div>
             </motion.div>
@@ -96,7 +102,7 @@ export function CategoriesPage() {
                     <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-400 group-focus-within:text-primary-500 transition-colors" size={20} />
                     <input
                         type="text"
-                        placeholder="SEARCH ARCHIVES..."
+                        placeholder={t('categories.search')}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         className="premium-input pl-16 h-18 bg-white/40 dark:bg-white/5 border-[var(--border)] backdrop-blur-3xl font-black uppercase tracking-widest text-sm"
@@ -162,13 +168,13 @@ export function CategoriesPage() {
                         <div className="absolute inset-0 bg-primary-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                         <FolderTree size={48} className="text-white relative z-10" />
                     </div>
-                    <h3 className="text-3xl font-black text-[var(--foreground)] tracking-tighter mb-2">ARCHIVE IS EMPTY</h3>
-                    <p className="text-[var(--muted-foreground)] font-bold mb-10 uppercase tracking-widest text-[11px]">System awaiting taxonomy core initialization</p>
+                    <h3 className="text-3xl font-black text-[var(--foreground)] tracking-tighter mb-2">{t('categories.empty')}</h3>
+                    <p className="text-[var(--muted-foreground)] font-bold mb-10 uppercase tracking-widest text-[11px]">{t('categories.empty_desc')}</p>
                     <button
                         onClick={() => setIsCreateOpen(true)}
                         className="premium-button premium-button-primary h-16 px-10 group"
                     >
-                        <span>Initialize Protocol</span>
+                        <span>{t('categories.initialize')}</span>
                         <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
                     </button>
                 </div>
