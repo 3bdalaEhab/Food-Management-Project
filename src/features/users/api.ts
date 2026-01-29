@@ -4,10 +4,11 @@ import type {
     User,
     UpdateUserData
 } from "./types";
+import type { UserQueryParams } from "./hooks";
 
 export const usersApi = {
     // Get all users with pagination/filtering
-    getUsers: async (params?: Record<string, any>) => {
+    getUsers: async (params?: UserQueryParams) => {
         const { data } = await apiClient.get<UsersResponse>("/Users", { params });
         return data;
     },

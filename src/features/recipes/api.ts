@@ -6,10 +6,11 @@ import type {
     CreateRecipeData,
     UpdateRecipeData
 } from "./types";
+import type { RecipeQueryParams } from "./hooks";
 
 export const recipesApi = {
     // Get all recipes with pagination and filtering
-    getRecipes: async (params?: Record<string, any>) => {
+    getRecipes: async (params?: RecipeQueryParams) => {
         const { data } = await apiClient.get<RecipesResponse>("/Recipe", { params });
         return data;
     },

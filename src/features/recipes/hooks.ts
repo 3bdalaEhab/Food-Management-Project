@@ -2,8 +2,18 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { recipesApi } from "./api";
 import type { CreateRecipeData, UpdateRecipeData } from "./types";
+import { getErrorMessage } from "@/lib/api-error";
 
-export const useRecipes = (params?: Record<string, any>) => {
+// Type for recipe query params
+export interface RecipeQueryParams {
+    pageSize?: number;
+    pageNumber?: number;
+    name?: string;
+    tagId?: number;
+    categoryId?: number;
+}
+
+export const useRecipes = (params?: RecipeQueryParams) => {
     return useQuery({
         queryKey: ["recipes", params],
         queryFn: () => recipesApi.getRecipes(params),
@@ -27,8 +37,8 @@ export const useCreateRecipe = () => {
             queryClient.invalidateQueries({ queryKey: ["recipes"] });
             toast.success("Recipe created successfully!");
         },
-        onError: (error: any) => {
-            toast.error(error.message || "Failed to create recipe");
+        onError: (error: Error) => {
+            toast.error(getErrorMessage(error));
         },
     });
 };
@@ -43,8 +53,8 @@ export const useUpdateRecipe = () => {
             queryClient.invalidateQueries({ queryKey: ["recipes", data.id] });
             toast.success("Recipe updated successfully!");
         },
-        onError: (error: any) => {
-            toast.error(error.message || "Failed to update recipe");
+        onError: (error: Error) => {
+            toast.error(getErrorMessage(error));
         },
     });
 };
@@ -58,8 +68,8 @@ export const useDeleteRecipe = () => {
             queryClient.invalidateQueries({ queryKey: ["recipes"] });
             toast.success("Recipe deleted successfully");
         },
-        onError: (error: any) => {
-            toast.error(error.message || "Failed to delete recipe");
+        onError: (error: Error) => {
+            toast.error(getErrorMessage(error));
         },
     });
 };

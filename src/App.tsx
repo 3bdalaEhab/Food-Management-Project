@@ -11,6 +11,7 @@ import { ProtectedRoute } from "@/components/auth";
 import { DashboardLayout } from "@/components/layout";
 import { DashboardBackground } from "@/components/layout/dashboard-background";
 import { AuthLayout } from "@/features/auth/components/auth-layout";
+import { ErrorBoundary, SkipLink } from "@/components/shared";
 
 // Lazy load pages for code splitting
 const LoginPage = lazy(() =>
@@ -70,15 +71,15 @@ function NotFoundPage() {
             <DashboardBackground />
             <div className="relative z-10 text-center space-y-12 max-w-2xl">
                 <div className="relative">
-                    <h1 className="text-[15rem] font-black text-neutral-900 dark:text-white leading-none tracking-tighter opacity-10 italic">404</h1>
+                    <h1 className="text-6xl sm:text-8xl md:text-[12rem] lg:text-[15rem] font-black text-neutral-900 dark:text-white leading-none tracking-tighter opacity-10 italic">404</h1>
                     <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-40 h-40 rounded-[3rem] bg-primary-500 flex items-center justify-center shadow-[0_0_100px_rgba(249,115,22,0.4)] rotate-12">
-                            <Zap size={80} className="text-white -rotate-12" />
+                        <div className="w-20 h-20 sm:w-28 sm:h-28 md:w-40 md:h-40 rounded-2xl sm:rounded-[2rem] md:rounded-[3rem] bg-primary-500 flex items-center justify-center shadow-[0_0_60px_rgba(249,115,22,0.3)] sm:shadow-[0_0_100px_rgba(249,115,22,0.4)] rotate-12">
+                            <Zap className="w-10 h-10 sm:w-14 sm:h-14 md:w-20 md:h-20 text-white -rotate-12" />
                         </div>
                     </div>
                 </div>
-                <div className="space-y-4">
-                    <h2 className="text-4xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter px-8">
+                <div className="space-y-3 sm:space-y-4">
+                    <h2 className="text-xl sm:text-2xl md:text-4xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter px-4 sm:px-8">
                         Protocol <span className="text-primary-500">Deviation</span> Detected
                     </h2>
                     <p className="text-neutral-500 font-bold uppercase tracking-[0.2em] text-xs">
@@ -106,51 +107,54 @@ function App() {
     }, [initialize]);
 
     return (
-        <QueryClientProvider client={queryClient}>
-            <BrowserRouter>
-                <Suspense fallback={<PageLoader />}>
-                    <Routes>
-                        {/* Public Auth Routes */}
-                        <Route element={<AuthLayout />}>
-                            <Route path="/" element={<Navigate to="/login" replace />} />
-                            <Route path="/login" element={<LoginPage />} />
-                            <Route path="/register" element={<RegisterPage />} />
-                            <Route path="/verify-account" element={<VerifyAccountPage />} />
-                            <Route path="/verifyAccount" element={<Navigate to="/verify-account" replace />} />
-                            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-                            <Route path="/reset-password" element={<ResetPasswordPage />} />
-                        </Route>
+        <ErrorBoundary>
+            <SkipLink />
+            <QueryClientProvider client={queryClient}>
+                <BrowserRouter>
+                    <Suspense fallback={<PageLoader />}>
+                        <Routes>
+                            {/* Public Auth Routes */}
+                            <Route element={<AuthLayout />}>
+                                <Route path="/" element={<Navigate to="/login" replace />} />
+                                <Route path="/login" element={<LoginPage />} />
+                                <Route path="/register" element={<RegisterPage />} />
+                                <Route path="/verify-account" element={<VerifyAccountPage />} />
+                                <Route path="/verifyAccount" element={<Navigate to="/verify-account" replace />} />
+                                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                                <Route path="/reset-password" element={<ResetPasswordPage />} />
+                            </Route>
 
-                        {/* Protected Dashboard Routes */}
-                        <Route
-                            path="/dashboard"
-                            element={
-                                <ProtectedRoute>
-                                    <DashboardLayout />
-                                </ProtectedRoute>
-                            }
-                        >
-                            <Route index element={<DashboardPage />} />
-                            <Route path="recipes" element={<RecipesPage />} />
-                            <Route path="categories" element={<CategoriesPage />} />
-                            <Route path="users" element={<UsersPage />} />
-                            <Route path="favorites" element={<FavoritesPage />} />
-                            <Route path="profile" element={<ProfilePage />} />
-                            <Route path="settings" element={<Navigate to="profile" replace />} />
-                        </Route>
+                            {/* Protected Dashboard Routes */}
+                            <Route
+                                path="/dashboard"
+                                element={
+                                    <ProtectedRoute>
+                                        <DashboardLayout />
+                                    </ProtectedRoute>
+                                }
+                            >
+                                <Route index element={<DashboardPage />} />
+                                <Route path="recipes" element={<RecipesPage />} />
+                                <Route path="categories" element={<CategoriesPage />} />
+                                <Route path="users" element={<UsersPage />} />
+                                <Route path="favorites" element={<FavoritesPage />} />
+                                <Route path="profile" element={<ProfilePage />} />
+                                <Route path="settings" element={<Navigate to="profile" replace />} />
+                            </Route>
 
-                        {/* 404 */}
-                        <Route path="*" element={<NotFoundPage />} />
-                    </Routes>
-                </Suspense>
-            </BrowserRouter>
+                            {/* 404 */}
+                            <Route path="*" element={<NotFoundPage />} />
+                        </Routes>
+                    </Suspense>
+                </BrowserRouter>
 
-            {/* Toast Notifications */}
-            <Toaster />
+                {/* Toast Notifications */}
+                <Toaster />
 
-            {/* React Query Devtools (only in development) */}
-            <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+                {/* React Query Devtools (only in development) */}
+                <ReactQueryDevtools initialIsOpen={false} />
+            </QueryClientProvider>
+        </ErrorBoundary>
     );
 }
 

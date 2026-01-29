@@ -2,8 +2,19 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { usersApi } from "./api";
 import type { UpdateUserData } from "./types";
+import { getErrorMessage } from "@/lib/api-error";
 
-export const useUsers = (params?: Record<string, any>) => {
+// Type for user query params
+export interface UserQueryParams {
+    pageSize?: number;
+    pageNumber?: number;
+    userName?: string;
+    email?: string;
+    country?: string;
+    groups?: number[];
+}
+
+export const useUsers = (params?: UserQueryParams) => {
     return useQuery({
         queryKey: ["users", params],
         queryFn: () => usersApi.getUsers(params),
@@ -28,8 +39,8 @@ export const useUpdateUser = () => {
             queryClient.invalidateQueries({ queryKey: ["users", data.id] });
             toast.success("User updated successfully!");
         },
-        onError: (error: any) => {
-            toast.error(error.message || "Failed to update user");
+        onError: (error: Error) => {
+            toast.error(getErrorMessage(error));
         },
     });
 };
@@ -43,8 +54,8 @@ export const useDeleteUser = () => {
             queryClient.invalidateQueries({ queryKey: ["users"] });
             toast.success("User deleted successfully from management hub");
         },
-        onError: (error: any) => {
-            toast.error(error.message || "Failed to delete user");
+        onError: (error: Error) => {
+            toast.error(getErrorMessage(error));
         },
     });
 };
