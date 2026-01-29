@@ -25,7 +25,7 @@ export interface Recipe {
 }
 
 export interface RecipeDetails extends Recipe {
-    // Add more details if needed for a single recipe view
+    isFavorite?: boolean;
 }
 
 export interface RecipesResponse {

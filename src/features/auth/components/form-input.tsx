@@ -1,4 +1,4 @@
-import { LucideIcon } from 'lucide-react';
+import { LucideIcon, Eye, EyeOff } from 'lucide-react';
 import { UseFormRegister, RegisterOptions, FieldError } from 'react-hook-form';
 
 interface FormInputProps {
@@ -81,7 +81,6 @@ export function PasswordInput({
     icon,
     ...props
 }: PasswordInputProps) {
-    const { Eye, EyeOff } = require('lucide-react');
 
     return (
         <FormInput

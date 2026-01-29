@@ -8,7 +8,7 @@ import type {
 
 export const categoriesApi = {
     // Get all categories with pagination/filtering
-    getCategories: async (params?: Record<string, any>) => {
+    getCategories: async (params?: Record<string, string | number | boolean | undefined>) => {
         const { data } = await apiClient.get<CategoriesResponse>("/Category", { params });
         return data;
     },

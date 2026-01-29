@@ -42,7 +42,7 @@ export function ErrorFallback({ error, onReset }: ErrorFallbackProps) {
                                     Oops! Something went wrong
                                 </h1>
                                 <p className="text-white/80 text-sm mt-1">
-                                    Don't worry, we're on it
+                                    Don&apos;t worry, we&apos;re on it
                                 </p>
                             </div>
                         </div>

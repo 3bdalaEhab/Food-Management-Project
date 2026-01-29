@@ -42,9 +42,12 @@ const createWrapper = () => {
             },
         },
     });
-    return ({ children }: { children: React.ReactNode }) => (
+
+    const Wrapper = ({ children }: { children: React.ReactNode }) => (
         <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     );
+    Wrapper.displayName = 'QueryWrapper';
+    return Wrapper;
 };
 
 describe('Auth Hooks', () => {
@@ -53,8 +56,8 @@ describe('Auth Hooks', () => {
 
     beforeEach(() => {
         vi.clearAllMocks();
-        (useNavigate as any).mockReturnValue(mockNavigate);
-        (useAuthStore as any).mockImplementation((selector: any) => {
+        (useNavigate as unknown as { mockReturnValue: (v: unknown) => void }).mockReturnValue(mockNavigate);
+        (useAuthStore as unknown as { mockImplementation: (f: (s: { setToken: typeof mockSetToken }) => unknown) => void }).mockImplementation((selector: (s: { setToken: typeof mockSetToken }) => void) => {
             if (selector) return selector({ setToken: mockSetToken });
             return { setToken: mockSetToken };
         });
@@ -63,7 +66,7 @@ describe('Auth Hooks', () => {
     describe('useLogin', () => {
         it('should handle successful login', async () => {
             const mockResponse = { token: 'fake-token' };
-            (authApi.login as any).mockResolvedValue(mockResponse);
+            (authApi.login as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue(mockResponse);
 
             const { result } = renderHook(() => useLogin(), { wrapper: createWrapper() });
 
@@ -79,14 +82,14 @@ describe('Auth Hooks', () => {
 
         it('should handle login error', async () => {
             const mockError = { response: { data: { message: 'Invalid credentials' } }, isAxiosError: true };
-            (authApi.login as any).mockRejectedValue(mockError);
+            (authApi.login as unknown as { mockRejectedValue: (v: unknown) => void }).mockRejectedValue(mockError);
 
             const { result } = renderHook(() => useLogin(), { wrapper: createWrapper() });
 
             // Swallow error to prevent log noise
             try {
                 await result.current.mutateAsync({ email: 'test@example.com', password: 'password' });
-            } catch (e) {
+            } catch {
                 // Expected
             }
 
@@ -100,13 +103,13 @@ describe('Auth Hooks', () => {
 
     describe('useRegister', () => {
         it('should handle successful registration', async () => {
-            (authApi.register as any).mockResolvedValue({});
+            (authApi.register as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue({});
 
             const { result } = renderHook(() => useRegister(), { wrapper: createWrapper() });
 
             // Minimal mock data for form data
             const formData = new FormData();
-            await result.current.mutateAsync(formData as any);
+            await result.current.mutateAsync(formData as unknown);
 
             await waitFor(() => {
                 expect(authApi.register).toHaveBeenCalled();
@@ -117,13 +120,16 @@ describe('Auth Hooks', () => {
 
         it('should handle registration error', async () => {
             const mockError = { response: { data: { message: 'Email taken' } }, isAxiosError: true };
-            (authApi.register as any).mockRejectedValue(mockError);
+            (authApi.register as unknown as { mockRejectedValue: (v: unknown) => void }).mockRejectedValue(mockError);
 
             const { result } = renderHook(() => useRegister(), { wrapper: createWrapper() });
 
             try {
-                await result.current.mutateAsync({} as any);
-            } catch (e) { }
+                await result.current.mutateAsync({} as unknown);
+            } catch (error) {
+                // Expected error during registration
+                console.debug('Registration error caught in test:', error);
+            }
 
             await waitFor(() => {
                 expect(toast.error).toHaveBeenCalled();
@@ -134,7 +140,7 @@ describe('Auth Hooks', () => {
 
     describe('useForgotPassword', () => {
         it('should handle successful request', async () => {
-            (authApi.forgotPassword as any).mockResolvedValue({});
+            (authApi.forgotPassword as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue({});
 
             const { result } = renderHook(() => useForgotPassword(), { wrapper: createWrapper() });
 
@@ -150,7 +156,7 @@ describe('Auth Hooks', () => {
 
     describe('useResetPassword', () => {
         it('should handle successful reset', async () => {
-            (authApi.resetPassword as any).mockResolvedValue({});
+            (authApi.resetPassword as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue({});
 
             const { result } = renderHook(() => useResetPassword(), { wrapper: createWrapper() });
 
@@ -166,7 +172,7 @@ describe('Auth Hooks', () => {
 
     describe('useVerifyAccount', () => {
         it('should handle successful verification', async () => {
-            (authApi.verifyAccount as any).mockResolvedValue({});
+            (authApi.verifyAccount as unknown as { mockResolvedValue: (v: unknown) => void }).mockResolvedValue({});
 
             const { result } = renderHook(() => useVerifyAccount(), { wrapper: createWrapper() });
 

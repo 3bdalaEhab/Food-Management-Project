@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { categoriesApi } from "./api";
 import type { CreateCategoryData, UpdateCategoryData } from "./types";
 
-export const useCategories = (params?: Record<string, any>) => {
+export const useCategories = (params?: Record<string, string | number | boolean | undefined>) => {
     return useQuery({
         queryKey: ["categories", params],
         queryFn: () => categoriesApi.getCategories(params),
@@ -27,7 +27,7 @@ export const useCreateCategory = () => {
             queryClient.invalidateQueries({ queryKey: ["categories"] });
             toast.success("Category created successfully!");
         },
-        onError: (error: any) => {
+        onError: (error: Error) => {
             toast.error(error.message || "Failed to create category");
         },
     });
@@ -43,7 +43,7 @@ export const useUpdateCategory = () => {
             queryClient.invalidateQueries({ queryKey: ["categories", data.id] });
             toast.success("Category updated successfully!");
         },
-        onError: (error: any) => {
+        onError: (error: Error) => {
             toast.error(error.message || "Failed to update category");
         },
     });
@@ -58,7 +58,7 @@ export const useDeleteCategory = () => {
             queryClient.invalidateQueries({ queryKey: ["categories"] });
             toast.success("Category deleted successfully");
         },
-        onError: (error: any) => {
+        onError: (error: Error) => {
             toast.error(error.message || "Failed to delete category");
         },
     });

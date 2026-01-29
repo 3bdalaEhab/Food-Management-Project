@@ -96,8 +96,7 @@ export const ar = {
             preferences: {
                 theme_protocol: "المظهر",
                 lang_protocol: "اللغة"
-            },
-            change_photo: "تغيير الصورة الشخصية"
+            }
         },
         categories: {
             title: "التصنيفات",

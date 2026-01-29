@@ -7,42 +7,59 @@ import {
     Sparkles
 } from "lucide-react";
 
+import { LucideIcon } from "lucide-react";
+
 /**
  * HIGH-PERFORMANCE GLOBAL BACKGROUND
  * Optimized for GPU efficiency while maintaining cinematic aesthetic.
  */
 
-const FloatingAsset = ({ Icon, size, top, left, delay, duration }: any) => (
+interface FloatingAssetProps {
+    Icon: LucideIcon;
+    size: number;
+    top: string;
+    left: string;
+    delay: number;
+    duration: number;
+    rotate?: number;
+}
+
+const FloatingAsset = ({ Icon, size, top, left, delay, duration, rotate = 0 }: FloatingAssetProps) => (
     <motion.div
-        initial={{ opacity: 0 }}
+        initial={{ opacity: 0, rotate }}
         animate={{
-            opacity: [0.02, 0.08, 0.02],
-            y: [0, -15, 0],
+            opacity: [0.01, 0.05, 0.01],
+            y: [0, -30, 0],
+            rotate: [rotate, rotate + 15, rotate],
+            scale: [1, 1.1, 1]
         }}
         transition={{
             duration,
             repeat: Infinity,
             delay,
-            ease: "linear"
+            ease: "easeInOut"
         }}
         style={{
             position: 'absolute',
             top,
             left,
-            willChange: 'transform' // Optimized hardware acceleration
+            willChange: 'transform'
         }}
         className="text-primary-500/10 pointer-events-none"
     >
-        <Icon size={size} strokeWidth={1} />
+        <Icon size={size} strokeWidth={0.5} />
     </motion.div>
 );
 
 export function DashboardBackground() {
     const assets = useMemo(() => [
-        { Icon: Pizza, size: 100, top: '15%', left: '8%', delay: 0, duration: 30 },
-        { Icon: ChefHat, size: 80, top: '65%', left: '82%', delay: 5, duration: 28 },
-        { Icon: UtensilsCrossed, size: 60, top: '25%', left: '72%', delay: 2, duration: 25 },
-        { Icon: Sparkles, size: 30, top: '45%', left: '18%', delay: 8, duration: 22 },
+        { Icon: Pizza, size: 120, top: '10%', left: '5%', delay: 0, duration: 35, rotate: 12 },
+        { Icon: ChefHat, size: 90, top: '70%', left: '85%', delay: 5, duration: 32, rotate: -15 },
+        { Icon: UtensilsCrossed, size: 70, top: '20%', left: '75%', delay: 2, duration: 28, rotate: 45 },
+        { Icon: Sparkles, size: 40, top: '40%', left: '15%', delay: 8, duration: 25, rotate: 0 },
+        { Icon: ChefHat, size: 60, top: '80%', left: '20%', delay: 10, duration: 40, rotate: 10 },
+        { Icon: Pizza, size: 80, top: '5%', left: '50%', delay: 15, duration: 38, rotate: -20 },
+        { Icon: UtensilsCrossed, size: 50, top: '60%', left: '45%', delay: 12, duration: 30, rotate: 90 },
     ], []);
 
     return (

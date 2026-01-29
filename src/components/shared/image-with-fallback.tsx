@@ -58,7 +58,7 @@ export const ImageWithFallback = ({
                 onError={handleError}
                 onLoad={handleLoad}
                 className={cn("w-full h-full object-cover object-center transition-opacity duration-300", isLoading ? "opacity-0" : "opacity-100")}
-                {...props as any}
+                {...props as React.ImgHTMLAttributes<HTMLImageElement>}
             />
 
             {hasError && fallbackSrc === imgSrc && (

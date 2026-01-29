@@ -9,7 +9,7 @@ export function Toaster({ ...props }: ToasterProps) {
 
     return (
         <Sonner
-            theme={theme as any}
+            theme={theme as 'light' | 'dark' | 'system'}
             className="toaster group"
             position="top-center"
             expand={true}

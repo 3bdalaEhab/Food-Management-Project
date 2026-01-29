@@ -46,10 +46,6 @@ export function CategoryForm({
         },
     });
 
-    const onFormSubmit = (data: CategoryFormData) => {
-        onSubmit(data);
-    };
-
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -84,7 +80,7 @@ export function CategoryForm({
                         </button>
                     </div>
 
-                    <form onSubmit={handleSubmit(onFormSubmit as any)} className="space-y-10">
+                    <form onSubmit={handleSubmit((data) => onSubmit(data))} className="space-y-10">
                         <div className="space-y-4">
                             <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
                                 <Zap size={14} className="text-primary-500" />

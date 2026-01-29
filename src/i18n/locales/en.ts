@@ -26,7 +26,9 @@ export const en = {
             submit: "Submit",
             delete: "Delete",
             edit: "Edit",
+            success: "Successful Operation",
             updated: "Updated",
+            id: "ID",
             remove_fav: "Remove from favorites",
             add_fav: "Add to favorites"
         },
@@ -112,8 +114,7 @@ export const en = {
             preferences: {
                 theme_protocol: "Theme",
                 lang_protocol: "Language"
-            },
-            change_photo: "Change Profile Picture"
+            }
         },
         categories: {
             title: "Categories",

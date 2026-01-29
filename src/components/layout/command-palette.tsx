@@ -86,7 +86,17 @@ export function CommandPalette() {
         name: debouncedSearch
     });
 
-    const navigationItems = [
+    interface NavItem {
+        icon: React.ElementType;
+        label: string;
+        description: string;
+        category: string;
+        path: string;
+        keywords: string;
+        isAdmin?: boolean;
+    }
+
+    const navigationItems: NavItem[] = [
         {
             icon: LayoutDashboard,
             label: "Mission Center",
@@ -128,9 +138,9 @@ export function CommandPalette() {
             path: "/dashboard/profile",
             keywords: "profile, settings, account, password"
         }
-    ].filter((item: any) => !item.isAdmin || isAdmin);
+    ].filter((item: NavItem) => !item.isAdmin || isAdmin);
 
-    const quickActions = [
+    const quickActions: NavItem[] = [
         {
             icon: Plus,
             label: "Initialize Protocol",
@@ -147,9 +157,9 @@ export function CommandPalette() {
             path: "/dashboard/favorites",
             keywords: "favorites, likes, heart"
         }
-    ].filter((item: any) => !item.isAdmin || isAdmin);
+    ].filter((item: NavItem) => !item.isAdmin || isAdmin);
 
-    const recipeResults = (recipesData?.data || []).slice(0, 5).map((recipe: any) => ({
+    const recipeResults = (recipesData?.data || []).slice(0, 5).map((recipe) => ({
         icon: UtensilsCrossed,
         label: recipe.name,
         description: `SYSC_UID_${recipe.id} | ${recipe.price} EGP`,

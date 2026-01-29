@@ -43,8 +43,9 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
             await apiClient.put("/Users/ChangePassword", data);
             toast.success("Security protocol updated successfully");
             onSuccess();
-        } catch (error: any) {
-            toast.error(error.response?.data?.message || "Security protocol failed");
+        } catch (error) {
+            const message = error instanceof Error ? error.message : "Security protocol failed";
+            toast.error(message);
         }
     };
 

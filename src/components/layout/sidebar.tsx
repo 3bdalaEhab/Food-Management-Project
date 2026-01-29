@@ -43,7 +43,7 @@ export function Sidebar() {
     const { sidebarCollapsed, toggleSidebar, language } = useAppStore();
 
     const isRtl = language === "ar";
-    const springConfig: any = { type: "spring", stiffness: 400, damping: 40 };
+    const springConfig = { type: "spring", stiffness: 400, damping: 40 } as const;
 
     const filteredNavItems = useMemo(() =>
         navItems.filter((item) => !item.adminOnly || isAdmin),

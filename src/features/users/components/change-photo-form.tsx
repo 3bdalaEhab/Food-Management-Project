@@ -63,8 +63,9 @@ export function ChangePhotoForm({ currentPhoto, onSuccess, onCancel }: ChangePho
 
             toast.success(t('profile.photo_updated') || 'Profile picture updated successfully');
             onSuccess(response.data.photoUrl || preview!);
-        } catch (error: any) {
-            toast.error(error.response?.data?.message || 'Failed to upload photo');
+        } catch (error) {
+            const message = error instanceof Error ? error.message : 'Failed to upload photo';
+            toast.error(message);
         } finally {
             setIsUploading(false);
         }

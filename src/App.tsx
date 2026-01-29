@@ -101,12 +101,22 @@ function NotFoundPage() {
 }
 
 function App() {
+    const { i18n } = useTranslation();
     const initialize = useAuthStore((state) => state.initialize);
 
     // Initialize auth state on mount
     useEffect(() => {
         initialize();
     }, [initialize]);
+
+    // Handle language direction and lang attribute
+    useEffect(() => {
+        const lang = i18n.language || 'ar';
+        const dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+        document.documentElement.lang = lang;
+        document.documentElement.dir = dir;
+    }, [i18n.language]);
 
     return (
         <ErrorBoundary>

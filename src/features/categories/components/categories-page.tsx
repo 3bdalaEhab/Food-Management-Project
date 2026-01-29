@@ -34,9 +34,9 @@ export function CategoriesPage() {
         name: search,
     });
 
-    const { mutate: deleteCategory, isPending: isDeleting } = useDeleteCategory();
-    const { mutate: createCategory, isPending: isCreating } = useCreateCategory();
-    const { mutate: updateCategory, isPending: isUpdating } = useUpdateCategory();
+    const { mutate: deleteCategory } = useDeleteCategory();
+    const { mutate: createCategory } = useCreateCategory();
+    const { mutate: updateCategory } = useUpdateCategory();
 
     const container = {
         hidden: { opacity: 0 },
