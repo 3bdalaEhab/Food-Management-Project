@@ -154,7 +154,7 @@ describe('Auth Hooks', () => {
 
             const { result } = renderHook(() => useResetPassword(), { wrapper: createWrapper() });
 
-            await result.current.mutateAsync({ email: 'test', password: 'new', seed: '123' });
+            await result.current.mutateAsync({ email: 'test', password: 'new', confirmPassword: 'new', seed: '123' });
 
             await waitFor(() => {
                 expect(authApi.resetPassword).toHaveBeenCalled();

@@ -7,10 +7,19 @@ import { DashboardBackground } from "./dashboard-background";
 import { CommandPalette } from "./command-palette";
 import { MobileDrawer } from "./mobile-drawer";
 import { PageWrapper } from "../shared/page-wrapper";
+import { cn } from "@/lib/utils";
+import { useMemo } from "react";
 
 export function DashboardLayout() {
     const location = useLocation();
     const sidebarCollapsed = useAppStore((state) => state.sidebarCollapsed);
+
+    const mainClassName = useMemo(() => {
+        return cn(
+            "relative min-h-screen z-10 transition-[padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+            sidebarCollapsed ? "md:ps-[88px]" : "md:ps-[280px]"
+        );
+    }, [sidebarCollapsed]);
 
     return (
         <div className="relative min-h-screen bg-[var(--background)] selection:bg-primary-500/30">
@@ -23,14 +32,11 @@ export function DashboardLayout() {
             {/* Master Content Orchestrator */}
             <motion.main
                 initial={false}
-                animate={{
-                    paddingInlineStart: sidebarCollapsed ? "80px" : "280px",
-                }}
+                className={mainClassName}
                 transition={{
                     duration: 0.5,
                     ease: [0.16, 1, 0.3, 1]
                 }}
-                className="relative min-h-screen z-10"
             >
                 {/* Fixed Top Interface */}
                 <div className="sticky top-0 z-30 px-6 py-4">

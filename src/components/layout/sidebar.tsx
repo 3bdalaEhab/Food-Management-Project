@@ -68,7 +68,7 @@ export function Sidebar() {
             )}
         >
             {/* Cinematic Tactical Layers */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_start_top,var(--color-primary-500/0.05)_0%,transparent_40%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-radial-fade pointer-events-none" />
 
             {/* Header: Brand Protocol */}
             <div className="relative h-24 flex items-center px-6 shrink-0 border-b border-[var(--sidebar-border)]">

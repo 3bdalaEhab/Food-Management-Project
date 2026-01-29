@@ -71,7 +71,7 @@ export const useAppStore = create<AppState>()(
             },
 
             // Sidebar
-            sidebarCollapsed: false,
+            sidebarCollapsed: typeof window !== 'undefined' ? window.innerWidth < 768 : false,
             toggleSidebar: () => {
                 set({ sidebarCollapsed: !get().sidebarCollapsed });
             },

@@ -70,8 +70,8 @@ export function DashboardPage() {
                 className="relative overflow-hidden rounded-[4rem] bg-[var(--sidebar-background)] p-12 text-[var(--foreground)] border border-[var(--border)] shadow-2xl"
             >
                 {/* Elite Chromatic Mesh */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_-20%,oklch(0.6_0.28_45/0.2)_0%,transparent_50%)]" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_120%,oklch(0.58_0.17_145/0.1)_0%,transparent_50%)]" />
+                <div className="absolute inset-0 bg-mesh-gradient-1" />
+                <div className="absolute inset-0 bg-mesh-gradient-2" />
                 <div className="absolute top-0 right-0 p-12 opacity-10">
                     <ChefHat size={200} strokeWidth={0.5} />
                 </div>
