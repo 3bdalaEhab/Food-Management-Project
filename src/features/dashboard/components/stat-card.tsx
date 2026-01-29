@@ -8,6 +8,8 @@ interface StatCardProps {
     value: string;
     trend?: string;
     color: string;
+    iconColor?: string;
+    iconBg?: string;
     delay: number;
 }
 
@@ -17,6 +19,8 @@ export const StatCard = memo(({
     value,
     trend,
     color,
+    iconColor,
+    iconBg,
     delay,
 }: StatCardProps) => {
     return (
@@ -36,8 +40,8 @@ export const StatCard = memo(({
 
                 <div className="relative z-10 flex flex-col justify-between h-full gap-6">
                     <div className="flex justify-between items-start">
-                        <div className={`p-4 rounded-2xl ${color} bg-opacity-10 border border-white/5`}>
-                            <Icon size={24} className={`text-${color.split('-')[1]}-500`} />
+                        <div className={`p-4 rounded-2xl ${iconBg || `${color} bg-opacity-10`} border border-white/5`}>
+                            <Icon size={24} className={iconColor || `text-[var(--foreground)]`} />
                         </div>
                     </div>
 

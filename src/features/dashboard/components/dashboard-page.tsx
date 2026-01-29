@@ -33,6 +33,8 @@ export function DashboardPage() {
             value: "156",
             trend: "+12.5%",
             color: "bg-[var(--sidebar-background)] border border-[var(--border)]",
+            iconColor: "text-[var(--foreground)]",
+            iconBg: "bg-[var(--muted)]",
         },
         {
             icon: FolderOpen,
@@ -40,6 +42,8 @@ export function DashboardPage() {
             value: "24",
             trend: "+3.2%",
             color: "bg-primary-500 shadow-primary-500/20",
+            iconColor: "text-primary-500",
+            iconBg: "bg-primary-500/10",
         },
         {
             icon: Users,
@@ -47,6 +51,8 @@ export function DashboardPage() {
             value: "1.2k",
             trend: "+18.9%",
             color: "bg-[var(--sidebar-background)] border border-[var(--border)]",
+            iconColor: "text-[var(--foreground)]",
+            iconBg: "bg-[var(--muted)]",
         },
         {
             icon: Heart,
@@ -54,6 +60,8 @@ export function DashboardPage() {
             value: "89",
             trend: "+5.1%",
             color: "bg-red-500 shadow-red-500/20",
+            iconColor: "text-red-500",
+            iconBg: "bg-red-500/10",
         },
     ], [t]);
 
