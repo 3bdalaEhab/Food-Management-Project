@@ -32,7 +32,7 @@ export const StatCard = memo(({
             role="status"
             aria-label={`${label}: ${value}`}
         >
-            <div className={`absolute inset-0 ${color} opacity-0 group-hover:opacity-10 transition-all duration-500 rounded-[2.5rem] blur-2xl`} />
+            <div className={`absolute inset-0 ${color} opacity-0 group-hover:opacity-10 transition-all duration-500 rounded-[2.5rem] blur-xl`} />
 
             <div className="relative glass-card rounded-[2.5rem] p-8 border border-[var(--border)] bg-[var(--sidebar-background)] shadow-lg transition-all duration-300 group-hover:border-primary-500/30 group-hover:-translate-y-1 overflow-hidden">
                 {/* Background Decor */}

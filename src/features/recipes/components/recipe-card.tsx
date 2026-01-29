@@ -6,6 +6,8 @@ import { useAppStore } from "@/stores";
 import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 import type { Recipe } from "../types";
 
+import { useTranslation } from "react-i18next";
+
 interface RecipeCardProps {
     recipe: Recipe;
     onEdit?: (recipe: Recipe) => void;
@@ -17,6 +19,7 @@ export const RecipeCard = memo(({
     onEdit,
     onDelete,
 }: RecipeCardProps) => {
+    const { t } = useTranslation();
     const { toggleFavorite, isFavorite } = useAppStore();
     const favorite = isFavorite(recipe.id);
 
@@ -34,7 +37,7 @@ export const RecipeCard = memo(({
             style={{ willChange: 'transform, opacity' }}
             className="group relative h-full"
             role="article"
-            aria-label={`Recipe: ${recipe.name}`}
+            aria-label={`${t('recipes.header_title')}: ${recipe.name}`}
         >
             {/* Elite Industrial Glow Shadow */}
             <div className="absolute -inset-1 bg-gradient-to-r from-primary-500/20 to-primary-600/20 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -70,7 +73,7 @@ export const RecipeCard = memo(({
                                 "w-10 h-10 rounded-xl flex items-center justify-center border transition-all shadow-lg",
                                 favorite ? 'bg-red-500 text-white border-red-500' : 'bg-black/60 text-white border-white/10 hover:bg-primary-500 hover:border-primary-500'
                             )}
-                            aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
+                            aria-label={favorite ? t('common.remove_fav') : t('common.add_fav')}
                         >
                             <Heart className={cn("w-4 h-4", favorite && "fill-current")} />
                         </motion.button>
@@ -88,7 +91,7 @@ export const RecipeCard = memo(({
                     {/* Price Hub Overlay - Bottom */}
                     <div className="absolute bottom-5 start-5 end-5 flex items-end justify-between">
                         <div className="flex flex-col">
-                            <span className="text-[8px] font-black text-white/60 uppercase tracking-[0.2em] mb-1">Value Exchange</span>
+                            <span className="text-[8px] font-black text-white/60 uppercase tracking-[0.2em] mb-1">{t('recipes.value_exchange')}</span>
                             <div className="flex items-baseline gap-1 text-white">
                                 <span className="text-lg font-bold text-primary-500">$</span>
                                 <span className="text-3xl font-black tracking-tighter italic shadow-black drop-shadow-lg">{recipe.price}</span>
@@ -96,7 +99,7 @@ export const RecipeCard = memo(({
                         </div>
                         <div className="px-3 py-1.5 bg-black/60 backdrop-blur-md rounded-xl border border-white/10 flex items-center gap-1.5">
                             <Clock size={10} className="text-primary-500" />
-                            <span className="text-[9px] font-bold uppercase tracking-wider text-white">25 MIN</span>
+                            <span className="text-[9px] font-bold uppercase tracking-wider text-white">25 {t('recipes.min')}</span>
                         </div>
                     </div>
                 </div>
@@ -106,7 +109,7 @@ export const RecipeCard = memo(({
                     <div className="space-y-3 mb-6">
                         <div className="flex items-center gap-2 opacity-50">
                             <Hash size={10} className="text-primary-500" />
-                            <span className="text-[10px] font-bold tracking-widest text-[var(--muted-foreground)]">ID: #{recipe.id.toString().padStart(4, '0')}</span>
+                            <span className="text-[10px] font-bold tracking-widest text-[var(--muted-foreground)]">{t('common.id')}: #{recipe.id.toString().padStart(4, '0')}</span>
                         </div>
                         <h3 className="text-2xl font-bold text-[var(--foreground)] tracking-tight leading-none group-hover:text-primary-500 transition-colors line-clamp-1">
                             {recipe.name}
@@ -122,7 +125,7 @@ export const RecipeCard = memo(({
                                 <Utensils size={12} />
                             </div>
                             <div className="flex flex-col">
-                                <span className="text-[9px] font-medium text-[var(--muted-foreground)]">Category</span>
+                                <span className="text-[9px] font-medium text-[var(--muted-foreground)]">{t('common.category')}</span>
                                 <span className="text-[11px] font-bold text-[var(--foreground)] tracking-wider">
                                     {recipe.category?.[0]?.name || "N/A"}
                                 </span>
@@ -134,10 +137,10 @@ export const RecipeCard = memo(({
                             whileTap={{ scale: 0.95 }}
                             onClick={() => onDelete?.(recipe.id)}
                             className="premium-button premium-button-danger h-12 flex-1 group"
-                            aria-label="Delete recipe"
+                            aria-label={t('common.delete')}
                         >
                             <Trash2 size={18} className="group-hover:-rotate-12 transition-transform" />
-                            <span className="font-black italic uppercase tracking-widest text-[10px]">Purge</span>
+                            <span className="font-black italic uppercase tracking-widest text-[10px]">{t('recipes.purge')}</span>
                         </motion.button>
                     </div>
                 </div>

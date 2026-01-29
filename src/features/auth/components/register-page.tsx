@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from "react-i18next";
 import axios, { AxiosError } from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -61,6 +62,7 @@ const VALIDATION = {
 };
 
 export function RegisterPage() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -98,14 +100,14 @@ export function RegisterPage() {
                 formData,
                 { headers: { 'Content-Type': 'multipart/form-data' } }
             );
-            toast.success("Registration successful!", {
-                description: "Please verify your account"
+            toast.success(t('toasts.register_success'), {
+                description: t('toasts.verify_account')
             });
             navigate('/verify-account', { state: { email: data.email, fromRegister: true } });
         } catch (error) {
             const axiosError = error as AxiosError<{ message?: string }>;
-            toast.error("Registration failed", {
-                description: axiosError.response?.data?.message || "Please try again"
+            toast.error(t('toasts.register_failed'), {
+                description: axiosError.response?.data?.message || t('toasts.try_again')
             });
         } finally {
             setLoadingBtn(false);
@@ -114,7 +116,7 @@ export function RegisterPage() {
 
     return (
         <div className="relative min-h-screen w-full flex items-center justify-center overflow-x-hidden font-sans selection:bg-primary-500/30 py-6 sm:py-10 px-4 sm:px-6">
-            <SEO title="Create Account" description="Register for your culinary journey" />
+            <SEO title={t('auth.register.title')} description={t('auth.register.subtitle')} />
             <AuthBackground />
             <FloatingAuthControls />
 
@@ -142,11 +144,11 @@ export function RegisterPage() {
                             </motion.div>
 
                             <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-[var(--foreground)] tracking-tight">
-                                Join the <span className="text-primary-500">Kitchen</span>
+                                {t('auth.register.title')} <span className="text-primary-500">{t('auth.register.suffix')}</span>
                             </h1>
                             <p className="text-[var(--muted-foreground)] text-[10px] sm:text-xs mt-1.5 flex items-center justify-center gap-1.5">
                                 <Sparkles size={12} className="text-primary-500" />
-                                Create your culinary identity
+                                {t('auth.register.subtitle')}
                             </p>
                         </div>
 
@@ -156,7 +158,7 @@ export function RegisterPage() {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                                 {/* Username */}
                                 <FormField
-                                    label="Username"
+                                    label={t('auth.register.identity_name')}
                                     icon={User}
                                     placeholder="chefmaster"
                                     register={register}
@@ -168,7 +170,7 @@ export function RegisterPage() {
 
                                 {/* Email */}
                                 <FormField
-                                    label="Email"
+                                    label={t('auth.register.universal_email')}
                                     icon={Mail}
                                     type="email"
                                     placeholder="you@example.com"
@@ -181,7 +183,7 @@ export function RegisterPage() {
 
                                 {/* Country */}
                                 <FormField
-                                    label="Country"
+                                    label={t('auth.register.geographical_domain')}
                                     icon={Globe}
                                     placeholder="Egypt"
                                     register={register}
@@ -193,7 +195,7 @@ export function RegisterPage() {
 
                                 {/* Phone */}
                                 <FormField
-                                    label="Phone"
+                                    label={t('auth.register.comm_channel')}
                                     icon={Phone}
                                     placeholder="01xxxxxxxxx"
                                     register={register}
@@ -205,7 +207,7 @@ export function RegisterPage() {
 
                                 {/* Password */}
                                 <PasswordField
-                                    label="Password"
+                                    label={t('auth.register.access_credentials')}
                                     icon={Lock}
                                     placeholder="••••••••"
                                     register={register}
@@ -219,7 +221,7 @@ export function RegisterPage() {
 
                                 {/* Confirm Password */}
                                 <PasswordField
-                                    label="Confirm Password"
+                                    label={t('auth.register.key_verification')}
                                     icon={Lock}
                                     placeholder="••••••••"
                                     register={register}
@@ -253,12 +255,12 @@ export function RegisterPage() {
                                 {loadingBtn ? (
                                     <>
                                         <Loader2 className="w-5 h-5 animate-spin" />
-                                        <span>Creating Account...</span>
+                                        <span>{t('auth.register.secure_identity')}...</span>
                                     </>
                                 ) : (
                                     <>
                                         <Sparkles size={16} />
-                                        <span className="uppercase tracking-widest">Create Account</span>
+                                        <span className="uppercase tracking-widest">{t('auth.register.initialize_agent')}</span>
                                         <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                                     </>
                                 )}
@@ -268,9 +270,9 @@ export function RegisterPage() {
                         {/* Footer Link */}
                         <div className="mt-5 sm:mt-6 pt-5 border-t border-[var(--border)] text-center">
                             <p className="text-xs sm:text-sm text-[var(--muted-foreground)]">
-                                Already have an account?{' '}
+                                {t('auth.register.already_authenticated')}{' '}
                                 <Link to="/login" className="text-primary-500 font-bold hover:text-primary-600 transition-colors">
-                                    Sign In
+                                    {t('auth.register.initiate_access')}
                                 </Link>
                             </p>
                         </div>

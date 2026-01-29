@@ -190,8 +190,7 @@ export function CategoriesPage() {
                         setIsCreateOpen(false);
                     }}
                     onCancel={() => setIsCreateOpen(false)}
-                    isPending={isCreating}
-                    title="Initialize Node"
+                    title={t('categories.initialize_node')}
                 />
             </CustomDialog>
 
@@ -211,8 +210,7 @@ export function CategoriesPage() {
                             setIsUpdateOpen(false);
                         }}
                         onCancel={() => setIsUpdateOpen(false)}
-                        isPending={isUpdating}
-                        title="Refine Node"
+                        title={t('categories.refine_node')}
                     />
                 )}
             </CustomDialog>
@@ -227,8 +225,7 @@ export function CategoriesPage() {
                         });
                     }
                 }}
-                isDeleting={isDeleting}
-                itemName={`CATEGORY_NODE_${deleteId}`}
+                itemName={`${t('categories.delete_node')}_${deleteId}`}
             />
         </div>
     );

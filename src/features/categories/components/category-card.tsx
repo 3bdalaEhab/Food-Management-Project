@@ -11,6 +11,8 @@ interface CategoryCardProps {
     viewMode: "grid" | "list";
 }
 
+import { useTranslation } from "react-i18next";
+
 export const CategoryCard = memo(({
     category,
     onEdit,
@@ -19,6 +21,7 @@ export const CategoryCard = memo(({
 }: CategoryCardProps) => {
     const formattedDate = new Date(category.creationDate).toLocaleDateString();
     const formattedUpdate = new Date(category.modificationDate).toLocaleDateString();
+    const { t } = useTranslation();
 
     return (
         <motion.div
@@ -54,7 +57,7 @@ export const CategoryCard = memo(({
                 <div className={cn("space-y-2 max-w-full overflow-hidden", viewMode === "grid" ? "w-full" : "")}>
                     <div className={cn("flex items-center gap-2 opacity-50", viewMode === "grid" ? "justify-center" : "justify-start")}>
                         <Hash size={10} className="text-primary-500" />
-                        <span className="text-[8px] font-black uppercase tracking-[0.3em] text-[var(--muted-foreground)]">ID: #{category.id}</span>
+                        <span className="text-[8px] font-black uppercase tracking-[0.3em] text-[var(--muted-foreground)]">{t('common.id')}: #{category.id}</span>
                     </div>
 
                     <h3 className="text-lg font-bold text-[var(--foreground)] tracking-tight leading-snug group-hover:text-primary-500 transition-colors line-clamp-1">
@@ -65,14 +68,14 @@ export const CategoryCard = memo(({
 
             <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[var(--border)] border-dashed">
                 <div className="flex flex-col gap-1">
-                    <span className="text-[9px] font-bold text-[var(--muted-foreground)]">Created</span>
+                    <span className="text-[9px] font-bold text-[var(--muted-foreground)]">{t('common.created')}</span>
                     <div className="flex items-center gap-1.5 text-[var(--foreground)]">
                         <Calendar size={10} className="text-primary-500" />
                         <span className="text-[10px] font-bold tracking-wide">{formattedDate}</span>
                     </div>
                 </div>
                 <div className="flex flex-col gap-1 items-end text-right">
-                    <span className="text-[9px] font-bold text-[var(--muted-foreground)]">Updated</span>
+                    <span className="text-[9px] font-bold text-[var(--muted-foreground)]">{t('common.updated')}</span>
                     <div className="flex items-center gap-1.5 text-[var(--foreground)]">
                         <span className="text-[10px] font-bold tracking-wide">{formattedUpdate}</span>
                         <Clock size={10} className="text-primary-500" />

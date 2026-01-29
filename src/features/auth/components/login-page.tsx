@@ -90,7 +90,7 @@ export function LoginPage() {
                                     htmlFor="login-email"
                                     className="text-[10px] sm:text-xs font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1"
                                 >
-                                    {t('auth.login.email') || 'Email Address'}
+                                    {t('auth.login.identity')}
                                 </label>
                                 <div className="relative group">
                                     <Mail className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" aria-hidden="true" />
@@ -117,7 +117,7 @@ export function LoginPage() {
                                         htmlFor="login-password"
                                         className="text-[10px] sm:text-xs font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1"
                                     >
-                                        {t('auth.login.password') || 'Password'}
+                                        {t('auth.login.security_key')}
                                     </label>
                                     <Link
                                         to="/forgot-password"

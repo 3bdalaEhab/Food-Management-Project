@@ -8,7 +8,17 @@ export const en = {
             favorites: "Favorites",
             settings: "Settings",
             logout: "Logout",
-            management: "Management"
+            management: "Management",
+            culinary_command: "CULINARY",
+            culinary_command_suffix: "COMMAND",
+            auth_level: "AUTH_LEVEL",
+            admin_strategist: "ADMIN_STRATEGIST",
+            field_operator: "FIELD_OPERATOR",
+            node: "NODE",
+            guest_user: "GUEST_USER",
+            active_term: "ACTIVE_TERM",
+            shutdown_core: "SHUTDOWN_CORE",
+            version: "V4.9.STABLE"
         },
         common: {
             search: "Search",
@@ -16,8 +26,9 @@ export const en = {
             submit: "Submit",
             delete: "Delete",
             edit: "Edit",
-            success: "Success",
-            error: "Error"
+            updated: "Updated",
+            remove_fav: "Remove from favorites",
+            add_fav: "Add to favorites"
         },
         delete_confirmation: {
             title: "Confirm Deletion",
@@ -83,6 +94,16 @@ export const en = {
             master_identity: "Personal Information",
             master_desc: "Your personal details and account information.",
             edit_portfolio: "Edit Profile",
+            change_photo: "Change Profile Picture",
+            syscall_mapped: "SYSCALL_MAPPED",
+            culinary: "Culinary",
+            global_node: "GLOBAL_NODE",
+            operational_status: "Operational_Status",
+            syscall_mapped_ok: "SYSCALL_MAPPED_OK",
+            aesthetic_controller: "Aesthetic_Controller",
+            theme_desc: "The application dynamically adjusts its semantic color matrix based on your selection. Current Protocol:",
+            linguistic_controller: "Linguistic_Controller",
+            lang_desc: "Operational directions and text flow matrices are reconfigured based on your linguistic protocol. Current:",
             tabs: {
                 identity: "Personal Info",
                 security: "Security",
@@ -92,12 +113,6 @@ export const en = {
                 theme_protocol: "Theme",
                 lang_protocol: "Language"
             },
-            change_password: "Change Password",
-            change_password_desc: "Update your account security",
-            current_password: "Current Password",
-            new_password: "New Password",
-            confirm_password: "Confirm New Password",
-            upload_photo: "Upload Photo",
             change_photo: "Change Profile Picture"
         },
         categories: {
@@ -113,6 +128,9 @@ export const en = {
             empty_desc: "Start by adding your first category",
             initialize: "Add Category",
             items: "Recipes",
+            initialize_node: "Initialize Node",
+            refine_node: "Refine Node",
+            delete_node: "CATEGORY_NODE"
         },
         recipes: {
             title: "Recipes",
@@ -126,12 +144,29 @@ export const en = {
             empty: "No Recipes",
             empty_desc: "Start by adding your first recipe",
             start_first: "Add First Recipe",
+            value_exchange: "Value Exchange",
+            purge: "Purge",
+            refinement: "Refinement",
+            new_recipe: "New Recipe",
+            min: "MIN",
+            delete_node: "RECIPE_NODE"
         },
         users: {
             title: "Users",
             add: "Add User",
             search: "Search users...",
             empty: "No Users",
+            fleet_command: "Fleet Command",
+            tactical_control: "Tactical Control",
+            agent_fleet: "Agent Fleet",
+            fleet_desc: "Monitor and manage project collaborators. verify identities, assign protocols, and maintain project security.",
+            active_fleet_size: "Active Fleet Size",
+            agents: "AGENTS",
+            scan_collaborators: "Scan collaborators...",
+            fleet_disconnected: "FLEET IS DISCONNECTED",
+            awaiting_sync: "System awaiting collaborator synchronization",
+            initialize_sync: "Initialize Sync",
+            agent_node: "AGENT_NODE"
         },
         auth: {
             login: {
@@ -201,6 +236,23 @@ export const en = {
                 resend: "Resend Code",
                 abort: "Back to Login"
             }
+        },
+        not_found: {
+            title: "404",
+            protocol: "Protocol",
+            deviation: "Deviation",
+            detected: "Detected",
+            message: "The requested node does not exist in the current culinary neural network.",
+            return: "Return to Core"
+        },
+        toasts: {
+            register_success: "Registration successful!",
+            verify_account: "Please verify your account",
+            register_failed: "Registration failed",
+            try_again: "Please try again",
+            login_success: "Login successful",
+            welcome_back: "Welcome back, Commander",
+            login_failed: "Login failed"
         }
     }
 };

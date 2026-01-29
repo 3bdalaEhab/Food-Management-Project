@@ -11,7 +11,10 @@ import { AuthBackground } from "./auth-background";
 import { FloatingAuthControls } from "./floating-auth-controls";
 import { SEO } from "@/components/shared/seo";
 
+import { useTranslation } from "react-i18next";
+
 export function VerifyAccountPage() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
     const { mutate: verify, isPending } = useVerifyAccount();
@@ -43,7 +46,8 @@ export function VerifyAccountPage() {
 
     return (
         <div className="relative min-h-screen w-full flex items-center justify-center overflow-x-hidden font-sans selection:bg-primary-500/30 py-6 sm:py-10 px-4 sm:px-6">
-            <SEO title="Verify Account" description="Enter your verification code" />
+
+            <SEO title={t('auth.verify.title')} description={t('auth.verify.subtitle')} />
             <AuthBackground />
             <FloatingAuthControls />
 
@@ -72,11 +76,11 @@ export function VerifyAccountPage() {
                             </motion.div>
 
                             <h1 className="text-2xl sm:text-3xl font-black text-[var(--foreground)] tracking-tight">
-                                Verify <span className="text-primary-500">Account</span>
+                                {t('auth.verify.title')} <span className="text-primary-500">{t('auth.verify.suffix')}</span>
                             </h1>
                             <p className="text-[var(--muted-foreground)] text-xs sm:text-sm mt-2 flex items-center justify-center gap-1.5">
                                 <Sparkles size={14} className="text-primary-500" />
-                                Enter the code sent to your email
+                                {t('auth.verify.subtitle')}
                             </p>
                         </div>
 
@@ -85,7 +89,7 @@ export function VerifyAccountPage() {
                             {/* Email Field */}
                             <div className="space-y-1.5">
                                 <label className="text-[10px] sm:text-xs font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1">
-                                    Email Address
+                                    {t('auth.verify.target_email')}
                                 </label>
                                 <div className="relative group">
                                     <Mail className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-[var(--muted-foreground)]/50" />
@@ -105,7 +109,7 @@ export function VerifyAccountPage() {
                             {/* Verification Code Field */}
                             <div className="space-y-1.5">
                                 <label className="text-[10px] sm:text-xs font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1">
-                                    Verification Code
+                                    {t('auth.verify.universal_key')}
                                 </label>
                                 <div className="relative group">
                                     <KeyRound className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" />
@@ -132,7 +136,7 @@ export function VerifyAccountPage() {
                                     <Loader2 className="w-5 h-5 animate-spin" />
                                 ) : (
                                     <>
-                                        <span className="uppercase tracking-widest">Verify Account</span>
+                                        <span className="uppercase tracking-widest">{t('auth.verify.initialize_identity')}</span>
                                         <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                     </>
                                 )}
@@ -142,14 +146,14 @@ export function VerifyAccountPage() {
                         {/* Footer */}
                         <div className="mt-6 sm:mt-8 pt-6 border-t border-[var(--border)] text-center space-y-4">
                             <p className="text-xs sm:text-sm text-[var(--muted-foreground)]">
-                                Didn't receive a code?{' '}
+                                {t('auth.verify.protocol_failed')}{' '}
                                 <button className="text-primary-500 font-bold hover:text-primary-600 transition-colors">
-                                    Resend Code
+                                    {t('auth.verify.resend')}
                                 </button>
                             </p>
                             <Link to="/login" className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors group">
                                 <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-                                Back to Sign In
+                                {t('auth.forgot.sign_in')}
                             </Link>
                         </div>
                     </div>

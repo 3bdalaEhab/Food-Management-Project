@@ -1,4 +1,5 @@
 import { useEffect, lazy, Suspense } from "react";
+import { useTranslation } from "react-i18next";
 import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -66,6 +67,7 @@ const FavoritesPage = lazy(() =>
 );
 
 function NotFoundPage() {
+    const { t } = useTranslation();
     return (
         <div className="min-h-screen flex items-center justify-center bg-neutral-50 dark:bg-[#050505] p-8 overflow-hidden relative">
             <DashboardBackground />
@@ -80,17 +82,17 @@ function NotFoundPage() {
                 </div>
                 <div className="space-y-3 sm:space-y-4">
                     <h2 className="text-xl sm:text-2xl md:text-4xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter px-4 sm:px-8">
-                        Protocol <span className="text-primary-500">Deviation</span> Detected
+                        {t('not_found.protocol')} <span className="text-primary-500">{t('not_found.deviation')}</span> {t('not_found.detected')}
                     </h2>
                     <p className="text-neutral-500 font-bold uppercase tracking-[0.2em] text-xs">
-                        The requested node does not exist in the current culinary neural network.
+                        {t('not_found.message')}
                     </p>
                 </div>
                 <Link
                     to="/dashboard"
                     className="premium-button premium-button-primary px-12 h-16 inline-flex items-center justify-center group"
                 >
-                    <span className="font-black uppercase tracking-widest text-sm">Return to Core</span>
+                    <span className="font-black uppercase tracking-widest text-sm">{t('not_found.return')}</span>
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
             </div>

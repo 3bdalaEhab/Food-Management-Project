@@ -11,7 +11,10 @@ import { AuthBackground } from "./auth-background";
 import { FloatingAuthControls } from "./floating-auth-controls";
 import { SEO } from "@/components/shared/seo";
 
+import { useTranslation } from "react-i18next";
+
 export function ResetPasswordPage() {
+    const { t } = useTranslation();
     const { mutate: resetPassword, isPending } = useResetPassword();
     const [showPassword, setShowPassword] = useState(false);
 
@@ -30,7 +33,7 @@ export function ResetPasswordPage() {
 
     return (
         <div className="relative min-h-screen w-full flex items-center justify-center overflow-x-hidden font-sans selection:bg-primary-500/30 py-6 sm:py-10 px-4 sm:px-6">
-            <SEO title="Reset Password" description="Create a new password" />
+            <SEO title={t('auth.reset.title')} description={t('auth.reset.subtitle')} />
             <AuthBackground />
             <FloatingAuthControls />
 
@@ -59,11 +62,11 @@ export function ResetPasswordPage() {
                             </motion.div>
 
                             <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-[var(--foreground)] tracking-tight">
-                                New <span className="text-primary-500">Password</span>
+                                {t('auth.reset.title')} <span className="text-primary-500">{t('auth.reset.suffix')}</span>
                             </h1>
                             <p className="text-[var(--muted-foreground)] text-[10px] sm:text-xs mt-1.5 flex items-center justify-center gap-1.5">
                                 <Sparkles size={12} className="text-primary-500" />
-                                Create your new secure password
+                                {t('auth.reset.subtitle')}
                             </p>
                         </div>
 
@@ -72,7 +75,7 @@ export function ResetPasswordPage() {
                             {/* Email Field */}
                             <div className="space-y-1.5">
                                 <label className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1">
-                                    Email
+                                    {t('auth.reset.identity')}
                                 </label>
                                 <div className="relative group">
                                     <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" />
@@ -89,7 +92,7 @@ export function ResetPasswordPage() {
                             {/* OTP/Seed Field */}
                             <div className="space-y-1.5">
                                 <label className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1">
-                                    Verification Code
+                                    {t('auth.reset.code')}
                                 </label>
                                 <div className="relative group">
                                     <Hash className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" />
@@ -105,7 +108,7 @@ export function ResetPasswordPage() {
                             {/* New Password */}
                             <div className="space-y-1.5">
                                 <label className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1">
-                                    New Password
+                                    {t('auth.reset.secret')}
                                 </label>
                                 <div className="relative group">
                                     <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" />
@@ -129,7 +132,7 @@ export function ResetPasswordPage() {
                             {/* Confirm Password */}
                             <div className="space-y-1.5">
                                 <label className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1">
-                                    Confirm Password
+                                    {t('auth.reset.confirm')}
                                 </label>
                                 <div className="relative group">
                                     <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" />
@@ -154,7 +157,7 @@ export function ResetPasswordPage() {
                                     <Loader2 className="w-5 h-5 animate-spin" />
                                 ) : (
                                     <>
-                                        <span className="uppercase tracking-widest">Reset Password</span>
+                                        <span className="uppercase tracking-widest">{t('auth.reset.update')}</span>
                                         <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                                     </>
                                 )}
@@ -165,7 +168,7 @@ export function ResetPasswordPage() {
                         <div className="mt-5 pt-5 border-t border-[var(--border)] text-center">
                             <Link to="/login" className="inline-flex items-center gap-2 text-xs font-bold text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors group">
                                 <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-                                Back to Sign In
+                                {t('auth.reset.back')} {t('auth.login.title')}
                             </Link>
                         </div>
                     </div>

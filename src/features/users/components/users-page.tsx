@@ -12,8 +12,10 @@ import {
 import { useUsers, useDeleteUser } from "../hooks";
 import { DeleteConfirmation } from "@/components/shared/delete-confirmation";
 import { UserCard } from "./user-card";
+import { useTranslation } from "react-i18next";
 
 export function UsersPage() {
+    const { t } = useTranslation();
     const [search, setSearch] = useState("");
     const [deleteId, setDeleteId] = useState<number | null>(null);
     const { data: usersData, isLoading } = useUsers({
@@ -50,11 +52,11 @@ export function UsersPage() {
                         <div className="flex items-center gap-3">
                             <div className="px-4 py-1.5 rounded-full bg-[var(--background)] border border-[var(--border)] flex items-center gap-2">
                                 <Sparkles size={12} className="text-primary-500" />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">Fleet Command</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">{t('users.fleet_command')}</span>
                             </div>
                             <div className="px-4 py-1.5 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
                                 <Activity size={12} className="text-primary-500 animate-pulse" />
-                                <span className="text-[10px] font-black uppercase tracking-widest text-primary-400">Tactical Control</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-primary-400">{t('users.tactical_control')}</span>
                             </div>
                         </div>
 
@@ -62,15 +64,14 @@ export function UsersPage() {
                             Agent <span className="text-primary-500 italic">Fleet</span>
                         </h1>
                         <p className="text-[var(--muted-foreground)] font-bold max-w-xl tracking-tight text-lg">
-                            Monitor and manage project collaborators. verify identities, <br className="hidden md:block" />
-                            assign protocols, and maintain project security.
+                            {t('users.fleet_desc')}
                         </p>
                     </div>
 
                     <div className="flex bg-[var(--background)] border border-[var(--border)] p-6 rounded-[2.5rem]">
                         <div className="space-y-1">
-                            <p className="text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-widest">Active Fleet Size</p>
-                            <p className="text-4xl font-black text-[var(--foreground)] italic">{usersData?.totalNumberOfRecords || 0} <span className="text-primary-500 text-sm">AGENTS</span></p>
+                            <p className="text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-widest">{t('users.active_fleet_size')}</p>
+                            <p className="text-4xl font-black text-[var(--foreground)] italic">{usersData?.totalNumberOfRecords || 0} <span className="text-primary-500 text-sm">{t('users.agents')}</span></p>
                         </div>
                     </div>
                 </div>
@@ -83,7 +84,7 @@ export function UsersPage() {
                     <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)] group-focus-within:text-primary-500 transition-colors" size={20} />
                     <input
                         type="text"
-                        placeholder="Scan collaborators..."
+                        placeholder={t('users.scan_collaborators')}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         className="premium-input pl-16 h-18 bg-[var(--background)]/80 border-[var(--border)] font-bold tracking-wide text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]"
@@ -127,10 +128,10 @@ export function UsersPage() {
                         <div className="absolute inset-0 bg-primary-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                         <ShieldAlert size={48} className="text-primary-500/40 group-hover:text-white relative z-10" />
                     </div>
-                    <h3 className="text-4xl font-black text-[var(--foreground)] tracking-tighter mb-2">FLEET IS DISCONNECTED</h3>
-                    <p className="text-[var(--muted-foreground)] font-bold mb-10 uppercase tracking-widest text-[11px]">System awaiting collaborator synchronization</p>
+                    <h3 className="text-4xl font-black text-[var(--foreground)] tracking-tighter mb-2">{t('users.fleet_disconnected')}</h3>
+                    <p className="text-[var(--muted-foreground)] font-bold mb-10 uppercase tracking-widest text-[11px]">{t('users.awaiting_sync')}</p>
                     <button className="premium-button premium-button-primary h-16 px-10 group">
-                        <span>Initialize Sync</span>
+                        <span>{t('users.initialize_sync')}</span>
                         <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
                     </button>
                 </div>
@@ -147,7 +148,7 @@ export function UsersPage() {
                     }
                 }}
                 isDeleting={isDeleting}
-                itemName={`AGENT_NODE_${deleteId}`}
+                itemName={`${t('users.agent_node')}_${deleteId}`}
             />
         </div>
     );

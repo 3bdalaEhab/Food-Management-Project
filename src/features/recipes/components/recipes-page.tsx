@@ -112,7 +112,7 @@ export function RecipesPage() {
                     className="w-full overflow-hidden rounded-[3rem] border border-[var(--border)] bg-[var(--sidebar-background)] shadow-2xl"
                 >
                     <RecipeForm
-                        title="New Recipe"
+                        title={t('recipes.new_recipe')}
                         onSubmit={(data: CreateRecipeData) => {
                             createRecipe(data, {
                                 onSuccess: () => setIsCreateOpen(false)
@@ -142,7 +142,7 @@ export function RecipesPage() {
                 <div className="flex gap-4 w-full lg:w-auto">
                     <button className="h-18 px-8 bg-[var(--background)]/80 border border-[var(--border)] rounded-[1.5rem] flex items-center gap-3 font-bold text-[11px] tracking-wider text-[var(--muted-foreground)] hover:border-primary-500 hover:text-primary-500 transition-all shadow-sm">
                         <Filter size={18} />
-                        Refinement
+                        {t('recipes.refinement')}
                     </button>
                     <div className="h-18 bg-[var(--background)] border border-[var(--border)] p-2 rounded-[1.5rem] flex shadow-sm" role="tablist" aria-label="View mode">
                         <button
@@ -233,7 +233,7 @@ export function RecipesPage() {
                     }
                 }}
                 isDeleting={isDeleting}
-                itemName={`RECIPE_NODE_${deleteId}`}
+                itemName={`${t('recipes.delete_node')}_${deleteId}`}
             />
         </div >
     );

@@ -10,7 +10,10 @@ import { AuthBackground } from "./auth-background";
 import { FloatingAuthControls } from "./floating-auth-controls";
 import { SEO } from "@/components/shared/seo";
 
+import { useTranslation } from "react-i18next";
+
 export function ForgotPasswordPage() {
+    const { t } = useTranslation();
     const { mutate: forgotPassword, isPending } = useForgotPassword();
 
     const {
@@ -28,7 +31,7 @@ export function ForgotPasswordPage() {
 
     return (
         <div className="relative min-h-screen w-full flex items-center justify-center overflow-x-hidden font-sans selection:bg-primary-500/30 py-6 sm:py-10 px-4 sm:px-6">
-            <SEO title="Forgot Password" description="Reset your password" />
+            <SEO title={t('auth.forgot.title')} description={t('auth.forgot.subtitle')} />
             <AuthBackground />
             <FloatingAuthControls />
 
@@ -57,11 +60,11 @@ export function ForgotPasswordPage() {
                             </motion.div>
 
                             <h1 className="text-2xl sm:text-3xl font-black text-[var(--foreground)] tracking-tight">
-                                Reset <span className="text-primary-500">Password</span>
+                                {t('auth.forgot.title')} <span className="text-primary-500">{t('auth.forgot.suffix')}</span>
                             </h1>
                             <p className="text-[var(--muted-foreground)] text-xs sm:text-sm mt-2 flex items-center justify-center gap-1.5">
                                 <Sparkles size={14} className="text-primary-500" />
-                                We'll send you a reset code
+                                {t('auth.forgot.subtitle')}
                             </p>
                         </div>
 
@@ -70,7 +73,7 @@ export function ForgotPasswordPage() {
                             {/* Email Field */}
                             <div className="space-y-1.5">
                                 <label className="text-[10px] sm:text-xs font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1">
-                                    Email Address
+                                    {t('auth.forgot.terminal')}
                                 </label>
                                 <div className="relative group">
                                     <Mail className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" />
@@ -97,7 +100,7 @@ export function ForgotPasswordPage() {
                                     <Loader2 className="w-5 h-5 animate-spin" />
                                 ) : (
                                     <>
-                                        <span className="uppercase tracking-widest">Send Reset Code</span>
+                                        <span className="uppercase tracking-widest">{t('auth.forgot.transmit')}</span>
                                         <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                     </>
                                 )}
@@ -108,7 +111,7 @@ export function ForgotPasswordPage() {
                         <div className="mt-6 sm:mt-8 pt-6 border-t border-[var(--border)] text-center">
                             <Link to="/login" className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors group">
                                 <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-                                Back to Sign In
+                                {t('auth.forgot.sign_in')}
                             </Link>
                         </div>
                     </div>

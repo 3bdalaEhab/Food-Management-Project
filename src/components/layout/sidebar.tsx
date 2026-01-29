@@ -91,8 +91,8 @@ export function Sidebar() {
                             className="flex flex-col"
                         >
                             <span className="font-black text-lg text-[var(--sidebar-foreground)] tracking-widest leading-none uppercase italic">
-                                CULINARY
-                                <span className="text-primary-500 block text-[10px] tracking-[0.4em] not-italic mt-1">COMMAND</span>
+                                {t('sidebar.culinary_command')}
+                                <span className="text-primary-500 block text-[10px] tracking-[0.4em] not-italic mt-1">{t('sidebar.culinary_command_suffix')}</span>
                             </span>
                         </motion.div>
                     )}
@@ -115,12 +115,12 @@ export function Sidebar() {
                             {isAdmin ? <ShieldAlert size={18} /> : <Terminal size={18} />}
                         </div>
                         <div className="flex flex-col min-w-0">
-                            <span className="text-[9px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">AUTH_LEVEL</span>
+                            <span className="text-[9px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">{t('sidebar.auth_level')}</span>
                             <span className={cn(
                                 "text-[12px] font-black uppercase tracking-tighter truncate",
                                 isAdmin ? "text-red-500" : "text-primary-500"
                             )}>
-                                {isAdmin ? "ADMIN_STRATEGIST" : "FIELD_OPERATOR"}
+                                {isAdmin ? t('sidebar.admin_strategist') : t('sidebar.field_operator')}
                             </span>
                         </div>
                     </div>
@@ -171,7 +171,7 @@ export function Sidebar() {
                                         {t(`sidebar.${item.labelKey}`)}
                                     </span>
                                     <span className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-widest mt-0.5 group-hover:text-primary-500 transition-colors">
-                                        NODE_0{filteredNavItems.indexOf(item) + 1}
+                                        {t('sidebar.node')}_0{filteredNavItems.indexOf(item) + 1}
                                     </span>
                                 </div>
                             )}
@@ -215,10 +215,10 @@ export function Sidebar() {
                     </div>
                     {!sidebarCollapsed && (
                         <div className="flex-1 min-w-0">
-                            <p className="text-[12px] font-black text-[var(--sidebar-foreground)] uppercase italic tracking-tighter truncate">{user?.userName || "GUEST_USER"}</p>
+                            <p className="text-[12px] font-black text-[var(--sidebar-foreground)] uppercase italic tracking-tighter truncate">{user?.userName || t('sidebar.guest_user')}</p>
                             <div className="flex items-center gap-1.5 opacity-60">
                                 <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                                <span className="text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-widest">ACTIVE_TERM</span>
+                                <span className="text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-widest">{t('sidebar.active_term')}</span>
                             </div>
                         </div>
                     )}
@@ -235,7 +235,7 @@ export function Sidebar() {
                     <LogOut size={18} className={cn("transition-transform font-sans", isRtl ? "group-hover:translate-x-1" : "group-hover:-translate-x-1")} />
                     {!sidebarCollapsed && (
                         <span className="text-[10px] font-black uppercase tracking-[0.3em] italic">
-                            SHUTDOWN_CORE
+                            {t('sidebar.shutdown_core')}
                         </span>
                     )}
                 </button>
@@ -246,7 +246,7 @@ export function Sidebar() {
                             <Box size={12} className="text-[var(--muted-foreground)]" />
                             <Cpu size={12} className="text-primary-500" />
                         </div>
-                        <span className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-widest tabular-nums font-mono">V4.9.STABLE</span>
+                        <span className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-widest tabular-nums font-mono">{t('sidebar.version')}</span>
                     </div>
                 )}
             </div>

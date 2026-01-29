@@ -8,7 +8,17 @@ export const ar = {
             favorites: "المفضلة",
             settings: "الإعدادات",
             logout: "تسجيل الخروج",
-            management: "الإدارة"
+            management: "الإدارة",
+            culinary_command: "القيادة",
+            culinary_command_suffix: "الطهي",
+            auth_level: "مستوى الصلاحية",
+            admin_strategist: "مسؤول استراتيجي",
+            field_operator: "مشغل ميداني",
+            node: "عقدة",
+            guest_user: "مستخدم زائر",
+            active_term: "جلسة نشطة",
+            shutdown_core: "إيقاف النظام",
+            version: "الإصدار 4.9"
         },
         navbar: {
             search: "بحث...",
@@ -68,6 +78,16 @@ export const ar = {
             master_identity: "المعلومات الشخصية",
             master_desc: "بياناتك الشخصية ومعلومات حسابك.",
             edit_portfolio: "تعديل الملف",
+            change_photo: "تغيير الصورة الشخصية",
+            syscall_mapped: "مخطط_النظام",
+            culinary: "الطهي",
+            global_node: "عقدة_عالمية",
+            operational_status: "الحالة_التشغيلية",
+            syscall_mapped_ok: "النظام_يعمل_بنجاح",
+            aesthetic_controller: "وحدة_التحكم_الجمالية",
+            theme_desc: "يقوم التطبيق بضبط مصفوفة الألوان الدلالية ديناميكياً بناءً على اختيارك. البروتوكول الحالي:",
+            linguistic_controller: "وحدة_التحكم_اللغوية",
+            lang_desc: "تتم إعادة تشكيل الاتجاهات التشغيلية ومصفوفات تدفق النص بناءً على البروتوكول اللغوي الخاص بك. الحالي:",
             tabs: {
                 identity: "المعلومات الشخصية",
                 security: "الأمان",
@@ -77,12 +97,6 @@ export const ar = {
                 theme_protocol: "المظهر",
                 lang_protocol: "اللغة"
             },
-            change_password: "تغيير كلمة المرور",
-            change_password_desc: "تحديث أمان حسابك",
-            current_password: "كلمة المرور الحالية",
-            new_password: "كلمة المرور الجديدة",
-            confirm_password: "تأكيد كلمة المرور",
-            upload_photo: "رفع صورة",
             change_photo: "تغيير الصورة الشخصية"
         },
         categories: {
@@ -98,6 +112,9 @@ export const ar = {
             empty_desc: "ابدأ بإضافة أول تصنيف",
             initialize: "إضافة تصنيف",
             items: "وصفة",
+            initialize_node: "إنشاء عقدة",
+            refine_node: "تعديل العقدة",
+            delete_node: "عقدة_تصنيف"
         },
         recipes: {
             title: "الوصفات",
@@ -111,12 +128,29 @@ export const ar = {
             empty: "لا توجد وصفات",
             empty_desc: "ابدأ بإضافة أول وصفة",
             start_first: "إضافة أول وصفة",
+            value_exchange: "القيمة",
+            purge: "حذف نهائي",
+            refinement: "تصفية",
+            new_recipe: "وصفة جديدة",
+            min: "دقيقة",
+            delete_node: "عقدة_وصفة"
         },
         users: {
             title: "المستخدمين",
             add: "إضافة مستخدم",
             search: "بحث في المستخدمين...",
             empty: "لا يوجد مستخدمين",
+            fleet_command: "قيادة الأسطول",
+            tactical_control: "التحكم التكتيكي",
+            agent_fleet: "أسطول العملاء",
+            fleet_desc: "مراقبة وإدارة المتعاونين في المشروع. التحقق من الهويات، وتعيين البروتوكولات، والحفاظ على أمان المشروع.",
+            active_fleet_size: "حجم الأسطول النشط",
+            agents: "عملاء",
+            scan_collaborators: "فحص المتعاونين...",
+            fleet_disconnected: "الأسطول غير متصل",
+            awaiting_sync: "النظام في انتظار مزامنة المتعاونين",
+            initialize_sync: "بدء المزامنة",
+            agent_node: "عقدة_عميل"
         },
         auth: {
             login: {
@@ -194,13 +228,33 @@ export const ar = {
             delete: "حذف",
             edit: "تعديل",
             success: "تمت العملية بنجاح",
-            error: "حدث خطأ"
+            updated: "تم التحديث",
+            id: "المعرف",
+            remove_fav: "إزالة من المفضلة",
+            add_fav: "إضافة للمفضلة"
         },
         delete_confirmation: {
             title: "تأكيد الحذف",
             message: "هل أنت متأكد من حذف هذا العنصر نهائياً؟ لا يمكن التراجع عن هذا الإجراء.",
             confirm: "حذف",
             cancel: "إلغاء"
+        },
+        not_found: {
+            title: "404",
+            protocol: "بروتوكول",
+            deviation: "الانحراف",
+            detected: "تم الكشف عنه",
+            message: "العقدة المطلوبة غير موجودة في الشبكة العصبية للطهي الحالية.",
+            return: "العودة للنظام"
+        },
+        toasts: {
+            register_success: "تم التسجيل بنجاح!",
+            verify_account: "يرجى تفعيل حسابك",
+            register_failed: "فشل التسجيل",
+            try_again: "يرجى المحاولة مرة أخرى",
+            login_success: "تم تسجيل الدخول بنجاح",
+            welcome_back: "مرحباً بعودتك أيها القائد",
+            login_failed: "فشل تسجيل الدخول"
         }
     }
 };

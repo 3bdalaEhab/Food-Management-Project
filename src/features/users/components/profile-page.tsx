@@ -82,13 +82,13 @@ export function ProfilePage() {
                             </div>
                             <div className="px-4 py-1.5 rounded-full bg-[var(--background)]/50 border border-[var(--border)] flex items-center gap-2">
                                 <Terminal size={12} className="text-[var(--muted-foreground)]" />
-                                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-[var(--muted-foreground)]">SYSCALL_MAPPED</span>
+                                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-[var(--muted-foreground)]">{t('profile.syscall_mapped')}</span>
                             </div>
                         </div>
 
                         <div className="space-y-2">
                             <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-none uppercase italic">
-                                Culinary <span className="text-primary-500">{t('profile.core')}</span>
+                                {t('profile.culinary')} <span className="text-primary-500">{t('profile.core')}</span>
                             </h1>
                             <p className="text-[var(--muted-foreground)] font-bold max-w-xl tracking-tight text-lg italic opacity-80">
                                 {t('profile.description')}
@@ -168,7 +168,7 @@ export function ProfilePage() {
                                             {t('profile.geospatial')}
                                         </label>
                                         <div className="text-2xl font-black italic uppercase tracking-tighter text-[var(--foreground)] h-16 flex items-center px-6 bg-[var(--background)]/50 rounded-2xl border border-[var(--border)]">
-                                            {user.country || "GLOBAL_NODE"}
+                                            {user.country || t('profile.global_node')}
                                         </div>
                                     </div>
                                     <div className="space-y-4">
@@ -217,10 +217,10 @@ export function ProfilePage() {
                                 <div className="p-10 rounded-[3rem] bg-[var(--sidebar-background)] border border-[var(--border)] text-[var(--foreground)] shadow-xl relative overflow-hidden group">
                                     <div className="space-y-4">
                                         <Activity size={32} className="text-primary-500" />
-                                        <h4 className="text-xl font-black italic uppercase tracking-tighter">Operational_Status</h4>
+                                        <h4 className="text-xl font-black italic uppercase tracking-tighter">{t('profile.operational_status')}</h4>
                                         <div className="flex items-center gap-2">
                                             <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-                                            <span className="text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">SYSCALL_MAPPED_OK</span>
+                                            <span className="text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">{t('profile.syscall_mapped_ok')}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -266,7 +266,7 @@ export function ProfilePage() {
                                         </div>
                                         <div>
                                             <h4 className="text-lg font-black italic uppercase tracking-tighter leading-none mb-1">{t('profile.preferences.theme_protocol')}</h4>
-                                            <p className="text-[9px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">Aesthetic_Controller</p>
+                                            <p className="text-[9px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">{t('profile.aesthetic_controller')}</p>
                                         </div>
                                     </div>
                                     <div className="flex bg-[var(--background)] border border-[var(--border)] rounded-2xl p-1 shadow-lg">
@@ -292,7 +292,7 @@ export function ProfilePage() {
                                 </div>
                                 <div className="p-8 rounded-[2rem] border-2 border-dashed border-[var(--border)] text-center space-y-4 group hover:border-primary-500/30 transition-all">
                                     <p className="text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-widest leading-relaxed italic">
-                                        The application dynamically adjusts its semantic color matrix based on your selection. Current Protocol: <span className="text-primary-500">{theme.toUpperCase()}</span>
+                                        {t('profile.theme_desc')} <span className="text-primary-500">{theme.toUpperCase()}</span>
                                     </p>
                                 </div>
                             </div>
@@ -306,7 +306,7 @@ export function ProfilePage() {
                                         </div>
                                         <div>
                                             <h4 className="text-lg font-black italic uppercase tracking-tighter leading-none mb-1">{t('profile.preferences.lang_protocol')}</h4>
-                                            <p className="text-[9px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">Linguistic_Controller</p>
+                                            <p className="text-[9px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">{t('profile.linguistic_controller')}</p>
                                         </div>
                                     </div>
                                     <div className="flex bg-[var(--background)] border border-[var(--border)] rounded-2xl p-1 shadow-lg overflow-hidden">
@@ -332,7 +332,7 @@ export function ProfilePage() {
                                 </div>
                                 <div className="p-8 rounded-[2rem] border-2 border-dashed border-[var(--border)] text-center space-y-4 group hover:border-primary-500/30 transition-all">
                                     <p className="text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-widest leading-relaxed italic">
-                                        Operational directions and text flow matrices are reconfigured based on your linguistic protocol. Current: <span className="text-primary-500">{language.toUpperCase()}</span>
+                                        {t('profile.lang_desc')} <span className="text-primary-500">{language.toUpperCase()}</span>
                                     </p>
                                 </div>
                             </div>
