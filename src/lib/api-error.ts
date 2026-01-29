@@ -23,57 +23,92 @@ export class ApiError extends Error {
         this.isNetworkError = isNetworkError;
         this.isTimeoutError = isTimeoutError;
 
-        // Maintains proper stack trace for where our error was thrown
+        // Maintains proper stack trace
         if (Error.captureStackTrace) {
             Error.captureStackTrace(this, ApiError);
         }
     }
 
     /**
-     * Check if error is a client error (4xx)
+     * Alias for statusCode to match common patterns and tests
      */
+    get status(): number {
+        return this.statusCode;
+    }
+
+    /**
+     * Alias for errors to match test expectations if needed
+     */
+    get validationErrors(): Record<string, string[]> | undefined {
+        return this.errors;
+    }
+
+    // Static Factory Methods
+    static networkError(message = 'Network error. Please check your connection.'): ApiError {
+        return new ApiError(0, message, undefined, true, false);
+    }
+
+    static timeoutError(message = 'Request timed out. Please try again.'): ApiError {
+        return new ApiError(0, message, undefined, false, true);
+    }
+
+    static unauthorized(message = 'Session expired. Please log in again.'): ApiError {
+        return new ApiError(401, message);
+    }
+
+    static forbidden(message = 'Access forbidden'): ApiError {
+        return new ApiError(403, message);
+    }
+
+    static notFound(message = 'Resource not found'): ApiError {
+        return new ApiError(404, message);
+    }
+
+    static serverError(message = 'Internal Server Error'): ApiError {
+        return new ApiError(500, message);
+    }
+
+    static rateLimitError(message = 'Too many requests'): ApiError {
+        return new ApiError(429, message);
+    }
+
+    // Instance Methods
     isClientError(): boolean {
         return this.statusCode >= 400 && this.statusCode < 500;
     }
 
-    /**
-     * Check if error is a server error (5xx)
-     */
     isServerError(): boolean {
         return this.statusCode >= 500 && this.statusCode < 600;
     }
 
-    /**
-     * Check if error is an authentication error
-     */
     isAuthError(): boolean {
         return this.statusCode === 401;
     }
 
-    /**
-     * Check if error is a forbidden error
-     */
     isForbiddenError(): boolean {
         return this.statusCode === 403;
     }
 
-    /**
-     * Check if error is a not found error
-     */
     isNotFoundError(): boolean {
         return this.statusCode === 404;
     }
 
-    /**
-     * Check if error is a rate limit error
-     */
     isRateLimitError(): boolean {
         return this.statusCode === 429;
     }
 
     /**
-     * Get first error message from validation errors
+     * Check if the error is retryable (Network, Timeout, 429, 5xx)
      */
+    isRetryable(): boolean {
+        return (
+            this.isNetworkError ||
+            this.isTimeoutError ||
+            this.isRateLimitError() ||
+            this.isServerError()
+        );
+    }
+
     getFirstValidationError(): string | null {
         if (!this.errors) return null;
         const firstKey = Object.keys(this.errors)[0];
@@ -88,29 +123,33 @@ export class ApiError extends Error {
  * Parse an unknown error into an ApiError
  */
 export function parseApiError(error: unknown): ApiError {
-    // Already an ApiError
     if (error instanceof ApiError) {
         return error;
     }
 
-    // Axios error
-    if (error instanceof AxiosError) {
-        const statusCode = error.response?.status || 0;
-        const message = error.response?.data?.message || error.message || 'An error occurred';
-        const errors = error.response?.data?.errors;
-        const isNetworkError = error.code === 'ERR_NETWORK';
-        const isTimeoutError = error.code === 'ECONNABORTED';
+    // Handle Axios Error (using duck typing for flexibility with mocks)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (error && (error instanceof AxiosError || (error as any).isAxiosError)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const axiosError = error as any;
+        const statusCode = axiosError.response?.status || 0;
+        const message = axiosError.response?.data?.message || axiosError.message || 'An error occurred';
+        const errors = axiosError.response?.data?.errors;
+        const isNetworkError = axiosError.code === 'ERR_NETWORK';
+        const isTimeoutError = axiosError.code === 'ECONNABORTED';
 
         return new ApiError(statusCode, message, errors, isNetworkError, isTimeoutError);
     }
 
-    // Regular Error
     if (error instanceof Error) {
         return new ApiError(0, error.message);
     }
 
-    // Unknown error type
-    return new ApiError(0, 'An unknown error occurred');
+    if (typeof error === 'string') {
+        return new ApiError(0, error);
+    }
+
+    return new ApiError(0, 'An unexpected error occurred');
 }
 
 /**
@@ -123,8 +162,16 @@ export function isApiError(error: unknown): error is ApiError {
 /**
  * Get user-friendly error message
  */
-export function getErrorMessage(error: unknown): string {
+export function getErrorMessage(error: unknown, defaultMessage = 'An unexpected error occurred'): string {
+    if (typeof error === 'string') return error;
+
     const apiError = parseApiError(error);
+
+    // If it was a generic error that got parsed into "An unexpected error occurred", 
+    // and we have a custom defaultMessage, use that instead.
+    if (apiError.message === 'An unexpected error occurred' && defaultMessage !== 'An unexpected error occurred') {
+        return defaultMessage;
+    }
 
     if (apiError.isNetworkError) {
         return 'Unable to connect to the server. Please check your internet connection.';
