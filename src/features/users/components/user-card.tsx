@@ -26,10 +26,10 @@ export const UserCard = memo(({ user, onDelete }: UserCardProps) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             whileHover={{ y: -4 }}
-            className="group relative glass-card rounded-[3rem] p-8 overflow-hidden border border-[var(--border)] bg-[var(--sidebar-background)] backdrop-blur-3xl shadow-2xl transition-all duration-500 flex flex-col lg:flex-row lg:items-center justify-between gap-8 hover:bg-[var(--background)] hover:border-primary-500/30"
+            className="group relative glass-card rounded-[3rem] p-8 overflow-hidden border border-[var(--border)] bg-[var(--sidebar-background)] shadow-xl transition-all duration-300 flex flex-col lg:flex-row lg:items-center justify-between gap-8 hover:bg-[var(--background)] hover:border-primary-500/30"
         >
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary-500/10 to-primary-600/10 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute inset-0 bg-primary-500/0 group-hover:bg-primary-500/5 blur-3xl transition-all" />
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary-500/10 to-primary-600/10 rounded-[3rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-primary-500/0 group-hover:bg-primary-500/5 transition-all" />
 
             <div className="relative z-10 flex items-center gap-8">
                 <div className="relative">

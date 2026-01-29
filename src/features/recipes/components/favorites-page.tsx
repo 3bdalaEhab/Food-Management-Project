@@ -96,7 +96,7 @@ export function FavoritesPage() {
                         placeholder="SCAN VAULT ARCHIVES..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="premium-input pl-16 h-20 bg-[var(--background)]/50 border-[var(--border)] backdrop-blur-3xl font-black uppercase tracking-widest text-lg"
+                        className="premium-input pl-16 h-20 bg-[var(--background)]/80 border-[var(--border)] font-black uppercase tracking-widest text-lg"
                     />
                 </div>
 

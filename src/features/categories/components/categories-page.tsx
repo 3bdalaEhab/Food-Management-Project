@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import { useCategories, useDeleteCategory, useCreateCategory, useUpdateCategory } from "../hooks";
 import { CategoryCard } from "./category-card";
 import { CategoryForm } from "./category-form";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui";
+import { CustomDialog } from "@/components/shared/custom-dialog";
 import { Category, CreateCategoryData } from "../types";
 import { cn } from "@/lib/utils";
 import { SEO } from "@/components/shared/seo";
@@ -107,7 +107,7 @@ export function CategoriesPage() {
                         placeholder={t('categories.search')}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="premium-input pl-16 h-18 bg-[var(--background)]/50 border-[var(--border)] backdrop-blur-3xl font-bold tracking-wide text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]"
+                        className="premium-input pl-16 h-18 bg-[var(--background)]/80 border-[var(--border)] font-bold tracking-wide text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]"
                     />
                 </div>
 
@@ -139,7 +139,7 @@ export function CategoriesPage() {
             {isLoading ? (
                 <div className={`grid gap-8 ${viewMode === "grid" ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" : "grid-cols-1"}`}>
                     {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                        <div key={i} className="glass-card rounded-[3rem] p-10 h-56 animate-pulse bg-[var(--sidebar-background)]/30 backdrop-blur-3xl border border-[var(--border)]" />
+                        <div key={i} className="glass-card rounded-[3rem] p-10 h-56 animate-pulse bg-[var(--sidebar-background)]/60 border border-[var(--border)]" />
                     ))}
                 </div>
             ) : categoriesData?.data?.length ? (
@@ -183,48 +183,39 @@ export function CategoriesPage() {
             )}
 
             {/* Elite Dialog Ecosystem */}
-            <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-                <DialogContent className="max-w-2xl bg-transparent border-none p-0 overflow-visible shadow-none">
-                    <DialogHeader className="sr-only">
-                        <DialogTitle>New Category Protocol</DialogTitle>
-                    </DialogHeader>
-                    <CategoryForm
-                        onSubmit={(data: CreateCategoryData) => {
-                            createCategory(data);
-                            setIsCreateOpen(false);
-                        }}
-                        onCancel={() => setIsCreateOpen(false)}
-                        isPending={isCreating}
-                        title="Initialize Node"
-                    />
-                </DialogContent>
-            </Dialog>
+            <CustomDialog open={isCreateOpen} onOpenChange={setIsCreateOpen} maxWidth="2xl">
+                <CategoryForm
+                    onSubmit={(data: CreateCategoryData) => {
+                        createCategory(data);
+                        setIsCreateOpen(false);
+                    }}
+                    onCancel={() => setIsCreateOpen(false)}
+                    isPending={isCreating}
+                    title="Initialize Node"
+                />
+            </CustomDialog>
 
-            <Dialog
+            <CustomDialog
                 open={isUpdateOpen}
                 onOpenChange={(open) => {
                     setIsUpdateOpen(open);
                     if (!open) setSelectedCategory(null);
                 }}
+                maxWidth="2xl"
             >
-                <DialogContent className="max-w-2xl bg-transparent border-none p-0 overflow-visible shadow-none">
-                    <DialogHeader className="sr-only">
-                        <DialogTitle>Refine Category Protocol</DialogTitle>
-                    </DialogHeader>
-                    {selectedCategory && (
-                        <CategoryForm
-                            initialData={selectedCategory}
-                            onSubmit={(data: CreateCategoryData) => {
-                                updateCategory({ id: selectedCategory.id, ...data });
-                                setIsUpdateOpen(false);
-                            }}
-                            onCancel={() => setIsUpdateOpen(false)}
-                            isPending={isUpdating}
-                            title="Refine Node"
-                        />
-                    )}
-                </DialogContent>
-            </Dialog>
+                {selectedCategory && (
+                    <CategoryForm
+                        initialData={selectedCategory}
+                        onSubmit={(data: CreateCategoryData) => {
+                            updateCategory({ id: selectedCategory.id, ...data });
+                            setIsUpdateOpen(false);
+                        }}
+                        onCancel={() => setIsUpdateOpen(false)}
+                        isPending={isUpdating}
+                        title="Refine Node"
+                    />
+                )}
+            </CustomDialog>
 
             <DeleteConfirmation
                 isOpen={deleteId !== null}

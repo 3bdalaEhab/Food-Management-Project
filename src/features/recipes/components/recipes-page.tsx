@@ -17,7 +17,8 @@ import { useTranslation } from "react-i18next";
 import { useRecipes, useDeleteRecipe, useCreateRecipe } from "../hooks";
 import { RecipeCard } from "./recipe-card";
 import { RecipeForm } from "./recipe-form";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui";
+import type { CreateRecipeData } from "../types";
+import { CustomDialog } from "@/components/shared/custom-dialog";
 import { cn } from "@/lib/utils";
 import { SEO } from "@/components/shared/seo";
 import { DeleteConfirmation } from "@/components/shared/delete-confirmation";
@@ -103,23 +104,25 @@ export function RecipesPage() {
                 </div>
             </motion.div>
 
-            <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-                <DialogContent className="max-w-5xl bg-transparent border-none p-0 overflow-visible shadow-none">
-                    <DialogHeader className="sr-only">
-                        <DialogTitle>Create New Recipe</DialogTitle>
-                    </DialogHeader>
+            {/* Add Recipe Dialog */}
+            <CustomDialog open={isCreateOpen} onOpenChange={setIsCreateOpen} maxWidth="5xl">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="w-full overflow-hidden rounded-[3rem] border border-[var(--border)] bg-[var(--sidebar-background)] shadow-2xl"
+                >
                     <RecipeForm
-                        title="New Protocol"
-                        onCancel={() => setIsCreateOpen(false)}
-                        onSubmit={(data) => {
+                        title="New Recipe"
+                        onSubmit={(data: CreateRecipeData) => {
                             createRecipe(data, {
                                 onSuccess: () => setIsCreateOpen(false)
                             });
                         }}
+                        onCancel={() => setIsCreateOpen(false)}
                         isPending={isCreating}
                     />
-                </DialogContent>
-            </Dialog>
+                </motion.div>
+            </CustomDialog>
 
             {/* Tactical Toolbar */}
             <div className="flex flex-col lg:flex-row gap-6 items-center">
@@ -131,13 +134,13 @@ export function RecipesPage() {
                         placeholder={t('recipes.search')}
                         value={search}
                         onChange={handleSearchChange}
-                        className="premium-input pl-16 h-18 bg-[var(--background)]/50 border-[var(--border)] backdrop-blur-3xl font-bold tracking-wide text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]"
+                        className="premium-input pl-16 h-18 bg-[var(--background)]/80 border-[var(--border)] font-bold tracking-wide text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]"
                         aria-label="Search recipes"
                     />
                 </div>
 
                 <div className="flex gap-4 w-full lg:w-auto">
-                    <button className="h-18 px-8 bg-[var(--background)]/50 border border-[var(--border)] backdrop-blur-3xl rounded-[1.5rem] flex items-center gap-3 font-bold text-[11px] tracking-wider text-[var(--muted-foreground)] hover:border-primary-500 hover:text-primary-500 transition-all shadow-sm">
+                    <button className="h-18 px-8 bg-[var(--background)]/80 border border-[var(--border)] rounded-[1.5rem] flex items-center gap-3 font-bold text-[11px] tracking-wider text-[var(--muted-foreground)] hover:border-primary-500 hover:text-primary-500 transition-all shadow-sm">
                         <Filter size={18} />
                         Refinement
                     </button>
@@ -173,7 +176,7 @@ export function RecipesPage() {
                 isLoading ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                         {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                            <div key={i} className="glass-card rounded-[3rem] overflow-hidden p-6 border border-[var(--border)] bg-[var(--sidebar-background)]/30 backdrop-blur-3xl animate-pulse">
+                            <div key={i} className="glass-card rounded-[3rem] overflow-hidden p-6 border border-[var(--border)] bg-[var(--sidebar-background)]/60 animate-pulse">
                                 <div className="w-full h-56 rounded-[2.5rem] bg-neutral-200/20" />
                                 <div className="mt-8 space-y-4">
                                     <div className="h-8 w-3/4 bg-neutral-200 rounded-full" />

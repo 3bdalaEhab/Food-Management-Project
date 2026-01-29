@@ -19,6 +19,9 @@ const LoginPage = lazy(() =>
 const RegisterPage = lazy(() =>
     import("@/features/auth").then((m) => ({ default: m.RegisterPage }))
 );
+const VerifyAccountPage = lazy(() =>
+    import("@/features/auth").then((m) => ({ default: m.VerifyAccountPage }))
+);
 const ForgotPasswordPage = lazy(() =>
     import("@/features/auth").then((m) => ({ default: m.ForgotPasswordPage }))
 );
@@ -112,6 +115,8 @@ function App() {
                             <Route path="/" element={<Navigate to="/login" replace />} />
                             <Route path="/login" element={<LoginPage />} />
                             <Route path="/register" element={<RegisterPage />} />
+                            <Route path="/verify-account" element={<VerifyAccountPage />} />
+                            <Route path="/verifyAccount" element={<Navigate to="/verify-account" replace />} />
                             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
                             <Route path="/reset-password" element={<ResetPasswordPage />} />
                         </Route>

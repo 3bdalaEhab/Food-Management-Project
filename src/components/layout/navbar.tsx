@@ -36,8 +36,8 @@ export function Navbar() {
         <header
             className={cn(
                 "h-20 rounded-[2rem] px-8 flex items-center justify-between",
-                "bg-[var(--sidebar-background)]/80 backdrop-blur-3xl",
-                "border border-[var(--border)] shadow-2xl transition-all duration-500"
+                "bg-[var(--sidebar-background)]/95 backdrop-blur-md",
+                "border border-[var(--border)] shadow-lg transition-all duration-300"
             )}
             role="banner"
         >
@@ -53,7 +53,7 @@ export function Navbar() {
                 </Button>
                 <div className="relative group w-full max-w-md hidden md:block">
                     <div className="absolute inset-0 bg-primary-500/0 group-hover:bg-primary-500/5 blur-xl transition-all rounded-2xl" />
-                    <div className="relative flex items-center gap-4 px-6 h-12 bg-[var(--background)]/50 border border-[var(--border)] rounded-2xl backdrop-blur-xl group-hover:border-primary-500/30 transition-all cursor-pointer">
+                    <div className="relative flex items-center gap-4 px-6 h-12 bg-[var(--background)]/80 border border-[var(--border)] rounded-2xl group-hover:border-primary-500/30 transition-all cursor-pointer">
                         <Search className="w-4 h-4 text-[var(--muted-foreground)] group-hover:text-primary-500 transition-colors" />
                         <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)] group-hover:text-[var(--foreground)] transition-colors">{t('navbar.search')}</span>
                         <div className="ml-auto flex items-center gap-2">
@@ -69,7 +69,7 @@ export function Navbar() {
                 <div className="relative" ref={langRef}>
                     <button
                         onClick={() => setIsLangOpen(!isLangOpen)}
-                        className="w-10 h-10 rounded-xl bg-[var(--sidebar-background)]/80 backdrop-blur-xl border border-[var(--border)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--sidebar-accent)] transition-all shadow-md"
+                        className="w-10 h-10 rounded-xl bg-[var(--sidebar-background)]/95 border border-[var(--border)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--sidebar-accent)] transition-all shadow-sm"
                         aria-label={t('navbar.language')}
                     >
                         <Globe size={18} className={cn("transition-transform duration-500", isLangOpen && "rotate-180")} />
@@ -82,7 +82,7 @@ export function Navbar() {
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                 className={cn(
-                                    "absolute top-14 w-48 p-2 rounded-2xl bg-[var(--sidebar-background)] border border-[var(--border)] shadow-2xl backdrop-blur-3xl z-50",
+                                    "absolute top-14 w-48 p-2 rounded-2xl bg-[var(--sidebar-background)]/98 border border-[var(--border)] shadow-xl z-50",
                                     language === "ar" ? "left-0" : "right-0"
                                 )}
                             >
@@ -116,7 +116,7 @@ export function Navbar() {
                 {/* Theme Toggle */}
                 <button
                     onClick={toggleTheme}
-                    className="w-10 h-10 rounded-xl bg-[var(--sidebar-background)]/80 backdrop-blur-xl border border-[var(--border)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--sidebar-accent)] transition-all shadow-md"
+                    className="w-10 h-10 rounded-xl bg-[var(--sidebar-background)]/95 border border-[var(--border)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--sidebar-accent)] transition-all shadow-sm"
                     aria-label={t('navbar.theme')}
                 >
                     <AnimatePresence mode="wait" initial={false}>
@@ -133,7 +133,7 @@ export function Navbar() {
                 </button>
 
                 {/* Notifications */}
-                <button className="relative w-10 h-10 rounded-xl bg-[var(--sidebar-background)]/80 backdrop-blur-xl border border-[var(--border)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--sidebar-accent)] transition-all shadow-md" aria-label={t('navbar.notifications')}>
+                <button className="relative w-10 h-10 rounded-xl bg-[var(--sidebar-background)]/95 border border-[var(--border)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--sidebar-accent)] transition-all shadow-sm" aria-label={t('navbar.notifications')}>
                     <Bell size={18} />
                     <span className="absolute -top-0.5 -end-0.5 w-3 h-3 bg-red-500 border-2 border-[var(--background)] rounded-full animate-pulse" />
                 </button>

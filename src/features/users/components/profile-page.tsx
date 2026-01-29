@@ -2,8 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
-    Camera,
-    Lock,
+    KeyRound,
     BadgeCheck,
     ChefHat,
     Loader2,
@@ -11,6 +10,7 @@ import {
     Activity,
     ShieldCheck,
     ArrowRight,
+    ChevronRight,
     UserCircle,
     Settings2,
     Palette,
@@ -22,8 +22,9 @@ import {
 
 import { useAuthStore, useAppStore } from "@/stores";
 import { ChangePasswordForm } from "./change-password-form";
-import { Dialog, DialogContent } from "@/components/ui";
+import { CustomDialog } from "@/components/shared/custom-dialog";
 import { cn } from "@/lib/utils";
+import { IconBadge } from "@/components/shared/icon-badge";
 import { SEO } from "@/components/shared/seo";
 
 type Tab = "identity" | "security" | "preferences";
@@ -65,7 +66,7 @@ export function ProfilePage() {
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="relative overflow-hidden rounded-[3.5rem] bg-[var(--sidebar-background)] border border-[var(--border)] shadow-[0_64px_128px_-32px_rgba(0,0,0,0.4)] backdrop-blur-3xl"
+                className="relative overflow-hidden rounded-[3.5rem] bg-[var(--sidebar-background)] border border-[var(--border)] shadow-xl"
             >
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_-20%,oklch(0.6_0.28_45/0.15)_0%,transparent_50%)]" />
                 <div className="absolute top-0 right-0 p-12 opacity-[0.03]">
@@ -98,18 +99,15 @@ export function ProfilePage() {
                     {/* Operator Avatar Module */}
                     <div className="relative group shrink-0">
                         <div className="absolute inset-0 bg-primary-500 blur-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-1000" />
-                        <div className="relative flex flex-col items-center gap-6 bg-[var(--background)]/40 border border-[var(--border)] p-8 rounded-[3.5rem] backdrop-blur-3xl shadow-2xl">
-                            <div className="w-32 h-32 rounded-[2.5rem] bg-[var(--sidebar-background)] overflow-hidden border-2 border-[var(--border)] shadow-2xl relative group/avatar">
+                        <div className="relative flex flex-col items-center gap-6 bg-[var(--background)]/60 border border-[var(--border)] p-8 rounded-[3.5rem] shadow-xl">
+                            <div className="w-32 h-32 rounded-[2.5rem] bg-[var(--sidebar-background)] overflow-hidden border-2 border-[var(--border)] shadow-2xl">
                                 {user.imagePath ? (
-                                    <img src={user.imagePath} alt={user.userName} className="w-full h-full object-cover transition-transform duration-1000 group-hover/avatar:scale-110" />
+                                    <img src={user.imagePath} alt={user.userName} className="w-full h-full object-cover object-center" />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--background)] to-[var(--sidebar-background)]">
                                         <ChefHat className="text-[var(--muted-foreground)]/20" size={50} />
                                     </div>
                                 )}
-                                <div className="absolute inset-0 bg-primary-500/40 opacity-0 group-hover/avatar:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">
-                                    <Camera size={20} className="text-white drop-shadow-md" />
-                                </div>
                             </div>
                             <div className="text-center">
                                 <h2 className="text-2xl font-black italic uppercase tracking-tighter text-[var(--foreground)] leading-none mb-1">{user.userName}</h2>
@@ -162,7 +160,7 @@ export function ProfilePage() {
                     {activeTab === "identity" && (
                         <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-3 gap-10">
                             {/* Identity Intel Card */}
-                            <div className="lg:col-span-2 glass-card rounded-[3.5rem] p-10 md:p-14 border border-[var(--border)] shadow-2xl space-y-12 bg-[var(--sidebar-background)]/80 backdrop-blur-3xl">
+                            <div className="lg:col-span-2 glass-card rounded-[3.5rem] p-10 md:p-14 border border-[var(--border)] shadow-xl space-y-12 bg-[var(--sidebar-background)]/95">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                                     <div className="space-y-4">
                                         <label className="text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em] flex items-center gap-2">
@@ -232,23 +230,25 @@ export function ProfilePage() {
 
                     {activeTab === "security" && (
                         <div className="lg:col-span-12">
-                            <div className="glass-card rounded-[3.5rem] p-12 md:p-16 border border-[var(--border)] shadow-2xl bg-[var(--sidebar-background)]/80 backdrop-blur-3xl flex flex-col items-center text-center space-y-10">
-                                <div className="w-24 h-24 bg-primary-500/10 rounded-3xl flex items-center justify-center border border-primary-500/20 shadow-xl">
-                                    <ShieldCheck size={48} className="text-primary-500" />
-                                </div>
-                                <div className="space-y-4 max-w-2xl">
-                                    <h3 className="text-4xl font-black italic uppercase tracking-tighter text-[var(--foreground)]">{t('profile.security_protocol')}</h3>
-                                    <p className="text-[11px] font-black uppercase tracking-[0.4em] text-[var(--muted-foreground)] mb-8">Protocol_Layer_4_Authentication</p>
-                                    <p className="text-sm font-bold text-[var(--muted-foreground)] italic leading-relaxed">
-                                        Enhance your tactical security by refining your access credentials. We recommend monthly rotation of security keys to maintain maximum operational integrity.
+                            <div className="glass-card rounded-[3.5rem] p-12 md:p-16 border border-[var(--border)] shadow-xl bg-[var(--sidebar-background)]/95 flex flex-col items-center text-center space-y-10">
+                                <IconBadge
+                                    icon={KeyRound}
+                                    size="xl"
+                                    variant="primary"
+                                    className="bg-gradient-to-br from-primary-500/20 to-primary-600/10 border-2"
+                                />
+                                <div className="space-y-4">
+                                    <h3 className="text-3xl font-black text-[var(--foreground)]">{t('profile.change_password')}</h3>
+                                    <p className="text-sm font-medium text-[var(--muted-foreground)] leading-relaxed">
+                                        {t('profile.change_password_desc')}
                                     </p>
                                 </div>
                                 <button
                                     onClick={() => setIsChangePassOpen(true)}
-                                    className="premium-button premium-button-primary h-18 px-16 text-sm group"
+                                    className="premium-button premium-button-primary h-16 px-12 text-sm group"
                                 >
-                                    <Lock size={20} />
-                                    <span className="font-black italic uppercase tracking-widest">{t('profile.security_protocol')}</span>
+                                    <KeyRound size={20} />
+                                    <span className="font-bold">{t('profile.change_password')}</span>
                                     <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                                 </button>
                             </div>
@@ -258,7 +258,7 @@ export function ProfilePage() {
                     {activeTab === "preferences" && (
                         <div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-2 gap-10">
                             {/* Theme Control Hub */}
-                            <div className="glass-card rounded-[3.5rem] p-10 md:p-12 border border-[var(--border)] shadow-2xl bg-[var(--sidebar-background)]/80 backdrop-blur-3xl space-y-10">
+                            <div className="glass-card rounded-[3.5rem] p-10 md:p-12 border border-[var(--border)] shadow-xl bg-[var(--sidebar-background)]/95 space-y-10">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-4">
                                         <div className="w-12 h-12 bg-primary-500/10 rounded-2xl flex items-center justify-center border border-primary-500/20">
@@ -298,7 +298,7 @@ export function ProfilePage() {
                             </div>
 
                             {/* Language Control Hub */}
-                            <div className="glass-card rounded-[3.5rem] p-10 md:p-12 border border-[var(--border)] shadow-2xl bg-[var(--sidebar-background)]/80 backdrop-blur-3xl space-y-10">
+                            <div className="glass-card rounded-[3.5rem] p-10 md:p-12 border border-[var(--border)] shadow-xl bg-[var(--sidebar-background)]/95 space-y-10">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-4">
                                         <div className="w-12 h-12 bg-primary-500/10 rounded-2xl flex items-center justify-center border border-primary-500/20">
@@ -342,30 +342,12 @@ export function ProfilePage() {
             </AnimatePresence>
 
             {/* Change Password Modal Integration */}
-            <Dialog open={isChangePassOpen} onOpenChange={setIsChangePassOpen}>
-                <DialogContent className="max-w-xl bg-transparent border-none p-0 overflow-visible shadow-none">
-                    <ChangePasswordForm
-                        onSuccess={() => setIsChangePassOpen(false)}
-                        onCancel={() => setIsChangePassOpen(false)}
-                    />
-                </DialogContent>
-            </Dialog>
+            <CustomDialog open={isChangePassOpen} onOpenChange={setIsChangePassOpen} maxWidth="xl">
+                <ChangePasswordForm
+                    onSuccess={() => setIsChangePassOpen(false)}
+                    onCancel={() => setIsChangePassOpen(false)}
+                />
+            </CustomDialog>
         </div>
     );
 }
-
-const ChevronRight = ({ size, className }: { size?: number, className?: string }) => (
-    <motion.svg
-        width={size || 24}
-        height={size || 24}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={className}
-    >
-        <path d="m9 18 6-6-6-6" />
-    </motion.svg>
-);

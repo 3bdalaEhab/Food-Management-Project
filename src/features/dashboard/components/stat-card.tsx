@@ -30,7 +30,7 @@ export const StatCard = memo(({
         >
             <div className={`absolute inset-0 ${color} opacity-0 group-hover:opacity-10 transition-all duration-500 rounded-[2.5rem] blur-2xl`} />
 
-            <div className="relative glass-card rounded-[2.5rem] p-8 border border-[var(--border)] bg-[var(--sidebar-background)]/80 backdrop-blur-3xl shadow-xl transition-all duration-500 group-hover:border-primary-500/30 group-hover:-translate-y-1 overflow-hidden">
+            <div className="relative glass-card rounded-[2.5rem] p-8 border border-[var(--border)] bg-[var(--sidebar-background)] shadow-lg transition-all duration-300 group-hover:border-primary-500/30 group-hover:-translate-y-1 overflow-hidden">
                 {/* Background Decor */}
                 <div className={`absolute top-0 right-0 w-32 h-32 ${color.replace('bg-', 'bg-gradient-to-br from-').replace('/5', '/10')} opacity-10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700`} />
 

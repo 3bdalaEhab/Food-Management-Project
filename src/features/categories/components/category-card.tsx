@@ -29,7 +29,7 @@ export const CategoryCard = memo(({
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             style={{ willChange: 'transform, opacity' }}
             className={cn(
-                "group relative glass-card rounded-[2.5rem] p-8 overflow-hidden border border-[var(--border)] bg-[var(--sidebar-background)]/80 backdrop-blur-3xl shadow-xl transition-all duration-500 flex",
+                "group relative glass-card rounded-[2.5rem] p-8 overflow-hidden border border-[var(--border)] bg-[var(--sidebar-background)] shadow-lg transition-all duration-300 flex",
                 viewMode === "grid"
                     ? "flex-col items-center text-center justify-between min-h-[16rem] hover:border-primary-500/40"
                     : "flex-row items-center justify-between hover:bg-[var(--background)] hover:border-primary-500/30"

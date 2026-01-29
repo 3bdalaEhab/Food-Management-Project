@@ -1,21 +1,23 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
-import { fileURLToPath } from 'url'
-import path from 'path'
+import path from "path";
+import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// https://vitejs.dev/config/
+// https://vite.dev/config/
 export default defineConfig({
-    plugins: [
-        react(),
-        tailwindcss(),
-    ],
+    plugins: [react(), tailwindcss()],
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, './src'),
+            "@": path.resolve(__dirname, "./src"),
         },
     },
-})
+    server: {
+        proxy: {
+            '/api': {
+                target: 'https://upskilling-egypt.com:443',
+                changeOrigin: true,
+                secure: true,
+            }
+        }
+    }
+});

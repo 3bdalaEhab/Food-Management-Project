@@ -63,7 +63,7 @@ export function Sidebar() {
                 isRtl ? "right-0" : "left-0",
                 "bg-[var(--sidebar-background)] border-[var(--sidebar-border)]",
                 isRtl ? "border-l" : "border-r",
-                "flex flex-col shadow-[20px_0_50px_rgba(0,0,0,0.02)] overflow-hidden backdrop-blur-3xl",
+                "flex flex-col shadow-lg overflow-hidden",
                 "selection:bg-primary-500/30"
             )}
         >
@@ -208,7 +208,7 @@ export function Sidebar() {
                 >
                     <div className="w-10 h-10 rounded-xl bg-[var(--background)] overflow-hidden border border-[var(--sidebar-border)] group-hover:border-primary-500/50 transition-colors shrink-0 flex items-center justify-center">
                         {user?.imagePath ? (
-                            <img src={user.imagePath} alt={user.userName} className="w-full h-full object-cover" />
+                            <img src={user.imagePath} alt={user.userName} className="w-full h-full object-cover object-center" />
                         ) : (
                             <Fingerprint size={20} className="text-[var(--muted-foreground)] group-hover:text-primary-500 transition-colors" />
                         )}

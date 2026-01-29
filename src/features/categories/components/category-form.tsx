@@ -57,7 +57,7 @@ export function CategoryForm({
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="w-full max-w-2xl mx-auto"
         >
-            <div className="glass-card rounded-[4rem] p-10 md:p-14 border border-[var(--border)] shadow-2xl overflow-hidden relative bg-[var(--sidebar-background)]/80 backdrop-blur-3xl">
+            <div className="glass-card rounded-[4rem] p-10 md:p-14 border border-[var(--border)] shadow-xl overflow-hidden relative bg-[var(--sidebar-background)]">
                 {/* Tactical Polish */}
                 <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] bg-primary-500/10 rounded-full blur-[100px]" />
 

@@ -10,7 +10,7 @@ export interface RegisterData {
     country: string;
     phoneNumber: string;
     password: string;
-    confirmPassword: string;
+    profileImage?: string; // Optional - can be empty
 }
 
 export interface ForgotPasswordData {

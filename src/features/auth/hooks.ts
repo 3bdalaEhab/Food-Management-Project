@@ -39,13 +39,15 @@ export function useRegister() {
             toast.success("Registration successful! 🎉", {
                 description: "Please verify your email to continue.",
             });
+            // Only navigate if registration was truly successful
             navigate("/verify-account");
         },
         onError: (error) => {
             const apiError = parseApiError(error);
             toast.error("Registration failed", {
-                description: apiError.message,
+                description: apiError.message || "Please check your information and try again.",
             });
+            // Stay on registration page - don't navigate
         },
     });
 }

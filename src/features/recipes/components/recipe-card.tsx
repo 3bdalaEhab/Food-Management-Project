@@ -21,7 +21,7 @@ export const RecipeCard = memo(({
     const favorite = isFavorite(recipe.id);
 
     const imageUrl = recipe.imagePath
-        ? `https://upskilling-egypt.com:3006/${recipe.imagePath}`
+        ? `https://upskilling-egypt.com:443/${recipe.imagePath}`
         : "/placeholder-recipe.jpg";
 
     return (
@@ -39,7 +39,7 @@ export const RecipeCard = memo(({
             {/* Elite Industrial Glow Shadow */}
             <div className="absolute -inset-1 bg-gradient-to-r from-primary-500/20 to-primary-600/20 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-            <div className="relative h-full glass-card rounded-[2.5rem] overflow-hidden flex flex-col border border-[var(--border)] bg-[var(--sidebar-background)]/95 backdrop-blur-3xl shadow-2xl transition-all duration-500 group-hover:border-primary-500/40 group-hover:shadow-primary-500/10">
+            <div className="relative h-full glass-card rounded-[2.5rem] overflow-hidden flex flex-col border border-[var(--border)] bg-[var(--sidebar-background)] shadow-xl transition-all duration-300 group-hover:border-primary-500/40">
                 {/* Visual Content Port */}
                 <div className="relative h-64 overflow-hidden bg-[var(--muted)] shrink-0">
                     <ImageWithFallback
@@ -67,8 +67,8 @@ export const RecipeCard = memo(({
                             whileTap={{ scale: 0.9 }}
                             onClick={() => toggleFavorite(recipe.id)}
                             className={cn(
-                                "w-10 h-10 rounded-xl flex items-center justify-center backdrop-blur-3xl border transition-all shadow-xl",
-                                favorite ? 'bg-red-500 text-white border-red-500' : 'bg-black/50 text-white border-white/10 hover:bg-primary-500 hover:border-primary-500'
+                                "w-10 h-10 rounded-xl flex items-center justify-center border transition-all shadow-lg",
+                                favorite ? 'bg-red-500 text-white border-red-500' : 'bg-black/60 text-white border-white/10 hover:bg-primary-500 hover:border-primary-500'
                             )}
                             aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
                         >
@@ -78,7 +78,7 @@ export const RecipeCard = memo(({
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
                             onClick={() => onEdit?.(recipe)}
-                            className="w-10 h-10 rounded-xl bg-black/50 backdrop-blur-3xl border border-white/10 flex items-center justify-center text-white hover:bg-blue-500 hover:border-blue-500 transition-all shadow-xl"
+                            className="w-10 h-10 rounded-xl bg-black/60 border border-white/10 flex items-center justify-center text-white hover:bg-blue-500 hover:border-blue-500 transition-all shadow-lg"
                             aria-label="Edit recipe"
                         >
                             <Edit2 className="w-4 h-4" />

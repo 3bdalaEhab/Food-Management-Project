@@ -86,7 +86,7 @@ export function UsersPage() {
                         placeholder="Scan collaborators..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="premium-input pl-16 h-18 bg-[var(--background)]/50 border-[var(--border)] backdrop-blur-3xl font-bold tracking-wide text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]"
+                        className="premium-input pl-16 h-18 bg-[var(--background)]/80 border-[var(--border)] font-bold tracking-wide text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]"
                     />
                 </div>
             </div>
@@ -95,7 +95,7 @@ export function UsersPage() {
             {isLoading ? (
                 <div className="space-y-6">
                     {[1, 2, 3, 4, 5].map((i) => (
-                        <div key={i} className="glass-card rounded-[3rem] p-8 flex items-center gap-8 animate-pulse bg-[var(--sidebar-background)]/30 backdrop-blur-3xl border border-[var(--border)]">
+                        <div key={i} className="glass-card rounded-[3rem] p-8 flex items-center gap-8 animate-pulse bg-[var(--sidebar-background)]/60 border border-[var(--border)]">
                             <div className="w-20 h-20 rounded-[2rem] bg-[var(--background)]/50" />
                             <div className="flex-1 space-y-4">
                                 <div className="h-8 w-1/4 bg-[var(--background)]/50 rounded-full" />

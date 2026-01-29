@@ -25,8 +25,8 @@ export function DemoCredentials({ onFill }: DemoCredentialsProps) {
         },
         {
             role: "FIELD_OPERATOR",
-            email: "user@culinary.io",
-            pass: "123123",
+            email: "abdalaehab3@gmail.com",
+            pass: "Ae123***",
             icon: Zap,
             color: "primary",
             desc: "Standard Access • Recipe Execution • Dashboard View",

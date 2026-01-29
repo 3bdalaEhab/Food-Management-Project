@@ -1,8 +1,8 @@
 import axios, { AxiosError, type AxiosInstance, type InternalAxiosRequestConfig } from "axios";
 import { useAuthStore } from "@/stores/auth-store";
 
-// API Base URL from environment
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://upskilling-egypt.com:3006/api/v1";
+// API Base URL - using proxy in development
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api/v1";
 
 // Create axios instance with default config
 export const apiClient: AxiosInstance = axios.create({

@@ -114,7 +114,7 @@ export function RecipeForm({
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="w-full max-w-2xl mx-auto"
         >
-            <div className="glass-card rounded-[3rem] p-6 md:p-10 border border-[var(--border)] shadow-2xl overflow-hidden relative bg-[var(--sidebar-background)]/90 backdrop-blur-3xl">
+            <div className="glass-card rounded-[3rem] p-6 md:p-10 border border-[var(--border)] shadow-xl overflow-hidden relative bg-[var(--sidebar-background)]">
 
                 {/* Protocol Header */}
                 <div className="flex items-center justify-between mb-8 pb-6 border-b border-[var(--border)]">
