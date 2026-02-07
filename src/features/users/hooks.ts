@@ -18,6 +18,7 @@ export const useUsers = (params?: UserQueryParams) => {
     return useQuery({
         queryKey: ["users", params],
         queryFn: () => usersApi.getUsers(params),
+        staleTime: 5 * 60 * 1000, // 5 minutes
     });
 };
 

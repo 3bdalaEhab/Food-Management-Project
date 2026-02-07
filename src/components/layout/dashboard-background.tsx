@@ -84,7 +84,7 @@ export function DashboardBackground() {
             </div>
 
             {/* Industrial Texture Layers */}
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay z-20" />
+            <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.02] mix-blend-overlay z-20" />
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--background)]/30 to-[var(--background)] opacity-80 z-20" />
             <div className="absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_0_200px_rgba(0,0,0,0.4)] z-20" />
         </div>

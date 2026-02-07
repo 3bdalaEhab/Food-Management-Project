@@ -60,9 +60,9 @@ export function Sidebar() {
             transition={springConfig}
             className={cn(
                 "fixed top-0 z-50 h-screen",
-                isRtl ? "right-0" : "left-0",
+                "inset-inline-start-0",
                 "bg-[var(--sidebar-background)] border-[var(--sidebar-border)]",
-                isRtl ? "border-l" : "border-r",
+                "border-ie",
                 "flex flex-col shadow-lg overflow-hidden",
                 "selection:bg-primary-500/30"
             )}
@@ -182,7 +182,7 @@ export function Sidebar() {
                                     className={cn(
                                         "absolute w-1 h-6 rounded-full",
                                         isAdmin ? "bg-red-500 shadow-red-500/50" : "bg-primary-500 shadow-primary-500/50",
-                                        "start-0"
+                                        "inset-inline-start-0"
                                     )}
                                 />
                             )}

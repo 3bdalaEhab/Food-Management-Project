@@ -48,11 +48,21 @@ apiClient.interceptors.response.use(
     async (error: AxiosError) => {
         const config = error.config as AxiosConfigWithRetry | undefined;
 
-        // Handle 401 Unauthorized - Logout user
+        // Handle 401 Unauthorized - Logout user (but not if already on login page)
         if (error.response?.status === 401) {
             localStorage.removeItem("token");
             useAuthStore.getState().logout();
-            window.location.href = "/login";
+
+            // Only redirect to login if not already on login or auth pages
+            const currentPath = window.location.pathname;
+            const isAuthPage = ['/login', '/register', '/forgot-password', '/reset-password', '/verify-account'].some(
+                path => currentPath.startsWith(path)
+            );
+
+            if (!isAuthPage) {
+                window.location.href = "/login";
+            }
+
             return Promise.reject(parseApiError(error));
         }
 

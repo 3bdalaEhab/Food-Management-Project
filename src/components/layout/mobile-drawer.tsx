@@ -61,7 +61,7 @@ export function MobileDrawer() {
                         transition={{ type: "spring", damping: 25, stiffness: 200 }}
                         className={cn(
                             "fixed top-0 bottom-0 z-[70] w-full max-w-[320px] bg-neutral-950 border-white/10 flex flex-col lg:hidden",
-                            isRtl ? "right-0 border-l" : "left-0 border-r"
+                            "inset-inline-start-0 border-ie"
                         )}
                     >
                         {/* Header: Identity Port */}
@@ -99,6 +99,7 @@ export function MobileDrawer() {
                                         key={item.href}
                                         to={item.href}
                                         onClick={handleClose}
+                                        aria-current={isActive ? "page" : undefined}
                                         className={cn(
                                             "flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 relative overflow-hidden group",
                                             isActive
@@ -114,7 +115,7 @@ export function MobileDrawer() {
                                         </div>
                                         <span className="font-black uppercase tracking-widest text-xs">{item.label}</span>
                                         {isActive && (
-                                            <motion.div layoutId="mobile-active" className="absolute right-4 w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_10px_white]" />
+                                            <motion.div layoutId="mobile-active" className="absolute inset-inline-end-4 w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_10px_white]" />
                                         )}
                                     </Link>
                                 );
@@ -127,6 +128,7 @@ export function MobileDrawer() {
                                 to="/dashboard/profile"
                                 onClick={handleClose}
                                 className="flex items-center gap-4 p-4 rounded-2xl text-neutral-500 hover:bg-white/5 transition-all group"
+                                aria-label={t('sidebar.settings')}
                             >
                                 <Settings size={20} className="group-hover:rotate-45 transition-transform" />
                                 <span className="text-xs font-black uppercase tracking-widest">{t('sidebar.settings')}</span>
@@ -135,8 +137,9 @@ export function MobileDrawer() {
                             <button
                                 onClick={handleLogout}
                                 className="w-full flex items-center gap-4 p-4 rounded-2xl text-red-500 hover:bg-red-500 hover:text-white transition-all group"
+                                aria-label={t('sidebar.logout')}
                             >
-                                <LogOut size={20} className="group-hover:-translate-x-1 transition-transform" />
+                                <LogOut size={20} className="group-hover:-translate-x-1 rtl:group-hover:translate-x-1 transition-transform" />
                                 <span className="text-xs font-black uppercase tracking-widest">{t('sidebar.logout')}</span>
                             </button>
 

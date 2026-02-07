@@ -87,7 +87,7 @@ export function CategoryForm({
                                 Taxonomy Identity
                             </label>
                             <div className="group relative">
-                                <Tag className="absolute left-6 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" size={20} />
+                                <Tag className="absolute start-6 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" size={20} />
                                 <input
                                     {...register("name")}
                                     className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] h-20 pl-16 font-black uppercase tracking-tight text-xl"

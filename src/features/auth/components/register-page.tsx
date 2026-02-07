@@ -307,12 +307,12 @@ function FormField({ label, icon: Icon, placeholder, register, name, validation,
         <div className="space-y-1">
             <label
                 htmlFor={inputId}
-                className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1"
+                className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ms-1"
             >
                 {label}
             </label>
             <div className="relative group">
-                <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" aria-hidden="true" />
+                <Icon className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors z-10 pointer-events-none" aria-hidden="true" />
                 <input
                     {...register(name, validation)}
                     id={inputId}
@@ -321,10 +321,10 @@ function FormField({ label, icon: Icon, placeholder, register, name, validation,
                     disabled={disabled}
                     aria-invalid={!!error}
                     aria-describedby={error ? errorId : undefined}
-                    className="w-full h-11 sm:h-12 bg-[var(--background)]/60 border border-[var(--border)] rounded-xl pl-9 pr-3 text-sm font-medium placeholder:text-[var(--muted-foreground)]/40 focus:bg-[var(--background)] focus:border-primary-500 focus:ring-2 focus:ring-primary-500/10 transition-all outline-none disabled:opacity-50"
+                    className="w-full h-11 sm:h-12 bg-[var(--background)]/60 border border-[var(--border)] rounded-xl ps-9 pe-3 text-sm font-medium placeholder:text-[var(--muted-foreground)]/40 focus:bg-[var(--background)] focus:border-primary-500 focus:ring-2 focus:ring-primary-500/10 transition-all outline-none disabled:opacity-50"
                 />
             </div>
-            {error && <p id={errorId} role="alert" className="text-[9px] text-red-500 font-semibold ml-1">{error.message}</p>}
+            {error && <p id={errorId} role="alert" className="text-[9px] text-red-500 font-semibold ms-1">{error.message}</p>}
         </div>
     );
 }
@@ -342,12 +342,12 @@ function PasswordField({ label, icon: Icon, placeholder, register, name, validat
         <div className="space-y-1">
             <label
                 htmlFor={inputId}
-                className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1"
+                className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ms-1"
             >
                 {label}
             </label>
             <div className="relative group">
-                <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" aria-hidden="true" />
+                <Icon className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors z-10 pointer-events-none" aria-hidden="true" />
                 <input
                     {...register(name, validation)}
                     id={inputId}
@@ -356,18 +356,18 @@ function PasswordField({ label, icon: Icon, placeholder, register, name, validat
                     disabled={disabled}
                     aria-invalid={!!error}
                     aria-describedby={error ? errorId : undefined}
-                    className="w-full h-11 sm:h-12 bg-[var(--background)]/60 border border-[var(--border)] rounded-xl pl-9 pr-10 text-sm font-medium placeholder:text-[var(--muted-foreground)]/40 focus:bg-[var(--background)] focus:border-primary-500 focus:ring-2 focus:ring-primary-500/10 transition-all outline-none disabled:opacity-50"
+                    className="w-full h-11 sm:h-12 bg-[var(--background)]/60 border border-[var(--border)] rounded-xl ps-9 pe-10 text-sm font-medium placeholder:text-[var(--muted-foreground)]/40 focus:bg-[var(--background)] focus:border-primary-500 focus:ring-2 focus:ring-primary-500/10 transition-all outline-none disabled:opacity-50"
                 />
                 <button
                     type="button"
                     onClick={onToggle}
                     aria-label={showPassword ? `Hide ${label}` : `Show ${label}`}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/50 hover:text-primary-500 transition-colors"
+                    className="absolute end-3 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/50 hover:text-primary-500 transition-colors z-10"
                 >
                     {showPassword ? <EyeOff size={16} aria-hidden="true" /> : <Eye size={16} aria-hidden="true" />}
                 </button>
             </div>
-            {error && <p id={errorId} role="alert" className="text-[9px] text-red-500 font-semibold ml-1">{error.message}</p>}
+            {error && <p id={errorId} role="alert" className="text-[9px] text-red-500 font-semibold ms-1">{error.message}</p>}
         </div>
     );
 }

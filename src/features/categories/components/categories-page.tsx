@@ -20,10 +20,13 @@ import { Category, CreateCategoryData } from "../types";
 import { cn } from "@/lib/utils";
 import { SEO } from "@/components/shared/seo";
 import { DeleteConfirmation } from "@/components/shared/delete-confirmation";
+import { useDebounce } from "@/hooks/use-debounce";
 
 export function CategoriesPage() {
     const { t } = useTranslation();
     const [search, setSearch] = useState("");
+    const debouncedSearch = useDebounce(search, 500);
+
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
     const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -31,7 +34,7 @@ export function CategoriesPage() {
     const [deleteId, setDeleteId] = useState<number | null>(null);
 
     const { data: categoriesData, isLoading } = useCategories({
-        name: search,
+        name: debouncedSearch,
     });
 
     const { mutate: deleteCategory } = useDeleteCategory();
@@ -101,7 +104,7 @@ export function CategoriesPage() {
             <div className="flex flex-col lg:flex-row gap-6 items-center">
                 <div className="relative flex-1 w-full group">
                     <div className="absolute inset-0 bg-primary-500/5 blur-xl group-focus-within:bg-primary-500/10 transition-all rounded-3xl" />
-                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)] group-focus-within:text-primary-500 transition-colors" size={20} />
+                    <Search className="absolute start-6 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)] group-focus-within:text-primary-500 transition-colors" size={20} />
                     <input
                         type="text"
                         placeholder={t('categories.search')}

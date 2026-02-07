@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Heart,
@@ -14,6 +15,7 @@ import { PageWrapper } from "@/components/shared/page-wrapper";
 import { DeleteConfirmation } from "@/components/shared/delete-confirmation";
 
 export function FavoritesPage() {
+    const navigate = useNavigate();
     const [search, setSearch] = useState("");
     const [deleteId, setDeleteId] = useState<number | null>(null);
     const { favorites } = useAppStore();
@@ -90,7 +92,7 @@ export function FavoritesPage() {
                 {/* Tactical Search */}
                 <div className="relative max-w-2xl mx-auto group">
                     <div className="absolute inset-0 bg-red-500/5 blur-2xl group-focus-within:bg-red-500/10 transition-all rounded-3xl" />
-                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)] group-focus-within:text-red-500 transition-colors" size={24} />
+                    <Search className="absolute start-6 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)] group-focus-within:text-red-500 transition-colors" size={24} />
                     <input
                         type="text"
                         placeholder="SCAN VAULT ARCHIVES..."
@@ -135,7 +137,7 @@ export function FavoritesPage() {
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            onClick={() => window.location.href = '/dashboard/recipes'}
+                            onClick={() => navigate('/dashboard/recipes')}
                             className="premium-button bg-[var(--background)] border border-[var(--border)] text-[var(--foreground)] hover:bg-red-500 hover:text-white hover:border-red-400 px-10 h-16 group"
                         >
                             <span>Return to Archives</span>

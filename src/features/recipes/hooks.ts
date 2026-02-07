@@ -17,6 +17,7 @@ export const useRecipes = (params?: RecipeQueryParams) => {
     return useQuery({
         queryKey: ["recipes", params],
         queryFn: () => recipesApi.getRecipes(params),
+        staleTime: 5 * 60 * 1000, // 5 minutes
     });
 };
 
@@ -78,6 +79,7 @@ export const useTags = () => {
     return useQuery({
         queryKey: ["tags"],
         queryFn: recipesApi.getTags,
+        staleTime: 24 * 60 * 60 * 1000, // 24 hours
     });
 };
 
@@ -85,5 +87,6 @@ export const useCategories = () => {
     return useQuery({
         queryKey: ["categories"],
         queryFn: recipesApi.getCategories,
+        staleTime: 24 * 60 * 60 * 1000, // 24 hours
     });
 };

@@ -13,13 +13,16 @@ import { useUsers, useDeleteUser } from "../hooks";
 import { DeleteConfirmation } from "@/components/shared/delete-confirmation";
 import { UserCard } from "./user-card";
 import { useTranslation } from "react-i18next";
+import { useDebounce } from "@/hooks/use-debounce";
 
 export function UsersPage() {
     const { t } = useTranslation();
     const [search, setSearch] = useState("");
+    const debouncedSearch = useDebounce(search, 500);
+
     const [deleteId, setDeleteId] = useState<number | null>(null);
     const { data: usersData, isLoading } = useUsers({
-        userName: search,
+        userName: debouncedSearch,
         pageSize: 12,
         pageNumber: 1
     });
@@ -81,7 +84,7 @@ export function UsersPage() {
             <div className="flex flex-col lg:flex-row gap-6 items-center">
                 <div className="relative flex-1 w-full group">
                     <div className="absolute inset-0 bg-primary-500/5 blur-xl group-focus-within:bg-primary-500/10 transition-all rounded-3xl" />
-                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)] group-focus-within:text-primary-500 transition-colors" size={20} />
+                    <Search className="absolute start-6 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)] group-focus-within:text-primary-500 transition-colors" size={20} />
                     <input
                         type="text"
                         placeholder={t('users.scan_collaborators')}

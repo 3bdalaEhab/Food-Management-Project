@@ -77,7 +77,7 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
                                 {t('profile.current_password') || 'Current Password'}
                             </label>
                             <div className="group relative">
-                                <KeyRound className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={18} />
+                                <KeyRound className="absolute start-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={18} />
                                 <input
                                     {...register("oldPassword")}
                                     type="password"
@@ -93,7 +93,7 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
                                 {t('profile.new_password') || 'New Password'}
                             </label>
                             <div className="group relative">
-                                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={18} />
+                                <Lock className="absolute start-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={18} />
                                 <input
                                     {...register("newPassword")}
                                     type="password"
@@ -109,7 +109,7 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
                                 {t('profile.confirm_password') || 'Confirm New Password'}
                             </label>
                             <div className="group relative">
-                                <ShieldCheck className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={18} />
+                                <ShieldCheck className="absolute start-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={18} />
                                 <input
                                     {...register("confirmNewPassword")}
                                     type="password"

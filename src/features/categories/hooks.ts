@@ -7,6 +7,7 @@ export const useCategories = (params?: Record<string, string | number | boolean 
     return useQuery({
         queryKey: ["categories", params],
         queryFn: () => categoriesApi.getCategories(params),
+        staleTime: 10 * 60 * 1000, // 10 minutes
     });
 };
 

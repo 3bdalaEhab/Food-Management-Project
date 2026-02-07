@@ -83,7 +83,7 @@ export function Navbar() {
                                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                 className={cn(
                                     "absolute top-14 w-48 p-2 rounded-2xl bg-[var(--sidebar-background)]/98 border border-[var(--border)] shadow-xl z-50",
-                                    language === "ar" ? "left-0" : "right-0"
+                                    "end-0" // Using logical end-0 instead of language check
                                 )}
                             >
                                 <div className="space-y-1">
@@ -139,7 +139,7 @@ export function Navbar() {
                 </button>
 
                 {/* User Identity Port */}
-                <div className="flex items-center gap-4 pl-6 border-l border-white/10 group cursor-pointer hover:opacity-80 transition-opacity">
+                <div className="flex items-center gap-4 ps-6 border-is border-white/10 group cursor-pointer hover:opacity-80 transition-opacity">
                     <div className="hidden md:flex flex-col items-end gap-1">
                         <span className="text-[10px] font-black text-[var(--foreground)] uppercase tracking-tighter leading-none">{user?.userName || "EXPERT_UNIT"}</span>
                         <div className={cn(

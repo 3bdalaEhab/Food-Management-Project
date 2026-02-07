@@ -304,6 +304,14 @@
   .premium-button-primary {
     @apply bg-primary-500 hover:bg-primary-600 hover:shadow-primary-500/30;
   }
+
+  .premium-button-danger {
+    @apply bg-red-500 hover:bg-red-600 hover:shadow-red-500/30;
+  }
+
+  .premium-button-success {
+    @apply bg-green-500 hover:bg-green-600 hover:shadow-green-500/30;
+  }
 }
 
 /* Badge */

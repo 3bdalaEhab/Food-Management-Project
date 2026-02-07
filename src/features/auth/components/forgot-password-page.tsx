@@ -72,20 +72,20 @@ export function ForgotPasswordPage() {
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                             {/* Email Field */}
                             <div className="space-y-1.5">
-                                <label className="text-[10px] sm:text-xs font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1">
+                                <label className="text-[10px] sm:text-xs font-bold text-[var(--muted-foreground)] uppercase tracking-wider ms-1">
                                     {t('auth.forgot.terminal')}
                                 </label>
                                 <div className="relative group">
-                                    <Mail className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" />
+                                    <Mail className="absolute start-3.5 sm:start-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors z-10 pointer-events-none" aria-hidden="true" />
                                     <input
                                         {...register("email")}
                                         type="email"
                                         placeholder="you@example.com"
-                                        className="w-full h-12 sm:h-14 bg-[var(--background)]/60 border border-[var(--border)] rounded-xl sm:rounded-2xl pl-11 sm:pl-12 pr-4 text-sm sm:text-base font-medium placeholder:text-[var(--muted-foreground)]/40 focus:bg-[var(--background)] focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all outline-none"
+                                        className="w-full h-12 sm:h-14 bg-[var(--background)]/60 border border-[var(--border)] rounded-xl sm:rounded-2xl ps-11 sm:ps-12 pe-4 text-sm sm:text-base font-medium placeholder:text-[var(--muted-foreground)]/40 focus:bg-[var(--background)] focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all outline-none"
                                     />
                                 </div>
                                 {errors.email && (
-                                    <p className="text-[10px] sm:text-xs text-red-500 font-semibold ml-1">{errors.email.message}</p>
+                                    <p className="text-[10px] sm:text-xs text-red-500 font-semibold ms-1">{errors.email.message}</p>
                                 )}
                             </div>
 

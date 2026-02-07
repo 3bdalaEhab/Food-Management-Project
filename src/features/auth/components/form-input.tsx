@@ -32,12 +32,12 @@ export function FormInput({
 }: FormInputProps) {
     return (
         <div className="space-y-1">
-            <label className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1">
+            <label className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ms-1">
                 {label}
             </label>
             <div className="relative group">
                 {Icon && (
-                    <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" />
+                    <Icon className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors z-10 pointer-events-none" aria-hidden="true" />
                 )}
                 <input
                     {...register(name, validation)}
@@ -46,20 +46,20 @@ export function FormInput({
                     disabled={disabled}
                     className={`
                         w-full h-11 sm:h-12 bg-[var(--background)]/60 border border-[var(--border)] rounded-xl 
-                        ${Icon ? 'pl-9' : 'pl-3'} ${rightElement ? 'pr-10' : 'pr-3'}
+                        ${Icon ? 'ps-9' : 'ps-3'} ${rightElement ? 'pe-10' : 'pe-3'}
                         text-sm font-medium placeholder:text-[var(--muted-foreground)]/40 
                         focus:bg-[var(--background)] focus:border-primary-500 focus:ring-2 focus:ring-primary-500/10 
                         transition-all outline-none disabled:opacity-50
                     `}
                 />
                 {rightElement && (
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                    <div className="absolute end-3 top-1/2 -translate-y-1/2 z-10">
                         {rightElement}
                     </div>
                 )}
             </div>
             {error && (
-                <p className="text-[9px] text-red-500 font-semibold ml-1">
+                <p className="text-[9px] text-red-500 font-semibold ms-1">
                     {error.message}
                 </p>
             )}
@@ -92,8 +92,9 @@ export function PasswordInput({
                     type="button"
                     onClick={onTogglePassword}
                     className="text-[var(--muted-foreground)]/50 hover:text-primary-500 transition-colors"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
                 >
-                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    {showPassword ? <EyeOff size={16} aria-hidden="true" /> : <Eye size={16} aria-hidden="true" />}
                 </button>
             }
         />

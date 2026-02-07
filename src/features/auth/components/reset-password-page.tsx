@@ -74,76 +74,77 @@ export function ResetPasswordPage() {
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                             {/* Email Field */}
                             <div className="space-y-1.5">
-                                <label className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1">
+                                <label className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ms-1">
                                     {t('auth.reset.identity')}
                                 </label>
                                 <div className="relative group">
-                                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" />
+                                    <Mail className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors z-10 pointer-events-none" aria-hidden="true" />
                                     <input
                                         {...register("email")}
                                         type="email"
                                         placeholder="you@example.com"
-                                        className="w-full h-11 sm:h-12 bg-[var(--background)]/60 border border-[var(--border)] rounded-xl pl-10 pr-4 text-sm font-medium placeholder:text-[var(--muted-foreground)]/40 focus:bg-[var(--background)] focus:border-primary-500 focus:ring-2 focus:ring-primary-500/10 transition-all outline-none"
+                                        className="w-full h-11 sm:h-12 bg-[var(--background)]/60 border border-[var(--border)] rounded-xl ps-10 pe-4 text-sm font-medium placeholder:text-[var(--muted-foreground)]/40 focus:bg-[var(--background)] focus:border-primary-500 focus:ring-2 focus:ring-primary-500/10 transition-all outline-none"
                                     />
                                 </div>
-                                {errors.email && <p className="text-[9px] text-red-500 font-semibold ml-1">{errors.email.message}</p>}
+                                {errors.email && <p className="text-[9px] text-red-500 font-semibold ms-1">{errors.email.message}</p>}
                             </div>
 
                             {/* OTP/Seed Field */}
                             <div className="space-y-1.5">
-                                <label className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1">
+                                <label className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ms-1">
                                     {t('auth.reset.code')}
                                 </label>
                                 <div className="relative group">
-                                    <Hash className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" />
+                                    <Hash className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors z-10 pointer-events-none" aria-hidden="true" />
                                     <input
                                         {...register("seed")}
                                         placeholder="Enter code from email"
-                                        className="w-full h-11 sm:h-12 bg-[var(--background)]/60 border border-[var(--border)] rounded-xl pl-10 pr-4 text-sm font-medium placeholder:text-[var(--muted-foreground)]/40 focus:bg-[var(--background)] focus:border-primary-500 focus:ring-2 focus:ring-primary-500/10 transition-all outline-none"
+                                        className="w-full h-11 sm:h-12 bg-[var(--background)]/60 border border-[var(--border)] rounded-xl ps-10 pe-4 text-sm font-medium placeholder:text-[var(--muted-foreground)]/40 focus:bg-[var(--background)] focus:border-primary-500 focus:ring-2 focus:ring-primary-500/10 transition-all outline-none"
                                     />
                                 </div>
-                                {errors.seed && <p className="text-[9px] text-red-500 font-semibold ml-1">{errors.seed.message}</p>}
+                                {errors.seed && <p className="text-[9px] text-red-500 font-semibold ms-1">{errors.seed.message}</p>}
                             </div>
 
                             {/* New Password */}
                             <div className="space-y-1.5">
-                                <label className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1">
+                                <label className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ms-1">
                                     {t('auth.reset.secret')}
                                 </label>
                                 <div className="relative group">
-                                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" />
+                                    <Lock className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors z-10 pointer-events-none" aria-hidden="true" />
                                     <input
                                         {...register("password")}
                                         type={showPassword ? "text" : "password"}
                                         placeholder="••••••••"
-                                        className="w-full h-11 sm:h-12 bg-[var(--background)]/60 border border-[var(--border)] rounded-xl pl-10 pr-10 text-sm font-medium placeholder:text-[var(--muted-foreground)]/40 focus:bg-[var(--background)] focus:border-primary-500 focus:ring-2 focus:ring-primary-500/10 transition-all outline-none"
+                                        className="w-full h-11 sm:h-12 bg-[var(--background)]/60 border border-[var(--border)] rounded-xl ps-10 pe-10 text-sm font-medium placeholder:text-[var(--muted-foreground)]/40 focus:bg-[var(--background)] focus:border-primary-500 focus:ring-2 focus:ring-primary-500/10 transition-all outline-none"
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/50 hover:text-primary-500 transition-colors"
+                                        aria-label={showPassword ? "Hide password" : "Show password"}
+                                        className="absolute end-3 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/50 hover:text-primary-500 transition-colors z-10"
                                     >
-                                        {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                                        {showPassword ? <EyeOff size={16} aria-hidden="true" /> : <Eye size={16} aria-hidden="true" />}
                                     </button>
                                 </div>
-                                {errors.password && <p className="text-[9px] text-red-500 font-semibold ml-1">{errors.password.message}</p>}
+                                {errors.password && <p className="text-[9px] text-red-500 font-semibold ms-1">{errors.password.message}</p>}
                             </div>
 
                             {/* Confirm Password */}
                             <div className="space-y-1.5">
-                                <label className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ml-1">
+                                <label className="text-[9px] sm:text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider ms-1">
                                     {t('auth.reset.confirm')}
                                 </label>
                                 <div className="relative group">
-                                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" />
+                                    <Lock className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors z-10 pointer-events-none" aria-hidden="true" />
                                     <input
                                         {...register("confirmPassword")}
                                         type={showPassword ? "text" : "password"}
                                         placeholder="••••••••"
-                                        className="w-full h-11 sm:h-12 bg-[var(--background)]/60 border border-[var(--border)] rounded-xl pl-10 pr-4 text-sm font-medium placeholder:text-[var(--muted-foreground)]/40 focus:bg-[var(--background)] focus:border-primary-500 focus:ring-2 focus:ring-primary-500/10 transition-all outline-none"
+                                        className="w-full h-11 sm:h-12 bg-[var(--background)]/60 border border-[var(--border)] rounded-xl ps-10 pe-4 text-sm font-medium placeholder:text-[var(--muted-foreground)]/40 focus:bg-[var(--background)] focus:border-primary-500 focus:ring-2 focus:ring-primary-500/10 transition-all outline-none"
                                     />
                                 </div>
-                                {errors.confirmPassword && <p className="text-[9px] text-red-500 font-semibold ml-1">{errors.confirmPassword.message}</p>}
+                                {errors.confirmPassword && <p className="text-[9px] text-red-500 font-semibold ms-1">{errors.confirmPassword.message}</p>}
                             </div>
 
                             {/* Submit Button */}

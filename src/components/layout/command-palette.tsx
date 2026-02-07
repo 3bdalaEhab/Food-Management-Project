@@ -241,7 +241,7 @@ export function CommandPalette() {
                             </div>
 
                             <div className="relative group">
-                                <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-500 group-focus-within:text-primary-500 transition-colors" size={24} />
+                                <Search className="absolute start-6 top-1/2 -translate-y-1/2 text-neutral-500 group-focus-within:text-primary-500 transition-colors" size={24} />
                                 <input
                                     autoFocus
                                     placeholder="TYPE MISSION PARAMETERS..."

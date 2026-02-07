@@ -22,10 +22,13 @@ import { CustomDialog } from "@/components/shared/custom-dialog";
 import { cn } from "@/lib/utils";
 import { SEO } from "@/components/shared/seo";
 import { DeleteConfirmation } from "@/components/shared/delete-confirmation";
+import { useDebounce } from "@/hooks/use-debounce";
 
 export function RecipesPage() {
     const { t } = useTranslation();
     const [search, setSearch] = useState("");
+    const debouncedSearch = useDebounce(search, 500);
+
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
     const [isCreateOpen, setIsCreateOpen] = useState(false);
     const [deleteId, setDeleteId] = useState<number | null>(null);
@@ -39,7 +42,7 @@ export function RecipesPage() {
     }, []);
 
     const { data: recipesData, isLoading } = useRecipes({
-        name: search,
+        name: debouncedSearch,
         pageSize: 12,
         pageNumber: 1
     });
@@ -128,13 +131,13 @@ export function RecipesPage() {
             <div className="flex flex-col lg:flex-row gap-6 items-center">
                 <div className="relative flex-1 w-full group">
                     <div className="absolute inset-0 bg-primary-500/5 blur-xl group-focus-within:bg-primary-500/10 transition-all rounded-3xl" />
-                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)] group-focus-within:text-primary-500 transition-colors" size={20} />
+                    <Search className="absolute inset-inline-start-6 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)] group-focus-within:text-primary-500 transition-colors" size={20} />
                     <input
                         type="text"
                         placeholder={t('recipes.search')}
                         value={search}
                         onChange={handleSearchChange}
-                        className="premium-input pl-16 h-18 bg-[var(--background)]/80 border-[var(--border)] font-bold tracking-wide text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]"
+                        className="premium-input ps-16 h-18 bg-[var(--background)]/80 border-[var(--border)] font-bold tracking-wide text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]"
                         aria-label="Search recipes"
                     />
                 </div>
