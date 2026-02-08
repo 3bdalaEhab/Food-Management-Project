@@ -49,45 +49,64 @@ export function UsersPage() {
                     icon: Plus
                 }}
                 secondaryNode={
-                    <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+                    <div className="flex flex-wrap gap-4 lg:gap-8">
                         {/* Total Fleet Size */}
-                        <div className="bg-[var(--background)]/40 backdrop-blur-md border border-[var(--border)] p-5 md:p-6 rounded-[2rem] md:rounded-[2.5rem] shadow-inner flex items-center gap-4 md:gap-6">
-                            <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-primary-500/10 flex items-center justify-center shrink-0">
-                                <Users size={24} className="text-primary-500" />
-                            </div>
-                            <div className="space-y-0.5">
-                                <p className="text-[8px] md:text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em]">{t('users.active_fleet_size')}</p>
-                                <p className="text-2xl md:text-3xl font-black text-[var(--foreground)] italic leading-none">
-                                    {usersData?.totalNumberOfRecords || 0}
-                                    <span className="text-primary-500 text-xs ml-2 uppercase tracking-widest">{t('users.agents')}</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Admin & User Breakdown */}
-                        <div className="flex gap-3 md:gap-4">
-                            <div className="flex-1 bg-[var(--background)]/40 backdrop-blur-md border border-[var(--border)] p-4 md:p-5 rounded-[1.5rem] md:rounded-[2rem] shadow-inner">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <div className="w-8 h-8 rounded-xl bg-blue-500/10 flex items-center justify-center">
-                                        <ShieldAlert size={14} className="text-blue-500" />
-                                    </div>
-                                    <p className="text-[7px] md:text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em]">{t('users.admins_label')}</p>
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="relative group cursor-pointer"
+                        >
+                            <div className="absolute inset-0 bg-primary-500/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <div className="relative bg-[var(--sidebar-background)]/80 backdrop-blur-2xl border border-[var(--border)] p-6 md:p-8 rounded-[3rem] shadow-2xl flex items-center gap-6 overflow-hidden">
+                                <div className="absolute top-0 right-0 w-24 h-24 bg-primary-500/5 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-700" />
+                                <div className="w-16 h-16 rounded-[1.5rem] bg-primary-500 shadow-[0_8px_25px_rgba(255,107,38,0.4)] flex items-center justify-center shrink-0 relative z-10">
+                                    <Users size={32} className="text-white" />
                                 </div>
-                                <p className="text-xl md:text-2xl font-black text-[var(--foreground)] italic leading-none">
+                                <div className="space-y-1 relative z-10">
+                                    <p className="text-[10px] font-black text-primary-500 uppercase tracking-[0.3em]">{t('users.active_fleet_size')}</p>
+                                    <p className="text-4xl font-black text-[var(--foreground)] tracking-tighter leading-none italic uppercase">
+                                        {usersData?.totalNumberOfRecords || 0}
+                                        <span className="text-xs ml-2 opacity-30 not-italic">{t('users.agents')}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Admins & Users Breakdown */}
+                        <div className="flex gap-4">
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.1 }}
+                                className="bg-[var(--sidebar-background)]/80 backdrop-blur-2xl border border-[var(--border)] p-6 rounded-[2.5rem] shadow-xl flex flex-col justify-between w-32 md:w-36 hover:border-blue-500/30 transition-all group"
+                            >
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                        <ShieldAlert size={18} className="text-blue-500" />
+                                    </div>
+                                    <span className="text-[8px] font-black text-blue-500 uppercase tracking-widest">{t('users.admins_label')}</span>
+                                </div>
+                                <p className="text-3xl font-black text-[var(--foreground)] tracking-tighter italic">
                                     {usersData?.data?.filter(u => u.group.name === 'SystemUsers').length || 0}
                                 </p>
-                            </div>
-                            <div className="flex-1 bg-[var(--background)]/40 backdrop-blur-md border border-[var(--border)] p-4 md:p-5 rounded-[1.5rem] md:rounded-[2rem] shadow-inner">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <div className="w-8 h-8 rounded-xl bg-green-500/10 flex items-center justify-center">
-                                        <Users size={14} className="text-green-500" />
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.2 }}
+                                className="bg-[var(--sidebar-background)]/80 backdrop-blur-2xl border border-[var(--border)] p-6 rounded-[2.5rem] shadow-xl flex flex-col justify-between w-32 md:w-36 hover:border-green-500/30 transition-all group"
+                            >
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                        <Users size={18} className="text-green-500" />
                                     </div>
-                                    <p className="text-[7px] md:text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em]">{t('users.users_label')}</p>
+                                    <span className="text-[8px] font-black text-green-500 uppercase tracking-widest">{t('users.users_label')}</span>
                                 </div>
-                                <p className="text-xl md:text-2xl font-black text-[var(--foreground)] italic leading-none">
+                                <p className="text-3xl font-black text-[var(--foreground)] tracking-tighter italic">
                                     {usersData?.data?.filter(u => u.group.name !== 'SystemUsers').length || 0}
                                 </p>
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
                 }

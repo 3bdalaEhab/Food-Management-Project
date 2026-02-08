@@ -5,7 +5,8 @@ import {
     ShieldCheck,
     UserX,
     ArrowRight,
-    ChefHat
+    ChefHat,
+    Mail
 } from "lucide-react";
 import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 import { getImageUrl } from "@/lib/utils";
@@ -63,7 +64,7 @@ export const UserCard = memo(({ user, onDelete, viewMode = "list" }: UserCardPro
             animate={{ opacity: 1, scale: 1 }}
             whileHover={{ y: -5 }}
             transition={{ duration: 0.4 }}
-            className="group relative bg-[var(--sidebar-background)] rounded-[2.5rem] p-6 overflow-hidden border border-[var(--border)] shadow-lg hover:shadow-2xl hover:border-primary-500/40 transition-all duration-500 flex flex-col items-center text-center gap-6 min-h-[18rem]"
+            className="group relative bg-[var(--sidebar-background)] rounded-[2.5rem] p-6 overflow-hidden border border-[var(--border)] shadow-lg hover:shadow-2xl hover:border-primary-500/40 transition-all duration-500 flex flex-col items-center text-center gap-6 min-h-[18rem] cursor-pointer"
         >
             <div className="absolute inset-0 bg-gradient-to-b from-primary-500/[0.02] to-transparent pointer-events-none" />
 

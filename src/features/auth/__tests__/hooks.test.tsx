@@ -57,7 +57,7 @@ describe('Auth Hooks', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         (useNavigate as unknown as { mockReturnValue: (v: unknown) => void }).mockReturnValue(mockNavigate);
-        (useAuthStore as unknown as { mockImplementation: (f: (s: { setToken: typeof mockSetToken }) => unknown) => void }).mockImplementation((selector: (s: { setToken: typeof mockSetToken }) => void) => {
+        (useAuthStore as any).mockImplementation((selector: any) => {
             if (selector) return selector({ setToken: mockSetToken });
             return { setToken: mockSetToken };
         });
@@ -109,7 +109,7 @@ describe('Auth Hooks', () => {
 
             // Minimal mock data for form data
             const formData = new FormData();
-            await result.current.mutateAsync(formData as unknown);
+            await result.current.mutateAsync(formData as any);
 
             await waitFor(() => {
                 expect(authApi.register).toHaveBeenCalled();
@@ -125,7 +125,7 @@ describe('Auth Hooks', () => {
             const { result } = renderHook(() => useRegister(), { wrapper: createWrapper() });
 
             try {
-                await result.current.mutateAsync({} as unknown);
+                await result.current.mutateAsync({} as any);
             } catch (error) {
                 // Expected error during registration
                 console.debug('Registration error caught in test:', error);

@@ -119,10 +119,10 @@ function App() {
     }, [i18n.language]);
 
     return (
-        <ErrorBoundary>
-            <SkipLink />
-            <QueryClientProvider client={queryClient}>
-                <BrowserRouter>
+        <BrowserRouter>
+            <ErrorBoundary>
+                <SkipLink />
+                <QueryClientProvider client={queryClient}>
                     <Suspense fallback={<PageLoader />}>
                         <Routes>
                             {/* Public Auth Routes */}
@@ -170,15 +170,15 @@ function App() {
                             <Route path="*" element={<NotFoundPage />} />
                         </Routes>
                     </Suspense>
-                </BrowserRouter>
 
-                {/* Toast Notifications */}
-                <Toaster />
+                    {/* Toast Notifications */}
+                    <Toaster />
 
-                {/* React Query Devtools (only in development) */}
-                <ReactQueryDevtools initialIsOpen={false} />
-            </QueryClientProvider>
-        </ErrorBoundary>
+                    {/* React Query Devtools (only in development) */}
+                    <ReactQueryDevtools initialIsOpen={false} />
+                </QueryClientProvider>
+            </ErrorBoundary>
+        </BrowserRouter>
     );
 }
 
