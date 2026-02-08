@@ -15,6 +15,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 import { useUpdateProfile } from "../hooks";
+import { getImageUrl } from "@/lib/utils";
 import { compressImage } from "@/lib/image-utils";
 import type { User } from "../types";
 
@@ -37,7 +38,7 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
     const { t } = useTranslation();
     const { mutate: updateProfile, isPending: isUpdating } = useUpdateProfile();
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
-    const [previewUrl, setPreviewUrl] = useState<string | null>(user.imagePath || null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(getImageUrl(user.imagePath));
 
     const {
         register,
@@ -78,7 +79,8 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="w-full max-w-2xl mx-auto bg-[var(--sidebar-background)] rounded-[2.5rem] border border-[var(--border)] shadow-2xl overflow-hidden"
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="w-full max-w-2xl mx-auto bg-[var(--sidebar-background)] rounded-[2.5rem] border border-[var(--border)] shadow-2xl overflow-hidden transform-gpu will-change-transform"
         >
             <div className="p-8 md:p-12">
                 <div className="flex items-center justify-between mb-10">
@@ -92,7 +94,7 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
                     </div>
                     <button
                         onClick={onCancel}
-                        className="w-12 h-12 rounded-2xl flex items-center justify-center hover:bg-[var(--background)] transition-colors text-[var(--muted-foreground)]"
+                        className="w-12 h-12 rounded-2xl flex items-center justify-center hover:bg-[var(--background)] transition-[background-color,color] duration-150 text-[var(--muted-foreground)]"
                     >
                         <X size={24} />
                     </button>
@@ -111,7 +113,7 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
                                     </div>
                                 )}
                             </div>
-                            <label className="absolute -bottom-2 -right-2 w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center text-white cursor-pointer shadow-lg hover:scale-110 transition-transform">
+                            <label className="absolute -bottom-2 -right-2 w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center text-white cursor-pointer shadow-lg hover:scale-110 transition-transform duration-150">
                                 <Camera size={20} />
                                 <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} />
                             </label>
@@ -188,7 +190,7 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
                         <button
                             type="button"
                             onClick={onCancel}
-                            className="h-14 flex-1 rounded-2xl border-2 border-[var(--border)] font-bold text-sm hover:bg-[var(--background)] transition-all"
+                            className="h-14 flex-1 rounded-2xl border-2 border-[var(--border)] font-bold text-sm hover:bg-[var(--background)] transition-[background-color] duration-150"
                         >
                             {t('common.cancel')}
                         </button>

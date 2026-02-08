@@ -77,7 +77,8 @@ export function UserForm({ onSuccess, onCancel }: UserFormProps) {
         <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-2xl mx-auto bg-[var(--sidebar-background)] rounded-[2rem] border border-[var(--border)] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="w-full max-w-2xl mx-auto bg-[var(--sidebar-background)] rounded-[2rem] border border-[var(--border)] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] transform-gpu will-change-transform"
         >
             <div className="flex-1 overflow-y-auto p-6 md:p-10 scrollbar-hide relative">
                 {/* Fleet Accents */}
@@ -102,9 +103,9 @@ export function UserForm({ onSuccess, onCancel }: UserFormProps) {
                         </div>
                         <button
                             onClick={onCancel}
-                            className="w-12 h-12 rounded-2xl bg-[var(--background)] border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-red-500/10 hover:border-red-500/20 transition-all group"
+                            className="w-12 h-12 rounded-2xl bg-[var(--background)] border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-red-500/10 hover:border-red-500/20 transition-[background-color,border-color,color] duration-150 group"
                         >
-                            <X size={20} className="group-hover:rotate-90 transition-transform" />
+                            <X size={20} className="group-hover:rotate-90 transition-transform duration-300" />
                         </button>
                     </div>
 
@@ -171,7 +172,7 @@ export function UserForm({ onSuccess, onCancel }: UserFormProps) {
                     <button
                         type="button"
                         onClick={onCancel}
-                        className="h-14 flex-1 rounded-2xl border border-[var(--border)] font-black text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] transition-all flex items-center justify-center gap-3"
+                        className="h-14 flex-1 rounded-2xl border border-[var(--border)] font-black text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] transition-[background-color,color] duration-150 flex items-center justify-center gap-3"
                     >
                         <X size={16} />
                         <span>{t('common.cancel')}</span>
@@ -180,7 +181,7 @@ export function UserForm({ onSuccess, onCancel }: UserFormProps) {
                         form="user-create-form"
                         type="submit"
                         disabled={isCreating}
-                        className="h-14 flex-[2] rounded-2xl bg-[var(--foreground)] text-[var(--background)] font-black text-[10px] uppercase tracking-widest hover:bg-primary-500 hover:text-white transition-all shadow-xl disabled:opacity-50 flex items-center justify-center gap-3 group"
+                        className="h-14 flex-[2] rounded-2xl bg-[var(--foreground)] text-[var(--background)] font-black text-[10px] uppercase tracking-widest hover:bg-primary-500 hover:text-white transition-[background-color,color] duration-150 shadow-xl disabled:opacity-50 flex items-center justify-center gap-3 group"
                     >
                         {isCreating ? (
                             <Loader2 className="animate-spin" size={16} />
