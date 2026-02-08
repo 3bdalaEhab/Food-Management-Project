@@ -72,26 +72,25 @@ export function CategoriesPage() {
                 }}
                 secondaryNode={
                     <div className="flex flex-wrap items-center gap-4 lg:gap-8 w-full sm:w-auto">
-                        {/* Total Categories - Standardized Analytic Node */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-4 md:p-5 rounded-[1.5rem] md:rounded-[2rem] shadow-xl flex items-center gap-4 md:gap-6 hover:border-primary-500/30 transition-all duration-500 group overflow-hidden relative min-w-full sm:min-w-[240px]"
+                            className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-4 md:p-5 rounded-[1.5rem] md:rounded-[2rem] shadow-xl flex items-center gap-4 md:gap-6 hover:border-primary-500/30 transition-all duration-500 group overflow-hidden relative min-w-full sm:min-w-[320px]"
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-primary-500/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                            <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-primary-500 flex items-center justify-center shrink-0 shadow-lg shadow-primary-500/20 relative z-10 group-hover:scale-110 transition-transform">
-                                <FolderTree size={24} className="text-white md:w-7 md:h-7" />
+                            <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-primary-500 flex items-center justify-center shrink-0 shadow-lg shadow-primary-500/20 relative z-10 group-hover:rotate-12 transition-transform">
+                                <FolderTree size={28} className="text-white" />
                             </div>
                             <div className="space-y-1 relative z-10">
                                 <div className="flex items-center gap-2">
-                                    <div className="w-1 h-1 rounded-full bg-primary-500 animate-pulse" />
-                                    <p className="text-[8px] font-black text-[var(--muted-foreground)] opacity-50 uppercase tracking-[0.4em] rtl:tracking-normal italic rtl:not-italic leading-none">{t('categories.taxonomy_nodes')}</p>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse" />
+                                    <p className="text-[9px] font-black text-primary-500 uppercase tracking-[0.4em] rtl:tracking-normal italic rtl:not-italic leading-none">{t('categories.taxonomy_nodes')}</p>
                                 </div>
                                 <div className="flex items-baseline gap-2">
-                                    <p className="text-3xl md:text-4xl font-black text-[var(--foreground)] tracking-tighter rtl:tracking-normal leading-none italic rtl:not-italic uppercase tabular-nums">
+                                    <p className="text-4xl md:text-5xl font-black text-[var(--foreground)] tracking-tighter rtl:tracking-normal leading-none italic rtl:not-italic uppercase tabular-nums">
                                         {categoriesData?.totalNumberOfRecords || 0}
                                     </p>
-                                    <span className="text-[10px] font-black text-primary-500 uppercase tracking-widest rtl:tracking-normal opacity-40 rtl:not-italic">{t('categories.items')}</span>
+                                    <span className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-widest rtl:tracking-normal opacity-60 rtl:not-italic">{t('categories.items')}</span>
                                 </div>
                             </div>
                         </motion.div>
