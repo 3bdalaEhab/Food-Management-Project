@@ -20,7 +20,7 @@ export function UsersPage() {
     const [search, setSearch] = useState("");
     const debouncedSearch = useDebounce(search, 500);
 
-    const [viewMode, setViewMode] = useState<"grid" | "list">("list");
+    const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
     const [deleteId, setDeleteId] = useState<number | null>(null);
     const [isAddUserOpen, setIsAddUserOpen] = useState(false);
 
