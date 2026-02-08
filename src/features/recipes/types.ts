@@ -41,7 +41,6 @@ export interface CreateRecipeData {
     description: string;
     price: string;
     tagId: number;
-    categoriesIds: number[];
     recipeImage: File | null;
 }
 

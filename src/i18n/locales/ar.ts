@@ -189,7 +189,14 @@ export const ar = {
             visual_encoding: "تحميل صورة الوصفة",
             technical_brief: "الملخص التقني",
             taxonomy_nodes_label: "عقد التصنيف",
-            replace_image: "اضغط للاستبدال"
+            replace_image: "اضغط للاستبدال",
+            protocol_id: "معرف_البروتوكول",
+            valuation: "التقييم_المالي",
+            runtime: "زمن_التنفيذ",
+            integrity: "سلامة_البيانات",
+            verified: "موثق",
+            exit_navigation: "خروج من النظام",
+            no_data_registry: "سجل_بيانات_فارغ"
         },
         users: {
             title: "المستخدمين",

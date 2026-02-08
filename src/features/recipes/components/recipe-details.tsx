@@ -8,9 +8,7 @@ import {
     ArrowLeft,
     Heart,
     DollarSign,
-    Activity,
-    Shield,
-    Boxes
+    Shield
 } from "lucide-react";
 import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 import { useFavoriteStatus, useAddFavorite, useRemoveFavorite } from "@/features/favorites";
@@ -49,7 +47,7 @@ export function RecipeDetails({ recipe, onClose }: RecipeDetailsProps) {
     };
 
     return (
-        <div className="flex flex-col lg:flex-row h-full max-h-[95vh] lg:h-[700px] bg-[var(--sidebar-background)] rounded-[1.5rem] md:rounded-[2rem] lg:rounded-[3rem] overflow-hidden border border-[var(--border)] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] relative">
+        <div className="flex flex-col lg:flex-row h-full max-h-[95vh] lg:h-[min(800px,85vh)] bg-[var(--sidebar-background)] rounded-[1.5rem] md:rounded-[2rem] lg:rounded-[3rem] overflow-hidden border border-[var(--border)] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] relative">
 
             {/* Visual Anchor (Left) */}
             <div className="w-full lg:w-[40%] h-[35vh] lg:h-full relative overflow-hidden shrink-0 border-b lg:border-b-0 lg:border-r border-[var(--border)] group">
@@ -126,8 +124,7 @@ export function RecipeDetails({ recipe, onClose }: RecipeDetailsProps) {
                     <div className="grid grid-cols-2 gap-3 md:gap-4">
                         <div className="p-4 md:p-5 rounded-2xl bg-[var(--sidebar-background)]/40 border border-[var(--border)] space-y-1.5">
                             <span className="text-[7px] md:text-[8px] font-black uppercase tracking-[0.3em] text-[var(--muted-foreground)] opacity-60 flex items-center gap-1.5">
-                                <Boxes size={10} className="text-primary-500" />
-                                PROTOCOL_ID
+                                {t('recipes.protocol_id')}
                             </span>
                             <div className="text-xl md:text-2xl font-bold italic tracking-tighter text-[var(--foreground)]">
                                 00{recipe.id.toString().padStart(4, '0')}
@@ -135,7 +132,7 @@ export function RecipeDetails({ recipe, onClose }: RecipeDetailsProps) {
                         </div>
                         <div className="p-4 md:p-5 rounded-2xl bg-[var(--sidebar-background)]/40 border border-[var(--border)] space-y-1.5 text-right">
                             <span className="text-[7px] md:text-[8px] font-black uppercase tracking-[0.3em] text-[var(--muted-foreground)] opacity-60 flex items-center justify-end gap-1.5">
-                                VALUATION
+                                {t('recipes.valuation')}
                                 <DollarSign size={10} className="text-primary-500" />
                             </span>
                             <div className="text-2xl md:text-3xl font-black italic tracking-tighter text-[var(--foreground)] flex items-center justify-end gap-1">
@@ -155,45 +152,26 @@ export function RecipeDetails({ recipe, onClose }: RecipeDetailsProps) {
                         <div className="relative p-5 md:p-6 rounded-[1.5rem] md:rounded-[2rem] bg-[var(--sidebar-background)]/30 border border-[var(--border)] group">
                             <ChefHat size={100} className="absolute -bottom-4 -right-4 text-[var(--muted-foreground)] opacity-[0.02] pointer-events-none group-hover:opacity-[0.04] transition-opacity" />
                             <p className="text-xs md:text-sm lg:text-base font-bold text-[var(--muted-foreground)] leading-relaxed relative z-10 first-letter:text-3xl md:first-letter:text-4xl first-letter:font-black first-letter:text-primary-500 first-letter:float-left first-letter:mr-2 first-letter:mt-1">
-                                {recipe.description || "NO_DATA_REGISTRY"}
+                                {recipe.description || t('recipes.no_data_registry')}
                             </p>
                         </div>
                     </div>
 
-                    {/* Taxonomy Matrix */}
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-2 px-1">
-                            <Shield size={14} className="text-blue-500" />
-                            <h3 className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.4em] text-[var(--muted-foreground)] opacity-60">{t('recipes.taxonomy_nodes_label')}</h3>
-                        </div>
-
-                        <div className="flex flex-wrap gap-2">
-                            {(recipe.category || []).map((cat) => (
-                                <div
-                                    key={cat.id}
-                                    className="px-4 py-2.5 rounded-xl bg-[var(--sidebar-background)]/40 border border-[var(--border)] text-[var(--muted-foreground)] font-black uppercase tracking-[0.2em] text-[8px] md:text-[9px] flex items-center gap-2 hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all cursor-default"
-                                >
-                                    <Activity size={10} className="text-primary-500" />
-                                    {cat.name}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
 
                     {/* Operational Node */}
                     <div className="grid grid-cols-2 gap-3">
                         <div className="p-4 rounded-xl border border-[var(--border)] bg-[var(--sidebar-background)]/30 flex items-center gap-3">
                             <Clock size={16} className="text-primary-500/60" />
                             <div className="flex flex-col">
-                                <span className="text-[7px] md:text-[8px] font-black uppercase text-[var(--muted-foreground)] opacity-40">Runtime</span>
-                                <span className="text-[9px] md:text-[10px] font-black text-[var(--foreground)] opacity-80 italic">25:00 MIN</span>
+                                <span className="text-[7px] md:text-[8px] font-black uppercase text-[var(--muted-foreground)] opacity-40">{t('recipes.runtime')}</span>
+                                <span className="text-[9px] md:text-[10px] font-black text-[var(--foreground)] opacity-80 italic">25:00 {t('recipes.min')}</span>
                             </div>
                         </div>
                         <div className="p-4 rounded-xl border border-[var(--border)] bg-[var(--sidebar-background)]/30 flex items-center gap-3">
                             <Shield size={16} className="text-green-500/60" />
                             <div className="flex flex-col">
-                                <span className="text-[7px] md:text-[8px] font-black uppercase text-[var(--muted-foreground)] opacity-40">Integrity</span>
-                                <span className="text-[9px] md:text-[10px] font-black text-[var(--foreground)] opacity-80 italic">VERIFIED</span>
+                                <span className="text-[7px] md:text-[8px] font-black uppercase text-[var(--muted-foreground)] opacity-40">{t('recipes.integrity')}</span>
+                                <span className="text-[9px] md:text-[10px] font-black text-[var(--foreground)] opacity-80 italic">{t('recipes.verified')}</span>
                             </div>
                         </div>
                     </div>
@@ -205,7 +183,7 @@ export function RecipeDetails({ recipe, onClose }: RecipeDetailsProps) {
                             className="w-full h-14 rounded-2xl bg-[var(--foreground)] text-[var(--background)] font-black uppercase tracking-widest text-[9px] md:text-[10px] flex items-center justify-center gap-2 active:scale-95 transition-all shadow-xl"
                         >
                             <ArrowLeft size={16} />
-                            Exit Navigation
+                            {t('recipes.exit_navigation')}
                         </button>
                     </div>
                 </div>

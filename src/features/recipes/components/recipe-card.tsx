@@ -75,7 +75,7 @@ export const RecipeCard = memo(({
                         </div>
                     </div>
                 </div>
-                <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                <div className="flex items-center gap-2 opacity-0 translate-x-4 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
                     {isAdmin ? (
                         <>
                             <button onClick={(e) => { e.stopPropagation(); onEdit?.(recipe); }} className="p-3 rounded-xl bg-blue-500/10 text-blue-500 border border-blue-500/20 hover:bg-blue-500 hover:text-white transition-all"><Edit2 size={16} /></button>
@@ -105,7 +105,7 @@ export const RecipeCard = memo(({
                 <ImageWithFallback
                     src={imageUrl}
                     alt={recipe.name}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
                 />
 
                 {/* Category Tags Overlay - High Fidelity */}

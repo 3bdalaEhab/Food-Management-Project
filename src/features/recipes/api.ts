@@ -29,9 +29,6 @@ export const recipesApi = {
         formData.append("price", recipeData.price);
         formData.append("tagId", String(recipeData.tagId));
 
-        recipeData.categoriesIds.forEach(id => {
-            formData.append("categoriesIds", String(id));
-        });
 
         if (recipeData.recipeImage) {
             formData.append("recipeImage", recipeData.recipeImage);
@@ -51,9 +48,6 @@ export const recipesApi = {
         if (recipeData.price) formData.append("price", recipeData.price);
         if (recipeData.tagId) formData.append("tagId", String(recipeData.tagId));
 
-        recipeData.categoriesIds?.forEach(id => {
-            formData.append("categoriesIds", String(id));
-        });
 
         if (recipeData.recipeImage) {
             formData.append("recipeImage", recipeData.recipeImage);

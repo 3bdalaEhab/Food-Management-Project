@@ -179,7 +179,16 @@ export const en = {
             title_suffix: "REGISTRY",
             active_deployments: "ACTIVE_DEPLOYMENTS",
             units: "UNITS",
-            search_placeholder: "SEARCH_REGISTRY..."
+            search_placeholder: "SEARCH_REGISTRY...",
+            technical_brief: "TECHNICAL BRIEF",
+            taxonomy_nodes_label: "TAXONOMY NODES",
+            protocol_id: "PROTOCOL_ID",
+            valuation: "VALUATION",
+            runtime: "RUNTIME",
+            integrity: "INTEGRITY",
+            verified: "VERIFIED",
+            exit_navigation: "EXIT NAVIGATION",
+            no_data_registry: "NO_DATA_REGISTRY"
         },
         users: {
             title: "Users",

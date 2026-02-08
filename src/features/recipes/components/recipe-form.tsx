@@ -13,12 +13,10 @@ import {
     Image as ImageIcon,
     Save,
     ShieldCheck,
-    Boxes,
     Palette
 } from "lucide-react";
 import * as z from "zod";
 import { useTags } from "../hooks";
-import { useCategories } from "@/features/categories/hooks";
 import { useTranslation } from "react-i18next";
 import { TacticalInput } from "@/components/shared/tactical-input";
 import { cn } from "@/lib/utils";
@@ -35,7 +33,6 @@ const recipeSchema = z.object({
         .min(1, "VALUE REQUIRED")
         .max(10, "VALUE TOO LONG"),
     tagId: z.number().min(1, "CLASSIFICATION REQUIRED"),
-    categoriesIds: z.array(z.number()).default([]),
     recipeImage: z.any().optional(),
 });
 
@@ -58,7 +55,6 @@ export function RecipeForm({ initialData, onSubmit, onCancel, isPending, title }
     const { t } = useTranslation();
     const [step, setStep] = useState(1);
     const { data: tags } = useTags();
-    const { data: categoriesData } = useCategories();
 
     const {
         register,
@@ -73,22 +69,13 @@ export function RecipeForm({ initialData, onSubmit, onCancel, isPending, title }
             description: initialData?.description || "",
             price: initialData?.price || "",
             tagId: initialData?.tagId || 0,
-            categoriesIds: initialData?.categoriesIds || [],
         },
         mode: "onChange",
     });
 
-    const categoriesIds = watch("categoriesIds");
     const tagId = watch("tagId");
     const recipeImage = watch("recipeImage");
 
-    const toggleCategory = (id: number) => {
-        const current = [...categoriesIds];
-        const index = current.indexOf(id);
-        if (index > -1) current.splice(index, 1);
-        else current.push(id);
-        setValue("categoriesIds", current, { shouldValidate: true });
-    };
 
     const handleFormSubmit = (data: RecipeFormData) => {
         onSubmit(data as unknown as CreateRecipeData);
@@ -201,30 +188,6 @@ export function RecipeForm({ initialData, onSubmit, onCancel, isPending, title }
                                 maxLength={500}
                                 className="min-h-[120px] pt-4"
                             />
-
-                            <div className="space-y-3">
-                                <div className="flex items-center gap-2 px-1">
-                                    <Boxes size={12} className="text-primary-500" />
-                                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)]">{t('recipes.taxonomy_mapping')}</label>
-                                </div>
-                                <div className="flex flex-wrap gap-2 p-6 rounded-[2rem] bg-[var(--background)]/40 border border-[var(--border)]">
-                                    {categoriesData?.data?.map((cat: any) => (
-                                        <button
-                                            key={cat.id}
-                                            type="button"
-                                            onClick={() => toggleCategory(cat.id)}
-                                            className={cn(
-                                                "px-5 py-2.5 rounded-xl border text-[9px] font-black uppercase tracking-widest transition-all",
-                                                categoriesIds.includes(cat.id)
-                                                    ? "bg-[var(--foreground)] text-[var(--background)] border-[var(--foreground)] shadow-xl"
-                                                    : "bg-[var(--background)]/30 border-[var(--border)] text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--muted-foreground)]"
-                                            )}
-                                        >
-                                            {cat.name}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
                         </motion.div>
                     )}
 
