@@ -46,9 +46,7 @@ export const usersApi = {
             formData.append("profileImage", profileData.profileImage);
         }
 
-        const { data } = await apiClient.put<User>("/Users", formData, {
-            headers: { "Content-Type": "multipart/form-data" }
-        });
+        const { data } = await apiClient.put<User>("/Users", formData);
         return data;
     },
 

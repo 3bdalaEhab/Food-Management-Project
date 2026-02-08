@@ -228,6 +228,18 @@ export const ar = {
             deployment_region: "منطقة الانتشار",
             comm_channel: "قناة الاتصال"
         },
+        favorites: {
+            title: "الخزينة",
+            title_prefix: "سجل",
+            subtitle: "خزينة_النخبة",
+            description: "مجموعتك المختارة من مهام الطهي عالية الأداء. مؤمنة، متزامنة، وجاهزة للتنفيذ الفوري.",
+            badge_label: "خزينة_النخبة",
+            assets_cataloged: "إجمالي_العناصر",
+            search_placeholder: "فحص أرشيف الخزينة...",
+            empty_title: "الخزينة مؤمنة",
+            empty_desc: "قم بتفعيل مفضلات جديدة لمزامنة هذه العقدة",
+            return_button: "العودة للأرشيف"
+        },
         auth: {
             login: {
                 title: "مرحباً",

@@ -215,6 +215,18 @@ export const en = {
             deployment_region: "Deployment Region",
             comm_channel: "Comm Channel"
         },
+        favorites: {
+            title: "VAULT",
+            title_prefix: "FAVORITES",
+            subtitle: "ELITE_VAULT",
+            description: "Your elite collection of high-performance culinary missions. Secured, synchronized, and ready for immediate execution.",
+            badge_label: "ELITE_VAULT",
+            assets_cataloged: "ASSETS_CATALOGED",
+            search_placeholder: "SCAN_VAULT_ARCHIVES...",
+            empty_title: "VAULT IS SECURED",
+            empty_desc: "Deploy new favorites to synchronize this node",
+            return_button: "Return to Archives"
+        },
         auth: {
             login: {
                 title: "Welcome",

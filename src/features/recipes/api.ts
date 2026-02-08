@@ -34,9 +34,7 @@ export const recipesApi = {
             formData.append("recipeImage", recipeData.recipeImage);
         }
 
-        const { data } = await apiClient.post<Recipe>("/Recipe", formData, {
-            headers: { "Content-Type": "multipart/form-data" }
-        });
+        const { data } = await apiClient.post<Recipe>("/Recipe", formData);
         return data;
     },
 
@@ -53,9 +51,7 @@ export const recipesApi = {
             formData.append("recipeImage", recipeData.recipeImage);
         }
 
-        const { data } = await apiClient.put<Recipe>(`/Recipe/${id}`, formData, {
-            headers: { "Content-Type": "multipart/form-data" }
-        });
+        const { data } = await apiClient.put<Recipe>(`/Recipe/${id}`, formData);
         return data;
     },
 

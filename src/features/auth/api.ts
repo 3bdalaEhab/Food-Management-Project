@@ -30,9 +30,7 @@ export const authApi = {
             formData.append("profileImage", userData.profileImage);
         }
 
-        const { data } = await apiClient.post<AuthResponse>("/Users/Register", formData, {
-            headers: { "Content-Type": "multipart/form-data" }
-        });
+        const { data } = await apiClient.post<AuthResponse>("/Users/Register", formData);
         return data;
     },
 
