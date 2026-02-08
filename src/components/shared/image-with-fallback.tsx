@@ -1,5 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 interface ImageWithFallbackProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -13,59 +12,21 @@ export const ImageWithFallback = ({
     fallbackSrc = "/assets/images/placeholder-industrial.png",
     ...props
 }: ImageWithFallbackProps) => {
-    const [imgSrc, setImgSrc] = useState<string | undefined>(src);
-    const [hasError, setHasError] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
-        setImgSrc(src);
-        setHasError(false);
-        setIsLoading(true);
+        setError(false);
     }, [src]);
-
-    const handleError = useCallback(() => {
-        if (!hasError) {
-            setHasError(true);
-            setImgSrc(fallbackSrc);
-        }
-    }, [hasError, fallbackSrc]);
-
-    const handleLoad = useCallback(() => {
-        setIsLoading(false);
-    }, []);
 
     return (
         <div className={cn("relative overflow-hidden bg-[var(--muted)]", className)}>
-            <AnimatePresence>
-                {isLoading && (
-                    <motion.div
-                        initial={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="absolute inset-0 z-10 flex items-center justify-center bg-[var(--sidebar-background)]"
-                    >
-                        <div className="w-full h-full animate-pulse bg-white/5" />
-                    </motion.div>
-                )}
-            </AnimatePresence>
-
-            <motion.img
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-                src={imgSrc}
+            <img
+                src={error ? fallbackSrc : src}
                 alt={alt}
-                onError={handleError}
-                onLoad={handleLoad}
-                className={cn("w-full h-full object-cover object-center transition-opacity duration-300", isLoading ? "opacity-0" : "opacity-100")}
-                {...props as React.ImgHTMLAttributes<HTMLImageElement>}
+                onError={() => setError(true)}
+                className="w-full h-full object-cover object-center"
+                {...(props as any)}
             />
-
-            {hasError && fallbackSrc === imgSrc && (
-                <div className="absolute bottom-2 end-2 px-2 py-1 bg-black/60 backdrop-blur-md rounded text-[8px] font-bold tracking-widest text-white/50 pointer-events-none">
-                    NO_SIGNAL
-                </div>
-            )}
         </div>
     );
 };

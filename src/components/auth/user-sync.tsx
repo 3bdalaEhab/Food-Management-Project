@@ -14,21 +14,20 @@ export function UserSync() {
 
             // Only update if data changed to avoid infinite loops
             // We verify key fields
-            if (
-                user?.imagePath !== finalImagePath ||
-                user?.userName !== currentUser.userName ||
-                user?.email !== currentUser.email ||
-                user?.country !== currentUser.country
-            ) {
-                setUser({
-                    id: String(currentUser.id),
-                    userName: currentUser.userName,
-                    email: currentUser.email,
-                    role: currentUser.group.name as "SuperAdmin" | "SystemUser",
-                    country: currentUser.country,
-                    phoneNumber: currentUser.phoneNumber,
-                    imagePath: finalImagePath
-                });
+            // Create the new user object candidate
+            const newUserState = {
+                id: String(currentUser.id),
+                userName: currentUser.userName,
+                email: currentUser.email,
+                role: currentUser.group.name as "SuperAdmin" | "SystemUser",
+                country: currentUser.country,
+                phoneNumber: currentUser.phoneNumber,
+                imagePath: finalImagePath
+            };
+
+            // Deep comparison to prevent loop
+            if (JSON.stringify(user) !== JSON.stringify(newUserState)) {
+                setUser(newUserState);
             }
         }
     }, [currentUser, setUser, user]);

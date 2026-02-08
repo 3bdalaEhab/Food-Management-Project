@@ -39,7 +39,7 @@ const CustomTooltip = ({ active, payload, label, unit = "unit", color = "var(--p
                     <p className="text-[10px] font-black uppercase tracking-widest text-[var(--foreground)]">{label}</p>
                 </div>
                 <p className="text-xl font-black text-[var(--foreground)] italic tracking-tighter">
-                    {payload[0].value.toLocaleString()}
+                    {payload?.[0]?.value.toLocaleString()}
                     <span className="text-[10px] ml-1 opacity-50 not-italic uppercase tracking-widest">{unit}</span>
                 </p>
             </div>
@@ -226,7 +226,7 @@ export function StatChartDialog({
                 </div>
 
                 <div className="h-[250px] sm:h-[400px] w-full mt-4 flex items-center justify-center relative z-10">
-                    <ResponsiveContainer width="100%" height="100%">
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0} debounce={50}>
                         {chartContent}
                     </ResponsiveContainer>
                 </div>

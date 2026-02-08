@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { TrendingUp, BarChart3, Activity } from "lucide-react";
 import { StatChartDialog, ChartType } from "./stat-chart-dialog";
@@ -35,6 +35,13 @@ export const StatCard = memo(({
     chartUnit = "unit",
 }: StatCardProps) => {
     const [isChartOpen, setIsChartOpen] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        // Delay rendering chart slightly to ensure container has dimensions (fixes Recharts warning)
+        const timer = requestAnimationFrame(() => setIsMounted(true));
+        return () => cancelAnimationFrame(timer);
+    }, []);
 
     const getHexColor = () => {
         if (color.includes('primary-500')) return '#f97316'; // Orange primary
@@ -114,37 +121,39 @@ export const StatCard = memo(({
 
                         {/* Mini Sparkline - High Performance */}
                         <div className="h-12 w-full mt-2 -mb-2 relative opacity-40 group-hover:opacity-100 transition-opacity duration-700">
-                            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-                                {chartType === 'bar' ? (
-                                    <LineChart data={chartData}>
-                                        <Line
-                                            type="monotone"
-                                            dataKey="value"
-                                            stroke={getHexColor()}
-                                            strokeWidth={2}
-                                            dot={false}
-                                            isAnimationActive={true}
-                                        />
-                                    </LineChart>
-                                ) : (
-                                    <AreaChart data={chartData}>
-                                        <defs>
-                                            <linearGradient id={`gradient-${label}`} x1="0" y1="0" x2="0" y2="1">
-                                                <stop offset="5%" stopColor={getHexColor()} stopOpacity={0.3} />
-                                                <stop offset="95%" stopColor={getHexColor()} stopOpacity={0} />
-                                            </linearGradient>
-                                        </defs>
-                                        <Area
-                                            type="monotone"
-                                            dataKey="value"
-                                            stroke={getHexColor()}
-                                            fill={`url(#gradient-${label})`}
-                                            strokeWidth={1.5}
-                                            isAnimationActive={true}
-                                        />
-                                    </AreaChart>
-                                )}
-                            </ResponsiveContainer>
+                            {isMounted && (
+                                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0} debounce={50}>
+                                    {chartType === 'bar' ? (
+                                        <LineChart data={chartData}>
+                                            <Line
+                                                type="monotone"
+                                                dataKey="value"
+                                                stroke={getHexColor()}
+                                                strokeWidth={2}
+                                                dot={false}
+                                                isAnimationActive={true}
+                                            />
+                                        </LineChart>
+                                    ) : (
+                                        <AreaChart data={chartData}>
+                                            <defs>
+                                                <linearGradient id={`gradient-${label}`} x1="0" y1="0" x2="0" y2="1">
+                                                    <stop offset="5%" stopColor={getHexColor()} stopOpacity={0.3} />
+                                                    <stop offset="95%" stopColor={getHexColor()} stopOpacity={0} />
+                                                </linearGradient>
+                                            </defs>
+                                            <Area
+                                                type="monotone"
+                                                dataKey="value"
+                                                stroke={getHexColor()}
+                                                fill={`url(#gradient-${label})`}
+                                                strokeWidth={1.5}
+                                                isAnimationActive={true}
+                                            />
+                                        </AreaChart>
+                                    )}
+                                </ResponsiveContainer>
+                            )}
                         </div>
 
                         {/* Technical Intel Bar */}
