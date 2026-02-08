@@ -24,6 +24,7 @@ interface NavItem {
     labelKey: string;
     href: string;
     adminOnly?: boolean;
+    hideForAdmin?: boolean;
 }
 
 const navItems: NavItem[] = [
@@ -31,7 +32,7 @@ const navItems: NavItem[] = [
     { icon: UtensilsCrossed, labelKey: "recipes", href: "/dashboard/recipes" },
     { icon: FolderOpen, labelKey: "categories", href: "/dashboard/categories", adminOnly: true },
     { icon: Users, labelKey: "users", href: "/dashboard/users", adminOnly: true },
-    { icon: Heart, labelKey: "favorites", href: "/dashboard/favorites" },
+    { icon: Heart, labelKey: "favorites", href: "/dashboard/favorites", hideForAdmin: true },
 ];
 
 export function Sidebar() {
@@ -46,7 +47,11 @@ export function Sidebar() {
     const springConfig = { type: "spring", stiffness: 400, damping: 40 } as const;
 
     const filteredNavItems = useMemo(() =>
-        navItems.filter((item) => !item.adminOnly || isAdmin),
+        navItems.filter((item) => {
+            if (item.adminOnly && !isAdmin) return false;
+            if (item.hideForAdmin && isAdmin) return false;
+            return true;
+        }),
         [isAdmin]
     );
 
@@ -60,10 +65,11 @@ export function Sidebar() {
             transition={springConfig}
             className={cn(
                 "fixed top-0 z-50 h-screen",
+                "hidden md:flex",
                 "inset-inline-start-0",
                 "bg-[var(--sidebar-background)] border-[var(--sidebar-border)]",
                 "border-ie",
-                "flex flex-col shadow-lg overflow-hidden",
+                "flex-col shadow-lg overflow-hidden",
                 "selection:bg-primary-500/30"
             )}
         >
@@ -169,9 +175,6 @@ export function Sidebar() {
                                 <div className="flex flex-col min-w-0">
                                     <span className="text-[11px] font-black uppercase tracking-[0.2em] italic truncate">
                                         {t(`sidebar.${item.labelKey}`)}
-                                    </span>
-                                    <span className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-widest mt-0.5 group-hover:text-primary-500 transition-colors">
-                                        {t('sidebar.node')}_0{filteredNavItems.indexOf(item) + 1}
                                     </span>
                                 </div>
                             )}

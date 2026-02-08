@@ -83,10 +83,4 @@ export const useTags = () => {
     });
 };
 
-export const useCategories = () => {
-    return useQuery({
-        queryKey: ["categories"],
-        queryFn: recipesApi.getCategories,
-        staleTime: 24 * 60 * 60 * 1000, // 24 hours
-    });
-};
+

@@ -147,9 +147,21 @@ function App() {
                             >
                                 <Route index element={<DashboardPage />} />
                                 <Route path="recipes" element={<RecipesPage />} />
-                                <Route path="categories" element={<CategoriesPage />} />
-                                <Route path="users" element={<UsersPage />} />
-                                <Route path="favorites" element={<FavoritesPage />} />
+                                <Route path="categories" element={
+                                    <ProtectedRoute requireAdmin>
+                                        <CategoriesPage />
+                                    </ProtectedRoute>
+                                } />
+                                <Route path="users" element={
+                                    <ProtectedRoute requireAdmin>
+                                        <UsersPage />
+                                    </ProtectedRoute>
+                                } />
+                                <Route path="favorites" element={
+                                    <ProtectedRoute blockAdmin>
+                                        <FavoritesPage />
+                                    </ProtectedRoute>
+                                } />
                                 <Route path="profile" element={<ProfilePage />} />
                                 <Route path="settings" element={<Navigate to="profile" replace />} />
                             </Route>

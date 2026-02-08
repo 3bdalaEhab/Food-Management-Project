@@ -6,8 +6,9 @@ interface CustomDialogProps {
     children: React.ReactNode;
     open: boolean;
     onOpenChange: (open: boolean) => void;
-    maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl";
+    maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "full";
     showClose?: boolean;
+    padding?: boolean;
 }
 
 const maxWidthClasses = {
@@ -19,6 +20,8 @@ const maxWidthClasses = {
     "3xl": "max-w-3xl",
     "4xl": "max-w-4xl",
     "5xl": "max-w-5xl",
+    "6xl": "max-w-6xl",
+    full: "max-w-[95vw]",
 };
 
 /**

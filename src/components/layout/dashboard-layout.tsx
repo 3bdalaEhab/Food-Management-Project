@@ -6,6 +6,7 @@ import { useAppStore } from "@/stores";
 import { DashboardBackground } from "./dashboard-background";
 import { CommandPalette } from "./command-palette";
 import { MobileDrawer } from "./mobile-drawer";
+import { MobileBottomNav } from "./mobile-bottom-nav";
 import { PageWrapper } from "../shared/page-wrapper";
 import { cn } from "@/lib/utils";
 import { useMemo } from "react";
@@ -17,6 +18,7 @@ export function DashboardLayout() {
     const mainClassName = useMemo(() => {
         return cn(
             "relative min-h-screen z-10 transition-[padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+            "pb-20 md:pb-0",
             sidebarCollapsed ? "md:ps-[88px]" : "md:ps-[280px]"
         );
     }, [sidebarCollapsed]);
@@ -39,12 +41,12 @@ export function DashboardLayout() {
                 }}
             >
                 {/* Fixed Top Interface */}
-                <div className="sticky top-0 z-30 px-6 py-4">
+                <div className="sticky top-0 z-30 px-4 md:px-6 py-2 md:py-4">
                     <Navbar />
                 </div>
 
                 {/* Scoping the Viewport for Content */}
-                <div className="px-6 pb-12 pt-4">
+                <div className="px-4 md:px-6 pb-6 md:pb-12 pt-2 md:pt-4">
                     <AnimatePresence mode="wait">
                         <PageWrapper key={location.pathname}>
                             <Outlet />
@@ -61,6 +63,9 @@ export function DashboardLayout() {
 
             {/* Mobile Navigation Console */}
             <MobileDrawer />
+
+            {/* Mobile Bottom Navigation */}
+            <MobileBottomNav />
         </div>
     );
 }

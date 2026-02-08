@@ -30,7 +30,9 @@ export const en = {
             updated: "Updated",
             id: "ID",
             remove_fav: "Remove from favorites",
-            add_fav: "Add to favorites"
+            add_fav: "Add to favorites",
+            save: "Save Changes",
+            add: "Create Agent"
         },
         delete_confirmation: {
             title: "Confirm Deletion",
@@ -114,7 +116,8 @@ export const en = {
             preferences: {
                 theme_protocol: "Theme",
                 lang_protocol: "Language"
-            }
+            },
+            update_profile_desc: "Synchronize your professional identity"
         },
         categories: {
             title: "Categories",
@@ -150,7 +153,14 @@ export const en = {
             refinement: "Refinement",
             new_recipe: "New Recipe",
             min: "MIN",
-            delete_node: "RECIPE_NODE"
+            delete_node: "RECIPE_NODE",
+            registry_system: "REGISTRY_SYSTEM",
+            tactical_control: "TACTICAL_CONTROL",
+            title_prefix: "RECIPE",
+            title_suffix: "REGISTRY",
+            active_deployments: "ACTIVE_DEPLOYMENTS",
+            units: "UNITS",
+            search_placeholder: "SEARCH_REGISTRY..."
         },
         users: {
             title: "Users",
@@ -163,11 +173,12 @@ export const en = {
             fleet_desc: "Monitor and manage project collaborators. verify identities, assign protocols, and maintain project security.",
             active_fleet_size: "Active Fleet Size",
             agents: "AGENTS",
-            scan_collaborators: "Scan collaborators...",
-            fleet_disconnected: "FLEET IS DISCONNECTED",
-            awaiting_sync: "System awaiting collaborator synchronization",
-            initialize_sync: "Initialize Sync",
-            agent_node: "AGENT_NODE"
+            agent_node: "AGENT_NODE",
+            add_new_agent: "Initialize New Agent",
+            recruit_desc: "Onboard a new authorized operator to the fleet",
+            authorized_agent: "Authorized Agent",
+            deployment_region: "Deployment Region",
+            comm_channel: "Comm Channel"
         },
         auth: {
             login: {
@@ -197,8 +208,9 @@ export const en = {
                 previous: "Previous",
                 validate: "Validate",
                 revise: "Edit",
-                access_credentials: "Password",
-                key_verification: "Confirm Password",
+                password: "Password",
+                confirm_password: "Confirm Password",
+                phone: "Phone Number",
                 initialize_agent: "Create Account",
                 already_authenticated: "Already have an account?",
                 initiate_access: "Sign In"

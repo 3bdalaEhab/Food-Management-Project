@@ -29,3 +29,17 @@ export interface UpdateUserData {
     phoneNumber?: string;
     imagePath?: string;
 }
+
+export interface ChangePasswordData {
+    oldPassword: string;
+    newPassword: string;
+    confirmNewPassword: string;
+}
+
+export interface UpdateProfileData {
+    userName: string;
+    email: string;
+    country: string;
+    phoneNumber: string;
+    profileImage?: File | null;
+}

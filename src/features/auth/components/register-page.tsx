@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from "react-i18next";
-import axios, { AxiosError } from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
-import { toast } from 'sonner';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
     ChefHat,
@@ -24,6 +22,7 @@ import { FloatingAuthControls } from './floating-auth-controls';
 import { ProfileImageUpload } from './profile-image-upload';
 import { SEO } from '@/components/shared/seo';
 import { compressImage } from '@/lib/image-utils';
+import { useRegister } from '../hooks';
 
 interface RegisterFormData {
     userName: string;
@@ -63,13 +62,11 @@ const VALIDATION = {
 
 export function RegisterPage() {
     const { t } = useTranslation();
-    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
-    const [loadingBtn, setLoadingBtn] = useState(false);
 
-    const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm<RegisterFormData>();
+    const { register: formRegister, handleSubmit, formState: { errors }, watch, setValue } = useForm<RegisterFormData>();
     const password = watch("password", "");
 
     const handleImageSelect = async (file: File) => {
@@ -79,39 +76,19 @@ export function RegisterPage() {
         setSelectedImage(processedFile);
     };
 
-    const onSubmit = async (data: RegisterFormData) => {
-        setLoadingBtn(true);
+    // Use the centralized register hook
+    const { mutate: submitRegister, isPending: isRegistering } = useRegister();
 
-        const formData = new FormData();
-        formData.append('userName', data.userName);
-        formData.append('email', data.email);
-        formData.append('country', data.country);
-        formData.append('phoneNumber', data.phoneNumber);
-        formData.append('password', data.password);
-        formData.append('confirmPassword', data.confirmPassword);
-
-        if (selectedImage) {
-            formData.append('profileImage', selectedImage);
-        }
-
-        try {
-            await axios.post(
-                'https://upskilling-egypt.com:3006/api/v1/Users/Register',
-                formData,
-                { headers: { 'Content-Type': 'multipart/form-data' } }
-            );
-            toast.success(t('toasts.register_success'), {
-                description: t('toasts.verify_account')
-            });
-            navigate('/verify-account', { state: { email: data.email, fromRegister: true } });
-        } catch (error) {
-            const axiosError = error as AxiosError<{ message?: string }>;
-            toast.error(t('toasts.register_failed'), {
-                description: axiosError.response?.data?.message || t('toasts.try_again')
-            });
-        } finally {
-            setLoadingBtn(false);
-        }
+    const onSubmit = (data: RegisterFormData) => {
+        submitRegister({
+            userName: data.userName,
+            email: data.email,
+            country: data.country,
+            phoneNumber: data.phoneNumber,
+            password: data.password,
+            confirmPassword: data.confirmPassword,
+            profileImage: selectedImage
+        });
     };
 
     return (
@@ -161,11 +138,11 @@ export function RegisterPage() {
                                     label={t('auth.register.identity_name')}
                                     icon={User}
                                     placeholder="chefmaster"
-                                    register={register}
+                                    register={formRegister}
                                     name="userName"
                                     validation={VALIDATION.userName}
                                     error={errors.userName}
-                                    disabled={loadingBtn}
+                                    disabled={isRegistering}
                                 />
 
                                 {/* Email */}
@@ -174,11 +151,11 @@ export function RegisterPage() {
                                     icon={Mail}
                                     type="email"
                                     placeholder="you@example.com"
-                                    register={register}
+                                    register={formRegister}
                                     name="email"
                                     validation={VALIDATION.email}
                                     error={errors.email}
-                                    disabled={loadingBtn}
+                                    disabled={isRegistering}
                                 />
 
                                 {/* Country */}
@@ -186,52 +163,52 @@ export function RegisterPage() {
                                     label={t('auth.register.geographical_domain')}
                                     icon={Globe}
                                     placeholder="Egypt"
-                                    register={register}
+                                    register={formRegister}
                                     name="country"
                                     validation={VALIDATION.country}
                                     error={errors.country}
-                                    disabled={loadingBtn}
+                                    disabled={isRegistering}
                                 />
 
                                 {/* Phone */}
                                 <FormField
-                                    label={t('auth.register.comm_channel')}
+                                    label={t('auth.register.phone')}
                                     icon={Phone}
                                     placeholder="01xxxxxxxxx"
-                                    register={register}
+                                    register={formRegister}
                                     name="phoneNumber"
                                     validation={VALIDATION.phoneNumber}
                                     error={errors.phoneNumber}
-                                    disabled={loadingBtn}
+                                    disabled={isRegistering}
                                 />
 
                                 {/* Password */}
                                 <PasswordField
-                                    label={t('auth.register.access_credentials')}
+                                    label={t('auth.register.password')}
                                     icon={Lock}
                                     placeholder="••••••••"
-                                    register={register}
+                                    register={formRegister}
                                     name="password"
                                     validation={VALIDATION.password}
                                     error={errors.password}
-                                    disabled={loadingBtn}
+                                    disabled={isRegistering}
                                     showPassword={showPassword}
                                     onToggle={() => setShowPassword(!showPassword)}
                                 />
 
                                 {/* Confirm Password */}
                                 <PasswordField
-                                    label={t('auth.register.key_verification')}
+                                    label={t('auth.register.confirm_password')}
                                     icon={Lock}
                                     placeholder="••••••••"
-                                    register={register}
+                                    register={formRegister}
                                     name="confirmPassword"
                                     validation={{
                                         required: "Confirm password",
                                         validate: (value: string) => value === password || "Passwords don't match"
                                     }}
                                     error={errors.confirmPassword}
-                                    disabled={loadingBtn}
+                                    disabled={isRegistering}
                                     showPassword={showConfirmPassword}
                                     onToggle={() => setShowConfirmPassword(!showConfirmPassword)}
                                 />
@@ -239,20 +216,20 @@ export function RegisterPage() {
 
                             {/* Profile Image */}
                             <ProfileImageUpload
-                                register={register}
+                                register={formRegister}
                                 setValue={setValue}
-                                disabled={loadingBtn}
+                                disabled={isRegistering}
                                 onImageSelect={handleImageSelect}
                             />
 
                             {/* Submit Button */}
                             <button
                                 type="submit"
-                                disabled={loadingBtn}
+                                disabled={isRegistering}
                                 className="w-full h-12 sm:h-14 mt-1 rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-orange-500 text-white font-bold text-sm tracking-wide shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:pointer-events-none relative overflow-hidden"
                             >
                                 <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-                                {loadingBtn ? (
+                                {isRegistering ? (
                                     <>
                                         <Loader2 className="w-5 h-5 animate-spin" />
                                         <span>{t('auth.register.secure_identity')}...</span>

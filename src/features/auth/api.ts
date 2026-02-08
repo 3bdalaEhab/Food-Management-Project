@@ -16,9 +16,23 @@ export const authApi = {
         return data;
     },
 
-    // Register
+    // Register - Uses FormData for file upload
     register: async (userData: RegisterData): Promise<AuthResponse> => {
-        const { data } = await apiClient.post<AuthResponse>("/Users/Register", userData);
+        const formData = new FormData();
+        formData.append("userName", userData.userName);
+        formData.append("email", userData.email);
+        formData.append("country", userData.country);
+        formData.append("phoneNumber", userData.phoneNumber);
+        formData.append("password", userData.password);
+        formData.append("confirmPassword", userData.confirmPassword);
+
+        if (userData.profileImage) {
+            formData.append("profileImage", userData.profileImage);
+        }
+
+        const { data } = await apiClient.post<AuthResponse>("/Users/Register", formData, {
+            headers: { "Content-Type": "multipart/form-data" }
+        });
         return data;
     },
 

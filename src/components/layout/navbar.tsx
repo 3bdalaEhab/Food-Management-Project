@@ -35,9 +35,9 @@ export function Navbar() {
     return (
         <header
             className={cn(
-                "h-20 rounded-[2rem] px-8 flex items-center justify-between",
+                "h-16 md:h-20 rounded-none md:rounded-[2rem] px-4 md:px-8 flex items-center justify-between",
                 "bg-[var(--sidebar-background)]/95 backdrop-blur-md",
-                "border border-[var(--border)] shadow-lg transition-all duration-300"
+                "border-b md:border border-[var(--border)] shadow-lg transition-all duration-300"
             )}
             role="banner"
         >
@@ -139,8 +139,8 @@ export function Navbar() {
                 </button>
 
                 {/* User Identity Port */}
-                <div className="flex items-center gap-4 ps-6 border-is border-white/10 group cursor-pointer hover:opacity-80 transition-opacity">
-                    <div className="hidden md:flex flex-col items-end gap-1">
+                <div className="flex items-center gap-2 md:gap-4 ps-4 md:ps-6 border-is border-white/10 group cursor-pointer hover:opacity-80 transition-opacity">
+                    <div className="hidden lg:flex flex-col items-end gap-1">
                         <span className="text-[10px] font-black text-[var(--foreground)] uppercase tracking-tighter leading-none">{user?.userName || "EXPERT_UNIT"}</span>
                         <div className={cn(
                             "px-2 py-0.5 rounded-full border text-[7px] font-black uppercase tracking-widest",
@@ -152,11 +152,11 @@ export function Navbar() {
                         </div>
                     </div>
                     <div className={cn(
-                        "w-12 h-12 rounded-2xl p-0.5 border shadow-2xl group-hover:scale-105 transition-transform duration-500 overflow-hidden relative",
+                        "w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl p-0.5 border shadow-2xl group-hover:scale-105 transition-transform duration-500 overflow-hidden relative",
                         user?.role === "SuperAdmin" ? "bg-red-500 border-red-500/50" : "bg-[var(--sidebar-background)] border-[var(--border)]"
                     )}>
                         <div className={cn(
-                            "w-full h-full rounded-[0.9rem] flex items-center justify-center text-white font-black text-sm italic",
+                            "w-full h-full rounded-[0.65rem] md:rounded-[0.9rem] flex items-center justify-center text-white font-black text-sm italic",
                             user?.role === "SuperAdmin" ? "bg-gradient-to-br from-red-500 to-red-600" : "bg-gradient-to-br from-primary-500 to-primary-600"
                         )}>
                             {user?.userName?.charAt(0).toUpperCase() || <User size={18} />}

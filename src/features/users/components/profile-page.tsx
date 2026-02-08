@@ -26,6 +26,8 @@ import { CustomDialog } from "@/components/shared/custom-dialog";
 import { cn } from "@/lib/utils";
 import { IconBadge } from "@/components/shared/icon-badge";
 import { SEO } from "@/components/shared/seo";
+import { useCurrentUser } from "../hooks";
+import { ProfileEditForm } from "./profile-edit-form";
 
 type Tab = "identity" | "security" | "preferences";
 
@@ -35,8 +37,12 @@ export function ProfilePage() {
     const { theme, setTheme, language, setLanguage } = useAppStore();
     const [activeTab, setActiveTab] = useState<Tab>("identity");
     const [isChangePassOpen, setIsChangePassOpen] = useState(false);
+    const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
 
-    if (!user) return (
+    const { data: currentUser, isLoading: isUserLoading } = useCurrentUser();
+    const displayUser = currentUser || user;
+
+    if (!displayUser || isUserLoading) return (
         <div className="flex items-center justify-center py-40">
             <Loader2 className="animate-spin text-primary-500" size={60} />
         </div>
@@ -60,7 +66,7 @@ export function ProfilePage() {
 
     return (
         <div className="space-y-12 pb-24 font-sans selection:bg-primary-500/30">
-            <SEO title={`${user.userName} | Account Hub`} />
+            <SEO title={`${displayUser.userName} | Account Hub`} />
 
             {/* Elite Header Protcol */}
             <motion.div
@@ -101,8 +107,8 @@ export function ProfilePage() {
                         <div className="absolute inset-0 bg-primary-500 blur-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-1000" />
                         <div className="relative flex flex-col items-center gap-6 bg-[var(--background)]/60 border border-[var(--border)] p-8 rounded-[3.5rem] shadow-xl">
                             <div className="w-32 h-32 rounded-[2.5rem] bg-[var(--sidebar-background)] overflow-hidden border-2 border-[var(--border)] shadow-2xl">
-                                {user.imagePath ? (
-                                    <img src={user.imagePath} alt={user.userName} className="w-full h-full object-cover object-center" />
+                                {displayUser.imagePath ? (
+                                    <img src={displayUser.imagePath} alt={displayUser.userName} className="w-full h-full object-cover object-center" />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--background)] to-[var(--sidebar-background)]">
                                         <ChefHat className="text-[var(--muted-foreground)]/20" size={50} />
@@ -110,8 +116,10 @@ export function ProfilePage() {
                                 )}
                             </div>
                             <div className="text-center">
-                                <h2 className="text-2xl font-black italic uppercase tracking-tighter text-[var(--foreground)] leading-none mb-1">{user.userName}</h2>
-                                <p className="text-[10px] font-black text-primary-500 uppercase tracking-[0.4em] opacity-80">{user.role}</p>
+                                <h2 className="text-2xl font-black italic uppercase tracking-tighter text-[var(--foreground)] leading-none mb-1">{displayUser.userName}</h2>
+                                <p className="text-[10px] font-black text-primary-500 uppercase tracking-[0.4em] opacity-80">
+                                    {'group' in displayUser ? displayUser.group.name : displayUser.role}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -168,7 +176,7 @@ export function ProfilePage() {
                                             {t('profile.geospatial')}
                                         </label>
                                         <div className="text-2xl font-black italic uppercase tracking-tighter text-[var(--foreground)] h-16 flex items-center px-6 bg-[var(--background)]/50 rounded-2xl border border-[var(--border)]">
-                                            {user.country || t('profile.global_node')}
+                                            {displayUser.country || t('profile.global_node')}
                                         </div>
                                     </div>
                                     <div className="space-y-4">
@@ -177,7 +185,7 @@ export function ProfilePage() {
                                             {t('profile.auth_level')}
                                         </label>
                                         <div className="text-2xl font-black italic uppercase tracking-tighter text-primary-500 h-16 flex items-center px-6 bg-primary-500/5 rounded-2xl border border-primary-500/20">
-                                            {user.role}
+                                            {'group' in displayUser ? displayUser.group.name : displayUser.role}
                                         </div>
                                     </div>
                                     <div className="md:col-span-2 space-y-4">
@@ -186,7 +194,7 @@ export function ProfilePage() {
                                             {t('profile.archive_address')}
                                         </label>
                                         <div className="text-2xl font-black italic uppercase tracking-tighter text-[var(--foreground)] h-16 flex items-center px-6 bg-[var(--background)]/50 rounded-2xl border border-[var(--border)]">
-                                            {user.email}
+                                            {displayUser.email}
                                         </div>
                                     </div>
                                 </div>
@@ -195,7 +203,10 @@ export function ProfilePage() {
                                         <h4 className="text-xs font-black uppercase tracking-[0.2em]">{t('profile.master_identity')}</h4>
                                         <p className="text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-widest">{t('profile.master_desc')}</p>
                                     </div>
-                                    <button className="premium-button premium-button-primary h-16 px-10 group">
+                                    <button
+                                        onClick={() => setIsEditProfileOpen(true)}
+                                        className="premium-button premium-button-primary h-16 px-10 group"
+                                    >
                                         <span className="font-black italic uppercase tracking-widest text-[10px]">{t('profile.edit_portfolio')}</span>
                                         <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                     </button>
@@ -346,6 +357,15 @@ export function ProfilePage() {
                 <ChangePasswordForm
                     onSuccess={() => setIsChangePassOpen(false)}
                     onCancel={() => setIsChangePassOpen(false)}
+                />
+            </CustomDialog>
+
+            {/* Edit Profile Modal Integration */}
+            <CustomDialog open={isEditProfileOpen} onOpenChange={setIsEditProfileOpen} maxWidth="2xl">
+                <ProfileEditForm
+                    user={displayUser}
+                    onSuccess={() => setIsEditProfileOpen(false)}
+                    onCancel={() => setIsEditProfileOpen(false)}
                 />
             </CustomDialog>
         </div>

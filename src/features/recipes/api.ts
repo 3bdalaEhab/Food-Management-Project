@@ -76,9 +76,4 @@ export const recipesApi = {
         return data;
     },
 
-    // Get all categories
-    getCategories: async () => {
-        const { data } = await apiClient.get<RecipesResponse>("/Category"); // Category API might share the same response structure or have its own
-        return data;
-    },
 };

@@ -2,19 +2,20 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import {
-    Tag,
     Loader2,
     CheckCircle2,
     X,
     Sparkles,
-    Zap
+    FolderTree,
+    Database
 } from "lucide-react";
 import * as z from "zod";
-
+import { useTranslation } from "react-i18next";
+import { TacticalInput } from "@/components/shared/tactical-input";
 import type { CreateCategoryData } from "../types";
 
 const categorySchema = z.object({
-    name: z.string().min(3, "Name must be at least 3 characters"),
+    name: z.string().min(3, "IDENTITY_NODE_TOO_SHORT"),
 });
 
 type CategoryFormData = z.infer<typeof categorySchema>;
@@ -27,6 +28,10 @@ interface CategoryFormProps {
     title: string;
 }
 
+/**
+ * CategoryForm - Professional Category Management
+ * Fully compatible with Light and Dark modes using theme variables.
+ */
 export function CategoryForm({
     initialData,
     onSubmit,
@@ -34,12 +39,13 @@ export function CategoryForm({
     isPending,
     title
 }: CategoryFormProps) {
+    const { t } = useTranslation();
     const {
         register,
         handleSubmit,
         formState: { errors, isValid },
     } = useForm<CategoryFormData>({
-        resolver: zodResolver(categorySchema),
+        resolver: zodResolver(categorySchema) as any,
         mode: "onChange",
         defaultValues: {
             name: initialData?.name || "",
@@ -50,75 +56,64 @@ export function CategoryForm({
         <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-2xl mx-auto"
+            className="w-full max-w-xl mx-auto"
         >
-            <div className="glass-card rounded-[4rem] p-10 md:p-14 border border-[var(--border)] shadow-xl overflow-hidden relative bg-[var(--sidebar-background)]">
-                {/* Tactical Polish */}
-                <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] bg-primary-500/10 rounded-full blur-[100px]" />
+            <div className="bg-[var(--sidebar-background)] rounded-[2rem] p-8 md:p-10 border border-[var(--border)] shadow-2xl overflow-hidden relative">
+                {/* Professional Accents */}
+                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-primary-500/5 rounded-full blur-[100px] pointer-events-none" />
+                <div className="absolute -bottom-10 -left-10 opacity-[0.03] pointer-events-none">
+                    <FolderTree size={200} />
+                </div>
 
                 <div className="relative z-10">
-                    <div className="flex items-center justify-between mb-12 border-b border-[var(--border)] pb-8">
-                        <div className="space-y-3">
-                            <div className="flex items-center gap-3">
-                                <div className="px-3 py-1 rounded-full bg-[var(--background)] border border-[var(--border)] flex items-center gap-2">
-                                    <Sparkles size={10} className="text-primary-500" />
-                                    <span className="text-[9px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">Elite Node</span>
-                                </div>
-                                <div className="px-3 py-1 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
-                                    <Zap size={10} className="text-primary-500" />
-                                    <span className="text-[9px] font-black uppercase tracking-widest text-primary-400">Tactical Hub</span>
-                                </div>
+                    <div className="flex items-center justify-between mb-10 pb-6 border-b border-[var(--border)]">
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                                <Database size={12} className="text-primary-500 animate-pulse" />
+                                <span className="text-[9px] font-black uppercase tracking-[0.4em] text-[var(--muted-foreground)] opacity-60">{t('categories.form_protocol')}</span>
                             </div>
-                            <h2 className="text-4xl font-black text-[var(--foreground)] tracking-tighter uppercase leading-none italic">{title}</h2>
+                            <h2 className="text-2xl font-black text-[var(--foreground)] tracking-tighter uppercase leading-none italic px-1">{title}</h2>
                         </div>
                         <button
                             onClick={onCancel}
-                            className="w-14 h-14 rounded-2xl bg-[var(--background)] border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)] hover:text-white hover:bg-primary-500 hover:border-primary-500 transition-all shadow-xl group"
+                            className="w-11 h-11 rounded-xl bg-[var(--background)] border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-red-500/10 hover:border-red-500/20 transition-all group"
                         >
-                            <X size={20} className="group-hover:rotate-90 transition-transform" />
+                            <X size={18} className="group-hover:rotate-90 transition-transform" />
                         </button>
                     </div>
 
-                    <form onSubmit={handleSubmit((data) => onSubmit(data))} className="space-y-10">
-                        <div className="space-y-4">
-                            <label className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em] ml-2 flex items-center gap-2">
-                                <Zap size={14} className="text-primary-500" />
-                                Taxonomy Identity
-                            </label>
-                            <div className="group relative">
-                                <Tag className="absolute start-6 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/50 group-focus-within:text-primary-500 transition-colors" size={20} />
-                                <input
-                                    {...register("name")}
-                                    className="premium-input bg-white/50 dark:bg-white/5 border-[var(--border)] h-20 pl-16 font-black uppercase tracking-tight text-xl"
-                                    placeholder="INITIATING_CORE_NAME"
-                                />
-                            </div>
-                            {errors.name && (
-                                <p className="text-[10px] text-primary-500 font-black ml-2 uppercase tracking-tighter animate-pulse">
-                                    {errors.name.message}
-                                </p>
-                            )}
+                    <form onSubmit={handleSubmit((data) => onSubmit(data as any)) as any} className="space-y-10">
+                        <div className="space-y-2">
+                            <TacticalInput
+                                label={t('categories.category_name_label')}
+                                placeholder={t('categories.category_placeholder')}
+                                icon={FolderTree}
+                                error={errors.name?.message}
+                                {...register("name")}
+                                maxLength={30}
+                                className="selection:bg-primary-500/30"
+                            />
                         </div>
 
-                        <div className="flex gap-6 pt-6">
+                        <div className="flex gap-4 pt-4">
                             <button
                                 type="button"
                                 onClick={onCancel}
-                                className="h-18 px-10 rounded-[2rem] bg-[var(--background)] border border-[var(--border)] text-[var(--muted-foreground)] font-black uppercase tracking-widest text-xs hover:text-[var(--foreground)] hover:bg-[var(--background)]/80 transition-all shadow-xl"
+                                className="h-14 px-10 rounded-xl bg-[var(--background)] border border-[var(--border)] text-[var(--muted-foreground)] font-black uppercase tracking-widest text-[10px] hover:text-[var(--foreground)] hover:bg-[var(--muted)] transition-all"
                             >
-                                ABORT
+                                {t('categories.cancel_button')}
                             </button>
                             <button
                                 type="submit"
                                 disabled={isPending || !isValid}
-                                className="premium-button premium-button-primary flex-1 h-18 text-lg font-black uppercase tracking-[0.2em] relative overflow-hidden group shadow-2xl shadow-primary-500/20"
+                                className="flex-1 h-14 rounded-xl bg-primary-500 text-white font-black uppercase tracking-[0.2em] text-[11px] shadow-[0_10px_20px_-5px_rgba(255,107,38,0.3)] hover:bg-primary-600 transition-all disabled:opacity-50 flex items-center justify-center gap-3 group"
                             >
-                                {isPending ? <Loader2 className="animate-spin" /> : (
-                                    <div className="flex items-center gap-4">
-                                        <span>Sync Protocol</span>
-                                        <CheckCircle2 size={24} className="group-hover:scale-110 transition-transform" />
-                                    </div>
+                                {isPending ? <Loader2 className="animate-spin" size={16} /> : (
+                                    <>
+                                        <Sparkles size={16} />
+                                        <span>{t('categories.create_category_button')}</span>
+                                        <CheckCircle2 size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    </>
                                 )}
                             </button>
                         </div>

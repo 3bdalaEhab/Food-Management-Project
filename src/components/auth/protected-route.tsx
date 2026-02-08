@@ -5,9 +5,10 @@ import { Skeleton } from "@/components/ui";
 interface ProtectedRouteProps {
     children: React.ReactNode;
     requireAdmin?: boolean;
+    blockAdmin?: boolean;
 }
 
-export function ProtectedRoute({ children, requireAdmin }: ProtectedRouteProps) {
+export function ProtectedRoute({ children, requireAdmin, blockAdmin }: ProtectedRouteProps) {
     const location = useLocation();
     const { isAuthenticated, isLoading, user } = useAuthStore();
 
@@ -31,6 +32,11 @@ export function ProtectedRoute({ children, requireAdmin }: ProtectedRouteProps) 
 
     // Check admin requirement
     if (requireAdmin && user?.role !== "SuperAdmin") {
+        return <Navigate to="/dashboard" replace />;
+    }
+
+    // Block admin from accessing this route
+    if (blockAdmin && user?.role === "SuperAdmin") {
         return <Navigate to="/dashboard" replace />;
     }
 

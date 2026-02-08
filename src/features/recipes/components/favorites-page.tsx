@@ -8,9 +8,9 @@ import {
     Sparkles
 } from "lucide-react";
 
-import { useRecipes, useDeleteRecipe } from "../hooks";
+import { useDeleteRecipe } from "../hooks";
 import { RecipeCard } from "./recipe-card";
-import { useAppStore } from "@/stores";
+import { useFavorites } from "@/features/favorites";
 import { PageWrapper } from "@/components/shared/page-wrapper";
 import { DeleteConfirmation } from "@/components/shared/delete-confirmation";
 
@@ -18,21 +18,18 @@ export function FavoritesPage() {
     const navigate = useNavigate();
     const [search, setSearch] = useState("");
     const [deleteId, setDeleteId] = useState<number | null>(null);
-    const { favorites } = useAppStore();
 
-    // Fetch all recipes (we'll filter them locally to find favorites)
-    const { data: recipesData, isLoading } = useRecipes({
-        pageSize: 100, // Load enough to cover most favorites
-        pageNumber: 1
-    });
-
+    // Fetch favorites from API
+    const { data: favorites = [], isLoading } = useFavorites();
     const { mutate: deleteRecipe, isPending: isDeleting } = useDeleteRecipe();
 
-    const favoriteRecipes = useMemo(() => {
-        if (!recipesData?.data) return [];
-        return recipesData.data.filter(recipe => favorites.includes(recipe.id))
-            .filter(recipe => recipe.name.toLowerCase().includes(search.toLowerCase()));
-    }, [recipesData, favorites, search]);
+    // Filter favorites by search term
+    const filteredFavorites = useMemo(() => {
+        if (!favorites.length) return [];
+        return favorites.filter(fav =>
+            fav.recipe?.name?.toLowerCase().includes(search.toLowerCase())
+        );
+    }, [favorites, search]);
 
     const container = {
         hidden: { opacity: 0 },
@@ -65,7 +62,7 @@ export function FavoritesPage() {
                                 </div>
                                 <div className="px-4 py-1.5 rounded-full bg-[var(--background)] border border-[var(--border)] flex items-center gap-2">
                                     <Sparkles size={12} className="text-primary-500" />
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">NODE_SYNC_ACTIVE</span>
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">API_SYNCED</span>
                                 </div>
                             </div>
 
@@ -80,7 +77,7 @@ export function FavoritesPage() {
 
                         <div className="flex flex-col items-end gap-3">
                             <div className="text-5xl font-black text-[var(--foreground)] italic tracking-tighter leading-none">
-                                {favoriteRecipes.length}
+                                {filteredFavorites.length}
                             </div>
                             <div className="text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em]">
                                 ASSETS_CATALOGED
@@ -109,7 +106,7 @@ export function FavoritesPage() {
                             <div key={i} className="glass-card rounded-[3rem] h-[28rem] animate-pulse bg-[var(--sidebar-background)]/30 border border-[var(--border)]" />
                         ))}
                     </div>
-                ) : favoriteRecipes.length > 0 ? (
+                ) : filteredFavorites.length > 0 ? (
                     <motion.div
                         variants={container}
                         initial="hidden"
@@ -117,10 +114,10 @@ export function FavoritesPage() {
                         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
                     >
                         <AnimatePresence mode="popLayout">
-                            {favoriteRecipes.map((recipe) => (
+                            {filteredFavorites.map((fav) => fav.recipe && (
                                 <RecipeCard
-                                    key={recipe.id}
-                                    recipe={recipe}
+                                    key={fav.id}
+                                    recipe={fav.recipe}
                                     onDelete={(id) => setDeleteId(id)}
                                 />
                             ))}

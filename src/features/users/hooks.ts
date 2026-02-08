@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { usersApi } from "./api";
-import type { UpdateUserData } from "./types";
+import type { UpdateUserData, ChangePasswordData, UpdateProfileData } from "./types";
 import { getErrorMessage } from "@/lib/api-error";
 
 // Type for user query params
@@ -30,6 +30,15 @@ export const useUser = (id: number) => {
     });
 };
 
+// Get current logged-in user
+export const useCurrentUser = () => {
+    return useQuery({
+        queryKey: ["currentUser"],
+        queryFn: () => usersApi.getCurrentUser(),
+        staleTime: 10 * 60 * 1000, // 10 minutes
+    });
+};
+
 export const useUpdateUser = () => {
     const queryClient = useQueryClient();
 
@@ -46,6 +55,36 @@ export const useUpdateUser = () => {
     });
 };
 
+// Update current user's profile
+export const useUpdateProfile = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (data: UpdateProfileData) => usersApi.updateProfile(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["currentUser"] });
+            queryClient.invalidateQueries({ queryKey: ["users"] });
+            toast.success("Profile updated successfully!");
+        },
+        onError: (error: Error) => {
+            toast.error(getErrorMessage(error));
+        },
+    });
+};
+
+// Change password
+export const useChangePassword = () => {
+    return useMutation({
+        mutationFn: (data: ChangePasswordData) => usersApi.changePassword(data),
+        onSuccess: () => {
+            toast.success("Password changed successfully!");
+        },
+        onError: (error: Error) => {
+            toast.error(getErrorMessage(error));
+        },
+    });
+};
+
 export const useDeleteUser = () => {
     const queryClient = useQueryClient();
 
@@ -54,6 +93,21 @@ export const useDeleteUser = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["users"] });
             toast.success("User deleted successfully from management hub");
+        },
+        onError: (error: Error) => {
+            toast.error(getErrorMessage(error));
+        },
+    });
+};
+
+export const useCreateUser = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (data: any) => usersApi.createUser(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["users"] });
+            toast.success("New user created successfully!");
         },
         onError: (error: Error) => {
             toast.error(getErrorMessage(error));

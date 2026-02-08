@@ -75,7 +75,7 @@ export function DashboardPage() {
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative overflow-hidden rounded-[4rem] bg-[var(--sidebar-background)] p-12 text-[var(--foreground)] border border-[var(--border)] shadow-2xl"
+                className="relative overflow-hidden rounded-[3rem] md:rounded-[3.5rem] lg:rounded-[4rem] bg-[var(--sidebar-background)] p-8 md:p-10 lg:p-12 text-[var(--foreground)] border border-[var(--border)] shadow-2xl"
             >
                 {/* Elite Chromatic Mesh */}
                 <div className="absolute inset-0 bg-mesh-gradient-1" />
@@ -98,20 +98,19 @@ export function DashboardPage() {
                         </div>
 
                         <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-none text-[var(--foreground)]">
-                            {t('dashboard.welcome')}, <span className="text-primary-500 italic">Chef {user?.userName?.split(' ')[0] || t('navbar.expert')}</span>
+                            {t('dashboard.welcome')}{' '}
+                            <span className="text-primary-500 italic">
+                                Chef {user?.userName ?
+                                    (user.userName.split(' ')[0]?.charAt(0).toUpperCase() || '') + (user.userName.split(' ')[0]?.slice(1).toLowerCase() || '')
+                                    : t('navbar.expert')}
+                            </span>
                         </h1>
                         <p className="text-[var(--muted-foreground)] font-bold max-w-2xl tracking-tight text-lg">
                             {t('dashboard.description')}
                         </p>
 
                         <div className="flex flex-wrap gap-4 pt-4">
-                            {isAdmin && (
-                                <Link to="/dashboard/recipes/new" className="premium-button premium-button-primary px-8 h-14 group">
-                                    <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform" />
-                                    <span className="font-black uppercase tracking-widest text-xs">{t('dashboard.new_protocol')}</span>
-                                </Link>
-                            )}
-                            <Link to="/dashboard/recipes" className="premium-button bg-[var(--background)] border border-[var(--border)] text-[var(--foreground)] hover:bg-[var(--muted)] px-8 h-14 group">
+                            <Link to="/dashboard/recipes" className="premium-button premium-button-primary px-8 h-14 group">
                                 <span className="font-black uppercase tracking-widest text-xs">{t('dashboard.access_vault')}</span>
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Link>

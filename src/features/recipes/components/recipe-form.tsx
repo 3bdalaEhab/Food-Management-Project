@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,282 +7,328 @@ import {
     DollarSign,
     Upload,
     Loader2,
-    CheckCircle2,
     X,
-    Activity,
     ArrowRight,
-    ArrowLeft,
-    Zap,
     FileText,
-    Image as ImageIcon
+    Image as ImageIcon,
+    Save,
+    ShieldCheck,
+    Boxes,
+    Palette
 } from "lucide-react";
 import * as z from "zod";
-
 import { useTags } from "../hooks";
+import { useCategories } from "@/features/categories/hooks";
+import { useTranslation } from "react-i18next";
+import { TacticalInput } from "@/components/shared/tactical-input";
+import { cn } from "@/lib/utils";
 import type { CreateRecipeData } from "../types";
 
-// Schema - Taxonomy Core (Categories) Removed
 const recipeSchema = z.object({
-    name: z.string().min(3, "IDENTITY REQUIRED"),
-    description: z.string().min(10, "DATA STREAM TOO SHORT"),
-    price: z.string().min(1, "VALUE REQUIRED"),
+    name: z.string()
+        .min(3, "IDENTITY TOO SHORT")
+        .max(50, "IDENTITY TOO LONG (50 MAX)"),
+    description: z.string()
+        .min(10, "DATA STREAM TOO SHORT")
+        .max(500, "DATA STREAM TOO LONG (500 MAX)"),
+    price: z.string()
+        .min(1, "VALUE REQUIRED")
+        .max(10, "VALUE TOO LONG"),
     tagId: z.number().min(1, "CLASSIFICATION REQUIRED"),
-    // categoriesIds removed as per Protocol Update
+    categoriesIds: z.array(z.number()).default([]),
     recipeImage: z.any().optional(),
 });
 
 type RecipeFormData = z.infer<typeof recipeSchema>;
 
 interface RecipeFormProps {
-    initialData?: Partial<CreateRecipeData>;
+    initialData?: Partial<CreateRecipeData> & { imagePath?: string };
     onSubmit: (data: CreateRecipeData) => void;
     onCancel: () => void;
     isPending?: boolean;
     title: string;
 }
 
-type Step = 1 | 2;
-
-export function RecipeForm({
-    initialData,
-    onSubmit,
-    onCancel,
-    isPending,
-    title
-}: RecipeFormProps) {
-    const [step, setStep] = useState<Step>(1);
-    const [previewImage, setPreviewImage] = useState<string | null>(null);
+/**
+ * RecipeForm - "Masterpiece Creator" Aesthetic
+ * Focused on orange/culinary vibrant vibes.
+ * Fully optimized for Light and Dark modes.
+ */
+export function RecipeForm({ initialData, onSubmit, onCancel, isPending, title }: RecipeFormProps) {
+    const { t } = useTranslation();
+    const [step, setStep] = useState(1);
     const { data: tags } = useTags();
+    const { data: categoriesData } = useCategories();
 
     const {
         register,
         handleSubmit,
         setValue,
-        trigger,
-        formState: { errors, isValid },
+        watch,
+        formState: { errors },
     } = useForm<RecipeFormData>({
-        resolver: zodResolver(recipeSchema),
-        mode: "onChange",
+        resolver: zodResolver(recipeSchema) as any,
         defaultValues: {
             name: initialData?.name || "",
             description: initialData?.description || "",
             price: initialData?.price || "",
-            tagId: initialData?.tagId ? Number(initialData.tagId) : undefined,
-            // categoriesIds ignored
+            tagId: initialData?.tagId || 0,
+            categoriesIds: initialData?.categoriesIds || [],
         },
+        mode: "onChange",
     });
 
-    const handleImageChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            setValue("recipeImage", file);
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreviewImage(reader.result as string);
-            };
-            reader.readAsDataURL(file);
-        }
-    }, [setValue]);
+    const categoriesIds = watch("categoriesIds");
+    const tagId = watch("tagId");
+    const recipeImage = watch("recipeImage");
 
-    const nextStep = useCallback(async () => {
-        const fields: (keyof RecipeFormData)[] = step === 1 ? ["name", "tagId", "price"] : [];
-        const isStepValid = await trigger(fields);
-        if (isStepValid) setStep(2);
-    }, [step, trigger]);
+    const toggleCategory = (id: number) => {
+        const current = [...categoriesIds];
+        const index = current.indexOf(id);
+        if (index > -1) current.splice(index, 1);
+        else current.push(id);
+        setValue("categoriesIds", current, { shouldValidate: true });
+    };
 
-    const prevStep = useCallback(() => setStep(1), []);
-
-    const onFormSubmit = useCallback((data: RecipeFormData) => {
-        // Ensure legacy fields are handled if API expects them
-        const submissionData = {
-            ...data,
-            categoriesIds: [] // Explicitly sending empty array for Taxonomy Core
-        };
-        onSubmit(submissionData as CreateRecipeData);
-    }, [onSubmit]);
-
-    const stepVariants = {
-        hidden: { opacity: 0, x: 20 },
-        visible: { opacity: 1, x: 0 },
-        exit: { opacity: 0, x: -20 }
+    const handleFormSubmit = (data: RecipeFormData) => {
+        onSubmit(data as unknown as CreateRecipeData);
     };
 
     return (
-        <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-2xl mx-auto"
-        >
-            <div className="glass-card rounded-[3rem] p-6 md:p-10 border border-[var(--border)] shadow-xl overflow-hidden relative bg-[var(--sidebar-background)]">
-
-                {/* Protocol Header */}
-                <div className="flex items-center justify-between mb-8 pb-6 border-b border-[var(--border)]">
-                    <div className="space-y-2">
-                        <div className="flex items-center gap-3">
-                            <div className="px-3 py-1 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-1.5">
-                                <Activity size={10} className="text-primary-500 animate-pulse" />
-                                <span className="text-[9px] font-black uppercase tracking-widest text-primary-400">New Protocol</span>
-                            </div>
-                            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)]">Step {step} / 2</span>
+        <div className="flex flex-col h-full max-h-[85vh] bg-[var(--sidebar-background)] rounded-[2rem] overflow-hidden border border-[var(--border)] shadow-2xl relative">
+            {/* Masterpiece Progress Header */}
+            <div className="p-6 pb-2 border-b border-[var(--border)] bg-gradient-to-b from-primary-500/[0.03] to-transparent">
+                <div className="flex items-center justify-between mb-6">
+                    <div className="space-y-1">
+                        <div className="flex items-center gap-2 text-primary-500 mb-1">
+                            <Palette size={12} className="animate-pulse" />
+                            <span className="text-[9px] font-black uppercase tracking-[0.4em] opacity-80">MASTERPIECE_CREATOR_ACTIVE</span>
                         </div>
-                        <h2 className="text-3xl font-black text-[var(--foreground)] tracking-tighter uppercase leading-none italic">{title}</h2>
+                        <h2 className="text-2xl font-black italic uppercase tracking-tighter text-[var(--foreground)] leading-none">
+                            {title}
+                        </h2>
                     </div>
                     <button
                         onClick={onCancel}
-                        className="w-12 h-12 rounded-2xl bg-[var(--background)] border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)] hover:text-white hover:bg-primary-500 hover:border-primary-500 transition-all shadow-lg group"
+                        className="w-10 h-10 rounded-xl bg-[var(--background)] border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-red-500/10 hover:border-red-500/20 transition-all group"
                     >
-                        <X size={20} className="group-hover:rotate-90 transition-transform" />
+                        <X size={18} className="group-hover:rotate-90 transition-transform" />
                     </button>
                 </div>
 
-                <form onSubmit={handleSubmit(onFormSubmit)} className="w-full">
-                    {/* Progress Line */}
-                    <div className="w-full h-1 bg-[var(--border)] rounded-full mb-8 overflow-hidden">
+                <div className="flex gap-2">
+                    {[1, 2, 3].map((i) => (
+                        <div key={i} className="flex-1 h-1 relative overflow-hidden bg-[var(--muted)] rounded-full">
+                            <motion.div
+                                initial={false}
+                                animate={{ x: step >= i ? "0%" : "-100%" }}
+                                className="absolute inset-0 bg-primary-500 shadow-[0_0_10px_rgba(255,107,38,0.4)]"
+                                transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <form id="recipe-form" onSubmit={handleSubmit(handleFormSubmit) as any} className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-8 scrollbar-hide">
+                <AnimatePresence mode="wait">
+                    {step === 1 && (
                         <motion.div
-                            animate={{ width: step === 1 ? "50%" : "100%" }}
-                            className="h-full bg-primary-500 shadow-[0_0_10px_rgba(255,107,38,0.5)]"
-                        />
-                    </div>
+                            key="step1"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            className="space-y-8"
+                        >
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <TacticalInput
+                                    label="Artistic Identity"
+                                    placeholder="ENTER_RECIPE_NAME"
+                                    icon={Utensils}
+                                    error={errors.name?.message}
+                                    {...register("name")}
+                                    maxLength={50}
+                                />
+                                <TacticalInput
+                                    label="Venture Valuation"
+                                    placeholder="0.00"
+                                    icon={DollarSign}
+                                    error={errors.price?.message}
+                                    {...register("price")}
+                                    maxLength={10}
+                                    type="text"
+                                />
+                            </div>
 
-                    <AnimatePresence mode="wait">
-                        {step === 1 && (
-                            <motion.div
-                                key="step1"
-                                variants={stepVariants}
-                                initial="hidden"
-                                animate="visible"
-                                exit="exit"
-                                className="space-y-6"
-                            >
-                                {/* Grid Layout for Compactness */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    {/* Image Upload - Compact */}
-                                    <div className="md:col-span-2 flex justify-center mb-2">
-                                        <div className="relative group cursor-pointer">
-                                            <div className="w-28 h-28 rounded-[2rem] bg-[var(--background)] border-2 border-dashed border-[var(--border)] flex items-center justify-center overflow-hidden transition-all group-hover:border-primary-500/50 shadow-inner">
-                                                {previewImage ? (
-                                                    <img src={previewImage} alt="Preview" className="w-full h-full object-cover" />
-                                                ) : (
-                                                    <div className="flex flex-col items-center gap-2">
-                                                        <ImageIcon className="text-[var(--muted-foreground)]/30 w-8 h-8" />
-                                                        <span className="text-[8px] font-black uppercase text-[var(--muted-foreground)]/50">Upload</span>
-                                                    </div>
-                                                )}
-                                            </div>
-                                            <label className="absolute -bottom-2 -right-2 w-10 h-10 bg-primary-500 text-white rounded-xl flex items-center justify-center cursor-pointer hover:scale-110 transition-all shadow-lg ring-4 ring-[var(--sidebar-background)]">
-                                                <Upload size={16} />
-                                                <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} />
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    {/* Name */}
-                                    <div className="space-y-2 md:col-span-2">
-                                        <label className="text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-2 flex items-center gap-2">
-                                            <Utensils size={10} className="text-primary-500" />
-                                            Identity Hub
-                                        </label>
-                                        <input
-                                            {...register("name")}
-                                            className="premium-input bg-[var(--background)]/50 border-[var(--border)] h-14 pl-6 font-bold uppercase tracking-tight text-sm w-full rounded-2xl focus:border-primary-500 transition-all outline-none"
-                                            placeholder="PROTOCOL_NAME"
-                                        />
-                                        {errors.name && <p className="text-[9px] text-primary-500 font-bold ml-2 uppercase tracking-tighter">{errors.name.message}</p>}
-                                    </div>
-
-                                    {/* Price */}
-                                    <div className="space-y-2">
-                                        <label className="text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-2 flex items-center gap-2">
-                                            <DollarSign size={10} className="text-primary-500" />
-                                            Value
-                                        </label>
-                                        <input
-                                            {...register("price")}
-                                            className="premium-input bg-[var(--background)]/50 border-[var(--border)] h-14 pl-6 font-black italic text-lg w-full rounded-2xl focus:border-primary-500 transition-all outline-none"
-                                            placeholder="0.00"
-                                        />
-                                        {errors.price && <p className="text-[9px] text-primary-500 font-bold ml-2 uppercase tracking-tighter">{errors.price.message}</p>}
-                                    </div>
-
-                                    {/* Classification (Tags) */}
-                                    <div className="space-y-2">
-                                        <label className="text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-2 flex items-center gap-2">
-                                            <Zap size={10} className="text-primary-500" />
-                                            Class
-                                        </label>
-                                        <select
-                                            {...register("tagId", { valueAsNumber: true })}
-                                            className="premium-input bg-[var(--background)]/50 border-[var(--border)] h-14 pl-6 font-black uppercase text-xs tracking-widest w-full rounded-2xl focus:border-primary-500 transition-all outline-none appearance-none"
+                            <div className="space-y-3">
+                                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)] ml-1">{t('recipes.classification_nodes')}</label>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                    {tags?.map((tag: any) => (
+                                        <button
+                                            key={tag.id}
+                                            type="button"
+                                            onClick={() => setValue("tagId", tag.id)}
+                                            className={cn(
+                                                "p-4 rounded-2xl border text-[10px] font-black uppercase tracking-widest transition-all text-center",
+                                                tagId === tag.id
+                                                    ? "bg-primary-500 border-primary-400 text-white shadow-xl shadow-primary-500/20"
+                                                    : "bg-[var(--background)] border-[var(--border)] text-[var(--muted-foreground)] hover:border-primary-500/40"
+                                            )}
                                         >
-                                            <option value="">SELECT CLASS</option>
-                                            {tags?.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
-                                        </select>
-                                        {errors.tagId && <p className="text-[9px] text-primary-500 font-bold ml-2 uppercase tracking-tighter">{errors.tagId.message}</p>}
-                                    </div>
+                                            {tag.name}
+                                        </button>
+                                    ))}
+                                </div>
+                                {errors.tagId && <p className="text-[9px] text-red-500 font-bold italic uppercase tracking-wider">{errors.tagId.message}</p>}
+                            </div>
+                        </motion.div>
+                    )}
+
+                    {step === 2 && (
+                        <motion.div
+                            key="step2"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            className="space-y-8"
+                        >
+                            <TacticalInput
+                                label="Culinary Narrative"
+                                placeholder="ENTER_TECHNICAL_SPECIFICATIONS..."
+                                icon={FileText}
+                                error={errors.description?.message}
+                                {...register("description")}
+                                maxLength={500}
+                                className="min-h-[120px] pt-4"
+                            />
+
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-2 px-1">
+                                    <Boxes size={12} className="text-primary-500" />
+                                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)]">{t('recipes.taxonomy_mapping')}</label>
+                                </div>
+                                <div className="flex flex-wrap gap-2 p-6 rounded-[2rem] bg-[var(--background)]/40 border border-[var(--border)]">
+                                    {categoriesData?.data?.map((cat: any) => (
+                                        <button
+                                            key={cat.id}
+                                            type="button"
+                                            onClick={() => toggleCategory(cat.id)}
+                                            className={cn(
+                                                "px-5 py-2.5 rounded-xl border text-[9px] font-black uppercase tracking-widest transition-all",
+                                                categoriesIds.includes(cat.id)
+                                                    ? "bg-[var(--foreground)] text-[var(--background)] border-[var(--foreground)] shadow-xl"
+                                                    : "bg-[var(--background)]/30 border-[var(--border)] text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--muted-foreground)]"
+                                            )}
+                                        >
+                                            {cat.name}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+
+                    {step === 3 && (
+                        <motion.div
+                            key="step3"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            className="space-y-4"
+                        >
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-2 px-1">
+                                    <ImageIcon size={16} className="text-primary-500" />
+                                    <h3 className="text-xs font-black uppercase tracking-wider text-[var(--foreground)]">{t('recipes.visual_encoding')}</h3>
                                 </div>
 
-                                <button
-                                    type="button"
-                                    onClick={nextStep}
-                                    className="w-full h-14 mt-4 rounded-2xl bg-primary-500 text-white font-black uppercase tracking-widest hover:bg-primary-600 transition-all flex items-center justify-center gap-2 shadow-[0_20px_40px_-10px_rgba(255,107,38,0.4)]"
-                                >
-                                    <span>Proceed to Data</span>
-                                    <ArrowRight size={18} />
-                                </button>
-                            </motion.div>
-                        )}
-
-                        {step === 2 && (
-                            <motion.div
-                                key="step2"
-                                variants={stepVariants}
-                                initial="hidden"
-                                animate="visible"
-                                exit="exit"
-                                className="space-y-6"
-                            >
-                                {/* Description Terminal */}
-                                <div className="space-y-2 h-[300px]">
-                                    <label className="text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] ml-2 flex items-center gap-2">
-                                        <FileText size={10} className="text-primary-500" />
-                                        Data Stream
-                                    </label>
-                                    <textarea
-                                        {...register("description")}
-                                        className="premium-input w-full h-full bg-[var(--background)]/50 border-[var(--border)] rounded-3xl p-6 font-bold leading-relaxed text-sm resize-none focus:border-primary-500 transition-all outline-none"
-                                        placeholder="INITIATING NARRATIVE STREAM..."
+                                <label className="block group cursor-pointer">
+                                    <input
+                                        type="file"
+                                        className="hidden"
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                            const file = e.target.files?.[0];
+                                            if (file) setValue("recipeImage", file);
+                                        }}
                                     />
-                                    {errors.description && <p className="text-[9px] text-primary-500 font-bold ml-2 uppercase tracking-tighter">{errors.description.message}</p>}
-                                </div>
-
-                                <div className="flex gap-4">
-                                    <button
-                                        type="button"
-                                        onClick={prevStep}
-                                        className="h-14 w-16 rounded-2xl border border-[var(--border)] flex items-center justify-center hover:bg-[var(--background)] transition-all"
-                                    >
-                                        <ArrowLeft size={20} className="text-[var(--muted-foreground)]" />
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        disabled={isPending || !isValid}
-                                        className="flex-1 h-14 rounded-2xl bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-500/30 hover:shadow-primary-500/50 transition-all flex items-center justify-center gap-3 group relative overflow-hidden"
-                                    >
-                                        <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-                                        {isPending ? <Loader2 className="animate-spin w-6 h-6" /> : (
+                                    <div className={cn(
+                                        "w-full aspect-square max-h-72 rounded-2xl border-2 border-dashed flex flex-col items-center justify-center gap-3 transition-all overflow-hidden relative",
+                                        recipeImage || initialData?.imagePath
+                                            ? "border-primary-500/50"
+                                            : "border-[var(--border)] bg-[var(--background)]/60 hover:border-primary-500/50 hover:bg-primary-500/[0.03]"
+                                    )}>
+                                        {(recipeImage || initialData?.imagePath) ? (
+                                            <div className="absolute inset-0 group">
+                                                <img
+                                                    src={recipeImage instanceof File
+                                                        ? URL.createObjectURL(recipeImage)
+                                                        : `${import.meta.env.VITE_API_BASE_URL.split('/api/v1')[0]}/${initialData?.imagePath}`}
+                                                    className="w-full h-full object-cover"
+                                                    alt="Recipe Image"
+                                                />
+                                                <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity gap-2">
+                                                    <Upload className="text-white" size={24} />
+                                                    <p className="text-white text-xs font-bold uppercase">{t('recipes.replace_image')}</p>
+                                                </div>
+                                            </div>
+                                        ) : (
                                             <>
-                                                <span className="font-black uppercase tracking-widest text-sm">Initialize Masterpiece</span>
-                                                <CheckCircle2 size={20} className="group-hover:rotate-12 transition-transform" />
+                                                <div className="w-16 h-16 rounded-2xl bg-primary-500/10 flex items-center justify-center">
+                                                    <Upload className="text-primary-500" size={28} />
+                                                </div>
+                                                <div className="space-y-2 px-6 text-center">
+                                                    <p className="text-sm font-black uppercase tracking-wide text-[var(--foreground)]">📸 {t('recipes.upload_instruction')}</p>
+                                                    <p className="text-[10px] font-bold text-[var(--muted-foreground)]">PNG, JPG, WEBP</p>
+                                                </div>
                                             </>
                                         )}
-                                    </button>
-                                </div>
-                            </motion.div>
+                                    </div>
+                                </label>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </form>
+
+            <div className="p-6 border-t border-[var(--border)] bg-[var(--background)]/30 flex items-center justify-between gap-4">
+                <button
+                    type="button"
+                    onClick={() => step === 1 ? onCancel() : setStep(s => s - 1)}
+                    className="h-12 px-8 rounded-xl border border-[var(--border)] text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] transition-all flex items-center gap-3"
+                >
+                    <X size={14} />
+                    {step === 1 ? t('common.cancel') : "Back Protocol"}
+                </button>
+
+                {step < 3 ? (
+                    <button
+                        type="button"
+                        onClick={() => setStep(s => s + 1)}
+                        className="h-12 px-10 rounded-xl bg-[var(--foreground)] text-[var(--background)] text-[10px] font-black uppercase tracking-widest flex items-center gap-3 hover:bg-primary-500 hover:text-white transition-all shadow-xl group"
+                    >
+                        Forward Module
+                        <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </button>
+                ) : (
+                    <button
+                        type="submit"
+                        form="recipe-form"
+                        disabled={isPending}
+                        className="h-12 px-10 rounded-xl bg-primary-500 text-white text-[10px] font-black uppercase tracking-widest flex items-center gap-3 hover:bg-primary-600 transition-all shadow-[0_10px_25px_-5px_rgba(255,107,38,0.4)] disabled:opacity-50 group font-mono"
+                    >
+                        {isPending ? (
+                            <Loader2 size={16} className="animate-spin" />
+                        ) : (
+                            <>
+                                <Save size={16} />
+                                Commit Masterpiece
+                                <ShieldCheck size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </>
                         )}
-                    </AnimatePresence>
-                </form>
+                    </button>
+                )}
             </div>
-        </motion.div>
+        </div>
     );
 }

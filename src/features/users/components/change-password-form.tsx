@@ -9,8 +9,7 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
-import { apiClient } from "@/lib/api-client";
-import { toast } from "sonner";
+import { useChangePassword } from "../hooks";
 
 const changePasswordSchema = z.object({
     oldPassword: z.string().min(1, "Original key required"),
@@ -30,23 +29,20 @@ interface ChangePasswordFormProps {
 
 export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormProps) {
     const { t } = useTranslation();
+    const { mutate: changePassword, isPending: isSubmitting } = useChangePassword();
+
     const {
         register,
         handleSubmit,
-        formState: { errors, isSubmitting },
+        formState: { errors },
     } = useForm<ChangePasswordData>({
         resolver: zodResolver(changePasswordSchema),
     });
 
-    const onSubmit = async (data: ChangePasswordData) => {
-        try {
-            await apiClient.put("/Users/ChangePassword", data);
-            toast.success("Security protocol updated successfully");
-            onSuccess();
-        } catch (error) {
-            const message = error instanceof Error ? error.message : "Security protocol failed";
-            toast.error(message);
-        }
+    const onSubmit = (data: ChangePasswordData) => {
+        changePassword(data, {
+            onSuccess: () => onSuccess()
+        });
     };
 
     return (
