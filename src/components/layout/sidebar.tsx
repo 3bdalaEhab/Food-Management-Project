@@ -14,9 +14,10 @@ import {
     Terminal,
     Fingerprint
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, getImageUrl } from "@/lib/utils";
 import { useAuthStore, useAppStore, selectIsAdmin } from "@/stores";
 import { useTranslation } from "react-i18next";
+import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 import { useMemo } from "react";
 
 interface NavItem {
@@ -211,7 +212,7 @@ export function Sidebar() {
                 >
                     <div className="w-10 h-10 rounded-xl bg-[var(--background)] overflow-hidden border border-[var(--sidebar-border)] group-hover:border-primary-500/50 transition-colors shrink-0 flex items-center justify-center">
                         {user?.imagePath ? (
-                            <img src={user.imagePath} alt={user.userName} className="w-full h-full object-cover object-center" />
+                            <ImageWithFallback src={getImageUrl(user.imagePath)} alt={user.userName} className="w-full h-full" />
                         ) : (
                             <Fingerprint size={20} className="text-[var(--muted-foreground)] group-hover:text-primary-500 transition-colors" />
                         )}

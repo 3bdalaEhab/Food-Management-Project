@@ -2,8 +2,9 @@ import { Bell, Search, Sun, Moon, Globe, User, Menu, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui";
 import { useAuthStore, useAppStore } from "@/stores";
-import { cn } from "@/lib/utils";
+import { cn, getImageUrl } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
+import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 import { useState, useRef, useEffect, useCallback } from "react";
 
 export function Navbar() {
@@ -156,10 +157,14 @@ export function Navbar() {
                         user?.role === "SuperAdmin" ? "bg-red-500 border-red-500/50" : "bg-[var(--sidebar-background)] border-[var(--border)]"
                     )}>
                         <div className={cn(
-                            "w-full h-full rounded-[0.65rem] md:rounded-[0.9rem] flex items-center justify-center text-white font-black text-sm italic",
-                            user?.role === "SuperAdmin" ? "bg-gradient-to-br from-red-500 to-red-600" : "bg-gradient-to-br from-primary-500 to-primary-600"
+                            "w-full h-full rounded-[0.65rem] md:rounded-[0.9rem] flex items-center justify-center bg-[var(--background)] overflow-hidden",
+                            !user?.imagePath && (user?.role === "SuperAdmin" ? "bg-gradient-to-br from-red-500 to-red-600 text-white" : "bg-gradient-to-br from-primary-500 to-primary-600 text-white")
                         )}>
-                            {user?.userName?.charAt(0).toUpperCase() || <User size={18} />}
+                            {user?.imagePath ? (
+                                <ImageWithFallback src={getImageUrl(user.imagePath)} alt={user.userName} className="w-full h-full" />
+                            ) : (
+                                <span className="font-black text-sm italic uppercase">{user?.userName?.charAt(0) || <User size={18} />}</span>
+                            )}
                         </div>
                     </div>
                 </div>

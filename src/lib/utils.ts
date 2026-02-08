@@ -84,8 +84,9 @@ export function isDarkMode(): boolean {
  * Get the API image URL
  */
 export function getImageUrl(path: string | null | undefined): string {
-    if (!path) return "/placeholder-user.jpg";
+    if (!path) return "";
     if (path.startsWith("http")) return path;
+    const normalizedPath = path.replace(/\\/g, '/').replace(/^\//, '');
     const baseUrl = import.meta.env.VITE_API_BASE_URL.split('/api/v1')[0];
-    return `${baseUrl}/${path}`;
+    return `${baseUrl}/${normalizedPath}`;
 }

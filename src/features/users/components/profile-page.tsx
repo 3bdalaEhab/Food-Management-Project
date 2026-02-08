@@ -9,7 +9,6 @@ import {
     Zap,
     Activity,
     ShieldCheck,
-    ArrowRight,
     ChevronRight,
     UserCircle,
     Settings2,
@@ -23,11 +22,11 @@ import {
 import { useAuthStore, useAppStore } from "@/stores";
 import { ChangePasswordForm } from "./change-password-form";
 import { CustomDialog } from "@/components/shared/custom-dialog";
-import { cn } from "@/lib/utils";
+import { cn, getImageUrl } from "@/lib/utils";
 import { IconBadge } from "@/components/shared/icon-badge";
 import { SEO } from "@/components/shared/seo";
 import { useCurrentUser } from "../hooks";
-import { ProfileEditForm } from "./profile-edit-form";
+import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 
 type Tab = "identity" | "security" | "preferences";
 
@@ -37,7 +36,6 @@ export function ProfilePage() {
     const { theme, setTheme, language, setLanguage } = useAppStore();
     const [activeTab, setActiveTab] = useState<Tab>("identity");
     const [isChangePassOpen, setIsChangePassOpen] = useState(false);
-    const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
 
     const { data: currentUser, isLoading: isUserLoading } = useCurrentUser();
     const displayUser = currentUser || user;
@@ -108,7 +106,7 @@ export function ProfilePage() {
                         <div className="relative flex flex-col items-center gap-6 bg-[var(--background)]/60 border border-[var(--border)] p-8 rounded-[3.5rem] shadow-xl">
                             <div className="w-32 h-32 rounded-[2.5rem] bg-[var(--sidebar-background)] overflow-hidden border-2 border-[var(--border)] shadow-2xl">
                                 {displayUser.imagePath ? (
-                                    <img src={displayUser.imagePath} alt={displayUser.userName} className="w-full h-full object-cover object-center" />
+                                    <ImageWithFallback src={getImageUrl(displayUser.imagePath)} alt={displayUser.userName} className="w-full h-full" />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--background)] to-[var(--sidebar-background)]">
                                         <ChefHat className="text-[var(--muted-foreground)]/20" size={50} />
@@ -168,7 +166,7 @@ export function ProfilePage() {
                     {activeTab === "identity" && (
                         <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-3 gap-10">
                             {/* Identity Intel Card */}
-                            <div className="lg:col-span-2 glass-card rounded-[3.5rem] p-10 md:p-14 border border-[var(--border)] shadow-xl space-y-12 bg-[var(--sidebar-background)]/95">
+                            <div className="lg:col-span-2 glass-card rounded-[3.5rem] p-10 md:p-14 border border-[var(--border)] shadow-xl bg-[var(--sidebar-background)]/95 flex flex-col justify-between">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                                     <div className="space-y-4">
                                         <label className="text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em] flex items-center gap-2">
@@ -198,18 +196,11 @@ export function ProfilePage() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="pt-10 border-t border-[var(--border)] flex flex-col md:flex-row md:items-center justify-between gap-8">
+                                <div className="pt-10 mt-10 border-t border-[var(--border)]">
                                     <div className="space-y-1">
                                         <h4 className="text-xs font-black uppercase tracking-[0.2em]">{t('profile.master_identity')}</h4>
                                         <p className="text-[10px] font-bold text-[var(--muted-foreground)] uppercase tracking-widest">{t('profile.master_desc')}</p>
                                     </div>
-                                    <button
-                                        onClick={() => setIsEditProfileOpen(true)}
-                                        className="premium-button premium-button-primary h-16 px-10 group"
-                                    >
-                                        <span className="font-black italic uppercase tracking-widest text-[10px]">{t('profile.edit_portfolio')}</span>
-                                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                                    </button>
                                 </div>
                             </div>
 
@@ -357,15 +348,6 @@ export function ProfilePage() {
                 <ChangePasswordForm
                     onSuccess={() => setIsChangePassOpen(false)}
                     onCancel={() => setIsChangePassOpen(false)}
-                />
-            </CustomDialog>
-
-            {/* Edit Profile Modal Integration */}
-            <CustomDialog open={isEditProfileOpen} onOpenChange={setIsEditProfileOpen} maxWidth="2xl">
-                <ProfileEditForm
-                    user={displayUser}
-                    onSuccess={() => setIsEditProfileOpen(false)}
-                    onCancel={() => setIsEditProfileOpen(false)}
                 />
             </CustomDialog>
         </div>

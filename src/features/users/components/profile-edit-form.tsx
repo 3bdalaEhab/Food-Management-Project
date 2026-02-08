@@ -17,6 +17,7 @@ import { z } from "zod";
 import { useUpdateProfile } from "../hooks";
 import { getImageUrl } from "@/lib/utils";
 import { compressImage } from "@/lib/image-utils";
+import { useAuthStore } from "@/stores";
 import type { User } from "../types";
 
 const profileSchema = z.object({
@@ -36,6 +37,7 @@ interface ProfileEditFormProps {
 
 export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormProps) {
     const { t } = useTranslation();
+    const setUser = useAuthStore((state) => state.setUser);
     const { mutate: updateProfile, isPending: isUpdating } = useUpdateProfile();
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(getImageUrl(user.imagePath));
@@ -49,8 +51,8 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
         defaultValues: {
             userName: user.userName,
             email: user.email,
-            country: user.country || "",
-            phoneNumber: user.phoneNumber || "",
+            country: user.country,
+            phoneNumber: user.phoneNumber,
         },
     });
 
@@ -67,12 +69,15 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
     };
 
     const onSubmit = (data: ProfileFormData) => {
-        updateProfile({
-            ...data,
-            profileImage: selectedImage
-        }, {
-            onSuccess: () => onSuccess()
-        });
+        updateProfile(
+            { ...data, profileImage: selectedImage || undefined },
+            {
+                onSuccess: (updatedUser) => {
+                    setUser(updatedUser as any);
+                    onSuccess();
+                },
+            }
+        );
     };
 
     return (
@@ -82,15 +87,21 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="w-full max-w-2xl mx-auto bg-[var(--sidebar-background)] rounded-[2.5rem] border border-[var(--border)] shadow-2xl overflow-hidden transform-gpu will-change-transform"
         >
-            <div className="p-8 md:p-12">
-                <div className="flex items-center justify-between mb-10">
-                    <div className="space-y-1">
-                        <h2 className="text-3xl font-black italic uppercase tracking-tighter text-[var(--foreground)]">
-                            {t('profile.edit_portfolio')}
-                        </h2>
-                        <p className="text-xs font-bold text-[var(--muted-foreground)] uppercase tracking-widest opacity-70">
-                            {t('profile.update_profile_desc') || "Synchronize your professional identity"}
-                        </p>
+            <div className="p-8 md:p-12 relative">
+                {/* Background Glow */}
+                <div className="absolute top-0 left-0 w-full h-32 bg-primary-500/5 blur-[50px] pointer-events-none" />
+
+                <div className="flex items-center justify-between mb-10 relative z-10">
+                    <div className="flex items-center gap-6">
+                        <div className="w-1.5 h-16 bg-primary-500 rounded-full shadow-[0_0_15px_rgba(255,107,38,0.5)]" />
+                        <div className="space-y-1">
+                            <h2 className="text-3xl font-black italic uppercase tracking-tighter text-[var(--foreground)] leading-none">
+                                {t('profile.edit_portfolio')}
+                            </h2>
+                            <p className="text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em] opacity-40">
+                                {t('profile.update_profile_desc') || "Synchronize your professional identity"}
+                            </p>
+                        </div>
                     </div>
                     <button
                         onClick={onCancel}

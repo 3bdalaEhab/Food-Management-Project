@@ -32,6 +32,7 @@ interface AuthState {
 
     // Actions
     setToken: (token: string) => void;
+    setUser: (user: User) => void;
     logout: () => void;
     setLoading: (loading: boolean) => void;
     initialize: () => void;
@@ -67,10 +68,16 @@ export const useAuthStore = create<AuthState>()(
             isLoading: true,
 
             setToken: (token: string) => {
-                const user = decodeToken(token);
+                const decodedUser = decodeToken(token);
 
-                if (user) {
+                if (decodedUser) {
                     localStorage.setItem("token", token);
+                    const existingUser = get().user;
+                    // Merge if it's the same user to preserve imagePath etc.
+                    const user = (existingUser && existingUser.id === decodedUser.id)
+                        ? { ...existingUser, ...decodedUser }
+                        : decodedUser;
+
                     set({
                         token,
                         user,
@@ -80,6 +87,10 @@ export const useAuthStore = create<AuthState>()(
                 } else {
                     get().logout();
                 }
+            },
+
+            setUser: (user: User) => {
+                set({ user });
             },
 
             logout: () => {
@@ -100,9 +111,14 @@ export const useAuthStore = create<AuthState>()(
                 const token = localStorage.getItem("token");
 
                 if (token) {
-                    const user = decodeToken(token);
+                    const decodedUser = decodeToken(token);
 
-                    if (user) {
+                    if (decodedUser) {
+                        const existingUser = get().user;
+                        const user = (existingUser && existingUser.id === decodedUser.id)
+                            ? { ...existingUser, ...decodedUser }
+                            : decodedUser;
+
                         set({
                             token,
                             user,
@@ -122,6 +138,7 @@ export const useAuthStore = create<AuthState>()(
             storage: createJSONStorage(() => localStorage),
             partialize: (state) => ({
                 token: state.token,
+                user: state.user,
             }),
         }
     )
