@@ -6,10 +6,13 @@ import { cn, getImageUrl } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useCurrentUser } from "@/features/users/hooks";
 
 export function Navbar() {
     const { t } = useTranslation();
     const user = useAuthStore((state) => state.user);
+    const { data: currentUser } = useCurrentUser();
+    const displayUser = currentUser || user;
     const { theme, setTheme, language, setLanguage, setMobileMenuOpen } = useAppStore();
     const [isLangOpen, setIsLangOpen] = useState(false);
     const langRef = useRef<HTMLDivElement>(null);
@@ -56,7 +59,7 @@ export function Navbar() {
                     <div className="absolute inset-0 bg-primary-500/0 group-hover:bg-primary-500/5 blur-xl transition-all rounded-2xl" />
                     <div className="relative flex items-center gap-4 px-6 h-12 bg-[var(--background)]/80 border border-[var(--border)] rounded-2xl group-hover:border-primary-500/30 transition-all cursor-pointer">
                         <Search className="w-4 h-4 text-[var(--muted-foreground)] group-hover:text-primary-500 transition-colors" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)] group-hover:text-[var(--foreground)] transition-colors">{t('navbar.search')}</span>
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] rtl:tracking-normal text-[var(--muted-foreground)] group-hover:text-[var(--foreground)] transition-colors rtl:not-italic">{t('navbar.search')}</span>
                         <div className="ml-auto flex items-center gap-2">
                             <kbd className="px-2 py-0.5 rounded-lg bg-[var(--sidebar-background)] text-[9px] font-black text-[var(--muted-foreground)] border border-[var(--border)]">⌘K</kbd>
                         </div>
@@ -142,28 +145,28 @@ export function Navbar() {
                 {/* User Identity Port */}
                 <div className="flex items-center gap-2 md:gap-4 ps-4 md:ps-6 border-is border-white/10 group cursor-pointer hover:opacity-80 transition-opacity">
                     <div className="hidden lg:flex flex-col items-end gap-1">
-                        <span className="text-[10px] font-black text-[var(--foreground)] uppercase tracking-tighter leading-none">{user?.userName || "EXPERT_UNIT"}</span>
+                        <span className="text-[10px] font-black text-[var(--foreground)] uppercase tracking-tighter leading-none">{displayUser?.userName || "EXPERT_UNIT"}</span>
                         <div className={cn(
                             "px-2 py-0.5 rounded-full border text-[7px] font-black uppercase tracking-widest",
-                            user?.role === "SuperAdmin"
+                            displayUser?.role === "SuperAdmin" || (displayUser && 'group' in displayUser && displayUser.group.name === 'SuperAdmin')
                                 ? "bg-red-500/10 border-red-500/30 text-red-500"
                                 : "bg-primary-500/10 border-primary-500/30 text-primary-500"
                         )}>
-                            {user?.role === "SuperAdmin" ? "ADMIN_STRATEGIST" : "FIELD_OPERATOR"}
+                            {displayUser?.role === "SuperAdmin" || (displayUser && 'group' in displayUser && displayUser.group.name === 'SuperAdmin') ? "ADMIN_STRATEGIST" : "FIELD_OPERATOR"}
                         </div>
                     </div>
                     <div className={cn(
                         "w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl p-0.5 border shadow-2xl group-hover:scale-105 transition-transform duration-500 overflow-hidden relative",
-                        user?.role === "SuperAdmin" ? "bg-red-500 border-red-500/50" : "bg-[var(--sidebar-background)] border-[var(--border)]"
+                        displayUser?.role === "SuperAdmin" || (displayUser && 'group' in displayUser && displayUser.group.name === 'SuperAdmin') ? "bg-red-500 border-red-500/50" : "bg-[var(--sidebar-background)] border-[var(--border)]"
                     )}>
                         <div className={cn(
                             "w-full h-full rounded-[0.65rem] md:rounded-[0.9rem] flex items-center justify-center bg-[var(--background)] overflow-hidden",
-                            !user?.imagePath && (user?.role === "SuperAdmin" ? "bg-gradient-to-br from-red-500 to-red-600 text-white" : "bg-gradient-to-br from-primary-500 to-primary-600 text-white")
+                            !displayUser?.imagePath && (displayUser?.role === "SuperAdmin" || (displayUser && 'group' in displayUser && displayUser.group.name === 'SuperAdmin') ? "bg-gradient-to-br from-red-500 to-red-600 text-white" : "bg-gradient-to-br from-primary-500 to-primary-600 text-white")
                         )}>
-                            {user?.imagePath ? (
-                                <ImageWithFallback src={getImageUrl(user.imagePath)} alt={user.userName} className="w-full h-full" />
+                            {displayUser?.imagePath ? (
+                                <ImageWithFallback src={getImageUrl(displayUser.imagePath)} alt={displayUser.userName} className="w-full h-full" />
                             ) : (
-                                <span className="font-black text-sm italic uppercase">{user?.userName?.charAt(0) || <User size={18} />}</span>
+                                <span className="font-black text-sm italic uppercase">{displayUser?.userName?.charAt(0) || <User size={18} />}</span>
                             )}
                         </div>
                     </div>

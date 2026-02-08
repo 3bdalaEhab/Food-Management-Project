@@ -32,10 +32,12 @@ export const useUser = (id: number) => {
 
 // Get current logged-in user
 export const useCurrentUser = () => {
+    const token = localStorage.getItem("token");
     return useQuery({
         queryKey: ["currentUser"],
         queryFn: () => usersApi.getCurrentUser(),
         staleTime: 10 * 60 * 1000, // 10 minutes
+        enabled: !!token,
     });
 };
 

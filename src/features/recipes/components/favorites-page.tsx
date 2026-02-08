@@ -4,8 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
     Heart,
     Search,
-    ArrowRight,
-    Sparkles
+    ArrowRight
 } from "lucide-react";
 
 import { useDeleteRecipe } from "../hooks";
@@ -46,32 +45,33 @@ export function FavoritesPage() {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="relative overflow-hidden rounded-[4rem] bg-[var(--sidebar-background)] p-12 md:p-16 text-[var(--foreground)] border border-[var(--border)] shadow-2xl"
+                    className="relative overflow-hidden rounded-[3rem] bg-[var(--sidebar-background)]/60 backdrop-blur-2xl p-8 md:p-12 text-[var(--foreground)] border border-[var(--border)] shadow-2xl group"
                 >
+                    {/* Technical Mesh & Glow */}
+                    <div className="absolute inset-0 bg-mesh-gradient-1 opacity-[0.05] pointer-events-none" />
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,rgba(239,68,68,0.15)_0%,transparent_50%)]" />
-                    <div className="absolute top-0 right-0 p-12 opacity-5">
-                        <Heart size={200} strokeWidth={0.5} className="fill-red-500" />
+                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                        <Heart size={160} strokeWidth={0.5} className="text-red-500 fill-red-500" />
                     </div>
 
                     <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-10">
-                        <div className="space-y-6">
-                            <div className="flex items-center gap-3">
-                                <div className="px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 flex items-center gap-2">
-                                    <Heart size={12} className="text-red-500 fill-red-500" />
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-red-500">Curated Vault</span>
+                        <div className="space-y-4">
+                            <div className="flex flex-wrap items-center gap-3">
+                                <div className="px-5 py-2 rounded-full bg-red-500/10 border border-red-500/20 flex items-center gap-2 shadow-inner">
+                                    <Heart size={10} className="text-red-500 fill-red-500 animate-pulse" />
+                                    <span className="text-[9px] font-black uppercase tracking-[0.2em] rtl:tracking-normal text-red-500 rtl:not-italic">ELITE_VAULT</span>
                                 </div>
-                                <div className="px-4 py-1.5 rounded-full bg-[var(--background)] border border-[var(--border)] flex items-center gap-2">
-                                    <Sparkles size={12} className="text-primary-500" />
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">API_SYNCED</span>
+                                <div className="px-5 py-2 rounded-full bg-[var(--background)]/80 border border-[var(--border)] flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                                    <span className="text-[9px] font-black uppercase tracking-[0.2em] rtl:tracking-normal text-primary-500 rtl:not-italic">TECH_SYNC_OK</span>
                                 </div>
                             </div>
 
-                            <h1 className="text-6xl md:text-7xl font-black tracking-tighter leading-none italic uppercase">
-                                Favorites <span className="text-red-500 italic">Vault</span>
+                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-none italic uppercase px-1">
+                                Favorites <span className="text-red-500 italic block md:inline-block">Vault</span>
                             </h1>
-                            <p className="text-[var(--muted-foreground)] font-bold max-w-xl tracking-tight text-xl">
-                                Your elite collection of high-performance culinary missions. <br />
-                                Secured, synchronized, and ready for immediate execution.
+                            <p className="text-[var(--muted-foreground)] font-bold max-w-xl tracking-tight text-lg leading-relaxed opacity-80 border-s-2 border-red-500/20 ps-6">
+                                Your elite collection of high-performance culinary missions. Secured, synchronized, and ready for immediate execution.
                             </p>
                         </div>
 
@@ -88,15 +88,18 @@ export function FavoritesPage() {
 
                 {/* Tactical Search */}
                 <div className="relative max-w-2xl mx-auto group">
-                    <div className="absolute inset-0 bg-red-500/5 blur-2xl group-focus-within:bg-red-500/10 transition-all rounded-3xl" />
+                    <div className="absolute inset-0 bg-red-500/5 blur-3xl group-focus-within:bg-red-500/10 transition-all rounded-3xl" />
                     <Search className="absolute start-6 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)] group-focus-within:text-red-500 transition-colors" size={24} />
                     <input
                         type="text"
-                        placeholder="SCAN VAULT ARCHIVES..."
+                        placeholder="SCAN_VAULT_ARCHIVES..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="premium-input pl-16 h-20 bg-[var(--background)]/80 border-[var(--border)] font-black uppercase tracking-widest text-lg"
+                        className="premium-input pl-16 h-20 bg-[var(--background)]/80 backdrop-blur-md border-[var(--border)] font-black uppercase tracking-[0.2em] text-lg placeholder:opacity-30"
                     />
+                    <div className="absolute end-6 top-1/2 -translate-y-1/2 flex items-center gap-2 px-3 py-1 rounded bg-black/10 border border-white/5 opacity-0 group-focus-within:opacity-100 transition-opacity">
+                        <span className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-widest">FILTER_ACTIVE</span>
+                    </div>
                 </div>
 
                 {/* Vault Ecosystem */}

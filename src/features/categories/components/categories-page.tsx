@@ -71,25 +71,30 @@ export function CategoriesPage() {
                     icon: Plus
                 }}
                 secondaryNode={
-                    <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                        {/* Total Categories - Advanced Analytic Node */}
-                        <div className="group relative bg-[var(--background)]/40 backdrop-blur-md border border-primary-500/20 p-6 md:p-8 rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl transition-[border-color,box-shadow] duration-150 hover:border-primary-500/40 hover:shadow-primary-500/10 flex items-center gap-6 overflow-hidden transform-gpu will-change-transform">
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary-500/[0.05] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
-                            <div className="w-14 h-14 md:w-20 md:h-20 rounded-[1.5rem] md:rounded-[2rem] bg-[var(--sidebar-background)] border border-[var(--border)] flex items-center justify-center shrink-0 relative z-10 group-hover:scale-105 group-hover:bg-primary-500 group-hover:border-primary-500 transition-[background-color,border-color,transform] duration-150 shadow-xl shadow-black/20">
-                                <FolderTree size={32} className="text-primary-500 group-hover:text-white transition-colors duration-150" />
-                                <div className="absolute inset-[2px] border border-dashed border-primary-500/30 rounded-[1.3rem] md:rounded-[1.8rem] opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
+                    <div className="flex flex-wrap items-center gap-4 lg:gap-8">
+                        {/* Total Categories - Standardized Analytic Node */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-5 rounded-[2rem] shadow-xl flex items-center gap-6 hover:border-primary-500/30 transition-all duration-500 group overflow-hidden relative min-w-[240px]"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary-500/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <div className="w-14 h-14 rounded-2xl bg-primary-500 flex items-center justify-center shrink-0 shadow-lg shadow-primary-500/20 relative z-10 group-hover:scale-110 transition-transform">
+                                <FolderTree size={28} className="text-white" />
                             </div>
                             <div className="space-y-1 relative z-10">
-                                <p className="text-[9px] md:text-[10px] font-black text-primary-500/60 uppercase tracking-[0.4em] italic">{t('categories.taxonomy_nodes')}</p>
+                                <div className="flex items-center gap-2">
+                                    <div className="w-1 h-1 rounded-full bg-primary-500 animate-pulse" />
+                                    <p className="text-[8px] font-black text-[var(--muted-foreground)] opacity-50 uppercase tracking-[0.4em] rtl:tracking-normal italic rtl:not-italic leading-none">{t('categories.taxonomy_nodes')}</p>
+                                </div>
                                 <div className="flex items-baseline gap-2">
-                                    <p className="text-3xl md:text-5xl font-black text-[var(--foreground)] italic tracking-tighter leading-none">
+                                    <p className="text-3xl md:text-4xl font-black text-[var(--foreground)] tracking-tighter rtl:tracking-normal leading-none italic rtl:not-italic uppercase tabular-nums">
                                         {categoriesData?.totalNumberOfRecords || 0}
                                     </p>
-                                    <span className="text-[10px] md:text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-widest opacity-40">{t('categories.items')}</span>
+                                    <span className="text-[10px] font-black text-primary-500 uppercase tracking-widest rtl:tracking-normal opacity-40 rtl:not-italic">{t('categories.items')}</span>
                                 </div>
                             </div>
-                        </div>
-
+                        </motion.div>
                     </div>
                 }
                 viewMode={viewMode}
@@ -110,8 +115,8 @@ export function CategoriesPage() {
                             <FolderTree size={48} className="text-primary-500/40 group-hover:text-white relative z-10" />
                         </div>
                         <div className="space-y-4">
-                            <h3 className="text-4xl font-black text-[var(--foreground)] tracking-tighter leading-none uppercase italic">{t('categories.empty')}</h3>
-                            <p className="text-[var(--muted-foreground)] font-bold uppercase tracking-[0.2em] text-[11px] opacity-60 max-w-sm mx-auto">{t('categories.empty_desc')}</p>
+                            <h3 className="text-4xl font-black text-[var(--foreground)] tracking-tighter rtl:tracking-normal leading-none italic rtl:not-italic">{t('categories.empty')}</h3>
+                            <p className="text-[var(--muted-foreground)] font-bold uppercase tracking-[0.2em] rtl:tracking-normal text-[11px] opacity-60 max-w-sm mx-auto rtl:not-italic">{t('categories.empty_desc')}</p>
                         </div>
                         <motion.button
                             whileHover={{ scale: 1.05 }}
@@ -119,8 +124,8 @@ export function CategoriesPage() {
                             onClick={() => setIsCreateOpen(true)}
                             className="premium-button premium-button-primary h-16 px-10 group mt-10"
                         >
-                            <span className="font-black uppercase tracking-widest text-sm">{t('categories.initialize')}</span>
-                            <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-500" />
+                            <span className="font-black uppercase tracking-widest rtl:tracking-normal text-sm rtl:not-italic">{t('categories.initialize')}</span>
+                            <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-500 rtl:rotate-180 rtl:group-hover:-translate-x-2" />
                         </motion.button>
                     </motion.div>
                 }

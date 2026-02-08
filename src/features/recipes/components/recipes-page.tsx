@@ -66,28 +66,34 @@ export function RecipesPage() {
                 } : undefined}
                 secondaryNode={
                     <div className="flex gap-4">
-                        <div className="bg-[var(--background)]/40 backdrop-blur-md border border-[var(--border)] p-6 rounded-[2.5rem] shadow-inner flex items-center gap-5 min-w-[200px]">
-                            <div className="w-12 h-12 rounded-2xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-500 shrink-0">
-                                <Activity size={24} />
+                        <div className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-5 rounded-[2rem] shadow-xl flex items-center gap-5 min-w-[200px] group/item hover:border-primary-500/30 transition-all duration-500">
+                            <div className="w-12 h-12 rounded-2xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-500 shrink-0 group-hover/item:scale-110 transition-transform">
+                                <Activity size={20} />
                             </div>
                             <div className="flex flex-col">
-                                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)] opacity-50">{t('recipes.active_deployments')}</span>
-                                <div className="flex items-center gap-1.5">
-                                    <span className="text-3xl font-black italic tracking-tighter text-[var(--foreground)] leading-none">{recipesData?.totalNumberOfRecords || 0}</span>
-                                    <span className="text-[9px] font-black uppercase tracking-widest text-primary-500 mt-1">{t('recipes.units')}</span>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="w-1 h-1 rounded-full bg-primary-500 animate-pulse" />
+                                    <span className="text-[8px] font-black uppercase tracking-[0.2em] rtl:tracking-normal text-[var(--muted-foreground)] opacity-50 rtl:not-italic">{t('recipes.active_deployments')}</span>
+                                </div>
+                                <div className="flex items-baseline gap-1.5">
+                                    <span className="text-3xl font-black italic rtl:not-italic tracking-tighter rtl:tracking-normal text-[var(--foreground)] leading-none tabular-nums">{recipesData?.totalNumberOfRecords || 0}</span>
+                                    <span className="text-[8px] font-black uppercase tracking-widest rtl:tracking-normal text-primary-500 opacity-40 rtl:not-italic">{t('recipes.units')}</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-[var(--background)]/40 backdrop-blur-md border border-[var(--border)] p-6 rounded-[2.5rem] shadow-inner flex items-center gap-5 min-w-[200px]">
-                            <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 shrink-0">
-                                <FolderTree size={24} />
+                        <div className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-5 rounded-[2rem] shadow-xl flex items-center gap-5 min-w-[200px] group/item hover:border-blue-500/30 transition-all duration-500">
+                            <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 shrink-0 group-hover/item:scale-110 transition-transform">
+                                <FolderTree size={20} />
                             </div>
                             <div className="flex flex-col">
-                                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)] opacity-50">{t('categories.management')}</span>
-                                <div className="flex items-center gap-1.5">
-                                    <span className="text-3xl font-black italic tracking-tighter text-[var(--foreground)] leading-none">{categoriesData?.totalNumberOfRecords || 0}</span>
-                                    <span className="text-[9px] font-black uppercase tracking-widest text-blue-500 mt-1">{t('categories.initialize')}</span>
+                                <div className="flex items-center gap-2 mb-1">
+                                    <div className="w-1 h-1 rounded-full bg-blue-500 animate-pulse" />
+                                    <span className="text-[8px] font-black uppercase tracking-[0.2em] rtl:tracking-normal text-[var(--muted-foreground)] opacity-50 rtl:not-italic">{t('categories.management')}</span>
+                                </div>
+                                <div className="flex items-baseline gap-1.5">
+                                    <span className="text-3xl font-black italic rtl:not-italic tracking-tighter rtl:tracking-normal text-[var(--foreground)] leading-none tabular-nums">{categoriesData?.totalNumberOfRecords || 0}</span>
+                                    <span className="text-[8px] font-black uppercase tracking-widest rtl:tracking-normal text-blue-500 opacity-40 rtl:not-italic">{t('categories.initialize')}</span>
                                 </div>
                             </div>
                         </div>
@@ -104,12 +110,12 @@ export function RecipesPage() {
                 emptyState={
                     <div className="flex flex-col items-center justify-center py-40 border-2 border-dashed border-[var(--border)] rounded-[4rem] text-center">
                         <Utensils size={64} className="text-[var(--muted-foreground)]/20 mb-6" />
-                        <h3 className="text-3xl font-black italic uppercase tracking-tighter text-[var(--foreground)] mb-2">{t('recipes.empty')}</h3>
-                        <p className="text-[var(--muted-foreground)] font-bold mb-8 uppercase tracking-widest text-[10px]">{t('recipes.empty_desc')}</p>
+                        <h3 className="text-3xl font-black italic rtl:not-italic uppercase tracking-tighter rtl:tracking-normal text-[var(--foreground)] mb-2">{t('recipes.empty')}</h3>
+                        <p className="text-[var(--muted-foreground)] font-bold mb-8 uppercase tracking-widest rtl:tracking-normal text-[10px] rtl:not-italic">{t('recipes.empty_desc')}</p>
                         {isAdmin && (
                             <button onClick={() => setIsCreateOpen(true)} className="premium-button premium-button-primary h-14 px-8">
                                 <Plus size={20} />
-                                <span className="font-black uppercase tracking-widest text-xs">{t('recipes.start_first')}</span>
+                                <span className="font-black uppercase tracking-widest rtl:tracking-normal text-xs rtl:not-italic">{t('recipes.start_first')}</span>
                             </button>
                         )}
                     </div>

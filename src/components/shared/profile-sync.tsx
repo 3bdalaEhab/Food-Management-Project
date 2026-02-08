@@ -12,7 +12,7 @@ export function ProfileSync() {
     const { setUser, user: storeUser } = useAuthStore();
 
     useEffect(() => {
-        if (currentUser) {
+        if (currentUser && storeUser) {
             // Only update if there's actually a change to prevent infinite loops or unnecessary renders
             const hasChanges =
                 currentUser.imagePath !== storeUser?.imagePath ||

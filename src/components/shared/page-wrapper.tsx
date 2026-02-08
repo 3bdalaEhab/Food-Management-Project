@@ -10,13 +10,11 @@ const pageVariants = {
         opacity: 0,
         y: 30, // Increased movement for dramatic entry
         scale: 0.96, // Subtle depth
-        filter: "blur(8px)"
     },
     animate: {
         opacity: 1,
         y: 0,
         scale: 1,
-        filter: "blur(0px)",
         transition: {
             duration: 0.9,
             ease: [0.16, 1, 0.3, 1] as Easing, // Industrial-grade quint ease
@@ -27,7 +25,6 @@ const pageVariants = {
         opacity: 0,
         y: -20,
         scale: 0.98,
-        filter: "blur(10px)",
         transition: {
             duration: 0.5,
             ease: [0.7, 0, 0.84, 0] as Easing // Sharp exit
@@ -50,11 +47,10 @@ export function PageWrapper({ children }: PageWrapperProps) {
 }
 
 export const staggeredItemVariants = {
-    initial: { opacity: 0, y: 20, filter: "blur(5px)" },
+    initial: { opacity: 0, y: 20 },
     animate: {
         opacity: 1,
         y: 0,
-        filter: "blur(0px)",
         transition: {
             duration: 0.6,
             ease: [0.16, 1, 0.3, 1] as Easing

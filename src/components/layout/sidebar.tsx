@@ -19,6 +19,7 @@ import { useAuthStore, useAppStore, selectIsAdmin } from "@/stores";
 import { useTranslation } from "react-i18next";
 import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 import { useMemo } from "react";
+import { useCurrentUser } from "@/features/users/hooks";
 
 interface NavItem {
     icon: React.ElementType;
@@ -41,6 +42,8 @@ export function Sidebar() {
     const location = useLocation();
     const logout = useAuthStore((state) => state.logout);
     const user = useAuthStore((state) => state.user);
+    const { data: currentUser } = useCurrentUser();
+    const displayUser = currentUser || user;
     const isAdmin = useAuthStore(selectIsAdmin);
     const { sidebarCollapsed, toggleSidebar, language } = useAppStore();
 
@@ -97,9 +100,9 @@ export function Sidebar() {
                             animate={{ opacity: 1, x: 0 }}
                             className="flex flex-col"
                         >
-                            <span className="font-black text-lg text-[var(--sidebar-foreground)] tracking-widest leading-none uppercase italic">
+                            <span className="font-black text-lg text-[var(--sidebar-foreground)] tracking-widest rtl:tracking-normal leading-none uppercase italic rtl:not-italic">
                                 {t('sidebar.culinary_command')}
-                                <span className="text-primary-500 block text-[10px] tracking-[0.4em] not-italic mt-1">{t('sidebar.culinary_command_suffix')}</span>
+                                <span className="text-primary-500 block text-[10px] tracking-[0.4em] rtl:tracking-normal not-italic mt-1">{t('sidebar.culinary_command_suffix')}</span>
                             </span>
                         </motion.div>
                     )}
@@ -122,9 +125,9 @@ export function Sidebar() {
                             {isAdmin ? <ShieldAlert size={18} /> : <Terminal size={18} />}
                         </div>
                         <div className="flex flex-col min-w-0">
-                            <span className="text-[9px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">{t('sidebar.auth_level')}</span>
+                            <span className="text-[9px] font-black uppercase tracking-widest rtl:tracking-normal text-[var(--muted-foreground)] rtl:not-italic">{t('sidebar.auth_level')}</span>
                             <span className={cn(
-                                "text-[12px] font-black uppercase tracking-tighter truncate",
+                                "text-[12px] font-black uppercase tracking-tighter rtl:tracking-normal truncate rtl:not-italic",
                                 isAdmin ? "text-red-500" : "text-primary-500"
                             )}>
                                 {isAdmin ? t('sidebar.admin_strategist') : t('sidebar.field_operator')}
@@ -174,7 +177,7 @@ export function Sidebar() {
 
                             {!sidebarCollapsed && (
                                 <div className="flex flex-col min-w-0">
-                                    <span className="text-[11px] font-black uppercase tracking-[0.2em] italic truncate">
+                                    <span className="text-[11px] font-black uppercase tracking-[0.2em] rtl:tracking-normal italic rtl:not-italic truncate">
                                         {t(`sidebar.${item.labelKey}`)}
                                     </span>
                                 </div>
@@ -211,18 +214,18 @@ export function Sidebar() {
                     )}
                 >
                     <div className="w-10 h-10 rounded-xl bg-[var(--background)] overflow-hidden border border-[var(--sidebar-border)] group-hover:border-primary-500/50 transition-colors shrink-0 flex items-center justify-center">
-                        {user?.imagePath ? (
-                            <ImageWithFallback src={getImageUrl(user.imagePath)} alt={user.userName} className="w-full h-full" />
+                        {displayUser?.imagePath ? (
+                            <ImageWithFallback src={getImageUrl(displayUser.imagePath)} alt={displayUser.userName} className="w-full h-full" />
                         ) : (
                             <Fingerprint size={20} className="text-[var(--muted-foreground)] group-hover:text-primary-500 transition-colors" />
                         )}
                     </div>
                     {!sidebarCollapsed && (
                         <div className="flex-1 min-w-0">
-                            <p className="text-[12px] font-black text-[var(--sidebar-foreground)] uppercase italic tracking-tighter truncate">{user?.userName || t('sidebar.guest_user')}</p>
+                            <p className="text-[12px] font-black text-[var(--sidebar-foreground)] uppercase italic rtl:not-italic tracking-tighter rtl:tracking-normal truncate">{displayUser?.userName || t('sidebar.guest_user')}</p>
                             <div className="flex items-center gap-1.5 opacity-60">
                                 <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                                <span className="text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-widest">{t('sidebar.active_term')}</span>
+                                <span className="text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-widest rtl:tracking-normal rtl:not-italic">{t('sidebar.active_term')}</span>
                             </div>
                         </div>
                     )}
@@ -236,9 +239,9 @@ export function Sidebar() {
                     )}
                     aria-label={t('sidebar.logout')}
                 >
-                    <LogOut size={18} className={cn("transition-transform font-sans", isRtl ? "group-hover:translate-x-1" : "group-hover:-translate-x-1")} />
+                    <LogOut size={18} className={cn("transition-transform font-sans", isRtl ? "group-hover:-translate-x-1 rotate-180" : "group-hover:-translate-x-1")} />
                     {!sidebarCollapsed && (
-                        <span className="text-[10px] font-black uppercase tracking-[0.3em] italic">
+                        <span className="text-[10px] font-black uppercase tracking-[0.3em] rtl:tracking-normal italic rtl:not-italic">
                             {t('sidebar.shutdown_core')}
                         </span>
                     )}

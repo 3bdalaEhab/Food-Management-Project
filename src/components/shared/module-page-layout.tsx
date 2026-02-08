@@ -6,7 +6,7 @@ import {
     LayoutGrid,
     List,
     Sparkles,
-    Zap,
+    Activity,
     ArrowRight,
     LucideIcon
 } from "lucide-react";
@@ -88,43 +88,47 @@ export function ModulePageLayout({
                 className="relative overflow-hidden rounded-[2rem] md:rounded-[3rem] bg-[var(--sidebar-background)] p-6 md:p-8 lg:p-10 text-[var(--foreground)] border border-[var(--border)] shadow-2xl"
             >
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_-20%,rgba(255,107,38,0.15)_0%,transparent_50%)]" />
-                <div className="absolute top-0 right-0 p-10 opacity-[0.03] pointer-events-none">
+                <div className="absolute top-0 end-0 p-10 opacity-[0.03] pointer-events-none">
                     <HeaderIcon size={280} strokeWidth={0.5} className="text-[var(--foreground)]" />
                 </div>
 
                 <div className="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-10">
                     <div className="space-y-6 max-w-2xl">
-                        <div className="flex items-center gap-3">
+                        <div className="flex flex-wrap items-center gap-3">
                             {subtitle && (
-                                <div className="px-4 py-1.5 rounded-full bg-[var(--background)]/60 border border-[var(--border)] flex items-center gap-2">
-                                    <Sparkles size={12} className="text-primary-500 shadow-[0_0_10px_rgba(255,107,38,0.3)]" />
-                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)]">{subtitle}</span>
+                                <div className="px-5 py-2 rounded-full bg-[var(--background)]/80 backdrop-blur-md border border-[var(--border)] flex items-center gap-2 shadow-inner">
+                                    <Sparkles size={10} className="text-primary-500 shadow-[0_0_10px_rgba(255,107,38,0.3)]" />
+                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] rtl:tracking-normal text-[var(--muted-foreground)] rtl:not-italic">{subtitle}</span>
                                 </div>
                             )}
-                            {badgeLabel && (
-                                <div className="px-4 py-1.5 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
-                                    <Zap size={12} className="text-primary-500 animate-pulse" />
-                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary-400">{badgeLabel}</span>
-                                </div>
-                            )}
+                            <div className="px-5 py-2 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
+                                <Activity size={10} className="text-primary-500 animate-pulse" />
+                                <span className="text-[10px] font-black uppercase tracking-[0.3em] rtl:tracking-normal text-primary-500 rtl:not-italic">{badgeLabel || "SYSTEM_OPERATIONAL"}</span>
+                            </div>
                         </div>
 
-                        <div className="space-y-3">
-                            <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-none uppercase italic px-1">
-                                {titlePrefix && <span>{titlePrefix} </span>}
+                        <div className="space-y-3 relative">
+                            {/* Pro Mesh Underlay */}
+                            <div className="absolute -inset-10 bg-mesh-gradient-1 opacity-[0.03] pointer-events-none -z-10" />
+
+                            <h1 className="text-4xl md:text-5xl lg:text-7xl font-black tracking-tighter rtl:tracking-normal leading-[0.9] uppercase italic rtl:not-italic px-1">
+                                {titlePrefix && <span className="opacity-40 block md:inline uppercase">{titlePrefix} </span>}
                                 {titleSuffix ? (
-                                    <span className="text-primary-500 italic block md:inline-block">{titleSuffix}</span>
+                                    <>
+                                        <span className="text-[var(--foreground)]">{title} </span>
+                                        <span className="text-primary-500 italic rtl:not-italic block md:inline-block">{titleSuffix}</span>
+                                    </>
                                 ) : (
                                     <span className="text-primary-500">{title}</span>
                                 )}
                             </h1>
-                            <p className="text-[var(--muted-foreground)] font-bold tracking-tight text-lg opacity-80 max-w-xl">
+                            <p className="text-[var(--muted-foreground)] font-bold tracking-tight text-lg opacity-80 max-w-xl leading-relaxed">
                                 {description}
                             </p>
                         </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-end sm:items-center gap-6 shrink-0">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-6 shrink-0">
                         {secondaryNode}
 
                         {primaryAction && (
@@ -132,13 +136,13 @@ export function ModulePageLayout({
                                 whileHover={{ scale: 1.05, y: -4 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={primaryAction.onClick}
-                                className="premium-button premium-button-primary h-14 md:h-16 px-6 md:px-10 group shadow-[0_20px_40px_-15px_rgba(255,107,38,0.3)] w-full sm:w-auto"
+                                className="premium-button premium-button-primary h-14 md:h-20 px-8 md:px-12 group shadow-[0_20px_40px_-15px_rgba(255,107,38,0.3)]"
                             >
-                                <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center group-hover:rotate-90 transition-transform duration-500">
-                                    {primaryAction.icon ? <primaryAction.icon size={20} /> : <Plus size={20} />}
+                                <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center group-hover:rotate-90 transition-transform duration-500">
+                                    {primaryAction.icon ? <primaryAction.icon size={24} /> : <Plus size={24} />}
                                 </div>
-                                <span className="font-black uppercase tracking-[0.2em] text-sm">{primaryAction.label}</span>
-                                <ArrowRight size={20} className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" />
+                                <span className="font-black uppercase tracking-[0.2em] rtl:tracking-normal text-sm md:text-base rtl:not-italic">{primaryAction.label}</span>
+                                <ArrowRight size={24} className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 rtl:rotate-180 rtl:translate-x-4 rtl:group-hover:translate-x-0" />
                             </motion.button>
                         )}
                     </div>

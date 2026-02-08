@@ -21,12 +21,18 @@ const TacticalInput = React.forwardRef<HTMLInputElement, TacticalInputProps>(
             <div className="w-full space-y-3 group">
                 {label && (
                     <div className="flex items-center justify-between px-1">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)] group-focus-within:text-primary-500 transition-colors duration-300">
-                            {label}
-                        </label>
+                        <div className="flex items-center gap-2">
+                            <div className={cn(
+                                "w-1 h-1 rounded-full transition-colors duration-500",
+                                isFocused ? "bg-primary-500 animate-pulse" : "bg-[var(--border)]"
+                            )} />
+                            <label className="text-[10px] font-black uppercase tracking-[0.3em] rtl:tracking-normal text-[var(--muted-foreground)] group-focus-within:text-primary-500 transition-colors duration-300 rtl:not-italic">
+                                {label}
+                            </label>
+                        </div>
                         {props.maxLength && (
-                            <span className="text-[8px] font-bold text-[var(--muted-foreground)] opacity-40 uppercase">
-                                Limit {props.maxLength}
+                            <span className="text-[8px] font-black text-[var(--muted-foreground)] opacity-30 uppercase tracking-widest">
+                                ARCHIVE_LIMIT: {props.maxLength}
                             </span>
                         )}
                     </div>
@@ -37,10 +43,10 @@ const TacticalInput = React.forwardRef<HTMLInputElement, TacticalInputProps>(
                     <AnimatePresence>
                         {isFocused && (
                             <motion.div
-                                initial={{ opacity: 0, scale: 0.98 }}
+                                initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.98 }}
-                                className="absolute -inset-[2px] bg-gradient-to-r from-primary-500/20 via-primary-500/5 to-primary-500/20 rounded-[1.3rem] lg:rounded-[1.6rem] blur-md z-0 pointer-events-none"
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                className="absolute -inset-[3px] bg-primary-500/10 rounded-[1.4rem] lg:rounded-[2.1rem] blur-xl z-0 pointer-events-none"
                             />
                         )}
                     </AnimatePresence>

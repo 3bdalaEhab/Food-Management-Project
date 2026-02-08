@@ -78,15 +78,15 @@ export function ProfilePage() {
                         <div className="flex flex-wrap items-center gap-2">
                             <div className="px-3 py-1 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
                                 <Activity size={10} className="text-primary-500 animate-pulse" />
-                                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-primary-400">{t('profile.security_active')}</span>
+                                <span className="text-[8px] font-black uppercase tracking-[0.2em] rtl:tracking-normal text-primary-400 rtl:not-italic">{t('profile.security_active')}</span>
                             </div>
                         </div>
 
                         <div className="space-y-1">
-                            <h1 className="text-3xl md:text-5xl font-black tracking-tighter leading-none uppercase italic">
+                            <h1 className="text-3xl md:text-5xl font-black tracking-tighter rtl:tracking-normal leading-none uppercase italic rtl:not-italic">
                                 {t('profile.culinary')} <span className="text-primary-500">{t('profile.core')}</span>
                             </h1>
-                            <p className="text-[var(--muted-foreground)] font-bold max-w-lg tracking-tight text-sm italic opacity-80 leading-relaxed">
+                            <p className="text-[var(--muted-foreground)] font-bold max-w-lg tracking-tight rtl:tracking-normal text-sm italic rtl:not-italic opacity-80 leading-relaxed">
                                 {t('profile.description')}
                             </p>
                         </div>
@@ -106,8 +106,8 @@ export function ProfilePage() {
                                 )}
                             </div>
                             <div>
-                                <h2 className="text-xl font-black italic uppercase tracking-tighter text-[var(--foreground)] leading-none mb-1">{displayUser.userName}</h2>
-                                <p className="text-[9px] font-black text-primary-500 uppercase tracking-[0.3em] opacity-80">
+                                <h2 className="text-xl font-black italic rtl:not-italic uppercase tracking-tighter rtl:tracking-normal text-[var(--foreground)] leading-none mb-1">{displayUser.userName}</h2>
+                                <p className="text-[9px] font-black text-primary-500 uppercase tracking-[0.3em] rtl:tracking-normal opacity-80 rtl:not-italic">
                                     {'group' in displayUser ? displayUser.group.name : displayUser.role}
                                 </p>
                             </div>
@@ -131,7 +131,7 @@ export function ProfilePage() {
                                     )}
                                 >
                                     <Icon size={16} className={cn("transition-transform", isActive ? "scale-110" : "group-hover:scale-110")} />
-                                    <span className="text-[10px] font-black uppercase tracking-[0.1em] italic">{tab.label}</span>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.1em] rtl:tracking-normal italic rtl:not-italic">{tab.label}</span>
                                     {isActive && (
                                         <motion.div
                                             layoutId="profile-tab-active"
@@ -161,29 +161,29 @@ export function ProfilePage() {
                             <div className="lg:col-span-2 glass-card rounded-[2.5rem] p-6 md:p-8 border border-[var(--border)] shadow-lg bg-[var(--sidebar-background)]/95 flex flex-col justify-between">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <label className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] flex items-center gap-2">
+                                        <label className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] rtl:tracking-normal flex items-center gap-2 rtl:not-italic">
                                             <Globe size={10} className="text-primary-500" />
                                             {t('profile.geospatial')}
                                         </label>
-                                        <div className="text-lg font-black italic uppercase tracking-tighter text-[var(--foreground)] h-12 flex items-center px-4 bg-[var(--background)]/50 rounded-xl border border-[var(--border)]">
+                                        <div className="text-lg font-black italic rtl:not-italic uppercase tracking-tighter rtl:tracking-normal text-[var(--foreground)] h-12 flex items-center px-4 bg-[var(--background)]/50 rounded-xl border border-[var(--border)]">
                                             {displayUser.country || t('profile.global_node')}
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] flex items-center gap-2">
+                                        <label className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] rtl:tracking-normal flex items-center gap-2 rtl:not-italic">
                                             <Zap size={10} className="text-primary-500" />
                                             {t('profile.auth_level')}
                                         </label>
-                                        <div className="text-lg font-black italic uppercase tracking-tighter text-primary-500 h-12 flex items-center px-4 bg-primary-500/5 rounded-xl border border-primary-500/20">
+                                        <div className="text-lg font-black italic rtl:not-italic uppercase tracking-tighter rtl:tracking-normal text-primary-500 h-12 flex items-center px-4 bg-primary-500/5 rounded-xl border border-primary-500/20">
                                             {'group' in displayUser ? displayUser.group.name : displayUser.role}
                                         </div>
                                     </div>
                                     <div className="md:col-span-2 space-y-2">
-                                        <label className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] flex items-center gap-2">
+                                        <label className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] rtl:tracking-normal flex items-center gap-2 rtl:not-italic">
                                             <UserCircle size={10} className="text-primary-500" />
                                             {t('profile.archive_address')}
                                         </label>
-                                        <div className="text-lg font-black italic uppercase tracking-tighter text-[var(--foreground)] h-12 flex items-center px-4 bg-[var(--background)]/50 rounded-xl border border-[var(--border)]">
+                                        <div className="text-lg font-black italic rtl:not-italic uppercase tracking-tighter rtl:tracking-normal text-[var(--foreground)] h-12 flex items-center px-4 bg-[var(--background)]/50 rounded-xl border border-[var(--border)]">
                                             {displayUser.email}
                                         </div>
                                     </div>
@@ -191,8 +191,8 @@ export function ProfilePage() {
                                 <div className="pt-6 mt-6 border-t border-[var(--border)]">
                                     <div className="flex items-center justify-between">
                                         <div className="space-y-0.5">
-                                            <h4 className="text-[10px] font-black uppercase tracking-[0.1em]">{t('profile.master_identity')}</h4>
-                                            <p className="text-[8px] font-bold text-[var(--muted-foreground)] uppercase tracking-widest opacity-60">{t('profile.master_desc')}</p>
+                                            <h4 className="text-[10px] font-black uppercase tracking-[0.1em] rtl:tracking-normal rtl:not-italic">{t('profile.master_identity')}</h4>
+                                            <p className="text-[8px] font-bold text-[var(--muted-foreground)] uppercase tracking-widest rtl:tracking-normal opacity-60 rtl:not-italic">{t('profile.master_desc')}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -205,18 +205,18 @@ export function ProfilePage() {
                                     <div className="relative z-10 space-y-4">
                                         <BadgeCheck size={32} className="drop-shadow-lg" />
                                         <div className="space-y-1">
-                                            <h4 className="text-lg font-black italic uppercase tracking-tighter">{t('profile.verified')}</h4>
-                                            <p className="text-[8px] font-black uppercase tracking-widest opacity-80 leading-relaxed max-w-[150px]">{t('profile.verified_desc')}</p>
+                                            <h4 className="text-lg font-black italic rtl:not-italic uppercase tracking-tighter rtl:tracking-normal">{t('profile.verified')}</h4>
+                                            <p className="text-[8px] font-black uppercase tracking-widest rtl:tracking-normal opacity-80 leading-relaxed max-w-[150px] rtl:not-italic">{t('profile.verified_desc')}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="p-6 rounded-[2rem] bg-[var(--sidebar-background)] border border-[var(--border)] text-[var(--foreground)] shadow flex items-center gap-4 relative overflow-hidden group">
                                     <Activity size={24} className="text-primary-500 shrink-0" />
                                     <div className="space-y-0.5">
-                                        <h4 className="text-sm font-black italic uppercase tracking-tighter">{t('profile.operational_status')}</h4>
+                                        <h4 className="text-sm font-black italic rtl:not-italic uppercase tracking-tighter rtl:tracking-normal">{t('profile.operational_status')}</h4>
                                         <div className="flex items-center gap-2">
                                             <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
-                                            <span className="text-[8px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">{t('profile.syscall_mapped_ok')}</span>
+                                            <span className="text-[8px] font-black uppercase tracking-widest rtl:tracking-normal text-[var(--muted-foreground)] rtl:not-italic">{t('profile.syscall_mapped_ok')}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -245,8 +245,8 @@ export function ProfilePage() {
                                     className="premium-button premium-button-primary h-12 px-8 text-[10px] group relative z-10"
                                 >
                                     <KeyRound size={14} />
-                                    <span className="font-bold">{t('profile.change_password')}</span>
-                                    <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                    <span className="font-bold rtl:not-italic">{t('profile.change_password')}</span>
+                                    <ChevronRight size={14} className="group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform rtl:rotate-180" />
                                 </button>
                             </div>
                         </div>
@@ -263,8 +263,8 @@ export function ProfilePage() {
                                             <Palette size={20} className="text-primary-500" />
                                         </div>
                                         <div>
-                                            <h4 className="text-sm font-black italic uppercase tracking-tighter leading-none mb-1">{t('profile.preferences.theme_protocol')}</h4>
-                                            <p className="text-[8px] font-black uppercase tracking-widest text-[var(--muted-foreground)] opacity-60">{t('profile.aesthetic_controller')}</p>
+                                            <h4 className="text-sm font-black italic rtl:not-italic uppercase tracking-tighter rtl:tracking-normal leading-none mb-1">{t('profile.preferences.theme_protocol')}</h4>
+                                            <p className="text-[8px] font-black uppercase tracking-widest rtl:tracking-normal text-[var(--muted-foreground)] opacity-60 rtl:not-italic">{t('profile.aesthetic_controller')}</p>
                                         </div>
                                     </div>
                                     <div className="flex bg-[var(--background)] border border-[var(--border)] rounded-xl p-1 shadow-inner relative overflow-hidden">
@@ -307,8 +307,8 @@ export function ProfilePage() {
                                             <Globe size={20} className="text-primary-500" />
                                         </div>
                                         <div>
-                                            <h4 className="text-sm font-black italic uppercase tracking-tighter leading-none mb-1">{t('profile.preferences.lang_protocol')}</h4>
-                                            <p className="text-[8px] font-black uppercase tracking-widest text-[var(--muted-foreground)] opacity-60">{t('profile.linguistic_controller')}</p>
+                                            <h4 className="text-sm font-black italic rtl:not-italic uppercase tracking-tighter rtl:tracking-normal leading-none mb-1">{t('profile.preferences.lang_protocol')}</h4>
+                                            <p className="text-[8px] font-black uppercase tracking-widest rtl:tracking-normal text-[var(--muted-foreground)] opacity-60 rtl:not-italic">{t('profile.linguistic_controller')}</p>
                                         </div>
                                     </div>
                                     <div className="flex bg-[var(--background)] border border-[var(--border)] rounded-xl p-1 shadow-inner relative overflow-hidden">

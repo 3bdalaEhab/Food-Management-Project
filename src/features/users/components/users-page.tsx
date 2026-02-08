@@ -36,11 +36,8 @@ export function UsersPage() {
 
     return (
         <>
-            {/* Background Matrix Mesh */}
-            <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-0">
-                <div className="absolute inset-0" style={{ backgroundImage: `linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)`, backgroundSize: '40px 40px' }} />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)] via-transparent to-[var(--background)]" />
-            </div>
+            {/* Background Data Matrix pattern - High Performance */}
+            <div className="fixed inset-0 pointer-events-none opacity-[0.02] z-0 bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:40px_40px]" />
 
             <ModulePageLayout
                 title={t('users.fleet_title')}
@@ -55,52 +52,52 @@ export function UsersPage() {
                     icon: Plus
                 }}
                 secondaryNode={
-                    <div className="flex flex-wrap gap-4 lg:gap-8">
-                        {/* Total Fleet Size */}
+                    <div className="flex flex-wrap items-center gap-4 lg:gap-8">
+                        {/* Total Fleet Size - standardized */}
                         <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="relative group cursor-pointer"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-5 rounded-[2rem] shadow-xl flex items-center gap-6 hover:border-primary-500/30 transition-all duration-500 group overflow-hidden relative min-w-[240px]"
                         >
-                            {/* Plasma Glow */}
-                            <div className="absolute -inset-4 bg-primary-500/20 blur-[3rem] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150" />
-                            <div className="absolute inset-0 bg-primary-500/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
-
-                            <div className="relative bg-[var(--sidebar-background)]/80 backdrop-blur-md border border-[var(--border)] p-6 md:p-8 rounded-[3rem] shadow-2xl transition-[border-color,box-shadow] duration-150 hover:border-primary-500/30 flex items-center gap-6 overflow-hidden transform-gpu will-change-transform">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/[0.03] rounded-full -mr-16 -mt-16 group-hover:scale-125 transition-transform duration-300" />
-                                <div className="w-16 h-16 rounded-[1.8rem] bg-primary-500 shadow-[0_8px_25px_rgba(255,107,38,0.3)] flex items-center justify-center shrink-0 relative z-10 group-hover:scale-105 transition-transform duration-150">
-                                    <Users size={32} className="text-white" />
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary-500/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <div className="w-14 h-14 rounded-2xl bg-primary-500 flex items-center justify-center shrink-0 shadow-lg shadow-primary-500/20 relative z-10 group-hover:scale-110 transition-transform">
+                                <Users size={28} className="text-white" />
+                            </div>
+                            <div className="space-y-1 relative z-10">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-1 h-1 rounded-full bg-primary-500 animate-pulse" />
+                                    <p className="text-[8px] font-black text-[var(--muted-foreground)] opacity-50 uppercase tracking-[0.4em] rtl:tracking-normal italic rtl:not-italic leading-none">{t('users.total_fleet')}</p>
                                 </div>
-                                <div className="space-y-1.5 relative z-10">
-                                    <p className="text-[10px] font-black text-primary-500 uppercase tracking-[0.4em] italic opacity-70">{t('users.active_fleet_size')}</p>
-                                    <div className="flex items-baseline gap-2">
-                                        <p className="text-4xl md:text-5xl font-black text-[var(--foreground)] tracking-tighter leading-none italic uppercase">
-                                            {usersData?.totalNumberOfRecords || 0}
-                                        </p>
-                                        <span className="text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-widest opacity-30">{t('users.agents')}</span>
-                                    </div>
+                                <div className="flex items-baseline gap-2">
+                                    <p className="text-3xl md:text-4xl font-black text-[var(--foreground)] tracking-tighter rtl:tracking-normal leading-none italic rtl:not-italic uppercase tabular-nums">
+                                        {usersData?.totalNumberOfRecords || 0}
+                                    </p>
+                                    <span className="text-[10px] font-black text-primary-500 uppercase tracking-widest rtl:tracking-normal opacity-40 rtl:not-italic">{t('users.node_units')}</span>
                                 </div>
                             </div>
                         </motion.div>
 
-                        {/* Admins & Users Breakdown */}
                         <div className="flex gap-4">
-
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.15, delay: 0.05 }}
-                                className="bg-[var(--sidebar-background)]/80 backdrop-blur-md border border-[var(--border)] p-6 rounded-[2.5rem] shadow-xl flex flex-col justify-between w-32 md:w-36 hover:border-green-500/30 transition-[border-color,transform] duration-150 cursor-pointer transform-gpu will-change-transform group"
+                                transition={{ delay: 0.1 }}
+                                className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-5 rounded-[2rem] shadow-xl flex flex-col justify-between w-32 md:w-36 hover:border-green-500/30 transition-all duration-500 group"
                             >
-                                <div className="flex items-center justify-between mb-4">
-                                    <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-green-500 group-hover:text-white transition-[background-color,color,transform] duration-150">
-                                        <Users size={18} className="text-green-500 group-hover:text-white transition-colors duration-150" />
+                                <div className="flex items-center justify-between mb-3">
+                                    <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center group-hover:bg-green-500 transition-all">
+                                        <Users size={18} className="text-green-500 group-hover:text-white transition-colors" />
                                     </div>
-                                    <span className="text-[8px] font-black text-green-500 uppercase tracking-widest opacity-60 italic">{t('users.users_label')}</span>
+                                    <span className="text-[8px] font-black text-green-500/50 uppercase tracking-widest rtl:tracking-normal italic rtl:not-italic">ACTIVE</span>
                                 </div>
-                                <p className="text-3xl font-black text-[var(--foreground)] tracking-tighter italic leading-none">
-                                    {usersData?.data?.filter(u => u.group.name !== 'SystemUsers').length || 0}
-                                </p>
+                                <div className="space-y-1">
+                                    <p className="text-2xl font-black text-[var(--foreground)] tracking-tighter rtl:tracking-normal italic rtl:not-italic leading-none tabular-nums">
+                                        {usersData?.data?.length || 0}
+                                    </p>
+                                    <div className="h-1 w-full bg-green-500/10 rounded-full overflow-hidden">
+                                        <div className="h-full bg-green-500 w-[60%] animate-pulse" />
+                                    </div>
+                                </div>
                             </motion.div>
                         </div>
                     </div>
@@ -129,16 +126,16 @@ export function UsersPage() {
                             <ShieldAlert size={48} className="text-primary-500/40 group-hover:text-white relative z-10" />
                         </div>
                         <div className="space-y-4">
-                            <h3 className="text-4xl font-black text-[var(--foreground)] tracking-tighter leading-none uppercase italic">{t('users.fleet_disconnected')}</h3>
-                            <p className="text-[var(--muted-foreground)] font-bold uppercase tracking-[0.2em] text-[11px] opacity-60 max-w-sm mx-auto">{t('users.awaiting_sync')}</p>
+                            <h3 className="text-4xl font-black text-[var(--foreground)] tracking-tighter rtl:tracking-normal leading-none uppercase italic rtl:not-italic">{t('users.fleet_disconnected')}</h3>
+                            <p className="text-[var(--muted-foreground)] font-bold uppercase tracking-[0.2em] rtl:tracking-normal text-[11px] opacity-60 max-w-sm mx-auto rtl:not-italic">{t('users.awaiting_sync')}</p>
                         </div>
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             className="premium-button premium-button-primary h-16 px-10 group mt-10"
                         >
-                            <span className="font-black uppercase tracking-widest text-sm">{t('users.initialize_sync')}</span>
-                            <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-500" />
+                            <span className="font-black uppercase tracking-widest rtl:tracking-normal text-sm rtl:not-italic">{t('users.initialize_sync')}</span>
+                            <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-500 rtl:rotate-180 rtl:group-hover:-translate-x-2" />
                         </motion.button>
                     </motion.div>
                 }
