@@ -4,7 +4,8 @@ import type {
     User,
     UpdateUserData,
     ChangePasswordData,
-    UpdateProfileData
+    UpdateProfileData,
+    CreateUserData
 } from "./types";
 import type { UserQueryParams } from "./hooks";
 
@@ -58,7 +59,7 @@ export const usersApi = {
     },
 
     // Create a new user (Admin only)
-    createUser: async (userData: any) => {
+    createUser: async (userData: CreateUserData) => {
         const { data } = await apiClient.post<User>("/Users/Create", userData);
         return data;
     },

@@ -63,7 +63,7 @@ export function DeleteConfirmation({
                             </p>
                             {itemName && (
                                 <div className="px-5 py-2 rounded-xl bg-red-500 text-white text-[11px] font-black uppercase tracking-widest inline-block shadow-lg">
-                                    TARGET_ID: {itemName}
+                                    {itemName}
                                 </div>
                             )}
                         </div>

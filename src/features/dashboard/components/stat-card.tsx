@@ -14,7 +14,7 @@ interface StatCardProps {
     iconBg?: string;
     delay: number;
     chartType?: ChartType;
-    chartData?: any[];
+    chartData?: { name: string; value: number }[];
     chartDescription?: string;
     chartUnit?: string;
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { FolderTree, Plus, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
@@ -21,6 +21,8 @@ export function CategoriesPage() {
     const [isCreateOpen, setIsCreateOpen] = useState(false);
     const [isUpdateOpen, setIsUpdateOpen] = useState(false);
     const [deleteId, setDeleteId] = useState<number | null>(null);
+    const [deleteName, setDeleteName] = useState<string>("");
+    const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
     const { data: categoriesData, isLoading } = useCategories({
         name: debouncedSearch,
@@ -31,7 +33,26 @@ export function CategoriesPage() {
     const { mutate: createCategory } = useCreateCategory();
     const { mutate: updateCategory } = useUpdateCategory();
 
+    const handleEdit = useCallback((cat: Category) => {
+        setSelectedCategory(cat);
+        setIsUpdateOpen(true);
+    }, []);
 
+    const handleDelete = useCallback((id: number, name: string) => {
+        setDeleteId(id);
+        setDeleteName(name);
+    }, []);
+
+    const handleConfirmDelete = useCallback(() => {
+        if (deleteId) {
+            deleteCategory(deleteId, {
+                onSuccess: () => {
+                    setDeleteId(null);
+                    setDeleteName("");
+                }
+            });
+        }
+    }, [deleteId, deleteCategory]);
 
     const isEmpty = !isLoading && (!categoriesData?.data || categoriesData.data.length === 0);
 
@@ -50,37 +71,29 @@ export function CategoriesPage() {
                     icon: Plus
                 }}
                 secondaryNode={
-                    <div className="flex flex-col md:flex-row gap-4 md:gap-6">
-                        {/* Total Categories */}
-                        <div className="bg-[var(--background)]/40 backdrop-blur-md border border-[var(--border)] p-5 md:p-6 rounded-[2rem] md:rounded-[2.5rem] shadow-inner flex items-center gap-4 md:gap-6">
-                            <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center shrink-0">
-                                <FolderTree size={24} className="text-blue-500" />
+                    <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+                        {/* Total Categories - Advanced Analytic Node */}
+                        <div className="group relative bg-[var(--background)]/40 backdrop-blur-md border border-primary-500/20 p-6 md:p-8 rounded-[2.5rem] md:rounded-[3.5rem] shadow-2xl transition-[border-color,box-shadow] duration-150 hover:border-primary-500/40 hover:shadow-primary-500/10 flex items-center gap-6 overflow-hidden transform-gpu will-change-transform">
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary-500/[0.05] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
+                            <div className="w-14 h-14 md:w-20 md:h-20 rounded-[1.5rem] md:rounded-[2rem] bg-[var(--sidebar-background)] border border-[var(--border)] flex items-center justify-center shrink-0 relative z-10 group-hover:scale-105 group-hover:bg-primary-500 group-hover:border-primary-500 transition-[background-color,border-color,transform] duration-150 shadow-xl shadow-black/20">
+                                <FolderTree size={32} className="text-primary-500 group-hover:text-white transition-colors duration-150" />
+                                <div className="absolute inset-[2px] border border-dashed border-primary-500/30 rounded-[1.3rem] md:rounded-[1.8rem] opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
                             </div>
-                            <div className="space-y-0.5">
-                                <p className="text-[8px] md:text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em]">{t('categories.taxonomy_nodes')}</p>
-                                <p className="text-2xl md:text-3xl font-black text-[var(--foreground)] italic leading-none">
-                                    {categoriesData?.totalNumberOfRecords || 0}
-                                    <span className="text-blue-500 text-xs ml-2 uppercase tracking-widest">{t('categories.items')}</span>
-                                </p>
+                            <div className="space-y-1 relative z-10">
+                                <p className="text-[9px] md:text-[10px] font-black text-primary-500/60 uppercase tracking-[0.4em] italic">{t('categories.taxonomy_nodes')}</p>
+                                <div className="flex items-baseline gap-2">
+                                    <p className="text-3xl md:text-5xl font-black text-[var(--foreground)] italic tracking-tighter leading-none">
+                                        {categoriesData?.totalNumberOfRecords || 0}
+                                    </p>
+                                    <span className="text-[10px] md:text-[11px] font-black text-[var(--muted-foreground)] uppercase tracking-widest opacity-40">{t('categories.items')}</span>
+                                </div>
                             </div>
                         </div>
 
-                        {/* Categories Breakdown */}
-                        <div className="flex gap-3 md:gap-4">
-                            <div className="flex-1 bg-[var(--background)]/40 backdrop-blur-md border border-[var(--border)] p-4 md:p-5 rounded-[1.5rem] md:rounded-[2rem] shadow-inner">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <div className="w-8 h-8 rounded-xl bg-primary-500/10 flex items-center justify-center">
-                                        <FolderTree size={14} className="text-primary-500" />
-                                    </div>
-                                    <p className="text-[7px] md:text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em]">{t('categories.categories_label')}</p>
-                                </div>
-                                <p className="text-xl md:text-2xl font-black text-[var(--foreground)] italic leading-none">
-                                    {categoriesData?.data?.length || 0}
-                                </p>
-                            </div>
-                        </div>
                     </div>
                 }
+                viewMode={viewMode}
+                onViewModeChange={setViewMode}
                 searchQuery={search}
                 onSearchChange={setSearch}
                 searchPlaceholder={t('categories.search') || ""}
@@ -117,12 +130,9 @@ export function CategoriesPage() {
                     <CategoryCard
                         key={category.id}
                         category={category}
-                        viewMode="grid"
-                        onEdit={(cat) => {
-                            setSelectedCategory(cat);
-                            setIsUpdateOpen(true);
-                        }}
-                        onDelete={(id) => setDeleteId(id)}
+                        viewMode={viewMode}
+                        onEdit={handleEdit}
+                        onDelete={handleDelete}
                     />
                 ))}
             </ModulePageLayout>
@@ -162,15 +172,12 @@ export function CategoriesPage() {
 
             <DeleteConfirmation
                 isOpen={deleteId !== null}
-                onClose={() => setDeleteId(null)}
-                onConfirm={() => {
-                    if (deleteId) {
-                        deleteCategory(deleteId, {
-                            onSuccess: () => setDeleteId(null)
-                        });
-                    }
+                onClose={() => {
+                    setDeleteId(null);
+                    setDeleteName("");
                 }}
-                itemName={`${t('categories.delete_node')}_${deleteId}`}
+                onConfirm={handleConfirmDelete}
+                itemName={deleteName}
             />
 
 

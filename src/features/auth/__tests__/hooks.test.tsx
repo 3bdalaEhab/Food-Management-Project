@@ -1,5 +1,5 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, Mock } from 'vitest';
 import { useLogin, useRegister, useForgotPassword, useResetPassword, useVerifyAccount } from '../hooks';
 import { authApi } from '../api';
 import { useNavigate } from 'react-router-dom';
@@ -57,7 +57,7 @@ describe('Auth Hooks', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         (useNavigate as unknown as { mockReturnValue: (v: unknown) => void }).mockReturnValue(mockNavigate);
-        (useAuthStore as any).mockImplementation((selector: any) => {
+        (useAuthStore as unknown as Mock).mockImplementation((selector: (state: { setToken: (t: string) => void }) => unknown) => {
             if (selector) return selector({ setToken: mockSetToken });
             return { setToken: mockSetToken };
         });
@@ -109,7 +109,7 @@ describe('Auth Hooks', () => {
 
             // Minimal mock data for form data
             const formData = new FormData();
-            await result.current.mutateAsync(formData as any);
+            await result.current.mutateAsync(formData as unknown as Parameters<typeof result.current.mutateAsync>[0]);
 
             await waitFor(() => {
                 expect(authApi.register).toHaveBeenCalled();
@@ -125,7 +125,7 @@ describe('Auth Hooks', () => {
             const { result } = renderHook(() => useRegister(), { wrapper: createWrapper() });
 
             try {
-                await result.current.mutateAsync({} as any);
+                await result.current.mutateAsync({} as unknown as Parameters<typeof result.current.mutateAsync>[0]);
             } catch (error) {
                 // Expected error during registration
                 console.debug('Registration error caught in test:', error);

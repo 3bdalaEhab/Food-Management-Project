@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import {
-    User,
+    User as UserIcon,
     Mail,
     Globe,
     Phone,
@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import { z } from "zod";
 import { useUpdateProfile } from "../hooks";
 import { compressImage } from "@/lib/image-utils";
+import type { User } from "../types";
 
 const profileSchema = z.object({
     userName: z.string().min(3, "Username must be at least 3 characters"),
@@ -27,7 +28,7 @@ const profileSchema = z.object({
 type ProfileFormData = z.infer<typeof profileSchema>;
 
 interface ProfileEditFormProps {
-    user: any; // Can be Auth User or User feature User
+    user: User;
     onSuccess: () => void;
     onCancel: () => void;
 }
@@ -106,7 +107,7 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
                                     <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-[var(--muted-foreground)]/20">
-                                        <User size={60} />
+                                        <UserIcon size={60} />
                                     </div>
                                 )}
                             </div>
@@ -124,7 +125,7 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
                                 {t('auth.register.username')}
                             </label>
                             <div className="relative group">
-                                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500" size={18} />
+                                <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500" size={18} />
                                 <input
                                     {...register("userName")}
                                     className="premium-input pl-12 h-14 bg-[var(--background)]/50"

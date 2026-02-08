@@ -275,8 +275,8 @@
   /* Premium Components */
   .glass-card {
     background: oklch(1 0 0 / 0.75);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
     border: 1px solid oklch(0.15 0.01 260 / 0.08);
     color: var(--foreground);
     box-shadow: 0 4px 6px -1px oklch(0.15 0.01 260 / 0.1), 0 2px 4px -1px oklch(0.15 0.01 260 / 0.06);
@@ -284,6 +284,8 @@
 
   .dark .glass-card {
     background: oklch(0.1 0.015 260 / 0.75);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
     border: 1px solid oklch(1 0 0 / 0.1);
     color: var(--foreground);
     box-shadow: none;

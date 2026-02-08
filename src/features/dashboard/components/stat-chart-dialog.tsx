@@ -5,7 +5,7 @@ import {
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, BarChart, Bar, LineChart, Line, PieChart, Pie, Cell } from "recharts";
 import { useTranslation } from "react-i18next";
 import { useMemo, useState } from "react";
-import { AreaChart as AreaIcon, BarChart3, LineChart as LineIcon } from "lucide-react";
+import { AreaChart as AreaIcon, BarChart3, LineChart as LineIcon, LucideIcon } from "lucide-react";
 
 export type ChartType = "line" | "bar" | "area" | "pie";
 
@@ -15,13 +15,19 @@ interface StatChartDialogProps {
     title: string;
     description: string;
     type: ChartType;
-    data: any[];
+    data: { name: string; value: number }[];
     color: string;
     unit?: string;
     trend?: string;
 }
 
-const CustomTooltip = ({ active, payload, label, unit = "unit", color = "var(--primary-500)" }: any) => {
+const CustomTooltip = ({ active, payload, label, unit = "unit", color = "var(--primary-500)" }: {
+    active?: boolean;
+    payload?: { value: number; payload: { name: string; value: number } }[];
+    label?: string;
+    unit?: string;
+    color?: string;
+}) => {
     if (active && payload && payload.length) {
         return (
             <div
@@ -139,7 +145,7 @@ export function StatChartDialog({
                         />
                     </LineChart>
                 );
-            case "pie":
+            case "pie": {
                 const COLORS = [primaryColor, '#3b82f6', '#10b981', '#f59e0b', '#ef4444'];
                 return (
                     <PieChart>
@@ -161,12 +167,13 @@ export function StatChartDialog({
                         <Tooltip content={<CustomTooltip unit={unit} color={primaryColor} />} />
                     </PieChart>
                 );
+            }
             default:
                 return null;
         }
     }, [currentType, data, primaryColor, unit]);
 
-    const chartTypes: { type: ChartType; icon: any; label: string }[] = [
+    const chartTypes: { type: ChartType; icon: LucideIcon; label: string }[] = [
         { type: 'area', icon: AreaIcon, label: 'Area' },
         { type: 'bar', icon: BarChart3, label: 'Bar' },
         { type: 'line', icon: LineIcon, label: 'Line' },

@@ -43,3 +43,11 @@ export interface UpdateProfileData {
     phoneNumber: string;
     profileImage?: File | null;
 }
+
+export interface CreateUserData {
+    userName: string;
+    email: string;
+    country: string;
+    phoneNumber: string;
+    password: string;
+}

@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { usersApi } from "./api";
-import type { UpdateUserData, ChangePasswordData, UpdateProfileData } from "./types";
+import type { UpdateUserData, ChangePasswordData, UpdateProfileData, CreateUserData } from "./types";
 import { getErrorMessage } from "@/lib/api-error";
 
 // Type for user query params
@@ -104,7 +104,7 @@ export const useCreateUser = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: (data: any) => usersApi.createUser(data),
+        mutationFn: (data: CreateUserData) => usersApi.createUser(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["users"] });
             toast.success("New user created successfully!");

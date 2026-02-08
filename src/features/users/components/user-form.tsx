@@ -63,7 +63,7 @@ export function UserForm({ onSuccess, onCancel }: UserFormProps) {
         handleSubmit,
         formState: { errors },
     } = useForm<UserCreateFormData>({
-        resolver: zodResolver(userCreateSchema) as any,
+        resolver: zodResolver(userCreateSchema),
         mode: "onChange",
     });
 
@@ -108,7 +108,7 @@ export function UserForm({ onSuccess, onCancel }: UserFormProps) {
                         </button>
                     </div>
 
-                    <form id="user-create-form" onSubmit={handleSubmit(onSubmit) as any} className="space-y-8">
+                    <form id="user-create-form" onSubmit={handleSubmit(onSubmit)} className="space-y-8">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <TacticalInput
                                 label={t('auth.register.username')}

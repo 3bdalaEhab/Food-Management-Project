@@ -63,7 +63,7 @@ export function RecipeForm({ initialData, onSubmit, onCancel, isPending, title }
         watch,
         formState: { errors },
     } = useForm<RecipeFormData>({
-        resolver: zodResolver(recipeSchema) as any,
+        resolver: zodResolver(recipeSchema),
         defaultValues: {
             name: initialData?.name || "",
             description: initialData?.description || "",
@@ -117,7 +117,7 @@ export function RecipeForm({ initialData, onSubmit, onCancel, isPending, title }
                 </div>
             </div>
 
-            <form id="recipe-form" onSubmit={handleSubmit(handleFormSubmit) as any} className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-8 scrollbar-hide">
+            <form id="recipe-form" onSubmit={handleSubmit(handleFormSubmit)} className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-8 scrollbar-hide">
                 <AnimatePresence mode="wait">
                     {step === 1 && (
                         <motion.div
@@ -150,7 +150,7 @@ export function RecipeForm({ initialData, onSubmit, onCancel, isPending, title }
                             <div className="space-y-3">
                                 <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted-foreground)] ml-1">{t('recipes.classification_nodes')}</label>
                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                    {tags?.map((tag: any) => (
+                                    {tags?.map((tag) => (
                                         <button
                                             key={tag.id}
                                             type="button"
