@@ -19,7 +19,14 @@ const container = {
     hidden: { opacity: 0 },
     show: {
         opacity: 1,
-        transition: { staggerChildren: 0.05 }
+        transition: {
+            staggerChildren: 0.02,
+            delayChildren: 0.05
+        }
+    },
+    exit: {
+        opacity: 0,
+        transition: { duration: 0.1 }
     }
 };
 
@@ -211,15 +218,17 @@ export function ModulePageLayout({
                 emptyState
             ) : (
                 <motion.div
+                    key={viewMode} // Forces a clean mount/unmount transition between Grid and List
                     variants={container}
                     initial="hidden"
                     animate="show"
+                    exit="exit"
                     className={cn(
                         "grid gap-6 md:gap-8 lg:gap-10",
                         viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" : "grid-cols-1"
                     )}
                 >
-                    <AnimatePresence mode="popLayout">
+                    <AnimatePresence mode="wait">
                         {children}
                     </AnimatePresence>
                 </motion.div>

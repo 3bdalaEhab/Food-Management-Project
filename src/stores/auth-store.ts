@@ -59,6 +59,8 @@ function decodeToken(token: string): User | null {
     }
 }
 
+import { queryClient } from "@/lib/query-client";
+
 export const useAuthStore = create<AuthState>()(
     persist(
         (set, get) => ({
@@ -95,6 +97,9 @@ export const useAuthStore = create<AuthState>()(
 
             logout: () => {
                 localStorage.removeItem("token");
+                // Clear all TanStack Query cache to prevent stale data between sessions
+                queryClient.removeQueries();
+
                 set({
                     token: null,
                     user: null,
