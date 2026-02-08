@@ -71,7 +71,7 @@ export const StatCard = memo(({
 
                 <div
                     onClick={() => setIsChartOpen(true)}
-                    className="relative h-full glass-card rounded-[2rem] p-5 md:p-6 border border-[var(--border)] bg-[var(--sidebar-background)]/60 backdrop-blur-md shadow-xl transition-all duration-700 group-hover:border-primary-500/30 group-hover:-translate-y-1.5 overflow-hidden cursor-pointer active:scale-95"
+                    className="relative h-full glass-card rounded-[2rem] p-5 md:p-6 tactical-border bg-[var(--sidebar-background)]/80 dark:bg-[var(--sidebar-background)]/40 backdrop-blur-2xl shadow-2xl transition-all duration-700 group-hover:border-primary-500/60 group-hover:-translate-y-2 overflow-hidden cursor-pointer active:scale-95"
                 >
                     {/* Background Soft Glow */}
                     <div className={cn(

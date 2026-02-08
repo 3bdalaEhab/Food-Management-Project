@@ -105,13 +105,17 @@
   --shadow-xs: 0 1px 2px oklch(0 0 0 / 0.05);
   --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.08), 0 1px 2px oklch(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px oklch(0 0 0 / 0.08), 0 2px 4px oklch(0 0 0 / 0.05);
-  --shadow-lg: 0 10px 15px oklch(0 0 0 / 0.08), 0 4px 6px oklch(0 0 0 / 0.04);
-  --shadow-xl: 0 20px 25px oklch(0 0 0 / 0.10), 0 8px 10px oklch(0 0 0 / 0.05);
-  --shadow-2xl: 0 25px 50px oklch(0 0 0 / 0.15);
+  --shadow-lg: 0 10px 15px oklch(0 0 0 / 0.1), 0 4px 6px oklch(0 0 0 / 0.05);
+  --shadow-xl: 0 20px 25px oklch(0 0 0 / 0.15), 0 8px 10px oklch(0 0 0 / 0.08);
+  --shadow-2xl: 0 25px 50px oklch(0 0 0 / 0.25);
+
+  /* World-Class Tactical Shadows (Dark Mode Optimized) */
+  --shadow-tactical: 0 0 0 1px oklch(1 0 0 / 0.05), 0 20px 40px -15px oklch(0 0 0 / 0.5);
+  --shadow-tactical-glow: 0 0 0 1px var(--color-primary-500 / 0.2), 0 20px 40px -15px var(--color-primary-500 / 0.3);
 
   /* Colored Shadows */
-  --shadow-primary: 0 10px 40px oklch(0.55 0.15 145 / 0.25);
-  --shadow-glow: 0 0 40px oklch(0.55 0.15 145 / 0.15);
+  --shadow-primary: 0 10px 40px oklch(0.55 0.21 45 / 0.35);
+  --shadow-glow: 0 0 60px oklch(0.6 0.28 45 / 0.25);
 
   /* ===== BORDER RADIUS ===== */
   --radius-none: 0;
@@ -167,21 +171,24 @@
 
   .dark {
     color-scheme: dark;
-    --background: oklch(0.06 0.01 260);
+    --background: oklch(0.04 0.01 260);
+    /* Deeper midnight background */
     --foreground: oklch(0.98 0 0);
-    --muted: oklch(0.14 0.012 260);
-    --muted-foreground: oklch(0.65 0.02 260);
-    --border: oklch(0.18 0.01 260);
-    --input: oklch(0.18 0.01 260);
+    --muted: oklch(0.12 0.015 260);
+    --muted-foreground: oklch(0.6 0.02 260);
+    --border: oklch(0.24 0.02 260);
+    /* Sharper border contrast */
+    --input: oklch(0.24 0.02 260);
     --ring: var(--color-primary-500);
-    --card: oklch(0.1 0.015 260);
+    --card: oklch(0.08 0.02 260);
+    /* Slightly lighter than background for depth */
     --card-foreground: oklch(0.98 0 0);
 
     /* Sidebar - Tactical Midnight */
-    --sidebar-background: oklch(0.08 0.01 260);
+    --sidebar-background: oklch(0.06 0.01 260);
     --sidebar-foreground: oklch(0.98 0 0);
-    --sidebar-border: oklch(0.16 0.01 260);
-    --sidebar-accent: oklch(0.14 0.012 260);
+    --sidebar-border: oklch(0.2 0.02 260);
+    --sidebar-accent: oklch(0.12 0.015 260);
   }
 
   * {
@@ -268,8 +275,11 @@
   }
 
   .dark .glass {
-    background: oklch(0.15 0.015 260 / 0.85);
-    border: 1px solid oklch(1 0 0 / 0.1);
+    background: oklch(0.12 0.02 260 / 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid oklch(1 0 0 / 0.15);
+    /* Slightly thicker/more opaque glass border */
   }
 
   /* ... */
@@ -287,12 +297,30 @@
   }
 
   .dark .glass-card {
-    background: oklch(0.12 0.02 260 / 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid oklch(1 0 0 / 0.08);
+    background: oklch(0.1 0.02 260 / 0.5);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid oklch(1 0 0 / 0.15);
     color: var(--foreground);
-    box-shadow: 0 8px 32px -4px oklch(0 0 0 / 0.3), 0 0 0 1px oklch(1 0 0 / 0.05);
+    box-shadow:
+      0 0 0 1px oklch(1 0 0 / 0.05),
+      0 20px 50px -12px oklch(0 0 0 / 0.7),
+      inset 0 1px 1px oklch(1 0 0 / 0.1);
+  }
+
+  .tactical-border {
+    border: 2px solid var(--border);
+    box-shadow:
+      0 10px 30px -10px oklch(0 0 0 / 0.3),
+      inset 0 0 0 1px oklch(1 0 0 / 0.05);
+  }
+
+  .dark .tactical-border {
+    border: 2.5px solid oklch(1 0 0 / 0.15);
+    box-shadow:
+      0 20px 50px -12px oklch(0 0 0 / 0.8),
+      inset 0 0 0 1px oklch(1 0 0 / 0.08),
+      0 0 20px -5px var(--color-primary-500 / 0.2);
   }
 
   .premium-input {

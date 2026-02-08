@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { ImageWithFallback } from "@/components/shared/image-with-fallback";
+import { useAppStore } from "@/stores";
 import { getImageUrl } from "@/lib/utils";
 import type { User } from "../types";
 
@@ -22,6 +23,9 @@ interface UserCardProps {
 }
 
 export const UserCard = memo(({ user, onDelete, viewMode = "list" }: UserCardProps) => {
+    const { language } = useAppStore();
+    const isRtl = language === "ar";
+
     if (viewMode === "list") {
         return (
             <motion.div
@@ -30,7 +34,7 @@ export const UserCard = memo(({ user, onDelete, viewMode = "list" }: UserCardPro
                 animate={{ opacity: 1, x: 0 }}
                 whileHover={{ x: isRtl ? -8 : 8 }}
                 transition={{ duration: 0.15 }}
-                className="group relative glass-card rounded-[2rem] p-4 flex items-center gap-6 cursor-pointer border border-[var(--border)] hover:border-primary-500/30 hover:shadow-[0_0_20px_rgba(255,107,38,0.1)] transition-[border-color,box-shadow,transform] duration-150 transform-gpu will-change-transform overflow-hidden"
+                className="group relative glass-card rounded-[2rem] p-4 flex items-center gap-6 cursor-pointer tactical-border hover:shadow-primary-500/20 transition-[border-color,box-shadow,transform] duration-150 transform-gpu will-change-transform overflow-hidden"
             >
                 {/* Holographic Beam */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary-500/[0.05] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
@@ -89,7 +93,7 @@ export const UserCard = memo(({ user, onDelete, viewMode = "list" }: UserCardPro
             animate={{ opacity: 1, scale: 1 }}
             whileHover={{ y: -8 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="group relative bg-[var(--sidebar-background)] rounded-[3rem] p-8 overflow-hidden border border-[var(--border)] hover:shadow-[0_20px_50px_rgba(255,107,38,0.15)] hover:border-primary-500/30 transition-all duration-200 flex flex-col items-center text-center gap-8 min-h-[22rem] cursor-pointer transform-gpu will-change-transform [backface-visibility:hidden]"
+            className="group relative bg-[var(--sidebar-background)]/90 dark:bg-[var(--sidebar-background)]/50 rounded-[3rem] p-8 overflow-hidden tactical-border hover:shadow-primary-500/20 transition-all duration-300 flex flex-col items-center text-center gap-8 min-h-[22rem] cursor-pointer transform-gpu tragedy-vision will-change-transform [backface-visibility:hidden]"
         >
             {/* Ultra-Premium Holographic Overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary-500/[0.04] via-transparent to-blue-500/[0.04] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />

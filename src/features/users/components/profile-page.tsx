@@ -69,7 +69,7 @@ export function ProfilePage() {
             <motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="relative overflow-hidden rounded-[2rem] bg-[var(--sidebar-background)] border border-[var(--border)] shadow-lg"
+                className="relative overflow-hidden rounded-[2rem] bg-[var(--sidebar-background)]/90 tactical-border shadow-2xl"
             >
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_-20%,oklch(0.6_0.28_45/0.1)_0%,transparent_50%)]" />
 
@@ -158,7 +158,7 @@ export function ProfilePage() {
                     {activeTab === "identity" && (
                         <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
                             {/* Identity Intel Card - Compact */}
-                            <div className="lg:col-span-2 glass-card rounded-[2.5rem] p-6 md:p-8 border border-[var(--border)] shadow-lg bg-[var(--sidebar-background)]/95 flex flex-col justify-between">
+                            <div className="lg:col-span-2 glass-card rounded-[2.5rem] p-6 md:p-8 tactical-border shadow-2xl bg-[var(--sidebar-background)]/95 flex flex-col justify-between">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
                                         <label className="text-[8px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.2em] rtl:tracking-normal flex items-center gap-2 rtl:not-italic">

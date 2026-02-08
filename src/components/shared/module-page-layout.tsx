@@ -92,10 +92,10 @@ export function ModulePageLayout({
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative overflow-hidden rounded-[2rem] md:rounded-[3rem] bg-[var(--sidebar-background)] p-6 md:p-8 lg:p-10 text-[var(--foreground)] border border-[var(--border)] shadow-2xl"
+                className="relative overflow-hidden rounded-[2rem] md:rounded-[3rem] bg-[var(--sidebar-background)]/85 backdrop-blur-3xl p-6 md:p-8 lg:p-10 text-[var(--foreground)] tactical-border shadow-2xl group"
             >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_-20%,rgba(255,107,38,0.15)_0%,transparent_50%)]" />
-                <div className="absolute top-0 end-0 p-10 opacity-[0.03] pointer-events-none">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_-20%,rgba(255,107,38,0.15)_0%,transparent_50%)] dark:bg-[radial-gradient(circle_at_70%_-20%,rgba(255,107,38,0.25)_0%,transparent_60%)]" />
+                <div className="absolute top-0 end-0 p-10 opacity-[0.03] dark:opacity-[0.05] pointer-events-none group-hover:scale-110 transition-transform duration-700">
                     <HeaderIcon size={280} strokeWidth={0.5} className="text-[var(--foreground)]" />
                 </div>
 
@@ -157,7 +157,7 @@ export function ModulePageLayout({
             </motion.div>
 
             {/* Unified Tactical Toolbar */}
-            <div className="flex flex-col lg:flex-row gap-4 md:gap-6 items-stretch lg:items-center p-4 md:p-6 bg-[var(--sidebar-background)]/40 backdrop-blur-md rounded-[1.5rem] md:rounded-[3rem] border border-[var(--border)] shadow-xl">
+            <div className="flex flex-col lg:flex-row gap-4 md:gap-6 items-stretch lg:items-center p-4 md:p-6 bg-[var(--sidebar-background)]/60 dark:bg-[var(--sidebar-background)]/30 backdrop-blur-2xl rounded-[1.5rem] md:rounded-[3rem] tactical-border shadow-xl">
                 <div className="flex-1 w-full relative">
                     <TacticalInput
                         placeholder={searchPlaceholder || t('common.search')}

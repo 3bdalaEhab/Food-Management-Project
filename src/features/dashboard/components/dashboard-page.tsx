@@ -120,7 +120,7 @@ export function DashboardPage() {
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-[var(--sidebar-background)] p-6 md:p-10 text-[var(--foreground)] border border-[var(--border)] shadow-2xl"
+                    className="relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-[var(--sidebar-background)]/90 p-6 md:p-10 text-[var(--foreground)] tactical-border shadow-2xl"
                 >
                     {/* Elite Chromatic Mesh */}
                     <div className="absolute inset-0 bg-mesh-gradient-1 opacity-30" />
@@ -196,7 +196,7 @@ export function DashboardPage() {
                             <span className="text-[10px] font-black uppercase tracking-[0.2em] rtl:tracking-normal text-[var(--muted-foreground)] border border-[var(--border)] px-4 py-2 rounded-full bg-[var(--sidebar-background)] rtl:not-italic">{t('dashboard.real_time')}</span>
                         </div>
 
-                        <div className="glass-card rounded-[2.5rem] overflow-hidden border border-[var(--border)] bg-[var(--sidebar-background)]/40 backdrop-blur-xl p-6 md:p-8 shadow-2xl relative">
+                        <div className="glass-card rounded-[2.5rem] overflow-hidden tactical-border bg-[var(--sidebar-background)]/60 dark:bg-[var(--sidebar-background)]/30 backdrop-blur-2xl p-6 md:p-8 shadow-2xl relative">
                             {/* Technical Floating Indicators */}
                             <div className="absolute top-4 right-8 flex gap-4 opacity-20 pointer-events-none">
                                 <div className="text-[8px] font-black uppercase tracking-widest">[ {t('dashboard.stream_ok')} ]</div>
@@ -255,7 +255,7 @@ export function DashboardPage() {
                             <h2 className="text-3xl font-black tracking-tighter rtl:tracking-normal text-[var(--foreground)] uppercase italic rtl:not-italic">{t('dashboard.shortcuts')}</h2>
                         </div>
 
-                        <div className="glass-card rounded-[2.5rem] border border-[var(--border)] bg-[var(--sidebar-background)]/80 backdrop-blur-2xl p-6 md:p-8 space-y-4 shadow-2xl border-white/5">
+                        <div className="glass-card rounded-[2.5rem] tactical-border bg-[var(--sidebar-background)]/85 dark:bg-[var(--sidebar-background)]/40 backdrop-blur-2xl p-6 md:p-8 space-y-4 shadow-2xl">
                             <Link to="/dashboard/recipes" className="flex items-center gap-4 p-4 md:p-5 rounded-2xl bg-[var(--background)]/50 text-[var(--foreground)] border border-[var(--border)] hover:border-primary-500 transition-all duration-500 group overflow-hidden relative shadow-inner">
                                 <div className="w-10 h-10 rounded-xl bg-[var(--sidebar-background)] flex items-center justify-center shrink-0 border border-[var(--border)] group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-sm">
                                     <UtensilsCrossed size={16} className="text-primary-500" />

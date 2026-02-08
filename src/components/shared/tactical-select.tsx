@@ -74,7 +74,7 @@ const TacticalSelect = React.forwardRef<HTMLSelectElement, TacticalSelectProps>(
                             {...props}
                         >
                             {options.map((opt) => (
-                                <option key={opt.value} value={opt.value} className="bg-[var(--sidebar-background)] text-[var(--foreground)] font-bold">
+                                <option key={opt.value} value={opt.value} className="bg-[var(--sidebar-background)]/95 backdrop-blur-xl tactical-border text-[var(--foreground)] font-bold">
                                     {opt.label}
                                 </option>
                             ))}

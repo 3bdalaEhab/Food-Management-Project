@@ -105,7 +105,7 @@ export const RecipeCard = memo(({
             exit={{ opacity: 0, scale: 0.95 }}
             whileHover={{ y: -5 }}
             transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-            className="group relative bg-[var(--sidebar-background)] rounded-[2.5rem] overflow-hidden border border-[var(--border)] shadow-lg hover:shadow-2xl hover:border-primary-500/40 transition-all duration-500 cursor-pointer flex flex-col min-h-[18rem]"
+            className="group relative bg-[var(--sidebar-background)]/90 backdrop-blur-3xl rounded-[2.5rem] overflow-hidden tactical-border dark:hover:border-primary-500/60 transition-all duration-500 cursor-pointer flex flex-col min-h-[18rem]"
             onClick={() => onView?.(recipe)}
         >
             {/* Image Ecosystem */}
@@ -123,10 +123,10 @@ export const RecipeCard = memo(({
                             key={cat.id}
                             initial={{ x: isRtl ? 10 : -10, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
-                            className="bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1 rounded-lg shadow-2xl flex items-center gap-1.5"
+                            className="bg-black/60 dark:bg-primary-950/40 backdrop-blur-md border border-white/10 dark:border-primary-500/20 px-3 py-1 rounded-lg shadow-2xl flex items-center gap-1.5"
                         >
                             <Activity size={8} className="text-primary-500" />
-                            <span className="text-[8px] font-black uppercase tracking-widest rtl:tracking-normal text-white/90 italic rtl:not-italic">{cat.name}</span>
+                            <span className="text-[8px] font-black uppercase tracking-widest rtl:tracking-normal text-white/90 dark:text-primary-100 italic rtl:not-italic">{cat.name}</span>
                         </motion.div>
                     ))}
                 </div>

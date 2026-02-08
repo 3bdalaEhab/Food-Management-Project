@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
     Users,
-    Plus,
     ShieldAlert,
     ArrowRight,
 } from "lucide-react";
@@ -53,7 +52,7 @@ export function UsersPage() {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-4 md:p-5 rounded-[1.5rem] md:rounded-[2rem] shadow-xl flex items-center gap-4 md:gap-6 hover:border-primary-500/30 transition-all duration-500 group overflow-hidden relative min-w-full sm:min-w-[240px]"
+                            className="bg-[var(--sidebar-background)]/60 dark:bg-[var(--sidebar-background)]/30 backdrop-blur-md tactical-border p-4 md:p-5 rounded-[1.5rem] md:rounded-[2rem] shadow-2xl flex items-center gap-4 md:gap-6 hover:shadow-primary-500/20 transition-all duration-500 group overflow-hidden relative min-w-full sm:min-w-[240px]"
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-primary-500/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                             <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-primary-500 flex items-center justify-center shrink-0 shadow-lg shadow-primary-500/20 relative z-10 group-hover:scale-110 transition-transform">
@@ -78,7 +77,7 @@ export function UsersPage() {
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: 0.1 }}
-                                className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-4 md:p-5 rounded-[1.5rem] md:rounded-[2rem] shadow-xl flex flex-col justify-between w-full sm:w-36 hover:border-green-500/30 transition-all duration-500 group h-28 md:h-auto"
+                                className="bg-[var(--sidebar-background)]/60 dark:bg-[var(--sidebar-background)]/30 backdrop-blur-md tactical-border p-4 md:p-5 rounded-[1.5rem] md:rounded-[2rem] shadow-2xl flex flex-col justify-between w-full sm:w-36 hover:shadow-green-500/20 transition-all duration-500 group h-28 md:h-auto"
                             >
                                 <div className="flex items-center justify-between mb-3">
                                     <div className="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-green-500/10 flex items-center justify-center group-hover:bg-green-500 transition-all">
@@ -109,7 +108,7 @@ export function UsersPage() {
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="flex flex-col items-center justify-center py-40 glass-card rounded-[4rem] border-dashed border-2 border-primary-500/20 bg-primary-500/[0.02] text-center px-6"
+                        className="flex flex-col items-center justify-center py-40 glass-card rounded-[4rem] tactical-border border-dashed border-2 bg-primary-500/[0.02] text-center px-6"
                     >
                         <div className="w-32 h-32 bg-[var(--sidebar-background)] rounded-[3rem] shadow-2xl border border-[var(--border)] flex items-center justify-center mb-8 group overflow-hidden relative">
                             {/* Scanning Light */}

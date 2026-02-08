@@ -1,13 +1,8 @@
-import { motion } from "framer-motion";
 import {
     X,
     Zap,
     Clock,
-    ChefHat,
-    FileText,
-    ArrowLeft,
     Heart,
-    DollarSign,
     Shield
 } from "lucide-react";
 import { ImageWithFallback } from "@/components/shared/image-with-fallback";
@@ -47,7 +42,7 @@ export function RecipeDetails({ recipe, onClose }: RecipeDetailsProps) {
     };
 
     return (
-        <div className="flex flex-col bg-[var(--sidebar-background)] rounded-[2rem] overflow-hidden border border-[var(--border)] shadow-2xl relative max-h-[85vh] w-full">
+        <div className="flex flex-col bg-[var(--sidebar-background)]/95 backdrop-blur-2xl rounded-[2rem] overflow-hidden tactical-border shadow-[0_0_100px_rgba(0,0,0,0.8)] relative max-h-[85vh] w-full">
 
             {/* Banner Image */}
             <div className="h-64 md:h-72 relative shrink-0 group">

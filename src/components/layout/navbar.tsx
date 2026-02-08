@@ -41,7 +41,7 @@ export function Navbar() {
             className={cn(
                 "h-16 md:h-20 rounded-none md:rounded-[2rem] px-4 md:px-8 flex items-center justify-between",
                 "bg-[var(--sidebar-background)]/95 backdrop-blur-md",
-                "border-b md:border border-[var(--border)] shadow-lg transition-all duration-300"
+                "tactical-border shadow-2xl transition-all duration-300"
             )}
             role="banner"
         >
@@ -57,7 +57,7 @@ export function Navbar() {
                 </Button>
                 <div className="relative group w-full max-w-md hidden md:block">
                     <div className="absolute inset-0 bg-primary-500/0 group-hover:bg-primary-500/5 blur-xl transition-all rounded-2xl" />
-                    <div className="relative flex items-center gap-4 px-6 h-12 bg-[var(--background)]/80 border border-[var(--border)] rounded-2xl group-hover:border-primary-500/30 transition-all cursor-pointer">
+                    <div className="relative flex items-center gap-4 px-6 h-12 bg-[var(--background)]/80 border-2 border-[var(--border)] dark:border-white/10 rounded-2xl group-hover:border-primary-500/50 transition-all cursor-pointer shadow-inner">
                         <Search className="w-4 h-4 text-[var(--muted-foreground)] group-hover:text-primary-500 transition-colors" />
                         <span className="text-[10px] font-black uppercase tracking-[0.2em] rtl:tracking-normal text-[var(--muted-foreground)] group-hover:text-[var(--foreground)] transition-colors rtl:not-italic">{t('navbar.search')}</span>
                         <div className="ml-auto flex items-center gap-2">

@@ -161,7 +161,7 @@ export function TacticalMultiSelect({
                             initial={{ opacity: 0, y: 10, scale: 0.95 }}
                             animate={{ opacity: 1, y: 5, scale: 1 }}
                             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                            className="absolute left-0 right-0 z-50 mt-2 bg-[var(--sidebar-background)]/95 backdrop-blur-xl border border-[var(--border)] rounded-[1.5rem] lg:rounded-[2rem] shadow-2xl overflow-hidden max-h-[300px] flex flex-col"
+                            className="absolute left-0 right-0 z-50 mt-2 bg-[var(--sidebar-background)]/95 backdrop-blur-xl tactical-border rounded-[1.5rem] lg:rounded-[2rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] overflow-hidden max-h-[300px] flex flex-col"
                         >
                             <div className="p-2 border-b border-[var(--border)] flex items-center gap-3 px-6 bg-primary-500/5">
                                 <Search size={14} className="text-primary-500/60" />

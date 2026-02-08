@@ -31,7 +31,7 @@ export const CategoryCard = memo(({
                 initial={{ opacity: 0, x: isRtl ? 20 : -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 whileHover={{ x: isRtl ? -10 : 10 }}
-                className="group relative glass-card rounded-[2rem] p-5 flex items-center gap-8 cursor-pointer border border-[var(--border)] hover:border-primary-500/30 hover:shadow-[0_0_20px_rgba(255,107,38,0.1)] overflow-hidden transform-gpu [backface-visibility:hidden] will-change-transform"
+                className="group relative glass-card rounded-[2rem] p-5 flex items-center gap-8 cursor-pointer tactical-border hover:border-primary-500/50 dark:hover:border-primary-500/60 overflow-hidden transform-gpu [backface-visibility:hidden] will-change-transform shadow-2xl"
                 onClick={() => onEdit(category)}
             >
                 {/* Plasma Background Accent */}
@@ -89,14 +89,14 @@ export const CategoryCard = memo(({
             animate={{ opacity: 1, scale: 1 }}
             whileHover={{ y: -6 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="group relative bg-[var(--sidebar-background)] rounded-[3rem] p-8 overflow-hidden border border-[var(--border)] hover:shadow-[0_20px_40px_rgba(255,107,38,0.1)] hover:border-primary-500/30 transition-all duration-200 flex flex-col items-center text-center gap-8 min-h-[22rem] cursor-pointer transform-gpu will-change-transform [backface-visibility:hidden]"
+            className="group relative bg-[var(--sidebar-background)]/90 backdrop-blur-3xl rounded-[3rem] p-8 overflow-hidden tactical-border dark:hover:border-primary-500/60 hover:shadow-2xl transition-all duration-300 flex flex-col items-center text-center gap-8 min-h-[22rem] cursor-pointer transform-gpu will-change-transform [backface-visibility:hidden]"
         >
             {/* Ultra-Premium Holographic Overlays */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary-500/[0.04] via-transparent to-blue-500/[0.04] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary-500/50 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
 
             <div className="relative shrink-0 mt-4">
-                <div className="w-28 h-28 rounded-[2.5rem] bg-[var(--background)] border border-[var(--border)] flex items-center justify-center shadow-xl group-hover:scale-105 group-hover:bg-primary-500 group-hover:border-primary-500 transition-all duration-300 relative overflow-hidden">
+                <div className="relative h-full glass-card rounded-[2rem] p-5 md:p-6 tactical-border bg-[var(--sidebar-background)]/80 dark:bg-[var(--sidebar-background)]/40 backdrop-blur-2xl shadow-2xl transition-all duration-700 group-hover:border-primary-500/60 group-hover:-translate-y-2 overflow-hidden cursor-pointer active:scale-95">
                     <FolderTree size={42} className="text-primary-500 group-hover:text-white relative z-10 transition-colors" />
                     <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 animate-pulse pointer-events-none" />
                 </div>

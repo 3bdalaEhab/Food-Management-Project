@@ -31,8 +31,8 @@ const CustomTooltip = ({ active, payload, label, unit = "unit", color = "var(--p
     if (active && payload && payload.length) {
         return (
             <div
-                className="glass-card p-4 shadow-2xl backdrop-blur-xl bg-[var(--sidebar-background)]/90 rounded-2xl animate-in fade-in zoom-in duration-300"
-                style={{ borderColor: `${color}4D`, borderStyle: 'solid', borderWidth: '1px' }}
+                className="glass-card p-4 shadow-2xl backdrop-blur-xl bg-[var(--sidebar-background)]/95 dark:bg-black/80 rounded-2xl animate-in fade-in zoom-in duration-300 border border-white/10 dark:border-primary-500/30"
+                style={{ borderColor: active ? `${color}66` : undefined }}
             >
                 <div className="flex items-center gap-2 mb-1">
                     <div className="w-1 h-3 rounded-full" style={{ backgroundColor: color }} />

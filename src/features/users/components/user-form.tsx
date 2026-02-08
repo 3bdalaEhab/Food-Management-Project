@@ -75,10 +75,10 @@ export function UserForm({ onSuccess, onCancel }: UserFormProps) {
 
     return (
         <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="w-full max-w-2xl mx-auto bg-[var(--sidebar-background)] rounded-[2rem] border border-[var(--border)] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] transform-gpu will-change-transform"
+            className="w-full max-w-2xl bg-[var(--sidebar-background)]/95 backdrop-blur-2xl rounded-[2.5rem] overflow-hidden tactical-border shadow-[0_0_100px_rgba(0,0,0,0.8)] relative"
         >
             <div className="flex-1 overflow-y-auto p-6 md:p-10 scrollbar-hide relative">
                 {/* Fleet Accents */}

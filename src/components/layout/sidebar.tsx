@@ -72,9 +72,8 @@ export function Sidebar() {
                 "fixed top-0 z-50 h-screen",
                 "hidden md:flex",
                 "inset-inline-start-0",
-                "bg-[var(--sidebar-background)] border-[var(--sidebar-border)]",
-                "border-ie",
-                "flex-col shadow-lg overflow-hidden",
+                "bg-[var(--sidebar-background)] tactical-border border-ie shadow-2xl",
+                "flex-col overflow-hidden",
                 "selection:bg-primary-500/30"
             )}
         >
@@ -153,8 +152,8 @@ export function Sidebar() {
                                     ? "justify-center h-14 w-14 mx-auto rounded-xl mb-3"
                                     : "gap-4 px-4 py-3 rounded-2xl mx-1",
                                 isActive
-                                    ? "bg-[var(--sidebar-accent)] text-[var(--sidebar-foreground)] shadow-sm border border-[var(--sidebar-border)]"
-                                    : "text-[var(--muted-foreground)] hover:text-[var(--sidebar-foreground)] hover:bg-[var(--sidebar-accent)]"
+                                    ? "bg-[var(--sidebar-accent)] text-[var(--sidebar-foreground)] shadow-xl border-2 border-primary-500/30"
+                                    : "text-[var(--muted-foreground)] hover:text-[var(--sidebar-foreground)] hover:bg-[var(--sidebar-accent)] border border-transparent hover:border-[var(--sidebar-border)] shadow-sm"
                             )}
                             aria-label={t(`sidebar.${item.labelKey}`)}
                         >

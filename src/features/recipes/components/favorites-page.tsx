@@ -50,7 +50,7 @@ export function FavoritesPage() {
                 badgeLabel={t('favorites.badge_label')}
                 HeaderIcon={Heart}
                 secondaryNode={
-                    <div className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-5 rounded-[2rem] shadow-xl flex items-center gap-5 min-w-[200px] group/item hover:border-red-500/30 transition-all duration-500">
+                    <div className="bg-[var(--sidebar-background)]/60 dark:bg-[var(--sidebar-background)]/30 backdrop-blur-md tactical-border p-5 rounded-[2rem] shadow-2xl flex items-center gap-5 min-w-[200px] group/item hover:shadow-red-500/20 transition-all duration-500">
                         <div className="w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-500 shrink-0 group-hover/item:scale-110 transition-transform">
                             <Activity size={20} />
                         </div>
@@ -74,7 +74,7 @@ export function FavoritesPage() {
                 isLoading={isLoading}
                 isEmpty={isEmpty}
                 emptyState={
-                    <div className="flex flex-col items-center justify-center py-40 border-2 border-dashed border-red-500/20 bg-red-500/[0.02] rounded-[4rem] text-center">
+                    <div className="flex flex-col items-center justify-center py-40 tactical-border border-dashed border-2 bg-red-500/[0.02] rounded-[4rem] text-center shadow-2xl">
                         <div className="w-32 h-32 bg-[var(--sidebar-background)] rounded-[3rem] shadow-2xl border border-[var(--border)] flex items-center justify-center mb-8 group overflow-hidden relative">
                             <div className="absolute inset-0 bg-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                             <Heart size={48} className="text-red-500 fill-red-500 relative z-10" />

@@ -49,7 +49,7 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
         <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="w-full max-w-xl mx-auto overflow-hidden rounded-[3rem] border border-[var(--border)] bg-[var(--sidebar-background)] shadow-xl"
+            className="w-full max-w-xl bg-[var(--sidebar-background)]/95 backdrop-blur-2xl rounded-[2.5rem] overflow-hidden tactical-border shadow-[0_0_100px_rgba(0,0,0,0.8)] relative"
         >
             <div className="relative p-10 md:p-14">
                 <div className="flex flex-col items-center mb-10 text-center space-y-4">

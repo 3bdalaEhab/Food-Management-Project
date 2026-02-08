@@ -65,28 +65,29 @@ export function DashboardBackground() {
     return (
         <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 bg-[var(--background)]">
             {/* World-Class Optimized Mesh Engine (Surgical Efficiency) */}
-            <div className="absolute inset-0 z-0 opacity-40">
+            <div className="absolute inset-0 z-0 opacity-40 dark:opacity-60">
                 <div
-                    className="absolute -top-[20%] -left-[10%] w-[100%] h-[100%] bg-[radial-gradient(circle_at_center,var(--color-primary-500)/0.03)_0%,transparent_70%)] blur-[80px]"
+                    className="absolute -top-[20%] -left-[10%] w-[100%] h-[100%] bg-[radial-gradient(circle_at_center,var(--color-primary-500)/0.05)_0%,transparent_70%)] blur-[100px]"
                 />
                 <div
-                    className="absolute -bottom-[20%] -right-[10%] w-[80%] h-[80%] bg-[radial-gradient(circle_at_center,var(--color-success)/0.02)_0%,transparent_70%)] blur-[60px]"
+                    className="absolute -bottom-[20%] -right-[10%] w-[80%] h-[80%] bg-[radial-gradient(circle_at_center,var(--color-success)/0.04)_0%,transparent_70%)] blur-[80px]"
                 />
             </div>
 
             {/* Static Ambient Light Layer (Cheaper than animating blurs) */}
-            <div className="absolute inset-0 z-5 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,var(--background)_100%)] opacity-60" />
+            <div className="absolute inset-0 z-5 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,var(--background)_100%)] opacity-60 dark:opacity-80" />
 
-            <div className="absolute inset-0 z-10 opacity-15">
+            <div className="absolute inset-0 z-10 opacity-15 dark:opacity-25">
                 {assets.map((asset, i) => (
                     <FloatingAsset key={i} {...asset} />
                 ))}
             </div>
 
             {/* Industrial Texture Layers */}
-            <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.02] mix-blend-overlay z-20" />
+            <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.02] dark:opacity-[0.03] mix-blend-overlay z-20" />
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--background)]/30 to-[var(--background)] opacity-80 z-20" />
-            <div className="absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_0_200px_rgba(0,0,0,0.4)] z-20" />
+            <div className="absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.03)] dark:shadow-[inset_0_0_300px_rgba(0,0,0,0.6)] z-20" />
+
         </div>
     );
 }
