@@ -114,19 +114,29 @@ export const useAuthStore = create<AuthState>()(
 
             initialize: () => {
                 const token = localStorage.getItem("token");
+                // console.log("Init Auth Store. Token:", !!token);
 
                 if (token) {
                     const decodedUser = decodeToken(token);
+                    // console.log("Decoded User:", decodedUser);
 
                     if (decodedUser) {
                         const existingUser = get().user;
-                        const user = (existingUser && existingUser.id === decodedUser.id)
+                        // console.log("Existing Persisted User:", existingUser);
+
+                        // Strict string comparison
+                        const idsMatch = existingUser && String(existingUser.id) === String(decodedUser.id);
+                        // console.log("IDs Match:", idsMatch);
+
+                        const user = idsMatch
                             ? { ...existingUser, ...decodedUser }
                             : decodedUser;
 
+                        // console.log("Final User after Init:", user);
+
                         set({
                             token,
-                            user,
+                            user: user as User, // Ensure cast
                             isAuthenticated: true,
                             isLoading: false,
                         });

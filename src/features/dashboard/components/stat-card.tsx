@@ -114,7 +114,7 @@ export const StatCard = memo(({
 
                         {/* Mini Sparkline - High Performance */}
                         <div className="h-12 w-full mt-2 -mb-2 relative opacity-40 group-hover:opacity-100 transition-opacity duration-700">
-                            <ResponsiveContainer width="100%" height="100%">
+                            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                                 {chartType === 'bar' ? (
                                     <LineChart data={chartData}>
                                         <Line

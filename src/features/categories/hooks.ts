@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 import { categoriesApi } from "./api";
 import type { CreateCategoryData, UpdateCategoryData } from "./types";
 
@@ -21,46 +22,49 @@ export const useCategory = (id: number) => {
 
 export const useCreateCategory = () => {
     const queryClient = useQueryClient();
+    const { t } = useTranslation();
 
     return useMutation({
         mutationFn: (data: CreateCategoryData) => categoriesApi.createCategory(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["categories"] });
-            toast.success("Category created successfully!");
+            toast.success(t('toasts.category_created'));
         },
         onError: (error: Error) => {
-            toast.error(error.message || "Failed to create category");
+            toast.error(error.message || t('toasts.operation_failed'));
         },
     });
 };
 
 export const useUpdateCategory = () => {
     const queryClient = useQueryClient();
+    const { t } = useTranslation();
 
     return useMutation({
         mutationFn: (data: UpdateCategoryData) => categoriesApi.updateCategory(data),
         onSuccess: (data) => {
             queryClient.invalidateQueries({ queryKey: ["categories"] });
             queryClient.invalidateQueries({ queryKey: ["categories", data.id] });
-            toast.success("Category updated successfully!");
+            toast.success(t('toasts.category_updated'));
         },
         onError: (error: Error) => {
-            toast.error(error.message || "Failed to update category");
+            toast.error(error.message || t('toasts.operation_failed'));
         },
     });
 };
 
 export const useDeleteCategory = () => {
     const queryClient = useQueryClient();
+    const { t } = useTranslation();
 
     return useMutation({
         mutationFn: (id: number) => categoriesApi.deleteCategory(id),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["categories"] });
-            toast.success("Category deleted successfully");
+            toast.success(t('toasts.category_deleted'));
         },
         onError: (error: Error) => {
-            toast.error(error.message || "Failed to delete category");
+            toast.error(error.message || t('toasts.operation_failed'));
         },
     });
 };

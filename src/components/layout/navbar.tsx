@@ -6,13 +6,13 @@ import { cn, getImageUrl } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { useCurrentUser } from "@/features/users/hooks";
+
 
 export function Navbar() {
     const { t } = useTranslation();
     const user = useAuthStore((state) => state.user);
-    const { data: currentUser } = useCurrentUser();
-    const displayUser = currentUser || user;
+    const displayUser = user;
+    const finalImagePath = user?.imagePath;
     const { theme, setTheme, language, setLanguage, setMobileMenuOpen } = useAppStore();
     const [isLangOpen, setIsLangOpen] = useState(false);
     const langRef = useRef<HTMLDivElement>(null);
@@ -148,23 +148,23 @@ export function Navbar() {
                         <span className="text-[10px] font-black text-[var(--foreground)] uppercase tracking-tighter leading-none">{displayUser?.userName || "EXPERT_UNIT"}</span>
                         <div className={cn(
                             "px-2 py-0.5 rounded-full border text-[7px] font-black uppercase tracking-widest",
-                            displayUser?.role === "SuperAdmin" || (displayUser && 'group' in displayUser && displayUser.group.name === 'SuperAdmin')
+                            displayUser?.role === "SuperAdmin"
                                 ? "bg-red-500/10 border-red-500/30 text-red-500"
                                 : "bg-primary-500/10 border-primary-500/30 text-primary-500"
                         )}>
-                            {displayUser?.role === "SuperAdmin" || (displayUser && 'group' in displayUser && displayUser.group.name === 'SuperAdmin') ? "ADMIN_STRATEGIST" : "FIELD_OPERATOR"}
+                            {displayUser?.role === "SuperAdmin" ? "ADMIN_STRATEGIST" : "FIELD_OPERATOR"}
                         </div>
                     </div>
                     <div className={cn(
                         "w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl p-0.5 border shadow-2xl group-hover:scale-105 transition-transform duration-500 overflow-hidden relative",
-                        displayUser?.role === "SuperAdmin" || (displayUser && 'group' in displayUser && displayUser.group.name === 'SuperAdmin') ? "bg-red-500 border-red-500/50" : "bg-[var(--sidebar-background)] border-[var(--border)]"
+                        displayUser?.role === "SuperAdmin" ? "bg-red-500 border-red-500/50" : "bg-[var(--sidebar-background)] border-[var(--border)]"
                     )}>
                         <div className={cn(
                             "w-full h-full rounded-[0.65rem] md:rounded-[0.9rem] flex items-center justify-center bg-[var(--background)] overflow-hidden",
-                            !displayUser?.imagePath && (displayUser?.role === "SuperAdmin" || (displayUser && 'group' in displayUser && displayUser.group.name === 'SuperAdmin') ? "bg-gradient-to-br from-red-500 to-red-600 text-white" : "bg-gradient-to-br from-primary-500 to-primary-600 text-white")
+                            !finalImagePath && (displayUser?.role === "SuperAdmin" ? "bg-gradient-to-br from-red-500 to-red-600 text-white" : "bg-gradient-to-br from-primary-500 to-primary-600 text-white")
                         )}>
-                            {displayUser?.imagePath ? (
-                                <ImageWithFallback src={getImageUrl(displayUser.imagePath)} alt={displayUser.userName} className="w-full h-full" />
+                            {finalImagePath ? (
+                                <ImageWithFallback src={getImageUrl(finalImagePath)} alt={displayUser?.userName || "User"} className="w-full h-full" />
                             ) : (
                                 <span className="font-black text-sm italic uppercase">{displayUser?.userName?.charAt(0) || <User size={18} />}</span>
                             )}

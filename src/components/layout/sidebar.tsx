@@ -19,7 +19,7 @@ import { useAuthStore, useAppStore, selectIsAdmin } from "@/stores";
 import { useTranslation } from "react-i18next";
 import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 import { useMemo } from "react";
-import { useCurrentUser } from "@/features/users/hooks";
+
 
 interface NavItem {
     icon: React.ElementType;
@@ -42,8 +42,9 @@ export function Sidebar() {
     const location = useLocation();
     const logout = useAuthStore((state) => state.logout);
     const user = useAuthStore((state) => state.user);
-    const { data: currentUser } = useCurrentUser();
-    const displayUser = currentUser || user;
+    // Use store user as the single source of truth for UI stability
+    const displayUser = user;
+    const finalImagePath = user?.imagePath;
     const isAdmin = useAuthStore(selectIsAdmin);
     const { sidebarCollapsed, toggleSidebar, language } = useAppStore();
 
@@ -214,8 +215,8 @@ export function Sidebar() {
                     )}
                 >
                     <div className="w-10 h-10 rounded-xl bg-[var(--background)] overflow-hidden border border-[var(--sidebar-border)] group-hover:border-primary-500/50 transition-colors shrink-0 flex items-center justify-center">
-                        {displayUser?.imagePath ? (
-                            <ImageWithFallback src={getImageUrl(displayUser.imagePath)} alt={displayUser.userName} className="w-full h-full" />
+                        {finalImagePath ? (
+                            <ImageWithFallback src={getImageUrl(finalImagePath)} alt={displayUser?.userName || "User"} className="w-full h-full" />
                         ) : (
                             <Fingerprint size={20} className="text-[var(--muted-foreground)] group-hover:text-primary-500 transition-colors" />
                         )}

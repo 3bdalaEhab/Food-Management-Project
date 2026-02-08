@@ -6,7 +6,7 @@ import "./i18n/config";
 
 // Initialize auth store
 import { useAuthStore } from "@/stores";
-useAuthStore.getState().initialize();
+
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>

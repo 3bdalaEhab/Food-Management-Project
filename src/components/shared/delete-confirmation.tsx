@@ -73,7 +73,7 @@ export function DeleteConfirmation({
                                 onClick={onClose}
                                 className="h-16 rounded-[1.5rem] border border-[var(--border)] font-black uppercase tracking-widest text-[10px] text-[var(--muted-foreground)] hover:bg-[var(--background)] transition-all shadow-xl"
                             >
-                                {t('delete_confirmation.cancel')}
+                                {t('common.cancel')}
                             </button>
                             <button
                                 onClick={onConfirm}
@@ -86,7 +86,7 @@ export function DeleteConfirmation({
                                 ) : (
                                     <>
                                         <Trash2 size={18} />
-                                        <span>{t('delete_confirmation.confirm')}</span>
+                                        <span>{t('common.delete')}</span>
                                     </>
                                 )}
                             </button>

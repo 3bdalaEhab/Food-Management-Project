@@ -355,7 +355,19 @@ export const ar = {
             try_again: "يرجى المحاولة مرة أخرى",
             login_success: "تم تسجيل الدخول بنجاح",
             welcome_back: "مرحباً بعودتك أيها القائد",
-            login_failed: "فشل تسجيل الدخول"
+            login_failed: "فشل تسجيل الدخول",
+            recipe_created: "تم إنشاء بروتوكول الوصفة بنجاح",
+            recipe_updated: "تم تحديث بيانات الوصفة",
+            recipe_deleted: "تم حذف الوصفة من السجلات",
+            user_created: "تم تجنيد العميل الجديد بنجاح",
+            user_updated: "تم تحديث ملف العميل",
+            user_deleted: "تم إنهاء خدمة العميل",
+            profile_updated: "تم تحديث الملف الشخصي",
+            password_changed: "تم تغيير بروتوكول الأمان (كلمة المرور)",
+            category_created: "تم تهيئة عقدة تصنيف جديدة",
+            category_updated: "تم تعديل ناقل التصنيف",
+            category_deleted: "تم إزالة العقدة من الشبكة",
+            operation_failed: "فشلت العملية. تحقق من الأنظمة."
         }
     }
 };
