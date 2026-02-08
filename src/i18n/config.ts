@@ -8,9 +8,22 @@ const resources = {
     ar
 };
 
+const getInitialLanguage = () => {
+    try {
+        const savedStorage = localStorage.getItem("app-storage");
+        if (savedStorage) {
+            const parsed = JSON.parse(savedStorage);
+            return parsed.state?.language || "ar";
+        }
+    } catch (e) {
+        console.error("Failed to parse language from storage", e);
+    }
+    return "ar";
+};
+
 i18n.use(initReactI18next).init({
     resources,
-    lng: "ar",
+    lng: getInitialLanguage(),
     fallbackLng: "en",
     interpolation: {
         escapeValue: false

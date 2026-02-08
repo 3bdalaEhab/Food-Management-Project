@@ -94,8 +94,10 @@ export function Navbar() {
                                     <button
                                         onClick={() => selectLanguage("en")}
                                         className={cn(
-                                            "w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all",
-                                            language === "en" ? "bg-primary-500 text-white shadow-lg" : "text-neutral-500 hover:bg-neutral-100 dark:hover:bg-white/5 hover:text-neutral-900 dark:hover:text-white"
+                                            "w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-200",
+                                            language === "en"
+                                                ? "bg-primary-500 text-white shadow-lg"
+                                                : "text-[var(--muted-foreground)] hover:bg-primary-500/10 hover:text-primary-500 dark:hover:bg-primary-500/20"
                                         )}
                                     >
                                         <span>English</span>
@@ -104,11 +106,13 @@ export function Navbar() {
                                     <button
                                         onClick={() => selectLanguage("ar")}
                                         className={cn(
-                                            "w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all",
-                                            language === "ar" ? "bg-primary-500 text-white shadow-lg" : "text-neutral-500 hover:bg-neutral-100 dark:hover:bg-white/5 hover:text-neutral-900 dark:hover:text-white"
+                                            "w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-black tracking-widest transition-all duration-200",
+                                            language === "ar"
+                                                ? "bg-primary-500 text-white shadow-lg"
+                                                : "text-[var(--muted-foreground)] hover:bg-primary-500/10 hover:text-primary-500 dark:hover:bg-primary-500/20"
                                         )}
                                     >
-                                        <span>العربية</span>
+                                        <span className="rtl:not-italic">العربية</span>
                                         {language === "ar" && <Zap size={10} className="fill-current" />}
                                     </button>
                                 </div>
