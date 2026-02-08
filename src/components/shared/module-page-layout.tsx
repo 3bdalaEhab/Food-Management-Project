@@ -119,7 +119,7 @@ export function ModulePageLayout({
                             <div className="absolute -inset-10 bg-mesh-gradient-1 opacity-[0.03] pointer-events-none -z-10" />
 
                             <h1 className="text-3xl md:text-5xl lg:text-7xl font-black tracking-tighter rtl:tracking-normal leading-[0.9] uppercase italic rtl:not-italic px-1">
-                                {titlePrefix && <span className="opacity-40 block md:inline uppercase text-xl md:text-4xl lg:text-5xl mb-1 md:mb-0">{titlePrefix} </span>}
+                                {titlePrefix && <span className="opacity-40 block md:inline uppercase text-2xl md:text-5xl lg:text-6xl mb-1 md:mb-0">{titlePrefix} </span>}
                                 {titleSuffix ? (
                                     <>
                                         <span className="text-[var(--foreground)]">{title} </span>

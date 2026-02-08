@@ -168,7 +168,7 @@ export function RecipesPage() {
                     setIsDetailsOpen(open);
                     if (!open) setSelectedRecipe(null);
                 }}
-                maxWidth="6xl"
+                maxWidth="2xl"
             >
                 {selectedRecipe && (
                     <RecipeDetails

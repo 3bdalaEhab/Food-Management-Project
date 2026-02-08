@@ -47,144 +47,90 @@ export function RecipeDetails({ recipe, onClose }: RecipeDetailsProps) {
     };
 
     return (
-        <div className="flex flex-col lg:flex-row h-full max-h-[95vh] lg:h-[min(800px,85vh)] bg-[var(--sidebar-background)] rounded-[1.5rem] md:rounded-[2rem] lg:rounded-[3rem] overflow-hidden border border-[var(--border)] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] relative">
+        <div className="flex flex-col bg-[var(--sidebar-background)] rounded-[2rem] overflow-hidden border border-[var(--border)] shadow-2xl relative max-h-[85vh] w-full">
 
-            {/* Visual Anchor (Left) */}
-            <div className="w-full lg:w-[40%] h-[35vh] lg:h-full relative overflow-hidden shrink-0 border-b lg:border-b-0 lg:border-r border-[var(--border)] group">
-                <motion.div
-                    initial={{ scale: 1.1, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 1.2, ease: "easeOut" }}
-                    className="w-full h-full"
-                >
-                    <ImageWithFallback
-                        src={imageUrl}
-                        alt={recipe.name}
-                        className="w-full h-full object-cover transition-transform duration-[2s]"
-                    />
-                </motion.div>
+            {/* Banner Image */}
+            <div className="h-64 md:h-72 relative shrink-0 group">
+                <ImageWithFallback
+                    src={imageUrl}
+                    alt={recipe.name}
+                    className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105"
+                />
 
-                {/* Visual Overlays */}
+                {/* Gradient Overlays */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--sidebar-background)] via-transparent to-transparent opacity-90" />
-                <div className="absolute inset-0 bg-black/10 dark:bg-black/30" />
-
-                {/* Header Badge */}
                 <div className="absolute top-4 md:top-6 start-4 md:start-6 flex items-center gap-2 z-20">
-                    <div className="px-3 py-1.5 bg-primary-500 rounded-xl flex items-center gap-2 shadow-2xl border border-primary-400/50">
+                    <div className="px-3 py-1.5 bg-primary-500 rounded-xl flex items-center gap-2 shadow-lg border border-primary-400/50">
                         <Zap size={12} className="text-white fill-white animate-pulse" />
-                        <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] rtl:tracking-normal text-white rtl:not-italic">{recipe.tag.name}</span>
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] rtl:tracking-normal text-white rtl:not-italic">{recipe.tag.name}</span>
                     </div>
                 </div>
 
-                {/* Hero Title */}
-                <div className="absolute bottom-6 md:bottom-8 start-4 md:start-8 end-4 md:end-8 space-y-2 md:space-y-3 z-20">
-                    <motion.h2
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.3 }}
-                        className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black italic rtl:not-italic uppercase tracking-tighter rtl:tracking-normal text-white leading-[0.9] drop-shadow-2xl"
-                    >
-                        {recipe.name}
-                    </motion.h2>
-                    <div className="h-0.5 w-12 bg-primary-500 rounded-full" />
-                </div>
+                {/* Close Button (Absolute) */}
+                <button
+                    onClick={onClose}
+                    className="absolute top-4 md:top-6 end-4 md:end-6 w-10 h-10 rounded-xl bg-black/20 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-black/40 transition-all z-50 hover:rotate-90"
+                >
+                    <X size={20} />
+                </button>
 
-                {/* Favorite Action Node */}
+                {/* Favorite Button */}
                 {!isAdmin && (
-                    <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
+                    <button
                         onClick={handleToggleFavorite}
                         className={cn(
-                            "absolute bottom-6 md:bottom-8 end-4 md:end-8 w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center transition-all z-30 border backdrop-blur-xl shadow-2xl",
+                            "absolute bottom-4 end-4 w-12 h-12 rounded-2xl flex items-center justify-center transition-all z-30 border backdrop-blur-md shadow-xl",
                             isFavorite
                                 ? "bg-red-500 text-white border-red-400"
-                                : "bg-[var(--background)]/40 text-[var(--foreground)] border-[var(--border)] hover:bg-[var(--muted)]"
+                                : "bg-black/20 text-white border-white/10 hover:bg-black/40"
                         )}
                     >
-                        <Heart className={cn("w-5 h-5 md:w-6 md:h-6", isFavorite && "fill-current")} />
-                    </motion.button>
+                        <Heart className={cn("w-6 h-6", isFavorite && "fill-current")} />
+                    </button>
                 )}
             </div>
 
-            {/* Tactical Content Dashboard (Right) */}
-            <div className="flex-1 flex flex-col min-w-0 bg-[var(--background)]/30 relative">
+            {/* Content Body */}
+            <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6">
 
-                {/* Close Button */}
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 md:top-6 end-4 md:end-6 w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-[var(--background)] border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] hover:border-[var(--muted-foreground)] transition-all z-50 group"
-                >
-                    <X size={20} className="group-hover:rotate-90 rtl:group-hover:-rotate-90 transition-transform duration-500" />
-                </button>
+                {/* Header */}
+                <div className="space-y-2">
+                    <h2 className="text-3xl md:text-4xl font-black italic rtl:not-italic uppercase tracking-tighter rtl:tracking-normal text-[var(--foreground)] leading-none">
+                        {recipe.name}
+                    </h2>
+                    <div className="flex items-center gap-4">
+                        <span className="text-2xl font-black text-primary-500 italic rtl:not-italic tabular-nums">${recipe.price}</span>
+                        <div className="h-4 w-px bg-[var(--border)]" />
+                        <span className="text-xs font-bold text-[var(--muted-foreground)] uppercase tracking-widest">{t('recipes.verified')}</span>
+                    </div>
+                </div>
 
-                <div className="flex-1 overflow-y-auto no-scrollbar p-6 md:p-8 lg:p-10 space-y-6 md:space-y-8">
+                {/* Description */}
+                <div className="relative p-5 rounded-2xl bg-[var(--sidebar-background)]/50 border border-[var(--border)]">
+                    <p className="text-sm md:text-base font-medium text-[var(--muted-foreground)] leading-relaxed relative z-10">
+                        {recipe.description || t('recipes.no_data_registry')}
+                    </p>
+                </div>
 
-                    {/* Compact Status Matrix */}
-                    <div className="grid grid-cols-2 gap-3 md:gap-4">
-                        <div className="p-4 md:p-5 rounded-2xl bg-[var(--sidebar-background)]/40 border border-[var(--border)] space-y-1.5">
-                            <span className="text-[7px] md:text-[8px] font-black uppercase tracking-[0.3em] rtl:tracking-normal text-[var(--muted-foreground)] opacity-60 flex items-center gap-1.5 rtl:not-italic">
-                                {t('recipes.protocol_id')}
-                            </span>
-                            <div className="text-xl md:text-2xl font-bold italic rtl:not-italic tracking-tighter rtl:tracking-normal text-[var(--foreground)]">
-                                00{recipe.id.toString().padStart(4, '0')}
-                            </div>
+                {/* Stats Grid */}
+                <div className="grid grid-cols-2 gap-3">
+                    <div className="p-4 rounded-2xl border border-[var(--border)] bg-[var(--sidebar-background)]/30 flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-primary-500/10 flex items-center justify-center text-primary-500">
+                            <Clock size={18} />
                         </div>
-                        <div className="p-4 md:p-5 rounded-2xl bg-[var(--sidebar-background)]/40 border border-[var(--border)] space-y-1.5 text-right rtl:text-left">
-                            <span className="text-[7px] md:text-[8px] font-black uppercase tracking-[0.3em] rtl:tracking-normal text-[var(--muted-foreground)] opacity-60 flex items-center justify-end rtl:justify-start gap-1.5 rtl:not-italic">
-                                {t('recipes.valuation')}
-                                <DollarSign size={10} className="text-primary-500" />
-                            </span>
-                            <div className="text-2xl md:text-3xl font-black italic rtl:not-italic tracking-tighter rtl:tracking-normal text-[var(--foreground)] flex items-center justify-end rtl:justify-start gap-1">
-                                <span className="text-xs md:text-sm font-bold text-primary-500">$</span>
-                                {recipe.price}
-                            </div>
+                        <div className="flex flex-col">
+                            <span className="text-[9px] font-black uppercase tracking-widest rtl:tracking-normal text-[var(--muted-foreground)] opacity-60 rtl:not-italic">{t('recipes.runtime')}</span>
+                            <span className="text-sm font-bold text-[var(--foreground)]">25 {t('recipes.min')}</span>
                         </div>
                     </div>
-
-                    {/* Integrated Narrative */}
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-2 px-1">
-                            <FileText size={14} className="text-primary-500" />
-                            <h3 className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.4em] rtl:tracking-normal text-[var(--muted-foreground)] opacity-60 rtl:not-italic">{t('recipes.technical_brief')}</h3>
+                    <div className="p-4 rounded-2xl border border-[var(--border)] bg-[var(--sidebar-background)]/30 flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500">
+                            <Shield size={18} />
                         </div>
-
-                        <div className="relative p-5 md:p-6 rounded-[1.5rem] md:rounded-[2rem] bg-[var(--sidebar-background)]/30 border border-[var(--border)] group">
-                            <ChefHat size={100} className="absolute -bottom-4 -right-4 rtl:-left-4 rtl:right-auto text-[var(--muted-foreground)] opacity-[0.02] pointer-events-none group-hover:opacity-[0.04] transition-opacity" />
-                            <p className="text-xs md:text-sm lg:text-base font-bold text-[var(--muted-foreground)] leading-relaxed relative z-10 first-letter:text-3xl md:first-letter:text-4xl first-letter:font-black first-letter:text-primary-500 first-letter:float-left first-letter:mr-2 first-letter:mt-1 rtl:first-letter:float-right rtl:first-letter:ml-2 rtl:first-letter:mr-0 rtl:not-italic">
-                                {recipe.description || t('recipes.no_data_registry')}
-                            </p>
+                        <div className="flex flex-col">
+                            <span className="text-[9px] font-black uppercase tracking-widest rtl:tracking-normal text-[var(--muted-foreground)] opacity-60 rtl:not-italic">{t('recipes.integrity')}</span>
+                            <span className="text-sm font-bold text-[var(--foreground)]">{t('recipes.verified')}</span>
                         </div>
-                    </div>
-
-
-                    {/* Operational Node */}
-                    <div className="grid grid-cols-2 gap-3">
-                        <div className="p-4 rounded-xl border border-[var(--border)] bg-[var(--sidebar-background)]/30 flex items-center gap-3">
-                            <Clock size={16} className="text-primary-500/60" />
-                            <div className="flex flex-col">
-                                <span className="text-[7px] md:text-[8px] font-black uppercase tracking-widest rtl:tracking-normal text-[var(--muted-foreground)] opacity-40 rtl:not-italic">{t('recipes.runtime')}</span>
-                                <span className="text-[9px] md:text-[10px] font-black text-[var(--foreground)] opacity-80 italic rtl:not-italic">25:00 {t('recipes.min')}</span>
-                            </div>
-                        </div>
-                        <div className="p-4 rounded-xl border border-[var(--border)] bg-[var(--sidebar-background)]/30 flex items-center gap-3">
-                            <Shield size={16} className="text-green-500/60" />
-                            <div className="flex flex-col">
-                                <span className="text-[7px] md:text-[8px] font-black uppercase tracking-widest rtl:tracking-normal text-[var(--muted-foreground)] opacity-40 rtl:not-italic">{t('recipes.integrity')}</span>
-                                <span className="text-[9px] md:text-[10px] font-black text-[var(--foreground)] opacity-80 italic rtl:not-italic">{t('recipes.verified')}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Exit Navigation (Mobile) */}
-                    <div className="lg:hidden pt-4">
-                        <button
-                            onClick={onClose}
-                            className="w-full h-14 rounded-2xl bg-[var(--foreground)] text-[var(--background)] font-black uppercase tracking-widest rtl:tracking-normal text-[9px] md:text-[10px] flex items-center justify-center gap-2 active:scale-95 transition-all shadow-xl rtl:not-italic"
-                        >
-                            <ArrowLeft size={16} className="rtl:rotate-180" />
-                            {t('recipes.exit_navigation')}
-                        </button>
                     </div>
                 </div>
             </div>

@@ -5,9 +5,12 @@ import { useTranslation } from "react-i18next";
 
 import { useDeleteRecipe } from "../hooks";
 import { RecipeCard } from "./recipe-card";
+import { RecipeDetails } from "./recipe-details";
 import { useFavorites } from "@/features/favorites";
 import { DeleteConfirmation } from "@/components/shared/delete-confirmation";
 import { ModulePageLayout } from "@/components/shared/module-page-layout";
+import { CustomDialog } from "@/components/shared/custom-dialog";
+import { Recipe } from "../types";
 
 export function FavoritesPage() {
     const { t } = useTranslation();
@@ -15,6 +18,8 @@ export function FavoritesPage() {
     const [search, setSearch] = useState("");
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
     const [deleteId, setDeleteId] = useState<number | null>(null);
+    const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+    const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
     // Fetch favorites from API
     const { data: favorites = [], isLoading } = useFavorites();
@@ -29,6 +34,11 @@ export function FavoritesPage() {
     }, [favorites, search]);
 
     const isEmpty = !isLoading && filteredFavorites.length === 0;
+
+    const handleView = (recipe: Recipe) => {
+        setSelectedRecipe(recipe);
+        setIsDetailsOpen(true);
+    };
 
     return (
         <>
@@ -86,10 +96,27 @@ export function FavoritesPage() {
                         key={fav.id}
                         recipe={fav.recipe}
                         viewMode={viewMode}
+                        onView={handleView}
                         onDelete={(id) => setDeleteId(id)}
                     />
                 ))}
             </ModulePageLayout>
+
+            <CustomDialog
+                open={isDetailsOpen}
+                onOpenChange={(open) => {
+                    setIsDetailsOpen(open);
+                    if (!open) setSelectedRecipe(null);
+                }}
+                maxWidth="2xl"
+            >
+                {selectedRecipe && (
+                    <RecipeDetails
+                        recipe={selectedRecipe}
+                        onClose={() => setIsDetailsOpen(false)}
+                    />
+                )}
+            </CustomDialog>
 
             <DeleteConfirmation
                 isOpen={deleteId !== null}

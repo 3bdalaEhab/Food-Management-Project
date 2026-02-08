@@ -46,11 +46,7 @@ export function UsersPage() {
                 subtitle={t('users.fleet_command')}
                 badgeLabel={t('users.tactical_control')}
                 HeaderIcon={Users}
-                primaryAction={{
-                    label: t('users.add_new_agent'),
-                    onClick: () => setIsAddUserOpen(true),
-                    icon: Plus
-                }}
+                /* primaryAction removed as per user request */
                 secondaryNode={
                     <div className="flex flex-wrap items-center gap-4 lg:gap-8 w-full sm:w-auto">
                         {/* Total Fleet Size - standardized */}
