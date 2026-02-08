@@ -52,16 +52,16 @@ export function UsersPage() {
                     icon: Plus
                 }}
                 secondaryNode={
-                    <div className="flex flex-wrap items-center gap-4 lg:gap-8">
+                    <div className="flex flex-wrap items-center gap-4 lg:gap-8 w-full sm:w-auto">
                         {/* Total Fleet Size - standardized */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-5 rounded-[2rem] shadow-xl flex items-center gap-6 hover:border-primary-500/30 transition-all duration-500 group overflow-hidden relative min-w-[240px]"
+                            className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-4 md:p-5 rounded-[1.5rem] md:rounded-[2rem] shadow-xl flex items-center gap-4 md:gap-6 hover:border-primary-500/30 transition-all duration-500 group overflow-hidden relative min-w-full sm:min-w-[240px]"
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-primary-500/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                            <div className="w-14 h-14 rounded-2xl bg-primary-500 flex items-center justify-center shrink-0 shadow-lg shadow-primary-500/20 relative z-10 group-hover:scale-110 transition-transform">
-                                <Users size={28} className="text-white" />
+                            <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-primary-500 flex items-center justify-center shrink-0 shadow-lg shadow-primary-500/20 relative z-10 group-hover:scale-110 transition-transform">
+                                <Users size={24} className="text-white md:w-7 md:h-7" />
                             </div>
                             <div className="space-y-1 relative z-10">
                                 <div className="flex items-center gap-2">
@@ -77,21 +77,21 @@ export function UsersPage() {
                             </div>
                         </motion.div>
 
-                        <div className="flex gap-4">
+                        <div className="flex gap-4 w-full sm:w-auto">
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: 0.1 }}
-                                className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-5 rounded-[2rem] shadow-xl flex flex-col justify-between w-32 md:w-36 hover:border-green-500/30 transition-all duration-500 group"
+                                className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-4 md:p-5 rounded-[1.5rem] md:rounded-[2rem] shadow-xl flex flex-col justify-between w-full sm:w-36 hover:border-green-500/30 transition-all duration-500 group h-28 md:h-auto"
                             >
                                 <div className="flex items-center justify-between mb-3">
-                                    <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center group-hover:bg-green-500 transition-all">
-                                        <Users size={18} className="text-green-500 group-hover:text-white transition-colors" />
+                                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-green-500/10 flex items-center justify-center group-hover:bg-green-500 transition-all">
+                                        <Users size={16} className="text-green-500 group-hover:text-white transition-colors md:w-[18px] md:h-[18px]" />
                                     </div>
-                                    <span className="text-[8px] font-black text-green-500/50 uppercase tracking-widest rtl:tracking-normal italic rtl:not-italic">ACTIVE</span>
+                                    <span className="text-[8px] font-black text-green-500/50 uppercase tracking-widest rtl:tracking-normal italic rtl:not-italic">{t('common.active')}</span>
                                 </div>
                                 <div className="space-y-1">
-                                    <p className="text-2xl font-black text-[var(--foreground)] tracking-tighter rtl:tracking-normal italic rtl:not-italic leading-none tabular-nums">
+                                    <p className="text-xl md:text-2xl font-black text-[var(--foreground)] tracking-tighter rtl:tracking-normal italic rtl:not-italic leading-none tabular-nums">
                                         {usersData?.data?.length || 0}
                                     </p>
                                     <div className="h-1 w-full bg-green-500/10 rounded-full overflow-hidden">

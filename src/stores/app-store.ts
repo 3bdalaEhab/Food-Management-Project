@@ -57,7 +57,7 @@ export const useAppStore = create<AppState>()(
     persist(
         (set, get) => ({
             // Theme
-            theme: "light",
+            theme: "dark",
             setTheme: (theme: Theme) => {
                 applyTheme(theme);
                 set({ theme });

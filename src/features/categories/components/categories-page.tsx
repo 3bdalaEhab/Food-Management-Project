@@ -71,16 +71,16 @@ export function CategoriesPage() {
                     icon: Plus
                 }}
                 secondaryNode={
-                    <div className="flex flex-wrap items-center gap-4 lg:gap-8">
+                    <div className="flex flex-wrap items-center gap-4 lg:gap-8 w-full sm:w-auto">
                         {/* Total Categories - Standardized Analytic Node */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-5 rounded-[2rem] shadow-xl flex items-center gap-6 hover:border-primary-500/30 transition-all duration-500 group overflow-hidden relative min-w-[240px]"
+                            className="bg-[var(--sidebar-background)]/60 backdrop-blur-md border border-[var(--border)] p-4 md:p-5 rounded-[1.5rem] md:rounded-[2rem] shadow-xl flex items-center gap-4 md:gap-6 hover:border-primary-500/30 transition-all duration-500 group overflow-hidden relative min-w-full sm:min-w-[240px]"
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-primary-500/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                            <div className="w-14 h-14 rounded-2xl bg-primary-500 flex items-center justify-center shrink-0 shadow-lg shadow-primary-500/20 relative z-10 group-hover:scale-110 transition-transform">
-                                <FolderTree size={28} className="text-white" />
+                            <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-primary-500 flex items-center justify-center shrink-0 shadow-lg shadow-primary-500/20 relative z-10 group-hover:scale-110 transition-transform">
+                                <FolderTree size={24} className="text-white md:w-7 md:h-7" />
                             </div>
                             <div className="space-y-1 relative z-10">
                                 <div className="flex items-center gap-2">

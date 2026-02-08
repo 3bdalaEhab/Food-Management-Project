@@ -40,10 +40,10 @@ const FloatingAsset = ({ Icon, size, top, left, delay, duration, rotate = 0 }: F
             ease: "easeInOut"
         }}
         style={{
-            position: 'absolute',
             top,
             left,
-            willChange: 'transform'
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
         }}
         className="text-primary-500/10 pointer-events-none"
     >

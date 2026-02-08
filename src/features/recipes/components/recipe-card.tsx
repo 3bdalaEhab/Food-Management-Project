@@ -23,7 +23,7 @@ export const RecipeCard = memo(({
     onView,
     viewMode = "grid"
 }: RecipeCardProps) => {
-    const { i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
     const isRtl = i18n.language === "ar";
     const isAdmin = useAuthStore(selectIsAdmin);
 
@@ -86,8 +86,8 @@ export const RecipeCard = memo(({
                     </div>
                     {isAdmin ? (
                         <div className="flex gap-2">
-                            <button onClick={(e) => { e.stopPropagation(); onEdit?.(recipe); }} className="p-3 rounded-xl bg-blue-500/10 text-blue-500 border border-blue-500/20 hover:bg-blue-500 hover:text-white transition-all"><Edit2 size={16} /></button>
-                            <button onClick={(e) => { e.stopPropagation(); onDelete?.(recipe.id); }} className="p-3 rounded-xl bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white transition-all"><Trash2 size={16} /></button>
+                            <button onClick={(e) => { e.stopPropagation(); onEdit?.(recipe); }} className="w-11 h-11 rounded-xl bg-blue-500/10 text-blue-500 border border-blue-500/20 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"><Edit2 size={18} /></button>
+                            <button onClick={(e) => { e.stopPropagation(); onDelete?.(recipe.id); }} className="w-11 h-11 rounded-xl bg-red-500/10 text-red-500 border border-red-500/20 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"><Trash2 size={18} /></button>
                         </div>
                     ) : (
                         <button onClick={handleToggleFavorite} className={cn("p-3 rounded-xl transition-all border", isFavorite ? "bg-red-500 text-white border-red-400" : "bg-white/5 text-white border-white/10 hover:bg-primary-500")}><Heart size={16} className={cn(isFavorite && "fill-current")} /></button>
@@ -150,9 +150,9 @@ export const RecipeCard = memo(({
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2 opacity-50">
                             <div className="w-1 h-1 rounded-full bg-primary-500 animate-pulse" />
-                            <span className="text-[9px] font-black uppercase tracking-[0.3em] rtl:tracking-normal text-[var(--muted-foreground)] px-1 rtl:not-italic">UNIT_ID: #{recipe.id}</span>
+                            <span className="text-[9px] font-black uppercase tracking-[0.3em] rtl:tracking-normal text-[var(--muted-foreground)] px-1 rtl:not-italic">{t('common.unit_id')}: #{recipe.id}</span>
                         </div>
-                        <span className="text-[7px] font-black text-primary-500/40 uppercase tracking-tighter">LIVE_DATA</span>
+                        <span className="text-[7px] font-black text-primary-500/40 uppercase tracking-tighter">{t('common.live_data')}</span>
                     </div>
                     <h3 className="text-xl font-black italic rtl:not-italic uppercase tracking-tighter rtl:tracking-normal text-[var(--foreground)] group-hover:text-primary-500 transition-colors duration-300 px-1 leading-tight line-clamp-2">
                         {recipe.name}

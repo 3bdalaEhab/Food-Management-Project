@@ -92,18 +92,18 @@ export function ModulePageLayout({
                     <HeaderIcon size={280} strokeWidth={0.5} className="text-[var(--foreground)]" />
                 </div>
 
-                <div className="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-10">
-                    <div className="space-y-6 max-w-2xl">
+                <div className="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-8 md:gap-10">
+                    <div className="space-y-4 md:space-y-6 max-w-2xl">
                         <div className="flex flex-wrap items-center gap-3">
                             {subtitle && (
-                                <div className="px-5 py-2 rounded-full bg-[var(--background)]/80 backdrop-blur-md border border-[var(--border)] flex items-center gap-2 shadow-inner">
+                                <div className="px-4 md:px-5 py-1.5 md:py-2 rounded-full bg-[var(--background)]/80 backdrop-blur-md border border-[var(--border)] flex items-center gap-2 shadow-inner">
                                     <Sparkles size={10} className="text-primary-500 shadow-[0_0_10px_rgba(255,107,38,0.3)]" />
-                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] rtl:tracking-normal text-[var(--muted-foreground)] rtl:not-italic">{subtitle}</span>
+                                    <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] rtl:tracking-normal text-[var(--muted-foreground)] rtl:not-italic">{subtitle}</span>
                                 </div>
                             )}
-                            <div className="px-5 py-2 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
+                            <div className="px-4 md:px-5 py-1.5 md:py-2 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center gap-2">
                                 <Activity size={10} className="text-primary-500 animate-pulse" />
-                                <span className="text-[10px] font-black uppercase tracking-[0.3em] rtl:tracking-normal text-primary-500 rtl:not-italic">{badgeLabel || "SYSTEM_OPERATIONAL"}</span>
+                                <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] rtl:tracking-normal text-primary-500 rtl:not-italic">{badgeLabel || "SYSTEM_OPERATIONAL"}</span>
                             </div>
                         </div>
 
@@ -111,8 +111,8 @@ export function ModulePageLayout({
                             {/* Pro Mesh Underlay */}
                             <div className="absolute -inset-10 bg-mesh-gradient-1 opacity-[0.03] pointer-events-none -z-10" />
 
-                            <h1 className="text-4xl md:text-5xl lg:text-7xl font-black tracking-tighter rtl:tracking-normal leading-[0.9] uppercase italic rtl:not-italic px-1">
-                                {titlePrefix && <span className="opacity-40 block md:inline uppercase">{titlePrefix} </span>}
+                            <h1 className="text-3xl md:text-5xl lg:text-7xl font-black tracking-tighter rtl:tracking-normal leading-[0.9] uppercase italic rtl:not-italic px-1">
+                                {titlePrefix && <span className="opacity-40 block md:inline uppercase text-xl md:text-4xl lg:text-5xl mb-1 md:mb-0">{titlePrefix} </span>}
                                 {titleSuffix ? (
                                     <>
                                         <span className="text-[var(--foreground)]">{title} </span>
@@ -122,13 +122,13 @@ export function ModulePageLayout({
                                     <span className="text-primary-500">{title}</span>
                                 )}
                             </h1>
-                            <p className="text-[var(--muted-foreground)] font-bold tracking-tight text-lg opacity-80 max-w-xl leading-relaxed">
+                            <p className="text-[var(--muted-foreground)] font-bold tracking-tight text-sm md:text-lg opacity-80 max-w-xl leading-relaxed line-clamp-3 md:line-clamp-none">
                                 {description}
                             </p>
                         </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-6 shrink-0">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 md:gap-6 shrink-0 mt-4 xl:mt-0">
                         {secondaryNode}
 
                         {primaryAction && (
@@ -136,13 +136,13 @@ export function ModulePageLayout({
                                 whileHover={{ scale: 1.05, y: -4 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={primaryAction.onClick}
-                                className="premium-button premium-button-primary h-14 md:h-20 px-8 md:px-12 group shadow-[0_20px_40px_-15px_rgba(255,107,38,0.3)]"
+                                className="premium-button premium-button-primary h-12 md:h-14 lg:h-20 px-6 md:px-12 group shadow-[0_20px_40px_-15px_rgba(255,107,38,0.3)] w-full sm:w-auto flex items-center justify-center gap-3"
                             >
-                                <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center group-hover:rotate-90 transition-transform duration-500">
-                                    {primaryAction.icon ? <primaryAction.icon size={24} /> : <Plus size={24} />}
+                                <div className="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-white/20 flex items-center justify-center group-hover:rotate-90 transition-transform duration-500">
+                                    {primaryAction.icon ? <primaryAction.icon size={20} className="md:w-6 md:h-6" /> : <Plus size={20} className="md:w-6 md:h-6" />}
                                 </div>
-                                <span className="font-black uppercase tracking-[0.2em] rtl:tracking-normal text-sm md:text-base rtl:not-italic">{primaryAction.label}</span>
-                                <ArrowRight size={24} className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 rtl:rotate-180 rtl:translate-x-4 rtl:group-hover:translate-x-0" />
+                                <span className="font-black uppercase tracking-[0.2em] rtl:tracking-normal text-xs md:text-sm lg:text-base rtl:not-italic">{primaryAction.label}</span>
+                                <ArrowRight size={20} className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 rtl:rotate-180 rtl:translate-x-4 rtl:group-hover:translate-x-0 md:w-6 md:h-6" />
                             </motion.button>
                         )}
                     </div>
@@ -150,14 +150,14 @@ export function ModulePageLayout({
             </motion.div>
 
             {/* Unified Tactical Toolbar */}
-            <div className="flex flex-col lg:flex-row gap-4 md:gap-6 items-center p-4 md:p-6 bg-[var(--sidebar-background)]/40 backdrop-blur-md rounded-[2rem] md:rounded-[3rem] border border-[var(--border)] shadow-xl">
+            <div className="flex flex-col lg:flex-row gap-4 md:gap-6 items-stretch lg:items-center p-4 md:p-6 bg-[var(--sidebar-background)]/40 backdrop-blur-md rounded-[1.5rem] md:rounded-[3rem] border border-[var(--border)] shadow-xl">
                 <div className="flex-1 w-full relative">
                     <TacticalInput
                         placeholder={searchPlaceholder || t('common.search')}
                         value={searchQuery}
                         onChange={(e) => onSearchChange(e.target.value)}
                         icon={Search}
-                        className="h-14 lg:h-16"
+                        className="h-12 lg:h-16"
                     />
                 </div>
 

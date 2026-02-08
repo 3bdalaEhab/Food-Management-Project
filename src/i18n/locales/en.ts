@@ -32,7 +32,11 @@ export const en = {
             remove_fav: "Remove from favorites",
             add_fav: "Add to favorites",
             save: "Save Changes",
-            add: "Create Agent"
+            add: "Create Agent",
+            unit_id: "UNIT_ID",
+            live_data: "LIVE_DATA",
+            ready: "READY",
+            active: "ACTIVE"
         },
         delete_confirmation: {
             title: "Confirm Deletion",
@@ -81,7 +85,9 @@ export const en = {
             organize_categories: "Organize Categories",
             upgrade_pro: "Upgrade Pro",
             get_access: "Get Access",
-            system_online: "System Online"
+            system_online: "System Online",
+            stream_ok: "STREAM_OK",
+            sync_99: "SYNC_99%"
         },
         charts: {
             view_chart: "View Chart",
@@ -195,7 +201,9 @@ export const en = {
             integrity: "INTEGRITY",
             verified: "VERIFIED",
             exit_navigation: "EXIT NAVIGATION",
-            no_data_registry: "NO_DATA_REGISTRY"
+            no_data_registry: "NO_DATA_REGISTRY",
+            specs_v2: "SPEC_V2",
+            asset_loaded: "ASSET_LOADED"
         },
         users: {
             title: "Users",

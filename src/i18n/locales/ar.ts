@@ -61,7 +61,9 @@ export const ar = {
             taxonomy: "التصنيف",
             organize_categories: "تنظيم الفئات",
             upgrade_pro: "ترقية للاحترافية",
-            get_access: "احصل على الوصول"
+            get_access: "احصل على الوصول",
+            stream_ok: "البث_جيد",
+            sync_99: "مزامنة_99%"
         },
         charts: {
             view_chart: "عرض الرسم البياني",
@@ -196,7 +198,9 @@ export const ar = {
             integrity: "سلامة_البيانات",
             verified: "موثق",
             exit_navigation: "خروج من النظام",
-            no_data_registry: "سجل_بيانات_فارغ"
+            no_data_registry: "سجل_بيانات_فارغ",
+            specs_v2: "مواصفات_V2",
+            asset_loaded: "تم_تحميل_الأصل"
         },
         users: {
             title: "المستخدمين",
@@ -324,7 +328,11 @@ export const ar = {
             save: "حفظ التغييرات",
             add: "إضافة وكيل",
             create_agent: "إنشاء عميل",
-            all_categories: "كل التصنيفات"
+            all_categories: "كل التصنيفات",
+            unit_id: "معرف_الوحدة",
+            live_data: "بيانات_حية",
+            ready: "جاهز",
+            active: "نشط"
         },
         delete_confirmation: {
             title: "تأكيد الحذف",

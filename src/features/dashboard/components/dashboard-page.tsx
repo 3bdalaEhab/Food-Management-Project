@@ -199,8 +199,8 @@ export function DashboardPage() {
                         <div className="glass-card rounded-[2.5rem] overflow-hidden border border-[var(--border)] bg-[var(--sidebar-background)]/40 backdrop-blur-xl p-6 md:p-8 shadow-2xl relative">
                             {/* Technical Floating Indicators */}
                             <div className="absolute top-4 right-8 flex gap-4 opacity-20 pointer-events-none">
-                                <div className="text-[8px] font-black uppercase tracking-widest">[ STREAM_OK ]</div>
-                                <div className="text-[8px] font-black uppercase tracking-widest">[ SYNC_99% ]</div>
+                                <div className="text-[8px] font-black uppercase tracking-widest">[ {t('dashboard.stream_ok')} ]</div>
+                                <div className="text-[8px] font-black uppercase tracking-widest">[ {t('dashboard.sync_99')} ]</div>
                             </div>
 
                             <div className="space-y-3">

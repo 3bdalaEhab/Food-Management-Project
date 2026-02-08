@@ -257,12 +257,13 @@
 
 @layer utilities {
 
-  /* Glass Morphism */
+  /* Glass Morphism - Optimized */
   .glass {
     background: oklch(1 0 0 / 0.85);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid oklch(1 0 0 / 0.2);
+    will-change: transform; /* Hint for browser optimization */
   }
 
   .dark .glass {
@@ -275,11 +276,12 @@
   /* Premium Components */
   .glass-card {
     background: oklch(1 0 0 / 0.75);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(4px); /* Slightly increased for better look, but kept reasonable */
+    -webkit-backdrop-filter: blur(4px);
     border: 1px solid oklch(0.15 0.01 260 / 0.08);
     color: var(--foreground);
     box-shadow: 0 4px 6px -1px oklch(0.15 0.01 260 / 0.1), 0 2px 4px -1px oklch(0.15 0.01 260 / 0.06);
+    will-change: transform;
   }
 
   .dark .glass-card {
