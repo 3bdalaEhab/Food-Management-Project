@@ -13,6 +13,7 @@ import { DashboardLayout } from "@/components/layout";
 import { DashboardBackground } from "@/components/layout/dashboard-background";
 import { AuthLayout } from "@/features/auth/components/auth-layout";
 import { ErrorBoundary, SkipLink } from "@/components/shared";
+import { ProfileSync } from "@/components/shared/profile-sync";
 
 // Lazy load pages for code splitting
 const LoginPage = lazy(() =>
@@ -123,6 +124,7 @@ function App() {
             <ErrorBoundary>
                 <SkipLink />
                 <QueryClientProvider client={queryClient}>
+                    <ProfileSync />
                     <Suspense fallback={<PageLoader />}>
                         <Routes>
                             {/* Public Auth Routes */}
