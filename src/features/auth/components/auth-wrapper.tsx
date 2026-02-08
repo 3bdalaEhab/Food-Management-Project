@@ -124,7 +124,7 @@ export function AuthWrapper({
                                 </button>
                                 <button
                                     onClick={() => setLanguage('ar')}
-                                    aria-label="التحويل للغة العربية"
+                                    aria-label={t('navbar.language')}
                                     className={cn(
                                         "px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md text-[8px] sm:text-[9px] font-black uppercase transition-all",
                                         language === 'ar' ? "bg-primary-500 text-white" : "text-[var(--muted-foreground)] hover:text-[var(--foreground)]"

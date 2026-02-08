@@ -242,12 +242,12 @@
   }
 
   .dark ::-webkit-scrollbar-thumb {
-    background: var(--color-neutral-800);
+    background: var(--color-neutral-700);
     border: 3px solid var(--background);
   }
 
   .dark ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-neutral-700);
+    background: var(--color-neutral-600);
   }
 }
 
@@ -263,7 +263,8 @@
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid oklch(1 0 0 / 0.2);
-    will-change: transform; /* Hint for browser optimization */
+    will-change: transform;
+    /* Hint for browser optimization */
   }
 
   .dark .glass {
@@ -276,7 +277,8 @@
   /* Premium Components */
   .glass-card {
     background: oklch(1 0 0 / 0.75);
-    backdrop-filter: blur(4px); /* Slightly increased for better look, but kept reasonable */
+    backdrop-filter: blur(4px);
+    /* Slightly increased for better look, but kept reasonable */
     -webkit-backdrop-filter: blur(4px);
     border: 1px solid oklch(0.15 0.01 260 / 0.08);
     color: var(--foreground);
@@ -285,12 +287,12 @@
   }
 
   .dark .glass-card {
-    background: oklch(0.1 0.015 260 / 0.75);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    border: 1px solid oklch(1 0 0 / 0.1);
+    background: oklch(0.12 0.02 260 / 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid oklch(1 0 0 / 0.08);
     color: var(--foreground);
-    box-shadow: none;
+    box-shadow: 0 8px 32px -4px oklch(0 0 0 / 0.3), 0 0 0 1px oklch(1 0 0 / 0.05);
   }
 
   .premium-input {

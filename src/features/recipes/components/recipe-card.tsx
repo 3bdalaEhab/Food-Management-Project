@@ -56,7 +56,7 @@ export const RecipeCard = memo(({
                 onClick={() => onView?.(recipe)}
                 className="group relative glass-card rounded-[2rem] p-4 flex items-center gap-6 cursor-pointer border border-[var(--border)] hover:border-primary-500/30 transition-all"
             >
-                <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 bg-neutral-900 border border-white/5 shadow-lg">
+                <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 bg-[var(--muted)] border border-[var(--border)] shadow-lg">
                     <ImageWithFallback src={imageUrl} alt={recipe.name} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -90,7 +90,7 @@ export const RecipeCard = memo(({
                             <button onClick={(e) => { e.stopPropagation(); onDelete?.(recipe.id); }} className="w-11 h-11 rounded-xl bg-red-500/10 text-red-500 border border-red-500/20 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"><Trash2 size={18} /></button>
                         </div>
                     ) : (
-                        <button onClick={handleToggleFavorite} className={cn("p-3 rounded-xl transition-all border", isFavorite ? "bg-red-500 text-white border-red-400" : "bg-white/5 text-white border-white/10 hover:bg-primary-500")}><Heart size={16} className={cn(isFavorite && "fill-current")} /></button>
+                        <button onClick={handleToggleFavorite} className={cn("p-3 rounded-xl transition-all border", isFavorite ? "bg-red-500 text-white border-red-400" : "bg-[var(--background)] text-[var(--muted-foreground)] border-[var(--border)] hover:bg-primary-500 hover:text-white")}><Heart size={16} className={cn(isFavorite && "fill-current")} /></button>
                     )}
                 </div>
             </motion.div>
@@ -109,7 +109,7 @@ export const RecipeCard = memo(({
             onClick={() => onView?.(recipe)}
         >
             {/* Image Ecosystem */}
-            <div className="relative overflow-hidden bg-neutral-900 group aspect-[4/3]">
+            <div className="relative overflow-hidden bg-[var(--muted)] group aspect-[4/3]">
                 <ImageWithFallback
                     src={imageUrl}
                     alt={recipe.name}

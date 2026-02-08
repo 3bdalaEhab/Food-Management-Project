@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { TrendingUp, BarChart3, Activity } from "lucide-react";
 import { StatChartDialog, ChartType } from "./stat-chart-dialog";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 import { ResponsiveContainer, LineChart, Line, AreaChart, Area } from "recharts";
 
 interface StatCardProps {
@@ -34,6 +35,7 @@ export const StatCard = memo(({
     chartDescription = "",
     chartUnit = "unit",
 }: StatCardProps) => {
+    const { t } = useTranslation();
     const [isChartOpen, setIsChartOpen] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
 
@@ -160,9 +162,9 @@ export const StatCard = memo(({
                         <div className="flex items-center justify-between pt-2 border-t border-[var(--border)] opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-1 group-hover:translate-y-0">
                             <div className="flex items-center gap-2">
                                 <Activity size={8} className="text-primary-500" />
-                                <span className="text-[7px] font-bold text-[var(--muted-foreground)] uppercase tracking-tighter">Live_Intel_Stream</span>
+                                <span className="text-[7px] font-bold text-[var(--muted-foreground)] uppercase tracking-tighter">{t('common.live_data')}</span>
                             </div>
-                            <span className="text-[7px] font-bold text-[var(--muted-foreground)] uppercase tracking-tighter">SEC_LVL_04</span>
+                            <span className="text-[7px] font-bold text-[var(--muted-foreground)] uppercase tracking-tighter">{t('common.active')}</span>
                         </div>
                     </div>
                 </div>

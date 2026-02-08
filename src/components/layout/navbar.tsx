@@ -145,14 +145,14 @@ export function Navbar() {
                 {/* User Identity Port */}
                 <div className="flex items-center gap-2 md:gap-4 ps-4 md:ps-6 border-is border-white/10 group cursor-pointer hover:opacity-80 transition-opacity">
                     <div className="hidden lg:flex flex-col items-end gap-1">
-                        <span className="text-[10px] font-black text-[var(--foreground)] uppercase tracking-tighter leading-none">{displayUser?.userName || "EXPERT_UNIT"}</span>
+                        <span className="text-[10px] font-black text-[var(--foreground)] uppercase tracking-tighter leading-none">{displayUser?.userName || t('navbar.expert')}</span>
                         <div className={cn(
                             "px-2 py-0.5 rounded-full border text-[7px] font-black uppercase tracking-widest",
                             displayUser?.role === "SuperAdmin"
                                 ? "bg-red-500/10 border-red-500/30 text-red-500"
                                 : "bg-primary-500/10 border-primary-500/30 text-primary-500"
                         )}>
-                            {displayUser?.role === "SuperAdmin" ? "ADMIN_STRATEGIST" : "FIELD_OPERATOR"}
+                            {displayUser?.role === "SuperAdmin" ? t('sidebar.admin_strategist') : t('sidebar.field_operator')}
                         </div>
                     </div>
                     <div className={cn(
