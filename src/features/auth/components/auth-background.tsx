@@ -58,27 +58,46 @@ export function AuthBackground() {
 
     return (
         <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 bg-[var(--background)]">
-            {/* Simple Grid Pattern - No animation */}
+            {/* Enhanced Tactical Grid Pattern */}
             <div
-                className="absolute inset-0 opacity-[0.03]"
+                className="absolute inset-0 opacity-[0.05]"
                 style={{
-                    backgroundImage: 'linear-gradient(rgba(255,107,38,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,38,1) 1px, transparent 1px)',
-                    backgroundSize: '100px 100px'
+                    backgroundImage: `
+                        linear-gradient(rgba(255,107,38,1) 1px, transparent 1px), 
+                        linear-gradient(90deg, rgba(255,107,38,1) 1px, transparent 1px),
+                        radial-gradient(circle at 50% 50%, rgba(255,107,38,0.2) 0%, transparent 80%)
+                    `,
+                    backgroundSize: '80px 80px, 80px 80px, 100% 100%'
                 }}
             />
 
-            {/* Static gradient - no animation for performance */}
-            <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-primary-500/10 rounded-full blur-[80px]" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-orange-500/10 rounded-full blur-[80px]" />
+            {/* Dynamic Scanning Line */}
+            <motion.div
+                animate={{
+                    y: ["0%", "100%", "0%"],
+                    opacity: [0.1, 0.3, 0.1]
+                }}
+                transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: "linear"
+                }}
+                className="absolute inset-x-0 h-40 bg-gradient-to-b from-transparent via-primary-500/20 to-transparent pointer-events-none z-10"
+            />
 
-            {/* Reduced floating assets */}
-            <div className="absolute inset-0">
+            {/* Cinematic Gradient Orbs */}
+            <div className="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-primary-500/15 rounded-full blur-[120px] animate-pulse" />
+            <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-orange-500/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
+
+            {/* Floating Assets Rail */}
+            <div className="absolute inset-0 z-10">
                 {assets.map((asset, i) => (
                     <FloatingAsset key={i} {...asset} />
                 ))}
             </div>
 
-            {/* Simple gradient overlay */}
+            {/* Final Depth Vignette */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(0,0,0,0.4)_100%)]" />
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--background)]" />
         </div>
     );

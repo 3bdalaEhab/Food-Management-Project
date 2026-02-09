@@ -147,7 +147,6 @@ export const en = {
             master_identity: "Personal Details",
             master_desc: "Your basic information and account status.",
             edit_portfolio: "Edit Details",
-            change_photo: "Change Photo",
             syscall_mapped: "System",
             culinary: "Role",
             global_node: "Region",
@@ -321,7 +320,18 @@ export const en = {
                 authorize: "Login",
                 new_to_fleet: "Need an account?",
                 initiate_identity: "Sign Up",
-                system_core: "Food App v4.9"
+                system_core: "Food App v4.9",
+                elite_title: "Elite",
+                elite_suffix: "Access",
+                elite_subtitle: "Mission Authorized Personnel Only. \n Select deployment profile to bypass identification.",
+                terminal_verified: "SECURE TERMINAL LINK VERIFIED",
+                terminal_active: "SECURE TERMINAL CONNECTION ACTIVE",
+                protocols: "ACCESS PROTOCOLS",
+                direct_link: "DIRECT LINK",
+                admin_role: "ADMIN STRATEGIST",
+                admin_desc: "Full System Control • User Management • Protocol Override",
+                user_role: "FIELD OPERATOR",
+                user_desc: "Standard Access • Recipe Execution • Dashboard View"
             },
             register: {
                 title: "Create",

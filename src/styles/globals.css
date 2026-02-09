@@ -282,6 +282,17 @@
     /* Slightly thicker/more opaque glass border */
   }
 
+  /* Elite HUD Scanlines */
+  .bg-scanlines {
+    background: linear-gradient(to bottom,
+        transparent,
+        transparent 50%,
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(255, 255, 255, 0.05));
+    background-size: 100% 4px;
+    pointer-events: none;
+  }
+
   /* ... */
 
   /* Premium Components */

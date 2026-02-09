@@ -20,6 +20,7 @@ import { loginSchema, type LoginFormData } from "../schemas";
 import { AuthBackground } from "./auth-background";
 import { FloatingAuthControls } from "./floating-auth-controls";
 import { SEO } from "@/components/shared/seo";
+import { DemoCredentials } from "./demo-credentials";
 
 export function LoginPage() {
     const { t } = useTranslation();
@@ -29,15 +30,21 @@ export function LoginPage() {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors, isValid },
     } = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema),
         mode: "onChange",
         defaultValues: {
-            email: "abdalaehab3@gmail.com",
-            password: "Ae123***"
+            email: "",
+            password: ""
         }
     });
+
+    const handleDemoFill = (email: string, pass: string) => {
+        setValue("email", email, { shouldValidate: true });
+        setValue("password", pass, { shouldValidate: true });
+    };
 
     const onSubmit = (data: LoginFormData) => {
         login(data);
@@ -53,10 +60,12 @@ export function LoginPage() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="relative z-30 w-full max-w-[400px] sm:max-w-[440px]"
+                className="relative z-30 w-full max-w-[400px] sm:max-w-[440px] xl:max-w-[950px] flex flex-col xl:flex-row gap-12 items-start justify-center"
             >
                 {/* Main Card */}
-                <div className="relative bg-[var(--sidebar-background)]/95 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-[var(--border)] shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] overflow-hidden">
+                <div className="relative w-full xl:w-[440px] bg-[var(--sidebar-background)]/90 backdrop-blur-3xl rounded-[2.5rem] border border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)] overflow-hidden shrink-0">
+                    <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-white/10 rounded-[2.5rem]" />
+
 
                     {/* Top Gradient Bar */}
                     <div className="h-1 sm:h-1.5 bg-gradient-to-r from-primary-500 via-primary-400 to-orange-400" />
@@ -180,6 +189,50 @@ export function LoginPage() {
                             </p>
                         </div>
                     </div>
+                </div>
+                {/* Desktop Demo Credentials Panel: Elite Overhaul */}
+                <div className="hidden xl:flex flex-col gap-10 w-[440px] pt-12 relative">
+                    {/* Cinematic HUD Depth Orbs */}
+                    <div className="absolute top-1/4 -right-20 w-80 h-80 bg-primary-500/10 rounded-full blur-[100px] animate-pulse pointer-events-none" />
+                    <div className="absolute bottom-1/4 -left-10 w-60 h-60 bg-orange-500/10 rounded-full blur-[80px] animate-pulse pointer-events-none" style={{ animationDelay: '1s' }} />
+
+                    <div className="space-y-4 relative z-10 px-4">
+                        <div className="flex items-center gap-4">
+                            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                            <h3 className="text-4xl font-black italic uppercase tracking-tighter text-white drop-shadow-2xl">
+                                Elite <span className="text-primary-500">Access</span>
+                            </h3>
+                            <div className="h-px flex-1 bg-gradient-to-l from-transparent via-white/10 to-transparent" />
+                        </div>
+                        <p className="text-[10px] sm:text-xs font-black text-[var(--muted-foreground)] uppercase tracking-[0.4em] opacity-40 leading-relaxed italic text-center">
+                            Mission Authorized Personnel Only. <br /> Select deployment profile to bypass identification.
+                        </p>
+                    </div>
+
+                    <div className="bg-white/[0.02] backdrop-blur-3xl rounded-[3.5rem] p-10 border border-white/5 shadow-2xl relative overflow-hidden group">
+                        {/* Elite HUD Scanline Effect */}
+                        <div className="absolute inset-0 bg-scanlines opacity-[0.03] pointer-events-none" />
+                        <DemoCredentials onFill={handleDemoFill} />
+                    </div>
+
+                    <div className="mt-4 px-10 text-center">
+                        <div className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/[0.02] border border-white/5 backdrop-blur-sm">
+                            <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                            <p className="text-[9px] font-black uppercase tracking-[0.5em] text-white/30 italic">
+                                {t('auth.login.terminal_verified')}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Mobile Demo Credentials Panel */}
+                <div className="xl:hidden w-full px-2">
+                    <div className="mt-16 mb-8 text-center relative">
+                        <div className="absolute left-1/2 -translate-x-1/2 -top-4 w-20 h-20 bg-primary-500/10 blur-2xl rounded-full" />
+                        <h3 className="text-xl font-black italic uppercase tracking-tighter text-white relative z-10">Elite <span className="text-primary-500">Access</span></h3>
+                        <div className="h-1 w-12 bg-primary-500/40 mx-auto mt-3 rounded-full shadow-[0_0_10px_rgba(255,107,38,0.5)]" />
+                    </div>
+                    <DemoCredentials onFill={handleDemoFill} />
                 </div>
             </motion.div>
         </div>

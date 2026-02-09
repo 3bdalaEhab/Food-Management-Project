@@ -116,7 +116,6 @@ export const ar = {
             master_identity: "المعلومات الشخصية",
             master_desc: "بياناتك الأساسية وحالة حسابك.",
             edit_portfolio: "تعديل البيانات",
-            change_photo: "تغيير الصورة",
             syscall_mapped: "النظام",
             culinary: "الرتبة",
             global_node: "المنطقة",
@@ -290,7 +289,18 @@ export const ar = {
                 authorize: "دخول",
                 new_to_fleet: "تحتاج لحساب؟",
                 initiate_identity: "إنشاء حساب",
-                system_core: "تطبيق الطعام v4.9"
+                system_core: "تطبيق الطعام v4.9",
+                elite_title: "وصول",
+                elite_suffix: "النخبة",
+                elite_subtitle: "للمصرح لهم فقط. \n اختر ملف التعريف لتجاوز عملية التحقق.",
+                terminal_verified: "تم التحقق من الوصلة الأمنية",
+                terminal_active: "اتصال المحطة الآمن نشط",
+                protocols: "بروتوكولات الوصول",
+                direct_link: "رابط مباشر",
+                admin_role: "مسؤول استراتيجي",
+                admin_desc: "تحكم كامل • إدارة المستخدمين • تجاوز البروتوكول",
+                user_role: "مشغل ميداني",
+                user_desc: "وصول قياسي • تنفيذ الوصفات • عرض لوحة التحكم"
             },
             register: {
                 title: "إنشاء",
