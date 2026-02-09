@@ -5,7 +5,6 @@ import "@/styles/globals.css";
 import "./i18n/config";
 
 // Initialize auth store
-import { useAuthStore } from "@/stores";
 
 
 createRoot(document.getElementById("root")!).render(

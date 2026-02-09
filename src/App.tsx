@@ -14,7 +14,6 @@ import { DashboardBackground } from "@/components/layout/dashboard-background";
 import { AuthLayout } from "@/features/auth/components/auth-layout";
 import { ErrorBoundary, SkipLink } from "@/components/shared";
 import { UserSync } from "@/components/auth/user-sync";
-import { ProfileSync } from "@/components/shared/profile-sync";
 
 // Lazy load pages for code splitting
 const LoginPage = lazy(() =>

@@ -73,7 +73,7 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
             { ...data, profileImage: selectedImage || undefined },
             {
                 onSuccess: (updatedUser) => {
-                    setUser(updatedUser as any);
+                    setUser(updatedUser as unknown as import("@/stores/auth-store").User);
                     onSuccess();
                 },
             }

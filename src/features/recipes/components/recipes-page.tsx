@@ -29,7 +29,7 @@ export function RecipesPage() {
 
     const { data: recipesData, isLoading } = useRecipes({
         name: debouncedSearch,
-        pageSize: 100, // Show all recipes at once
+        pageSize: 1000, // Show all categories at once (high limit for simulation) (high limit for simulation)
     });
 
     const { data: categoriesData } = useCategories();

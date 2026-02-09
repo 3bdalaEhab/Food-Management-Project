@@ -26,7 +26,7 @@ export function CategoriesPage() {
 
     const { data: categoriesData, isLoading } = useCategories({
         name: debouncedSearch,
-        pageSize: 100, // Show all categories at once
+        pageSize: 1000, // Show all categories at once (high limit for simulation)
     });
 
     const { mutate: deleteCategory } = useDeleteCategory();
