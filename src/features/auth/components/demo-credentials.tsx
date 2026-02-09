@@ -50,19 +50,19 @@ export function DemoCredentials({ onFill }: DemoCredentialsProps) {
             {/* Soft HUD Background Glow */}
             <div className="absolute -inset-4 bg-primary-500/5 blur-3xl rounded-full opacity-20 pointer-events-none" />
 
-            <div className="flex items-center justify-between mb-4 relative z-10">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 relative z-10">
                 <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-primary-500/10 border border-primary-500/20 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-lg bg-primary-500/10 border border-primary-500/20 flex items-center justify-center shrink-0">
                         <Terminal size={14} className="text-primary-500" />
                     </div>
                     <div className="flex flex-col">
                         <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white underline decoration-primary-500/30 underline-offset-4">{t('auth.login.protocols')}</span>
-                        <span className="text-[8px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider opacity-40 italic">System_Auth_V4.9</span>
+                        <span className="text-[8px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider opacity-40 italic">{t('auth.login.system_core')}</span>
                     </div>
                 </div>
-                <div className="flex items-center gap-2 group/tip">
-                    <span className="text-[9px] font-black text-primary-500/80 uppercase tracking-widest flex items-center gap-2 bg-primary-500/5 px-3 py-1.5 rounded-full border border-primary-500/10">
-                        <MousePointerClick size={10} className="animate-pulse" />
+                <div className="flex items-center gap-2 group/tip self-end sm:self-auto">
+                    <span className="text-[10px] sm:text-[11px] font-black text-primary-500/80 uppercase tracking-wider flex items-center gap-2 bg-primary-500/10 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-primary-500/20 shadow-sm shadow-primary-500/10 whitespace-nowrap">
+                        <MousePointerClick size={12} className="animate-pulse" />
                         {t('auth.login.direct_link')}
                     </span>
                 </div>

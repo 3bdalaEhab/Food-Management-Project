@@ -85,10 +85,6 @@ export function AuthBackground() {
                 className="absolute inset-x-0 h-40 bg-gradient-to-b from-transparent via-primary-500/20 to-transparent pointer-events-none z-10"
             />
 
-            {/* Cinematic Gradient Orbs */}
-            <div className="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-primary-500/15 rounded-full blur-[120px] animate-pulse" />
-            <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-orange-500/15 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
-
             {/* Floating Assets Rail */}
             <div className="absolute inset-0 z-10">
                 {assets.map((asset, i) => (

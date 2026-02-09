@@ -23,7 +23,7 @@ import { SEO } from "@/components/shared/seo";
 import { DemoCredentials } from "./demo-credentials";
 
 export function LoginPage() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const { mutate: login, isPending } = useLogin();
     const [showPassword, setShowPassword] = useState(false);
 
@@ -56,14 +56,15 @@ export function LoginPage() {
             <AuthBackground />
             <FloatingAuthControls />
 
-            <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="relative z-30 w-full max-w-[400px] sm:max-w-[440px] xl:max-w-[950px] flex flex-col xl:flex-row gap-12 items-start justify-center"
-            >
-                {/* Main Card */}
-                <div className="relative w-full xl:w-[440px] bg-[var(--sidebar-background)]/90 backdrop-blur-3xl rounded-[2.5rem] border border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)] overflow-hidden shrink-0">
+            <div className="relative z-30 w-full max-w-[400px] sm:max-w-[440px] xl:max-w-[950px] flex flex-col xl:flex-row gap-8 sm:gap-12 items-start justify-center">
+
+                {/* Main Card - Animated Entrance */}
+                <motion.div
+                    initial={{ opacity: 0, x: i18n.dir() === 'rtl' ? 30 : -30, scale: 0.95 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                    className="relative w-full xl:w-[440px] bg-[var(--sidebar-background)]/90 backdrop-blur-3xl rounded-[2.5rem] border border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)] overflow-hidden shrink-0"
+                >
                     <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-white/10 rounded-[2.5rem]" />
 
 
@@ -76,7 +77,7 @@ export function LoginPage() {
                             <motion.div
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
-                                transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                                transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
                                 className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl sm:rounded-3xl flex items-center justify-center shadow-xl shadow-primary-500/30 rotate-3"
                             >
                                 <ChefHat className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
@@ -189,9 +190,15 @@ export function LoginPage() {
                             </p>
                         </div>
                     </div>
-                </div>
-                {/* Desktop Demo Credentials Panel: Elite Overhaul */}
-                <div className="hidden xl:flex flex-col gap-10 w-[440px] pt-12 relative">
+                </motion.div>
+
+                {/* Desktop Demo Credentials Panel: Elite Overhaul with Fade In */}
+                <motion.div
+                    initial={{ opacity: 0, x: i18n.dir() === 'rtl' ? -30 : 30, scale: 0.95 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+                    className="hidden xl:flex flex-col gap-10 w-[440px] pt-12 relative"
+                >
                     {/* Cinematic HUD Depth Orbs */}
                     <div className="absolute top-1/4 -right-20 w-80 h-80 bg-primary-500/10 rounded-full blur-[100px] animate-pulse pointer-events-none" />
                     <div className="absolute bottom-1/4 -left-10 w-60 h-60 bg-orange-500/10 rounded-full blur-[80px] animate-pulse pointer-events-none" style={{ animationDelay: '1s' }} />
@@ -200,16 +207,24 @@ export function LoginPage() {
                         <div className="flex items-center gap-4">
                             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                             <h3 className="text-4xl font-black italic uppercase tracking-tighter text-white drop-shadow-2xl">
-                                Elite <span className="text-primary-500">Access</span>
+                                {t('auth.login.elite_title')} <span className="text-primary-500">{t('auth.login.elite_suffix')}</span>
                             </h3>
                             <div className="h-px flex-1 bg-gradient-to-l from-transparent via-white/10 to-transparent" />
                         </div>
-                        <p className="text-[10px] sm:text-xs font-black text-[var(--muted-foreground)] uppercase tracking-[0.4em] opacity-40 leading-relaxed italic text-center">
-                            Mission Authorized Personnel Only. <br /> Select deployment profile to bypass identification.
+
+                        {/* New Badge for Visitor Clarity */}
+                        <div className="flex justify-center">
+                            <span className="px-3 py-1 rounded-full bg-primary-500/20 border border-primary-500/30 text-[10px] font-black uppercase tracking-widest text-primary-400 animate-pulse">
+                                {t('auth.login.elite_badge')}
+                            </span>
+                        </div>
+
+                        <p className="text-[10px] sm:text-xs font-black text-[var(--muted-foreground)] uppercase tracking-[0.4em] opacity-40 leading-relaxed italic text-center whitespace-pre-line">
+                            {t('auth.login.elite_subtitle')}
                         </p>
                     </div>
 
-                    <div className="bg-white/[0.02] backdrop-blur-3xl rounded-[3.5rem] p-10 border border-white/5 shadow-2xl relative overflow-hidden group">
+                    <div className="bg-white/[0.02] backdrop-blur-3xl rounded-[3.5rem] p-10 border border-white/5 shadow-2xl relative overflow-hidden group hover:bg-white/[0.04] transition-colors duration-500">
                         {/* Elite HUD Scanline Effect */}
                         <div className="absolute inset-0 bg-scanlines opacity-[0.03] pointer-events-none" />
                         <DemoCredentials onFill={handleDemoFill} />
@@ -223,18 +238,28 @@ export function LoginPage() {
                             </p>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Mobile Demo Credentials Panel */}
-                <div className="xl:hidden w-full px-2">
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                    className="xl:hidden w-full px-2"
+                >
                     <div className="mt-16 mb-8 text-center relative">
                         <div className="absolute left-1/2 -translate-x-1/2 -top-4 w-20 h-20 bg-primary-500/10 blur-2xl rounded-full" />
-                        <h3 className="text-xl font-black italic uppercase tracking-tighter text-white relative z-10">Elite <span className="text-primary-500">Access</span></h3>
+                        <h3 className="text-xl font-black italic uppercase tracking-tighter text-white relative z-10">{t('auth.login.elite_title')} <span className="text-primary-500">{t('auth.login.elite_suffix')}</span></h3>
+                        <div className="flex justify-center mt-2">
+                            <span className="px-3 py-0.5 rounded-full bg-primary-500/20 border border-primary-500/30 text-[9px] font-black uppercase tracking-widest text-primary-400">
+                                {t('auth.login.elite_badge')}
+                            </span>
+                        </div>
                         <div className="h-1 w-12 bg-primary-500/40 mx-auto mt-3 rounded-full shadow-[0_0_10px_rgba(255,107,38,0.5)]" />
                     </div>
                     <DemoCredentials onFill={handleDemoFill} />
-                </div>
-            </motion.div>
+                </motion.div>
+            </div>
         </div>
     );
 }
