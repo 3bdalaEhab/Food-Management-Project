@@ -20,19 +20,19 @@ export function Toaster({ ...props }: ToasterProps) {
                 duration: 4000,
                 classNames: {
                     toast:
-                        "toast group bg-[var(--sidebar-background)]/80 text-[var(--foreground)] border border-[var(--border)] shadow-[0_20px_50px_rgba(0,0,0,0.3)] rounded-[2rem] p-5 backdrop-blur-2xl ring-1 ring-white/5",
-                    title: "font-black text-lg uppercase tracking-tight italic text-white drop-shadow-md",
-                    description: "text-[11px] font-bold text-[var(--foreground)] uppercase tracking-widest opacity-80",
+                        "toast group bg-[var(--sidebar-background)]/70 text-[var(--foreground)] border border-white/10 shadow-[0_30px_70px_rgba(0,0,0,0.5)] rounded-[2.5rem] p-5 backdrop-blur-3xl ring-1 ring-white/10 w-[calc(100vw-2.5rem)] sm:w-auto mt-4 transition-all duration-500",
+                    title: "font-black text-base sm:text-lg uppercase tracking-tight italic text-white drop-shadow-lg",
+                    description: "text-[10px] sm:text-[11px] font-bold text-[var(--foreground)] uppercase tracking-[0.2em] opacity-60 mt-1",
                     actionButton:
-                        "bg-primary-500 text-white rounded-xl font-black text-[10px] uppercase tracking-widest px-6 py-3 hover:bg-primary-600 transition-all shadow-[0_8px_20px_rgba(255,107,38,0.3)]",
+                        "bg-primary-500 text-white rounded-2xl font-black text-[9px] sm:text-[10px] uppercase tracking-widest px-5 sm:px-7 py-2.5 sm:py-3.5 hover:bg-primary-600 transition-all shadow-[0_10px_25px_rgba(255,107,38,0.4)] active:scale-95",
                     cancelButton:
-                        "bg-[var(--sidebar-accent)] text-[var(--muted-foreground)] rounded-xl font-black text-[10px] uppercase tracking-widest px-6 py-3 hover:bg-[var(--sidebar-accent-foreground)]/10 transition-all",
+                        "bg-white/5 text-[var(--muted-foreground)] rounded-2xl font-black text-[9px] sm:text-[10px] uppercase tracking-widest px-5 sm:px-7 py-2.5 sm:py-3.5 hover:bg-white/10 transition-all active:scale-95",
                     closeButton:
-                        "bg-[var(--sidebar-accent)] text-[var(--muted-foreground)] border border-[var(--border)] hover:text-[var(--foreground)] hover:bg-[var(--sidebar-accent-foreground)]/10 transition-all rounded-full",
-                    success: "!border-green-500/40 !bg-green-500/[0.03] !text-green-500",
-                    error: "!border-red-500/40 !bg-red-500/[0.03] !text-red-500",
-                    warning: "!border-yellow-500/40 !bg-yellow-500/[0.03] !text-yellow-500",
-                    info: "!border-blue-500/40 !bg-blue-500/[0.03] !text-blue-500",
+                        "bg-[var(--background)] text-[var(--muted-foreground)] border border-white/10 hover:text-white hover:bg-white/5 transition-all rounded-full p-2 translate-x-2 -translate-y-2 shadow-xl",
+                    success: "!border-green-500/40 !bg-green-500/10 !text-green-400",
+                    error: "!border-red-500/40 !bg-red-500/10 !text-red-400",
+                    warning: "!border-yellow-500/40 !bg-yellow-500/10 !text-yellow-400",
+                    info: "!border-blue-500/40 !bg-blue-500/10 !text-blue-400",
                 },
             }}
             icons={{
