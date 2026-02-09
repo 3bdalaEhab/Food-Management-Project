@@ -105,8 +105,17 @@ export const RecipeCard = memo(({
             exit={{ opacity: 0, scale: 0.95 }}
             whileHover={{ y: -5 }}
             transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-            className="group relative bg-[var(--sidebar-background)]/90 backdrop-blur-3xl rounded-[2.5rem] overflow-hidden tactical-border dark:hover:border-primary-500/60 transition-all duration-500 cursor-pointer flex flex-col min-h-[18rem]"
+            className="group relative bg-[var(--sidebar-background)]/90 backdrop-blur-3xl rounded-[2.5rem] overflow-hidden tactical-border dark:hover:border-primary-500/60 transition-all duration-500 cursor-pointer flex flex-col min-h-[18rem] transform-gpu will-change-transform [backface-visibility:hidden]"
             onClick={() => onView?.(recipe)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onView?.(recipe);
+                }
+            }}
+            aria-label={`${t('recipes.view_details')}: ${recipe.name}`}
         >
             {/* Image Ecosystem */}
             <div className="relative overflow-hidden bg-[var(--muted)] group aspect-[4/3]">
@@ -186,6 +195,7 @@ export const RecipeCard = memo(({
                                         ? "bg-red-500 text-white border-red-400"
                                         : "bg-[var(--background)] text-[var(--muted-foreground)] border-[var(--border)] hover:bg-primary-500 hover:text-white"
                                 )}
+                                aria-label={isFavorite ? t('favorites.remove') : t('favorites.add')}
                             >
                                 <Heart size={14} className={cn(isFavorite && "fill-current")} />
                             </motion.button>
@@ -195,6 +205,7 @@ export const RecipeCard = memo(({
                                     whileHover={{ scale: 1.1 }}
                                     onClick={(e) => { e.stopPropagation(); onEdit?.(recipe); }}
                                     className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-500 border border-blue-500/20 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"
+                                    aria-label={t('common.edit')}
                                 >
                                     <Edit2 size={14} />
                                 </motion.button>
@@ -202,6 +213,7 @@ export const RecipeCard = memo(({
                                     whileHover={{ scale: 1.1 }}
                                     onClick={(e) => { e.stopPropagation(); onDelete?.(recipe.id); }}
                                     className="w-9 h-9 rounded-xl bg-red-500/10 text-red-500 border border-red-500/20 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"
+                                    aria-label={t('common.delete')}
                                 >
                                     <Trash2 size={14} />
                                 </motion.button>

@@ -16,9 +16,26 @@ export const en = {
             field_operator: "FIELD_OPERATOR",
             node: "NODE",
             guest_user: "GUEST_USER",
-            active_term: "STATUS: ACTIVE",
-            shutdown_core: "SHUTDOWN_CORE",
-            version: "V4.9.STABLE"
+            active_term: "Status: Active",
+            shutdown_core: "Logout",
+            version: "v4.9.Stable"
+        },
+        command_palette: {
+            mission_center: "Dashboard",
+            recipe_vault: "Recipes",
+            taxonomy_hub: "Categories",
+            agent_fleet: "Users",
+            identity_port: "Profile",
+            initiate_protocol: "Add Recipe",
+            curated_vault: "Favorites",
+            system_terminal: "Command Terminal",
+            abort: "ESC to Close",
+            type_parameters: "Search Project...",
+            no_results: "No results found",
+            no_results_desc: "Try searching for something else",
+            terminal_online: "System Online",
+            navigate: "Navigate",
+            execute: "Execute"
         },
         common: {
             search: "Search",
@@ -38,7 +55,11 @@ export const en = {
             unit_id: "UNIT_ID",
             live_data: "LIVE_DATA",
             ready: "READY",
-            active: "ACTIVE"
+            active: "Active",
+            back: "Back",
+            next: "Next",
+            saving: "Saving...",
+            system_operational: "System Operational"
         },
         delete_confirmation: {
             title: "Confirm Deletion",
@@ -145,7 +166,16 @@ export const en = {
                 theme_protocol: "Theme",
                 lang_protocol: "Language"
             },
-            update_profile_desc: "Save your profile changes"
+            update_profile_desc: "Synchronize your profile information",
+            change_password: "Change Password",
+            change_password_desc: "Update your account security",
+            current_password: "Current Password",
+            new_password: "New Password",
+            confirm_password: "Confirm New Password",
+            photo_updated: "Profile picture updated successfully",
+            change_photo: "Change Profile Picture",
+            upload_photo_desc: "Upload a new profile picture",
+            upload_photo: "Upload Photo"
         },
         categories: {
             title: "Categories",
@@ -169,7 +199,9 @@ export const en = {
             create_category_button: "Save Category",
             initialize_node: "Add Category",
             refine_node: "Edit Category",
-            delete_node: "Delete Category"
+            delete_node: "Delete Category",
+            form_indicator: "Category Registry",
+            input_indicator: "Identity Input"
         },
         recipes: {
             title: "Recipes",
@@ -227,7 +259,11 @@ export const en = {
             classification_nodes: "Category",
             taxonomy_mapping: "Mapping",
             visual_encoding: "Image",
-            replace_image: "Change Image"
+            replace_image: "Change Image",
+            form_indicator: "Recipe Creator",
+            name_label: "Recipe Name",
+            price_label: "Price Value",
+            description_label: "Recipe Instructions"
         },
         users: {
             title: "Users",

@@ -58,10 +58,10 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
                     </div>
                     <div className="space-y-1">
                         <h2 className="text-3xl font-bold text-[var(--foreground)]">
-                            {t('profile.change_password') || 'Change Password'}
+                            {t('profile.change_password')}
                         </h2>
                         <p className="text-sm text-[var(--muted-foreground)]">
-                            {t('profile.change_password_desc') || 'Update your account security'}
+                            {t('profile.change_password_desc')}
                         </p>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
                     <div className="space-y-4">
                         <div className="space-y-2">
                             <label className="text-sm font-bold text-[var(--foreground)]">
-                                {t('profile.current_password') || 'Current Password'}
+                                {t('profile.current_password')}
                             </label>
                             <div className="group relative">
                                 <KeyRound className="absolute start-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={18} />
@@ -86,7 +86,7 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
 
                         <div className="space-y-2">
                             <label className="text-sm font-bold text-[var(--foreground)]">
-                                {t('profile.new_password') || 'New Password'}
+                                {t('profile.new_password')}
                             </label>
                             <div className="group relative">
                                 <Lock className="absolute start-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={18} />
@@ -102,7 +102,7 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
 
                         <div className="space-y-2">
                             <label className="text-sm font-bold text-[var(--foreground)]">
-                                {t('profile.confirm_password') || 'Confirm New Password'}
+                                {t('profile.confirm_password')}
                             </label>
                             <div className="group relative">
                                 <ShieldCheck className="absolute start-5 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]/40 group-focus-within:text-primary-500 transition-colors" size={18} />
@@ -123,7 +123,7 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
                             onClick={onCancel}
                             className="h-14 flex-1 rounded-2xl border-2 border-[var(--border)] font-bold text-sm text-[var(--foreground)] hover:bg-[var(--background)] transition-all"
                         >
-                            {t('common.cancel') || 'Cancel'}
+                            {t('common.cancel')}
                         </button>
                         <button
                             type="submit"
@@ -135,7 +135,7 @@ export function ChangePasswordForm({ onSuccess, onCancel }: ChangePasswordFormPr
                             ) : (
                                 <div className="flex items-center gap-2">
                                     <Lock size={18} />
-                                    <span className="font-bold">{t('profile.change_password') || 'Change Password'}</span>
+                                    <span className="font-bold">{t('profile.change_password')}</span>
                                 </div>
                             )}
                         </button>

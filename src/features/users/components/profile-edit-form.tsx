@@ -98,8 +98,8 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
                             <h2 className="text-3xl font-black italic uppercase tracking-tighter text-[var(--foreground)] leading-none">
                                 {t('profile.edit_portfolio')}
                             </h2>
-                            <p className="text-[10px] font-black text-[var(--muted-foreground)] uppercase tracking-[0.3em] opacity-40">
-                                {t('profile.update_profile_desc') || "Synchronize your professional identity"}
+                            <p className="text-[9px] font-bold text-[var(--muted-foreground)] uppercase tracking-[0.2em] opacity-40">
+                                {t('users.recruit_desc')}
                             </p>
                         </div>
                     </div>
@@ -142,7 +142,7 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
                                 <input
                                     {...register("userName")}
                                     className="premium-input pl-12 h-14 bg-[var(--background)]/50"
-                                    placeholder="Username"
+                                    placeholder={t('users.username_placeholder')}
                                 />
                             </div>
                             {errors.userName && <p className="text-[10px] text-red-500 font-bold ml-2">{errors.userName.message}</p>}
@@ -158,7 +158,7 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
                                 <input
                                     {...register("email")}
                                     className="premium-input pl-12 h-14 bg-[var(--background)]/50"
-                                    placeholder="Email Address"
+                                    placeholder={t('users.email_placeholder')}
                                 />
                             </div>
                             {errors.email && <p className="text-[10px] text-red-500 font-bold ml-2">{errors.email.message}</p>}
@@ -174,7 +174,7 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
                                 <input
                                     {...register("country")}
                                     className="premium-input pl-12 h-14 bg-[var(--background)]/50"
-                                    placeholder="Country"
+                                    placeholder={t('users.country_placeholder')}
                                 />
                             </div>
                             {errors.country && <p className="text-[10px] text-red-500 font-bold ml-2">{errors.country.message}</p>}
@@ -190,7 +190,8 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
                                 <input
                                     {...register("phoneNumber")}
                                     className="premium-input pl-12 h-14 bg-[var(--background)]/50"
-                                    placeholder="Phone Number"
+                                    placeholder={t('users.comm_channel')}
+                                    maxLength={15}
                                 />
                             </div>
                             {errors.phoneNumber && <p className="text-[10px] text-red-500 font-bold ml-2">{errors.phoneNumber.message}</p>}
@@ -215,7 +216,7 @@ export function ProfileEditForm({ user, onSuccess, onCancel }: ProfileEditFormPr
                             ) : (
                                 <>
                                     <Save size={18} />
-                                    <span className="font-bold">{t('common.save') || "Save Changes"}</span>
+                                    <span className="font-bold">{t('common.save')}</span>
                                 </>
                             )}
                         </button>

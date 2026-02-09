@@ -33,6 +33,15 @@ export const CategoryCard = memo(({
                 whileHover={{ x: isRtl ? -10 : 10 }}
                 className="group relative glass-card rounded-[2rem] p-5 flex items-center gap-8 cursor-pointer tactical-border hover:border-primary-500/50 dark:hover:border-primary-500/60 overflow-hidden transform-gpu [backface-visibility:hidden] will-change-transform shadow-2xl"
                 onClick={() => onEdit(category)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        onEdit(category);
+                    }
+                }}
+                aria-label={`${t('categories.manage_node')}: ${category.name}`}
             >
                 {/* Plasma Background Accent */}
                 <div className="absolute inset-0 bg-gradient-to-r from-primary-500/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
@@ -68,12 +77,14 @@ export const CategoryCard = memo(({
                     <button
                         onClick={(e) => { e.stopPropagation(); onEdit?.(category); }}
                         className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 border border-blue-500/20 hover:bg-blue-500 hover:text-white transition-colors duration-150 shadow-xl flex items-center justify-center group/btn"
+                        aria-label={t('common.edit')}
                     >
                         <Edit3 size={18} />
                     </button>
                     <button
                         onClick={(e) => { e.stopPropagation(); onDelete?.(category.id, category.name); }}
                         className="w-12 h-12 rounded-xl bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white transition-colors duration-150 shadow-xl flex items-center justify-center group/btn"
+                        aria-label={t('common.delete')}
                     >
                         <Trash2 size={18} />
                     </button>
@@ -90,6 +101,16 @@ export const CategoryCard = memo(({
             whileHover={{ y: -6 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="group relative bg-[var(--sidebar-background)]/90 backdrop-blur-3xl rounded-[3rem] p-8 overflow-hidden tactical-border dark:hover:border-primary-500/60 hover:shadow-2xl transition-all duration-300 flex flex-col items-center text-center gap-8 min-h-[22rem] cursor-pointer transform-gpu will-change-transform [backface-visibility:hidden]"
+            onClick={() => onEdit(category)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onEdit(category);
+                }
+            }}
+            aria-label={`${t('categories.manage_node')}: ${category.name}`}
         >
             {/* Ultra-Premium Holographic Overlays */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary-500/[0.04] via-transparent to-blue-500/[0.04] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -137,12 +158,14 @@ export const CategoryCard = memo(({
                 <button
                     onClick={(e) => { e.stopPropagation(); onEdit(category); }}
                     className="w-10 h-10 rounded-xl bg-[var(--background)]/90 backdrop-blur-xl border border-blue-500/30 text-blue-500 hover:bg-blue-500 hover:text-white transition-all shadow-2xl flex items-center justify-center group/btn"
+                    aria-label={t('common.edit')}
                 >
                     <Edit3 size={16} />
                 </button>
                 <button
                     onClick={(e) => { e.stopPropagation(); onDelete(category.id, category.name); }}
                     className="w-10 h-10 rounded-xl bg-[var(--background)]/90 backdrop-blur-xl border border-red-500/30 text-red-500 hover:bg-red-500 hover:text-white transition-all shadow-2xl flex items-center justify-center group/btn"
+                    aria-label={t('common.delete')}
                 >
                     <Trash2 size={16} />
                 </button>

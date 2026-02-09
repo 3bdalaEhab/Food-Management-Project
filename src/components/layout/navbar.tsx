@@ -51,7 +51,8 @@ export function Navbar() {
                     variant="ghost"
                     size="icon"
                     onClick={() => setMobileMenuOpen(true)}
-                    className="lg:hidden text-neutral-600 dark:text-neutral-400"
+                    className="lg:hidden w-11 h-11 rounded-xl bg-[var(--sidebar-background)] border border-[var(--sidebar-border)] shadow-sm text-primary-500 hover:bg-primary-500 hover:text-white transition-all active:scale-95 flex items-center justify-center"
+                    aria-label="Open Navigation"
                 >
                     <Menu className="w-6 h-6" />
                 </Button>

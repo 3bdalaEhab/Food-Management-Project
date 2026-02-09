@@ -61,7 +61,7 @@ export function ChangePhotoForm({ currentPhoto, onSuccess, onCancel }: ChangePho
                 },
             });
 
-            toast.success(t('profile.photo_updated') || 'Profile picture updated successfully');
+            toast.success(t('profile.photo_updated'));
             onSuccess(response.data.photoUrl || preview!);
         } catch (error) {
             const message = error instanceof Error ? error.message : 'Failed to upload photo';
@@ -86,10 +86,10 @@ export function ChangePhotoForm({ currentPhoto, onSuccess, onCancel }: ChangePho
 
                     <div className="space-y-1">
                         <h2 className="text-2xl font-bold text-[var(--foreground)]">
-                            {t('profile.change_photo') || 'Change Profile Picture'}
+                            {t('profile.change_photo')}
                         </h2>
                         <p className="text-sm text-[var(--muted-foreground)]">
-                            {t('profile.upload_photo_desc') || 'Upload a new profile picture'}
+                            {t('profile.upload_photo_desc')}
                         </p>
                     </div>
 
@@ -116,7 +116,7 @@ export function ChangePhotoForm({ currentPhoto, onSuccess, onCancel }: ChangePho
                         >
                             <div className="text-white flex flex-col items-center gap-2">
                                 <Upload size={24} />
-                                <span className="text-xs font-bold">{t('profile.upload_photo') || 'Upload Photo'}</span>
+                                <span className="text-xs font-bold">{t('profile.upload_photo')}</span>
                             </div>
                         </button>
                     </div>
@@ -139,7 +139,7 @@ export function ChangePhotoForm({ currentPhoto, onSuccess, onCancel }: ChangePho
                             onClick={onCancel}
                             className="h-12 flex-1 rounded-xl border-2 border-[var(--border)] font-bold text-sm text-[var(--foreground)] hover:bg-[var(--background)] transition-all"
                         >
-                            {t('common.cancel') || 'Cancel'}
+                            {t('common.cancel')}
                         </button>
                         <button
                             onClick={handleUpload}
@@ -151,7 +151,7 @@ export function ChangePhotoForm({ currentPhoto, onSuccess, onCancel }: ChangePho
                             ) : (
                                 <div className="flex items-center gap-2">
                                     <Upload size={18} />
-                                    <span className="font-bold">{t('profile.upload_photo') || 'Upload Photo'}</span>
+                                    <span className="font-bold">{t('profile.upload_photo')}</span>
                                 </div>
                             )}
                         </button>

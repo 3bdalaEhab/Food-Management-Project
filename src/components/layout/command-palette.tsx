@@ -15,6 +15,7 @@ import {
 
 import { useAuthStore, selectIsAdmin } from "@/stores";
 import { useRecipes } from "@/features/recipes/hooks";
+import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { Plus, Heart } from "lucide-react";
 import { useDebounce } from "@/lib/hooks/use-debounce";
@@ -75,6 +76,7 @@ const CommandItem = memo(({
 CommandItem.displayName = "CommandItem";
 
 export function CommandPalette() {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const [search, setSearch] = useState("");
     const [activeIndex, setActiveIndex] = useState(0);
@@ -99,32 +101,32 @@ export function CommandPalette() {
     const navigationItems: NavItem[] = [
         {
             icon: LayoutDashboard,
-            label: "Mission Center",
-            description: "OVERVIEW OF SYSTEM METRICS",
+            label: t('command_palette.mission_center'),
+            description: t('dashboard.description'),
             category: "NAVIGATION",
             path: "/dashboard",
             keywords: "dashboard, home, main, stats"
         },
         {
             icon: UtensilsCrossed,
-            label: "Recipe Vault",
-            description: "CULINARY PROTOCOL MANAGEMENT",
+            label: t('command_palette.recipe_vault'),
+            description: t('recipes.description'),
             category: "NAVIGATION",
             path: "/dashboard/recipes",
             keywords: "recipes, food, meals"
         },
         {
             icon: FolderOpen,
-            label: "Taxonomy Hub",
-            description: "CATEGORY ARCHIVE & REFINEMENT",
+            label: t('command_palette.taxonomy_hub'),
+            description: t('categories.description'),
             category: "NAVIGATION",
             path: "/dashboard/categories",
             keywords: "categories, tags"
         },
         {
             icon: Users,
-            label: "Agent Fleet",
-            description: "COLLABORATOR ACCESS CONTROL",
+            label: t('command_palette.agent_fleet'),
+            description: t('users.fleet_desc'),
             category: "SYSTEM",
             path: "/dashboard/users",
             isAdmin: true,
@@ -132,8 +134,8 @@ export function CommandPalette() {
         },
         {
             icon: UserCircle,
-            label: "Identity Port",
-            description: "MANAGE SECURITY & PROFILE",
+            label: t('command_palette.identity_port'),
+            description: t('profile.description'),
             category: "ACCOUNT",
             path: "/dashboard/profile",
             keywords: "profile, settings, account, password"
@@ -143,16 +145,16 @@ export function CommandPalette() {
     const quickActions: NavItem[] = [
         {
             icon: Plus,
-            label: "Initialize Protocol",
-            description: "CREATE NEW CULINARY MISSION",
+            label: t('command_palette.initiate_protocol'),
+            description: t('recipes.new_recipe'),
             category: "ACTION",
             path: "/dashboard/recipes/new",
             keywords: "create, add, new, recipe"
         },
         {
             icon: Heart,
-            label: "Curated Vault",
-            description: "ACCESS FAVORITE COLLECTIONS",
+            label: t('command_palette.curated_vault'),
+            description: t('favorites.description'),
             category: "ACTION",
             path: "/dashboard/favorites",
             keywords: "favorites, likes, heart"
@@ -232,11 +234,11 @@ export function CommandPalette() {
                             <div className="flex items-center justify-between opacity-40">
                                 <div className="flex items-center gap-3">
                                     <Sparkles size={14} className="text-primary-500" />
-                                    <span className="text-[10px] font-black uppercase tracking-[0.3em]">System Command Terminal</span>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.3em]">{t('command_palette.system_terminal')}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <kbd className="px-2 py-0.5 rounded-md bg-[var(--background)] border border-[var(--border)] text-[9px] font-black">ESC</kbd>
-                                    <span className="text-[9px] font-black">TO ABORT</span>
+                                    <span className="text-[9px] font-black">{t('command_palette.abort')}</span>
                                 </div>
                             </div>
 
@@ -244,7 +246,7 @@ export function CommandPalette() {
                                 <Search className="absolute start-6 top-1/2 -translate-y-1/2 text-neutral-500 group-focus-within:text-primary-500 transition-colors" size={24} />
                                 <input
                                     autoFocus
-                                    placeholder="TYPE MISSION PARAMETERS..."
+                                    placeholder={t('command_palette.type_parameters')}
                                     value={search}
                                     onChange={(e) => {
                                         setSearch(e.target.value);
@@ -273,8 +275,8 @@ export function CommandPalette() {
                                         <Zap size={32} className="text-[var(--muted-foreground)]/20" />
                                     </div>
                                     <div className="space-y-1">
-                                        <h3 className="text-xl font-black uppercase tracking-widest text-white italic">Zero Results Found</h3>
-                                        <p className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest">NO MATCHING MISSION PROTOCOLS DETECTED</p>
+                                        <h3 className="text-xl font-black uppercase tracking-widest text-white italic">{t('command_palette.no_results')}</h3>
+                                        <p className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest">{t('command_palette.no_results_desc')}</p>
                                     </div>
                                 </div>
                             )}
@@ -285,15 +287,15 @@ export function CommandPalette() {
                             <div className="flex items-center gap-6">
                                 <div className="flex items-center gap-2 text-[9px] font-black text-[var(--muted-foreground)] uppercase tracking-widest">
                                     <div className="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse" />
-                                    Terminal Online
+                                    {t('command_palette.terminal_online')}
                                 </div>
                                 <div className="flex items-center gap-3 text-[var(--muted-foreground)]">
                                     <kbd className="px-2 py-0.5 rounded-md bg-[var(--background)] border border-[var(--border)] text-[9px] font-black text-[var(--foreground)]">↑↓</kbd>
-                                    <span className="text-[9px] font-black">NAVIGATE</span>
+                                    <span className="text-[9px] font-black">{t('command_palette.navigate')}</span>
                                 </div>
                                 <div className="flex items-center gap-3 text-[var(--muted-foreground)]">
                                     <kbd className="px-2 py-0.5 rounded-md bg-[var(--background)] border border-[var(--border)] text-[9px] font-black text-[var(--foreground)]">ENTER</kbd>
-                                    <span className="text-[9px] font-black">EXECUTE</span>
+                                    <span className="text-[9px] font-black">{t('command_palette.execute')}</span>
                                 </div>
                             </div>
                             <Sparkles size={14} className="text-primary-500/30" />

@@ -36,6 +36,7 @@ export function DeleteConfirmation({
                     <button
                         onClick={onClose}
                         className="absolute top-8 right-8 w-10 h-10 rounded-xl bg-[var(--background)] border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)] hover:text-red-500 hover:border-red-500/50 transition-all shadow-lg z-10"
+                        aria-label={t('common.close')}
                     >
                         <X size={18} />
                     </button>

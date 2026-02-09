@@ -89,7 +89,7 @@ export function RecipeForm({ initialData, onSubmit, onCancel, isPending, title }
                     <div className="space-y-1">
                         <div className="flex items-center gap-2 text-primary-500 mb-1">
                             <Palette size={12} className="animate-pulse" />
-                            <span className="text-[9px] font-black uppercase tracking-[0.4em] opacity-80">MASTERPIECE_CREATOR_ACTIVE</span>
+                            <span className="text-[9px] font-black uppercase tracking-[0.4em] opacity-80">{t('recipes.form_indicator')}</span>
                         </div>
                         <h2 className="text-2xl font-black italic uppercase tracking-tighter text-[var(--foreground)] leading-none">
                             {title}
@@ -129,16 +129,16 @@ export function RecipeForm({ initialData, onSubmit, onCancel, isPending, title }
                         >
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <TacticalInput
-                                    label="Artistic Identity"
-                                    placeholder="ENTER_RECIPE_NAME"
+                                    label={t('recipes.name_label')}
+                                    placeholder={t('recipes.placeholder_name')}
                                     icon={Utensils}
                                     error={errors.name?.message}
                                     {...register("name")}
                                     maxLength={50}
                                 />
                                 <TacticalInput
-                                    label="Venture Valuation"
-                                    placeholder="0.00"
+                                    label={t('recipes.price_label')}
+                                    placeholder={t('recipes.placeholder_price')}
                                     icon={DollarSign}
                                     error={errors.price?.message}
                                     {...register("price")}
@@ -180,8 +180,8 @@ export function RecipeForm({ initialData, onSubmit, onCancel, isPending, title }
                             className="space-y-8"
                         >
                             <TacticalInput
-                                label="Culinary Narrative"
-                                placeholder="ENTER_TECHNICAL_SPECIFICATIONS..."
+                                label={t('recipes.description_label')}
+                                placeholder={t('recipes.narrative_stream')}
                                 icon={FileText}
                                 error={errors.description?.message}
                                 {...register("description")}
@@ -261,7 +261,7 @@ export function RecipeForm({ initialData, onSubmit, onCancel, isPending, title }
                     className="h-12 px-8 rounded-xl border border-[var(--border)] text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] transition-all flex items-center gap-3"
                 >
                     <X size={14} />
-                    {step === 1 ? t('common.cancel') : "Back Protocol"}
+                    {step === 1 ? t('common.cancel') : t('common.back')}
                 </button>
 
                 {step < 3 ? (
@@ -270,7 +270,7 @@ export function RecipeForm({ initialData, onSubmit, onCancel, isPending, title }
                         onClick={() => setStep(s => s + 1)}
                         className="h-12 px-10 rounded-xl bg-[var(--foreground)] text-[var(--background)] text-[10px] font-black uppercase tracking-widest flex items-center gap-3 hover:bg-primary-500 hover:text-white transition-all shadow-xl group"
                     >
-                        Forward Module
+                        {t('common.next')}
                         <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                     </button>
                 ) : (
@@ -285,7 +285,7 @@ export function RecipeForm({ initialData, onSubmit, onCancel, isPending, title }
                         ) : (
                             <>
                                 <Save size={16} />
-                                Commit Masterpiece
+                                {t('common.save')}
                                 <ShieldCheck size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                             </>
                         )}

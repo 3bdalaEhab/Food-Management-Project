@@ -183,6 +183,8 @@ export function ModulePageLayout({
                                     "w-12 rounded-xl flex items-center justify-center transition-all",
                                     viewMode === 'grid' ? 'bg-primary-500 text-white shadow-lg' : 'text-[var(--muted-foreground)] hover:text-primary-500'
                                 )}
+                                aria-label={t('common.grid_view')}
+                                aria-pressed={viewMode === 'grid'}
                             >
                                 <LayoutGrid size={18} />
                             </button>
@@ -192,6 +194,8 @@ export function ModulePageLayout({
                                     "w-12 rounded-xl flex items-center justify-center transition-all",
                                     viewMode === 'list' ? 'bg-primary-500 text-white shadow-lg' : 'text-[var(--muted-foreground)] hover:text-primary-500'
                                 )}
+                                aria-label={t('common.list_view')}
+                                aria-pressed={viewMode === 'list'}
                             >
                                 <List size={18} />
                             </button>

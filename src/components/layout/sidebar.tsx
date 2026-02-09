@@ -84,7 +84,16 @@ export function Sidebar() {
             <div className="relative h-24 flex items-center px-6 shrink-0 border-b border-[var(--sidebar-border)]">
                 <div
                     onClick={toggleSidebar}
-                    className="flex items-center gap-4 group cursor-pointer w-full transition-all active:scale-95"
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            toggleSidebar();
+                        }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={sidebarCollapsed ? t('sidebar.expand') : t('sidebar.collapse')}
+                    className="flex items-center gap-4 group cursor-pointer w-full transition-all active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded-xl p-1"
                 >
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center shadow-[0_10px_30px_rgba(255,107,38,0.3)] relative overflow-hidden shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
                         <ChefHat className="w-6 h-6 text-white relative z-10 drop-shadow-md" />

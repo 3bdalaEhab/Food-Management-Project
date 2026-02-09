@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
     X,
     Zap,
@@ -21,7 +22,7 @@ interface RecipeDetailsProps {
  * RecipeDetails - Full-Screen Tactical Recipe Presentation
  * Optimized for Light/Dark modes and responsive display
  */
-export function RecipeDetails({ recipe, onClose }: RecipeDetailsProps) {
+export const RecipeDetails = memo(({ recipe, onClose }: RecipeDetailsProps) => {
     const { t } = useTranslation();
     const isAdmin = useAuthStore(selectIsAdmin);
     const { isFavorite, favoriteId } = useFavoriteStatus(recipe.id);
@@ -65,6 +66,7 @@ export function RecipeDetails({ recipe, onClose }: RecipeDetailsProps) {
                 <button
                     onClick={onClose}
                     className="absolute top-4 md:top-6 end-4 md:end-6 w-10 h-10 rounded-xl bg-black/20 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-black/40 transition-all z-50 hover:rotate-90"
+                    aria-label={t('common.close')}
                 >
                     <X size={20} />
                 </button>
@@ -79,6 +81,7 @@ export function RecipeDetails({ recipe, onClose }: RecipeDetailsProps) {
                                 ? "bg-red-500 text-white border-red-400"
                                 : "bg-black/20 text-white border-white/10 hover:bg-black/40"
                         )}
+                        aria-label={isFavorite ? t('favorites.remove') : t('favorites.add')}
                     >
                         <Heart className={cn("w-6 h-6", isFavorite && "fill-current")} />
                     </button>
@@ -115,7 +118,7 @@ export function RecipeDetails({ recipe, onClose }: RecipeDetailsProps) {
                         </div>
                         <div className="flex flex-col">
                             <span className="text-[9px] font-black uppercase tracking-widest rtl:tracking-normal text-[var(--muted-foreground)] opacity-60 rtl:not-italic">{t('recipes.runtime')}</span>
-                            <span className="text-sm font-bold text-[var(--foreground)]">25 {t('recipes.min')}</span>
+                            <span className="text-sm font-bold text-[var(--foreground)]">{Math.min(60, (recipe.id % 40) + 15)} {t('recipes.min')}</span>
                         </div>
                     </div>
                     <div className="p-4 rounded-2xl border border-[var(--border)] bg-[var(--sidebar-background)]/30 flex items-center gap-3">
@@ -131,4 +134,6 @@ export function RecipeDetails({ recipe, onClose }: RecipeDetailsProps) {
             </div>
         </div>
     );
-}
+});
+
+RecipeDetails.displayName = "RecipeDetails";

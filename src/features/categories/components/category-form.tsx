@@ -85,7 +85,7 @@ export function CategoryForm({
                     <form onSubmit={handleSubmit((data) => onSubmit(data))} className="space-y-12">
                         <div className="space-y-4 group">
                             <div className="flex items-center justify-between px-2">
-                                <span className="text-[8px] font-black text-primary-500/40 uppercase tracking-[0.3em]">Identity_Vector_Input</span>
+                                <span className="text-[8px] font-black text-primary-500/40 uppercase tracking-[0.3em]">{t('categories.input_indicator')}</span>
                                 <FolderTree size={12} className="text-primary-500/20 group-hover:text-primary-500 transition-colors" />
                             </div>
                             <TacticalInput
@@ -117,7 +117,7 @@ export function CategoryForm({
                                     {isPending ? (
                                         <div className="flex items-center gap-3">
                                             <Loader2 className="animate-spin" size={20} />
-                                            <span>COMMITING_NODE...</span>
+                                            <span>{t('common.saving')}</span>
                                         </div>
                                     ) : (
                                         <>

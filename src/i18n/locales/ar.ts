@@ -20,6 +20,23 @@ export const ar = {
             shutdown_core: "خروج",
             version: "v4.9"
         },
+        command_palette: {
+            mission_center: "لوحة التحكم",
+            recipe_vault: "الوصفات",
+            taxonomy_hub: "التصنيفات",
+            agent_fleet: "المستخدمين",
+            identity_port: "الملف الشخصي",
+            initiate_protocol: "إضافة وصفة",
+            curated_vault: "المفضلة",
+            system_terminal: "محرك البحث السريع",
+            abort: "ESC للإغلاق",
+            type_parameters: "ابحث في النظام...",
+            no_results: "لا توجد نتائج",
+            no_results_desc: "حاول البحث بكلمة أخرى",
+            terminal_online: "النظام متصل",
+            navigate: "تنقل",
+            execute: "فتح"
+        },
         navbar: {
             search: "بحث...",
             language: "اللغة",
@@ -118,7 +135,16 @@ export const ar = {
                 theme_protocol: "المظهر",
                 lang_protocol: "اللغة"
             },
-            update_profile_desc: "حفظ التغييرات"
+            update_profile_desc: "تحديث بيانات ملفك الشخصي",
+            change_password: "تغيير كلمة المرور",
+            change_password_desc: "تحديث إعدادات الأمان لحسابك",
+            current_password: "كلمة المرور الحالية",
+            new_password: "كلمة المرور الجديدة",
+            confirm_password: "تأكيد كلمة المرور",
+            photo_updated: "تم تحديث الصورة الشخصية بنجاح",
+            change_photo: "تغيير الصورة الشخصية",
+            upload_photo_desc: "رفع صورة شخصية جديدة",
+            upload_photo: "رفع صورة"
         },
         categories: {
             title: "التصنيفات",
@@ -142,7 +168,9 @@ export const ar = {
             create_category_button: "حفظ التصنيف",
             initialize_node: "إضافة تصنيف",
             refine_node: "تعديل التصنيف",
-            delete_node: "حذف التصنيف"
+            delete_node: "حذف التصنيف",
+            form_indicator: "سجل التصنيفات",
+            input_indicator: "إدخال البيانات"
         },
         recipes: {
             title: "الوصفات",
@@ -200,7 +228,11 @@ export const ar = {
             classification_nodes: "التصنيف",
             taxonomy_mapping: "خرائط",
             visual_encoding: "صورة",
-            replace_image: "تغيير الصورة"
+            replace_image: "تغيير الصورة",
+            form_indicator: "منشئ الوصفات",
+            name_label: "اسم الوصفة",
+            price_label: "قيمة السعر",
+            description_label: "طريقة التحضير"
         },
         users: {
             title: "المستخدمين",
@@ -334,7 +366,11 @@ export const ar = {
             unit_id: "رقم الوحدة",
             live_data: "مباشر",
             ready: "جاهز",
-            active: "نشط"
+            active: "نشط",
+            back: "رجوع",
+            next: "التالي",
+            saving: "جاري الحفظ...",
+            system_operational: "النظام نشط"
         },
         delete_confirmation: {
             title: "تأكيد الحذف",

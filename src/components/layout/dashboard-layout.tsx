@@ -6,7 +6,6 @@ import { useAppStore } from "@/stores";
 import { DashboardBackground } from "./dashboard-background";
 import { CommandPalette } from "./command-palette";
 import { MobileDrawer } from "./mobile-drawer";
-import { MobileBottomNav } from "./mobile-bottom-nav";
 import { PageWrapper } from "../shared/page-wrapper";
 import { cn } from "@/lib/utils";
 import { useMemo } from "react";
@@ -18,7 +17,7 @@ export function DashboardLayout() {
     const mainClassName = useMemo(() => {
         return cn(
             "relative min-h-screen z-10 transition-[padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
-            "pb-20 md:pb-0",
+            "pb-0",
             sidebarCollapsed ? "md:ps-[88px]" : "md:ps-[280px]"
         );
     }, [sidebarCollapsed]);
@@ -63,9 +62,6 @@ export function DashboardLayout() {
 
             {/* Mobile Navigation Console */}
             <MobileDrawer />
-
-            {/* Mobile Bottom Navigation */}
-            <MobileBottomNav />
         </div>
     );
 }

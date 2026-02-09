@@ -25,6 +25,8 @@ export const ImageWithFallback = ({
                 alt={alt}
                 onError={() => setError(true)}
                 className="w-full h-full object-cover object-center"
+                loading="lazy"
+                decoding="async"
                 {...props}
             />
         </div>

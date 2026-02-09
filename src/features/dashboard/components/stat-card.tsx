@@ -109,6 +109,7 @@ export const StatCard = memo(({
                                         setIsChartOpen(true);
                                     }}
                                     className="p-2 rounded-xl bg-[var(--background)]/40 text-[var(--muted-foreground)] border border-[var(--border)] hover:text-primary-500 hover:bg-primary-500/10 transition-all duration-300 shadow-sm"
+                                    aria-label={t('dashboard.view_detailed_chart')}
                                 >
                                     <BarChart3 size={14} />
                                 </button>
