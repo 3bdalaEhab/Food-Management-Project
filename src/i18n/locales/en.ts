@@ -324,7 +324,7 @@ export const en = {
                 elite_title: "Elite",
                 elite_suffix: "Access",
                 elite_badge: "Instant Demo",
-                elite_subtitle: "Authorized Preview Mode. \n Select a role to explore the system capabilities immediately.",
+
                 terminal_verified: "SECURE TERMINAL LINK VERIFIED",
                 terminal_active: "SECURE TERMINAL CONNECTION ACTIVE",
                 protocols: "ACCESS PROTOCOLS",

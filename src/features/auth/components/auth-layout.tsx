@@ -5,7 +5,7 @@ export function AuthLayout() {
     const location = useLocation();
 
     return (
-        <div className="relative w-full h-screen overflow-hidden bg-[var(--background)]">
+        <div className="relative w-full min-h-[100dvh] overflow-hidden bg-[var(--background)]">
             <AnimatePresence mode="wait">
                 <motion.div
                     key={location.pathname}

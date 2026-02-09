@@ -46,17 +46,14 @@ export function DemoCredentials({ onFill }: DemoCredentialsProps) {
     };
 
     return (
-        <div className="space-y-6 mt-8 pt-8 border-t border-white/5 relative">
-            {/* Soft HUD Background Glow */}
-            <div className="absolute -inset-4 bg-primary-500/5 blur-3xl rounded-full opacity-20 pointer-events-none" />
-
+        <div className="w-full space-y-6 relative">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 relative z-10">
                 <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-lg bg-primary-500/10 border border-primary-500/20 flex items-center justify-center shrink-0">
                         <Terminal size={14} className="text-primary-500" />
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white underline decoration-primary-500/30 underline-offset-4">{t('auth.login.protocols')}</span>
+                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--foreground)] underline decoration-primary-500/30 underline-offset-4">{t('auth.login.protocols')}</span>
                         <span className="text-[8px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider opacity-40 italic">{t('auth.login.system_core')}</span>
                     </div>
                 </div>
@@ -121,7 +118,7 @@ export function DemoCredentials({ onFill }: DemoCredentialsProps) {
                                         <ArrowRight size={18} />
                                     </div>
                                 </div>
-                                <p className="text-[10px] font-bold text-[var(--muted-foreground)] leading-relaxed group-hover:text-white transition-colors uppercase tracking-widest opacity-60">
+                                <p className="text-[10px] font-bold text-[var(--muted-foreground)] leading-relaxed group-hover:text-[var(--foreground)] group-hover:opacity-100 transition-colors uppercase tracking-widest opacity-60">
                                     {cred.desc}
                                 </p>
                             </div>

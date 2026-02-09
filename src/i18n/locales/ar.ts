@@ -293,7 +293,7 @@ export const ar = {
                 elite_title: "تجربة",
                 elite_suffix: "النظام",
                 elite_badge: "دخول سريع",
-                elite_subtitle: "لا تحتاج لإنشاء حساب لتجربة الموقع. \n اضغط على أي 'بطاقة' بالأسفل للدخول فوراً وتجربة كل المميزات.",
+
                 terminal_verified: "نظام آمن",
                 terminal_active: "متصل",
                 protocols: "حسابات تجريبية",

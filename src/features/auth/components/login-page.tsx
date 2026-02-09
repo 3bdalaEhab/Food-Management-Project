@@ -56,14 +56,14 @@ export function LoginPage() {
             <AuthBackground />
             <FloatingAuthControls />
 
-            <div className="relative z-30 w-full max-w-[400px] sm:max-w-[440px] xl:max-w-[950px] flex flex-col xl:flex-row gap-8 sm:gap-12 items-start justify-center">
+            <div className="relative z-30 w-full max-w-[400px] sm:max-w-[440px] xl:max-w-[950px] flex flex-col xl:flex-row gap-8 sm:gap-12 items-stretch justify-center">
 
                 {/* Main Card - Animated Entrance */}
                 <motion.div
                     initial={{ opacity: 0, x: i18n.dir() === 'rtl' ? 30 : -30, scale: 0.95 }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-                    className="relative w-full xl:w-[440px] bg-[var(--sidebar-background)]/90 backdrop-blur-3xl rounded-[2.5rem] border border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)] overflow-hidden shrink-0"
+                    className="relative w-full xl:w-[440px] bg-[var(--sidebar-background)]/90 backdrop-blur-3xl rounded-[2.5rem] border border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)] overflow-hidden shrink-0 flex flex-col"
                 >
                     <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-white/10 rounded-[2.5rem]" />
 
@@ -71,7 +71,7 @@ export function LoginPage() {
                     {/* Top Gradient Bar */}
                     <div className="h-1 sm:h-1.5 bg-gradient-to-r from-primary-500 via-primary-400 to-orange-400" />
 
-                    <div className="p-6 sm:p-8 md:p-10">
+                    <div className="flex-1 flex flex-col justify-center p-6 sm:p-8 md:p-10">
                         {/* Header */}
                         <div className="text-center mb-8 sm:mb-10">
                             <motion.div
@@ -197,45 +197,51 @@ export function LoginPage() {
                     initial={{ opacity: 0, x: i18n.dir() === 'rtl' ? -30 : 30, scale: 0.95 }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-                    className="hidden xl:flex flex-col gap-10 w-[440px] pt-12 relative"
+                    className="hidden xl:flex flex-col w-[440px] relative shrink-0 self-stretch"
                 >
                     {/* Cinematic HUD Depth Orbs */}
                     <div className="absolute top-1/4 -right-20 w-80 h-80 bg-primary-500/10 rounded-full blur-[100px] animate-pulse pointer-events-none" />
                     <div className="absolute bottom-1/4 -left-10 w-60 h-60 bg-orange-500/10 rounded-full blur-[80px] animate-pulse pointer-events-none" style={{ animationDelay: '1s' }} />
 
-                    <div className="space-y-4 relative z-10 px-4">
-                        <div className="flex items-center gap-4">
-                            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                            <h3 className="text-4xl font-black italic uppercase tracking-tighter text-white drop-shadow-2xl">
-                                {t('auth.login.elite_title')} <span className="text-primary-500">{t('auth.login.elite_suffix')}</span>
-                            </h3>
-                            <div className="h-px flex-1 bg-gradient-to-l from-transparent via-white/10 to-transparent" />
-                        </div>
+                    <div className="bg-[var(--sidebar-background)]/90 backdrop-blur-3xl rounded-[2.5rem] border border-white/10 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.4)] relative overflow-hidden flex flex-col h-full w-full group hover:bg-white/[0.03] transition-colors duration-500">
+                        <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-white/10 rounded-[2.5rem]" />
 
-                        {/* New Badge for Visitor Clarity */}
-                        <div className="flex justify-center">
-                            <span className="px-3 py-1 rounded-full bg-primary-500/20 border border-primary-500/30 text-[10px] font-black uppercase tracking-widest text-primary-400 animate-pulse">
-                                {t('auth.login.elite_badge')}
-                            </span>
-                        </div>
-
-                        <p className="text-[10px] sm:text-xs font-black text-[var(--muted-foreground)] uppercase tracking-[0.4em] opacity-40 leading-relaxed italic text-center whitespace-pre-line">
-                            {t('auth.login.elite_subtitle')}
-                        </p>
-                    </div>
-
-                    <div className="bg-white/[0.02] backdrop-blur-3xl rounded-[3.5rem] p-10 border border-white/5 shadow-2xl relative overflow-hidden group hover:bg-white/[0.04] transition-colors duration-500">
                         {/* Elite HUD Scanline Effect */}
                         <div className="absolute inset-0 bg-scanlines opacity-[0.03] pointer-events-none" />
-                        <DemoCredentials onFill={handleDemoFill} />
-                    </div>
 
-                    <div className="mt-4 px-10 text-center">
-                        <div className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/[0.02] border border-white/5 backdrop-blur-sm">
-                            <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                            <p className="text-[9px] font-black uppercase tracking-[0.5em] text-white/30 italic">
-                                {t('auth.login.terminal_verified')}
-                            </p>
+                        {/* Top Gradient Bar - Mirrored */}
+                        <div className="h-1 sm:h-1.5 bg-gradient-to-r from-orange-400 via-primary-400 to-primary-500" />
+
+                        {/* Content Wrapper - Identical Padding to Left Card */}
+                        <div className="flex-1 flex flex-col justify-center p-6 sm:p-8 md:p-10">
+
+                            {/* Header Section */}
+                            <div className="w-full space-y-4 relative z-10 text-center mb-6">
+                                <div className="flex items-center justify-center gap-4">
+                                    <div className="h-px w-8 sm:w-12 bg-gradient-to-r from-transparent via-[var(--foreground)]/10 to-transparent" />
+                                    <h3 className="text-2xl sm:text-3xl font-black italic uppercase tracking-tighter text-[var(--foreground)] drop-shadow-2xl">
+                                        {t('auth.login.elite_title')} <span className="text-primary-500">{t('auth.login.elite_suffix')}</span>
+                                    </h3>
+                                    <div className="h-px w-8 sm:w-12 bg-gradient-to-l from-transparent via-[var(--foreground)]/10 to-transparent" />
+                                </div>
+
+
+                            </div>
+
+                            {/* Credentials Content */}
+                            <div className="w-full">
+                                <DemoCredentials onFill={handleDemoFill} />
+                            </div>
+
+                            {/* Footer Section */}
+                            <div className="mt-6 flex justify-center">
+                                <div className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[var(--foreground)]/[0.02] border border-[var(--foreground)]/5 backdrop-blur-sm">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                                    <p className="text-[9px] font-black uppercase tracking-[0.5em] text-[var(--muted-foreground)] italic">
+                                        {t('auth.login.terminal_verified')}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </motion.div>
@@ -249,7 +255,7 @@ export function LoginPage() {
                 >
                     <div className="mt-16 mb-8 text-center relative">
                         <div className="absolute left-1/2 -translate-x-1/2 -top-4 w-20 h-20 bg-primary-500/10 blur-2xl rounded-full" />
-                        <h3 className="text-xl font-black italic uppercase tracking-tighter text-white relative z-10">{t('auth.login.elite_title')} <span className="text-primary-500">{t('auth.login.elite_suffix')}</span></h3>
+                        <h3 className="text-xl font-black italic uppercase tracking-tighter text-[var(--foreground)] relative z-10">{t('auth.login.elite_title')} <span className="text-primary-500">{t('auth.login.elite_suffix')}</span></h3>
                         <div className="flex justify-center mt-2">
                             <span className="px-3 py-0.5 rounded-full bg-primary-500/20 border border-primary-500/30 text-[9px] font-black uppercase tracking-widest text-primary-400">
                                 {t('auth.login.elite_badge')}
@@ -260,6 +266,6 @@ export function LoginPage() {
                     <DemoCredentials onFill={handleDemoFill} />
                 </motion.div>
             </div>
-        </div>
+        </div >
     );
 }
