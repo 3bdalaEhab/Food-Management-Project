@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
@@ -22,22 +22,6 @@ import { TacticalInput } from "@/components/shared/tactical-input";
 import { cn } from "@/lib/utils";
 import type { CreateRecipeData } from "../types";
 
-const recipeSchema = z.object({
-    name: z.string()
-        .min(3, "IDENTITY TOO SHORT")
-        .max(50, "IDENTITY TOO LONG (50 MAX)"),
-    description: z.string()
-        .min(10, "DATA STREAM TOO SHORT")
-        .max(500, "DATA STREAM TOO LONG (500 MAX)"),
-    price: z.string()
-        .min(1, "VALUE REQUIRED")
-        .max(10, "VALUE TOO LONG"),
-    tagId: z.number().min(1, "CLASSIFICATION REQUIRED"),
-    recipeImage: z.any().optional(),
-});
-
-type RecipeFormData = z.infer<typeof recipeSchema>;
-
 interface RecipeFormProps {
     initialData?: Partial<CreateRecipeData> & { imagePath?: string };
     onSubmit: (data: CreateRecipeData) => void;
@@ -55,6 +39,23 @@ export function RecipeForm({ initialData, onSubmit, onCancel, isPending, title }
     const { t } = useTranslation();
     const [step, setStep] = useState(1);
     const { data: tags } = useTags();
+
+    // Memoized validation schema with i18n
+    const recipeSchema = useMemo(() => z.object({
+        name: z.string()
+            .min(3, t('validation.name_min'))
+            .max(50, t('validation.name_max')),
+        description: z.string()
+            .min(10, t('validation.description_min'))
+            .max(500, t('validation.description_max')),
+        price: z.string()
+            .min(1, t('validation.price_required'))
+            .max(10, t('validation.price_max')),
+        tagId: z.number().min(1, t('validation.category_required')),
+        recipeImage: z.any().optional(),
+    }), [t]);
+
+    type RecipeFormData = z.infer<typeof recipeSchema>;
 
     const {
         register,

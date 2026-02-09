@@ -16,7 +16,7 @@ export function DashboardLayout() {
 
     const mainClassName = useMemo(() => {
         return cn(
-            "relative min-h-screen z-10 transition-[padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+            "relative min-h-screen z-10 transition-[padding] duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]",
             "pb-0",
             sidebarCollapsed ? "md:ps-[88px]" : "md:ps-[280px]"
         );
@@ -35,8 +35,8 @@ export function DashboardLayout() {
                 initial={false}
                 className={mainClassName}
                 transition={{
-                    duration: 0.5,
-                    ease: [0.16, 1, 0.3, 1]
+                    duration: 0.35, // Reduced from 0.5s for snappier layout shift
+                    ease: [0.25, 1, 0.5, 1] // Matches new page transition curve
                 }}
             >
                 {/* Fixed Top Interface */}

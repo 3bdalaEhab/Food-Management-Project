@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
@@ -19,31 +20,6 @@ import { z } from "zod";
 import { useCreateUser } from "../hooks";
 import { TacticalInput } from "@/components/shared/tactical-input";
 
-const userCreateSchema = z.object({
-    userName: z.string()
-        .min(3, "Username must be at least 3 characters")
-        .max(20, "Username too long (Max 20)"),
-    email: z.string()
-        .email("Invalid email address")
-        .max(50, "Email too long (Max 50)"),
-    country: z.string()
-        .min(1, "Country is required")
-        .max(30, "Country name too long"),
-    phoneNumber: z.string()
-        .min(10, "Phone number must be at least 10 characters")
-        .max(15, "Phone number too long"),
-    password: z.string()
-        .min(6, "Password must be at least 6 characters")
-        .max(20, "Password too long"),
-    confirmPassword: z.string()
-        .min(6, "Confirm password is required"),
-}).refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
-});
-
-type UserCreateFormData = z.infer<typeof userCreateSchema>;
-
 interface UserFormProps {
     onSuccess: () => void;
     onCancel: () => void;
@@ -57,6 +33,32 @@ interface UserFormProps {
 export function UserForm({ onSuccess, onCancel }: UserFormProps) {
     const { t } = useTranslation();
     const { mutate: createUser, isPending: isCreating } = useCreateUser();
+
+    // Memoized validation schema with i18n
+    const userCreateSchema = useMemo(() => z.object({
+        userName: z.string()
+            .min(3, t('validation.username_min'))
+            .max(20, t('validation.username_max')),
+        email: z.string()
+            .email(t('validation.email_invalid'))
+            .max(50, t('validation.email_max')),
+        country: z.string()
+            .min(1, t('validation.country_required'))
+            .max(30, t('validation.country_max')),
+        phoneNumber: z.string()
+            .min(10, t('validation.phone_min'))
+            .max(15, t('validation.phone_max')),
+        password: z.string()
+            .min(6, t('validation.password_min'))
+            .max(20, t('validation.password_max')),
+        confirmPassword: z.string()
+            .min(6, t('validation.confirm_password_required')),
+    }).refine((data) => data.password === data.confirmPassword, {
+        message: t('validation.password_mismatch'),
+        path: ["confirmPassword"],
+    }), [t]);
+
+    type UserCreateFormData = z.infer<typeof userCreateSchema>;
 
     const {
         register,

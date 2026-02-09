@@ -199,6 +199,7 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
@@ -264,22 +265,22 @@
 
 @layer utilities {
 
-  /* Glass Morphism - Optimized */
+  /* Glass Morphism - High Performance */
   .glass {
-    background: oklch(1 0 0 / 0.85);
+    background: oklch(1 0 0 / 0.8);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid oklch(1 0 0 / 0.2);
-    will-change: transform;
-    /* Hint for browser optimization */
+    /* Performance Hints */
+    transform: translateZ(0);
+    will-change: transform, backdrop-filter;
   }
 
   .dark .glass {
-    background: oklch(0.12 0.02 260 / 0.75);
+    background: oklch(0.12 0.02 260 / 0.7);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid oklch(1 0 0 / 0.15);
-    /* Slightly thicker/more opaque glass border */
+    border: 1px solid oklch(1 0 0 / 0.1);
   }
 
   /* Elite HUD Scanlines */
@@ -295,28 +296,31 @@
 
   /* ... */
 
-  /* Premium Components */
+  /* Premium Components - Optimized */
   .glass-card {
     background: oklch(1 0 0 / 0.75);
-    backdrop-filter: blur(4px);
-    /* Slightly increased for better look, but kept reasonable */
-    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(6px);
+    /* Reduced from 4px to 6px but lighter for GPU? actually less blur is cheaper */
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid oklch(0.15 0.01 260 / 0.08);
     color: var(--foreground);
     box-shadow: 0 4px 6px -1px oklch(0.15 0.01 260 / 0.1), 0 2px 4px -1px oklch(0.15 0.01 260 / 0.06);
+    /* Performance */
+    transform: translateZ(0);
     will-change: transform;
   }
 
   .dark .glass-card {
-    background: oklch(0.1 0.02 260 / 0.5);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1.5px solid oklch(1 0 0 / 0.15);
+    background: oklch(0.1 0.02 260 / 0.6);
+    backdrop-filter: blur(16px);
+    /* Reduced from 24px */
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid oklch(1 0 0 / 0.08);
     color: var(--foreground);
     box-shadow:
       0 0 0 1px oklch(1 0 0 / 0.05),
-      0 20px 50px -12px oklch(0 0 0 / 0.7),
-      inset 0 1px 1px oklch(1 0 0 / 0.1);
+      0 10px 30px -10px oklch(0 0 0 / 0.5);
+    /* Simplified shadow */
   }
 
   .tactical-border {

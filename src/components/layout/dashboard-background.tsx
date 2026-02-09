@@ -28,16 +28,16 @@ const FloatingAsset = ({ Icon, size, top, left, delay, duration, rotate = 0 }: F
     <motion.div
         initial={{ opacity: 0, rotate }}
         animate={{
-            opacity: [0.01, 0.05, 0.01],
-            y: [0, -30, 0],
-            rotate: [rotate, rotate + 15, rotate],
-            scale: [1, 1.1, 1]
+            opacity: [0.01, 0.04, 0.01], // Lower max opacity for subtlety
+            y: [0, -20, 0], // Reduced movement range
+            rotate: [rotate, rotate + 10, rotate], // Reduced rotation
+            // Removed scale animation to save performance
         }}
         transition={{
             duration,
             repeat: Infinity,
             delay,
-            ease: "easeInOut"
+            ease: "linear" // Linear is cheaper than easeInOut
         }}
         style={{
             top,
@@ -53,13 +53,13 @@ const FloatingAsset = ({ Icon, size, top, left, delay, duration, rotate = 0 }: F
 
 export function DashboardBackground() {
     const assets = useMemo(() => [
-        { Icon: Pizza, size: 120, top: '10%', left: '5%', delay: 0, duration: 35, rotate: 12 },
-        { Icon: ChefHat, size: 90, top: '70%', left: '85%', delay: 5, duration: 32, rotate: -15 },
-        { Icon: UtensilsCrossed, size: 70, top: '20%', left: '75%', delay: 2, duration: 28, rotate: 45 },
-        { Icon: Sparkles, size: 40, top: '40%', left: '15%', delay: 8, duration: 25, rotate: 0 },
-        { Icon: ChefHat, size: 60, top: '80%', left: '20%', delay: 10, duration: 40, rotate: 10 },
-        { Icon: Pizza, size: 80, top: '5%', left: '50%', delay: 15, duration: 38, rotate: -20 },
-        { Icon: UtensilsCrossed, size: 50, top: '60%', left: '45%', delay: 12, duration: 30, rotate: 90 },
+        { Icon: Pizza, size: 100, top: '10%', left: '5%', delay: 0, duration: 45, rotate: 12 }, // Slower duration
+        { Icon: ChefHat, size: 80, top: '70%', left: '85%', delay: 5, duration: 40, rotate: -15 },
+        // Removed UtensilsCrossed to reduce DOM node count and overlapping
+        { Icon: Sparkles, size: 30, top: '40%', left: '15%', delay: 8, duration: 35, rotate: 0 },
+        { Icon: ChefHat, size: 50, top: '80%', left: '20%', delay: 10, duration: 50, rotate: 10 },
+        // Removed central Pizza to clear main content area
+        { Icon: UtensilsCrossed, size: 40, top: '60%', left: '45%', delay: 12, duration: 38, rotate: 90 },
     ], []);
 
     return (

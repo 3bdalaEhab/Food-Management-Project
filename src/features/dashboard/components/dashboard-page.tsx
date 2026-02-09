@@ -38,12 +38,12 @@ export function DashboardPage() {
             chartUnit: t('charts.units'),
             chartDescription: t('charts.recipes_trend'),
             chartData: [
-                { name: 'Jan', value: 40 },
-                { name: 'Feb', value: 60 },
-                { name: 'Mar', value: 45 },
-                { name: 'Apr', value: 90 },
-                { name: 'May', value: 120 },
-                { name: 'Jun', value: 156 },
+                { name: t('charts.jan'), value: 40 },
+                { name: t('charts.feb'), value: 60 },
+                { name: t('charts.mar'), value: 45 },
+                { name: t('charts.apr'), value: 90 },
+                { name: t('charts.may'), value: 120 },
+                { name: t('charts.jun'), value: 156 },
             ]
         },
         {
@@ -59,10 +59,10 @@ export function DashboardPage() {
             chartDescription: t('charts.categories_distribution'),
             chartData: [
                 { name: t('dashboard.taxonomy'), value: 10 },
-                { name: 'Italian', value: 15 },
-                { name: 'Mexican', value: 8 },
-                { name: 'French', value: 5 },
-                { name: 'Asian', value: 12 },
+                { name: t('charts.italian'), value: 15 },
+                { name: t('charts.mexican'), value: 8 },
+                { name: t('charts.french'), value: 5 },
+                { name: t('charts.asian'), value: 12 },
             ],
         },
         {
@@ -77,10 +77,10 @@ export function DashboardPage() {
             chartUnit: t('users.agents'),
             chartDescription: t('charts.users_growth'),
             chartData: [
-                { name: 'Week 1', value: 200 },
-                { name: 'Week 2', value: 450 },
-                { name: 'Week 3', value: 800 },
-                { name: 'Week 4', value: 1200 },
+                { name: t('charts.week_1'), value: 200 },
+                { name: t('charts.week_2'), value: 450 },
+                { name: t('charts.week_3'), value: 800 },
+                { name: t('charts.week_4'), value: 1200 },
             ]
         },
         {
@@ -95,10 +95,10 @@ export function DashboardPage() {
             chartUnit: t('charts.count'),
             chartDescription: t('charts.favorites_breakdown'),
             chartData: [
-                { name: 'Pasta', value: 30 },
-                { name: 'Pizza', value: 25 },
-                { name: 'Salads', value: 20 },
-                { name: 'Sweets', value: 14 },
+                { name: t('charts.pasta'), value: 30 },
+                { name: t('charts.pizza'), value: 25 },
+                { name: t('charts.salads'), value: 20 },
+                { name: t('charts.sweets'), value: 14 },
             ],
         },
     ], [t]);

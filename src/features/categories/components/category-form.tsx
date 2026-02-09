@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
@@ -12,12 +13,6 @@ import * as z from "zod";
 import { useTranslation } from "react-i18next";
 import { TacticalInput } from "@/components/shared/tactical-input";
 import type { CreateCategoryData } from "../types";
-
-const categorySchema = z.object({
-    name: z.string().min(3, "IDENTITY_NODE_TOO_SHORT"),
-});
-
-type CategoryFormData = z.infer<typeof categorySchema>;
 
 interface CategoryFormProps {
     initialData?: { name: string };
@@ -39,6 +34,16 @@ export function CategoryForm({
     title
 }: CategoryFormProps) {
     const { t } = useTranslation();
+
+    // Memoized validation schema with i18n
+    const categorySchema = useMemo(() => z.object({
+        name: z.string()
+            .min(3, t('validation.name_min'))
+            .max(30, t('validation.name_max')),
+    }), [t]);
+
+    type CategoryFormData = z.infer<typeof categorySchema>;
+
     const {
         register,
         handleSubmit,

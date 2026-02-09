@@ -1,17 +1,27 @@
-import { useState } from "react";
-import { Utensils, Plus, Activity, FolderTree } from "lucide-react";
+import { useState, lazy, Suspense, useCallback } from "react";
+import { Utensils, Plus, Activity, FolderTree, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useRecipes, useDeleteRecipe, useCreateRecipe, useUpdateRecipe } from "../hooks";
 import { useCategories } from "@/features/categories/hooks";
 import { RecipeCard } from "./recipe-card";
-import { RecipeForm } from "./recipe-form";
+// Lazy load heavy dialog components
+const RecipeForm = lazy(() => import("./recipe-form").then(m => ({ default: m.RecipeForm })));
+const RecipeDetails = lazy(() => import("./recipe-details").then(m => ({ default: m.RecipeDetails })));
+
 import { CustomDialog } from "@/components/shared/custom-dialog";
 import { Recipe, CreateRecipeData } from "../types";
 import { DeleteConfirmation } from "@/components/shared/delete-confirmation";
-import { RecipeDetails } from "./recipe-details";
 import { useDebounce } from "@/hooks/use-debounce";
 import { useAuthStore, selectIsAdmin } from "@/stores";
 import { ModulePageLayout } from "@/components/shared/module-page-layout";
+
+// Fallback loader for dialogs
+const DialogLoader = () => (
+    <div className="flex flex-col items-center justify-center p-12 space-y-4">
+        <Loader2 className="w-10 h-10 text-primary-500 animate-spin" />
+        <p className="text-sm font-bold text-[var(--muted-foreground)] uppercase tracking-widest">Loading Module...</p>
+    </div>
+);
 
 
 export function RecipesPage() {
@@ -26,10 +36,11 @@ export function RecipesPage() {
     const [isUpdateOpen, setIsUpdateOpen] = useState(false);
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
     const [deleteId, setDeleteId] = useState<number | null>(null);
+    const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
     const { data: recipesData, isLoading } = useRecipes({
         name: debouncedSearch,
-        pageSize: 1000, // Show all categories at once (high limit for simulation) (high limit for simulation)
+        pageSize: 1000, // Show all categories at once (high limit for simulation)
     });
 
     const { data: categoriesData } = useCategories();
@@ -40,15 +51,16 @@ export function RecipesPage() {
 
     const isEmpty = !isLoading && (!recipesData?.data || recipesData.data.length === 0);
 
-    const handleView = (recipe: Recipe) => {
+    // Optimized Performance Handlers
+    const handleView = useCallback((recipe: Recipe) => {
         setSelectedRecipe(recipe);
         setIsDetailsOpen(true);
-    };
+    }, []);
 
-    const handleEdit = (recipe: Recipe) => {
+    const handleEdit = useCallback((recipe: Recipe) => {
         setSelectedRecipe(recipe);
         setIsUpdateOpen(true);
-    };
+    }, []);
 
     return (
         <>
@@ -135,31 +147,35 @@ export function RecipesPage() {
 
             {/* Dialog Ecosystem */}
             <CustomDialog open={isCreateOpen} onOpenChange={setIsCreateOpen} maxWidth="4xl">
-                <RecipeForm
-                    onSubmit={(data: CreateRecipeData) => {
-                        createRecipe(data);
-                        setIsCreateOpen(false);
-                    }}
-                    onCancel={() => setIsCreateOpen(false)}
-                    title={t('recipes.masterpiece')}
-                />
+                <Suspense fallback={<DialogLoader />}>
+                    <RecipeForm
+                        onSubmit={(data: CreateRecipeData) => {
+                            createRecipe(data);
+                            setIsCreateOpen(false);
+                        }}
+                        onCancel={() => setIsCreateOpen(false)}
+                        title={t('recipes.masterpiece')}
+                    />
+                </Suspense>
             </CustomDialog>
 
             <CustomDialog open={isUpdateOpen} onOpenChange={setIsUpdateOpen} maxWidth="4xl">
-                {selectedRecipe && (
-                    <RecipeForm
-                        initialData={selectedRecipe ? {
-                            ...selectedRecipe,
-                            price: String(selectedRecipe.price)
-                        } : undefined}
-                        onSubmit={(data: CreateRecipeData) => {
-                            updateRecipe({ id: selectedRecipe.id, ...data });
-                            setIsUpdateOpen(false);
-                        }}
-                        onCancel={() => setIsUpdateOpen(false)}
-                        title={t('recipes.registry_system')}
-                    />
-                )}
+                <Suspense fallback={<DialogLoader />}>
+                    {selectedRecipe && (
+                        <RecipeForm
+                            initialData={selectedRecipe ? {
+                                ...selectedRecipe,
+                                price: String(selectedRecipe.price)
+                            } : undefined}
+                            onSubmit={(data: CreateRecipeData) => {
+                                updateRecipe({ id: selectedRecipe.id, ...data });
+                                setIsUpdateOpen(false);
+                            }}
+                            onCancel={() => setIsUpdateOpen(false)}
+                            title={t('recipes.registry_system')}
+                        />
+                    )}
+                </Suspense>
             </CustomDialog>
 
             <CustomDialog
@@ -170,12 +186,14 @@ export function RecipesPage() {
                 }}
                 maxWidth="2xl"
             >
-                {selectedRecipe && (
-                    <RecipeDetails
-                        recipe={selectedRecipe}
-                        onClose={() => setIsDetailsOpen(false)}
-                    />
-                )}
+                <Suspense fallback={<DialogLoader />}>
+                    {selectedRecipe && (
+                        <RecipeDetails
+                            recipe={selectedRecipe}
+                            onClose={() => setIsDetailsOpen(false)}
+                        />
+                    )}
+                </Suspense>
             </CustomDialog>
 
             <DeleteConfirmation

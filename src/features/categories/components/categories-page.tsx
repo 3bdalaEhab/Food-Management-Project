@@ -1,15 +1,25 @@
-import { useState, useCallback } from "react";
-import { FolderTree, Plus, ArrowRight } from "lucide-react";
+import { useState, useCallback, lazy, Suspense } from "react";
+import { FolderTree, Plus, ArrowRight, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useCategories, useDeleteCategory, useCreateCategory, useUpdateCategory } from "../hooks";
 import { CategoryCard } from "./category-card";
-import { CategoryForm } from "./category-form";
+
+// Lazy load CategoryForm
+const CategoryForm = lazy(() => import("./category-form").then(m => ({ default: m.CategoryForm })));
+
 import { CustomDialog } from "@/components/shared/custom-dialog";
 import { Category, CreateCategoryData } from "../types";
 import { DeleteConfirmation } from "@/components/shared/delete-confirmation";
 import { useDebounce } from "@/hooks/use-debounce";
 import { ModulePageLayout } from "@/components/shared/module-page-layout";
+
+const DialogLoader = () => (
+    <div className="flex flex-col items-center justify-center p-12 space-y-4">
+        <Loader2 className="w-10 h-10 text-primary-500 animate-spin" />
+        <p className="text-sm font-bold text-[var(--muted-foreground)] uppercase tracking-widest">Loading Module...</p>
+    </div>
+);
 
 export function CategoriesPage() {
     const { t } = useTranslation();
@@ -143,14 +153,16 @@ export function CategoriesPage() {
 
             {/* Elite Dialog Ecosystem */}
             <CustomDialog open={isCreateOpen} onOpenChange={setIsCreateOpen} maxWidth="2xl">
-                <CategoryForm
-                    onSubmit={(data: CreateCategoryData) => {
-                        createCategory(data);
-                        setIsCreateOpen(false);
-                    }}
-                    onCancel={() => setIsCreateOpen(false)}
-                    title={t('categories.initialize_node')}
-                />
+                <Suspense fallback={<DialogLoader />}>
+                    <CategoryForm
+                        onSubmit={(data: CreateCategoryData) => {
+                            createCategory(data);
+                            setIsCreateOpen(false);
+                        }}
+                        onCancel={() => setIsCreateOpen(false)}
+                        title={t('categories.initialize_node')}
+                    />
+                </Suspense>
             </CustomDialog>
 
             <CustomDialog
@@ -161,17 +173,19 @@ export function CategoriesPage() {
                 }}
                 maxWidth="2xl"
             >
-                {selectedCategory && (
-                    <CategoryForm
-                        initialData={selectedCategory}
-                        onSubmit={(data: CreateCategoryData) => {
-                            updateCategory({ id: selectedCategory.id, ...data });
-                            setIsUpdateOpen(false);
-                        }}
-                        onCancel={() => setIsUpdateOpen(false)}
-                        title={t('categories.refine_node')}
-                    />
-                )}
+                <Suspense fallback={<DialogLoader />}>
+                    {selectedCategory && (
+                        <CategoryForm
+                            initialData={selectedCategory}
+                            onSubmit={(data: CreateCategoryData) => {
+                                updateCategory({ id: selectedCategory.id, ...data });
+                                setIsUpdateOpen(false);
+                            }}
+                            onCancel={() => setIsUpdateOpen(false)}
+                            title={t('categories.refine_node')}
+                        />
+                    )}
+                </Suspense>
             </CustomDialog>
 
             <DeleteConfirmation

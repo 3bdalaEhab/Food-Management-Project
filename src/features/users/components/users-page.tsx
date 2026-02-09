@@ -1,18 +1,28 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import {
     Users,
     ShieldAlert,
     ArrowRight,
+    Loader2
 } from "lucide-react";
 import { useUsers, useDeleteUser } from "../hooks";
 import { DeleteConfirmation } from "@/components/shared/delete-confirmation";
 import { UserCard } from "./user-card";
-import { UserForm } from "./user-form";
+// Lazy load UserForm
+const UserForm = lazy(() => import("./user-form").then(m => ({ default: m.UserForm })));
+
 import { CustomDialog } from "@/components/shared/custom-dialog";
 import { useTranslation } from "react-i18next";
 import { useDebounce } from "@/hooks/use-debounce";
 import { ModulePageLayout } from "@/components/shared/module-page-layout";
 import { motion } from "framer-motion";
+
+const DialogLoader = () => (
+    <div className="flex flex-col items-center justify-center p-12 space-y-4">
+        <Loader2 className="w-10 h-10 text-primary-500 animate-spin" />
+        <p className="text-sm font-bold text-[var(--muted-foreground)] uppercase tracking-widest">Loading Module...</p>
+    </div>
+);
 
 export function UsersPage() {
     const { t } = useTranslation();
@@ -160,10 +170,12 @@ export function UsersPage() {
             />
 
             <CustomDialog open={isAddUserOpen} onOpenChange={setIsAddUserOpen} maxWidth="2xl">
-                <UserForm
-                    onSuccess={() => setIsAddUserOpen(false)}
-                    onCancel={() => setIsAddUserOpen(false)}
-                />
+                <Suspense fallback={<DialogLoader />}>
+                    <UserForm
+                        onSuccess={() => setIsAddUserOpen(false)}
+                        onCancel={() => setIsAddUserOpen(false)}
+                    />
+                </Suspense>
             </CustomDialog>
         </>
     );

@@ -60,6 +60,23 @@ export function Sidebar() {
         [isAdmin]
     );
 
+    // Intelligent Prefetching Mechanism
+    const prefetchRoute = (href: string) => {
+        const routes: Record<string, () => Promise<unknown>> = {
+            "/dashboard": () => import("@/features/dashboard"),
+            "/dashboard/recipes": () => import("@/features/recipes"),
+            "/dashboard/categories": () => import("@/features/categories"),
+            "/dashboard/users": () => import("@/features/users"),
+            "/dashboard/favorites": () => import("@/features/recipes"), // Favorites shares module with recipes
+            "/dashboard/profile": () => import("@/features/users"),
+        };
+
+        const prefetcher = routes[href];
+        if (prefetcher) {
+            prefetcher().catch(() => { }); // Silent fail is acceptable for prefetching
+        }
+    };
+
     return (
         <motion.aside
             initial={false}
@@ -155,6 +172,7 @@ export function Sidebar() {
                     const navItemContent = (
                         <Link
                             to={item.href}
+                            onMouseEnter={() => prefetchRoute(item.href)}
                             className={cn(
                                 "flex items-center transition-all duration-300 group relative",
                                 sidebarCollapsed
