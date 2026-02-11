@@ -55,6 +55,7 @@ interface ModulePageLayoutProps {
     emptyState?: ReactNode;
     children: ReactNode;
     seoTitle?: string;
+    SkeletonComponent?: React.ComponentType<{ viewMode?: "grid" | "list" }>;
 }
 
 export function ModulePageLayout({
@@ -77,7 +78,8 @@ export function ModulePageLayout({
     isEmpty,
     emptyState,
     children,
-    seoTitle
+    seoTitle,
+    SkeletonComponent
 }: ModulePageLayoutProps) {
     const { t } = useTranslation();
 
@@ -211,12 +213,18 @@ export function ModulePageLayout({
             {/* Professional Content Layer */}
             {isLoading ? (
                 <div className={cn(
-                    "grid gap-8",
+                    "grid gap-6 md:gap-8 lg:gap-10",
                     viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" : "grid-cols-1"
                 )}>
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-                        <div key={i} className="glass-card rounded-[2.5rem] p-10 h-56 animate-pulse bg-[var(--sidebar-background)]/60 border border-[var(--border)]" />
-                    ))}
+                    {SkeletonComponent ? (
+                        Array.from({ length: 10 }).map((_, i) => (
+                            <SkeletonComponent key={i} viewMode={viewMode} />
+                        ))
+                    ) : (
+                        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+                            <div key={i} className="glass-card rounded-[2.5rem] p-10 h-56 animate-pulse bg-[var(--sidebar-background)]/60 border border-[var(--border)]" />
+                        ))
+                    )}
                 </div>
             ) : isEmpty ? (
                 emptyState

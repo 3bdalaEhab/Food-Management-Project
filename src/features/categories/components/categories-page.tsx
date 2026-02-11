@@ -124,18 +124,34 @@ export function CategoriesPage() {
                             <FolderTree size={48} className="text-primary-500/40 group-hover:text-white relative z-10" />
                         </div>
                         <div className="space-y-4">
-                            <h3 className="text-4xl font-black text-[var(--foreground)] tracking-tighter rtl:tracking-normal leading-none italic rtl:not-italic">{t('categories.empty')}</h3>
-                            <p className="text-[var(--muted-foreground)] font-bold uppercase tracking-[0.2em] rtl:tracking-normal text-[11px] opacity-60 max-w-sm mx-auto rtl:not-italic">{t('categories.empty_desc')}</p>
+                            <h3 className="text-4xl font-black text-[var(--foreground)] tracking-tighter rtl:tracking-normal leading-none italic rtl:not-italic">
+                                {search ? t('common.no_results') : t('categories.empty')}
+                            </h3>
+                            <p className="text-[var(--muted-foreground)] font-bold uppercase tracking-[0.2em] rtl:tracking-normal text-[11px] opacity-60 max-w-sm mx-auto rtl:not-italic">
+                                {search ? t('common.try_different_search') : t('categories.empty_desc')}
+                            </p>
                         </div>
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => setIsCreateOpen(true)}
-                            className="premium-button premium-button-primary h-16 px-10 group mt-10"
-                        >
-                            <span className="font-black uppercase tracking-widest rtl:tracking-normal text-sm rtl:not-italic">{t('categories.initialize')}</span>
-                            <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-500 rtl:rotate-180 rtl:group-hover:-translate-x-2" />
-                        </motion.button>
+
+                        {search ? (
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => setSearch("")}
+                                className="premium-button premium-button-secondary h-16 px-10 group mt-10"
+                            >
+                                <span className="font-black uppercase tracking-widest rtl:tracking-normal text-sm rtl:not-italic">{t('common.clear_search')}</span>
+                            </motion.button>
+                        ) : (
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => setIsCreateOpen(true)}
+                                className="premium-button premium-button-primary h-16 px-10 group mt-10"
+                            >
+                                <span className="font-black uppercase tracking-widest rtl:tracking-normal text-sm rtl:not-italic">{t('categories.initialize')}</span>
+                                <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-500 rtl:rotate-180 rtl:group-hover:-translate-x-2" />
+                            </motion.button>
+                        )}
                     </motion.div>
                 }
             >
@@ -149,10 +165,10 @@ export function CategoriesPage() {
                         onDelete={handleDelete}
                     />
                 ))}
-            </ModulePageLayout>
+            </ModulePageLayout >
 
             {/* Elite Dialog Ecosystem */}
-            <CustomDialog open={isCreateOpen} onOpenChange={setIsCreateOpen} maxWidth="2xl">
+            < CustomDialog open={isCreateOpen} onOpenChange={setIsCreateOpen} maxWidth="2xl" >
                 <Suspense fallback={<DialogLoader />}>
                     <CategoryForm
                         onSubmit={(data: CreateCategoryData) => {
@@ -163,7 +179,7 @@ export function CategoriesPage() {
                         title={t('categories.initialize_node')}
                     />
                 </Suspense>
-            </CustomDialog>
+            </CustomDialog >
 
             <CustomDialog
                 open={isUpdateOpen}

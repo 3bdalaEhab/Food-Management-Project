@@ -31,7 +31,7 @@ export const CategoryCard = memo(({
                 initial={{ opacity: 0, x: isRtl ? 20 : -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 whileHover={{ x: isRtl ? -10 : 10 }}
-                className="group relative glass-card rounded-[2rem] p-5 flex items-center gap-8 cursor-pointer tactical-border hover:border-primary-500/50 dark:hover:border-primary-500/60 overflow-hidden transform-gpu [backface-visibility:hidden] will-change-transform shadow-2xl"
+                className="group relative bg-[var(--card)] rounded-[2rem] p-5 flex items-center gap-8 cursor-pointer border border-[var(--border)] hover:border-primary-500/50 transition-all shadow-md hover:shadow-xl"
                 onClick={() => onEdit(category)}
                 role="button"
                 tabIndex={0}
@@ -46,7 +46,7 @@ export const CategoryCard = memo(({
                 {/* Plasma Background Accent */}
                 <div className="absolute inset-0 bg-gradient-to-r from-primary-500/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
 
-                <div className="w-20 h-20 rounded-[1.5rem] bg-[var(--background)] border border-[var(--border)] flex items-center justify-center shrink-0 group-hover:bg-primary-500 group-hover:border-primary-500 transition-[background-color,border-color,transform] duration-150 relative shadow-xl overflow-hidden">
+                <div className="w-20 h-20 rounded-[1.5rem] bg-[var(--background)] border border-[var(--border)] flex items-center justify-center shrink-0 group-hover:bg-primary-500 group-hover:border-primary-500 transition-[background-color,border-color,transform] duration-150 relative shadow-sm overflow-hidden">
                     <FolderTree size={32} className="text-primary-500 group-hover:text-white transition-colors duration-150 relative z-10" />
                 </div>
 
@@ -76,14 +76,14 @@ export const CategoryCard = memo(({
                 <div className="flex items-center gap-3 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-[opacity,transform] duration-150 pr-2 rtl:translate-x-0 rtl:group-hover:-translate-x-0">
                     <button
                         onClick={(e) => { e.stopPropagation(); onEdit?.(category); }}
-                        className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 border border-blue-500/20 hover:bg-blue-500 hover:text-white transition-colors duration-150 shadow-xl flex items-center justify-center group/btn"
+                        className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 border border-blue-500/20 hover:bg-blue-500 hover:text-white transition-colors duration-150 shadow-sm flex items-center justify-center group/btn"
                         aria-label={t('common.edit')}
                     >
                         <Edit3 size={18} />
                     </button>
                     <button
                         onClick={(e) => { e.stopPropagation(); onDelete?.(category.id, category.name); }}
-                        className="w-12 h-12 rounded-xl bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white transition-colors duration-150 shadow-xl flex items-center justify-center group/btn"
+                        className="w-12 h-12 rounded-xl bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white transition-colors duration-150 shadow-sm flex items-center justify-center group/btn"
                         aria-label={t('common.delete')}
                     >
                         <Trash2 size={18} />
@@ -95,12 +95,11 @@ export const CategoryCard = memo(({
 
     return (
         <motion.div
-            layout
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             whileHover={{ y: -6 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="group relative bg-[var(--sidebar-background)]/90 backdrop-blur-3xl rounded-[3rem] p-8 overflow-hidden tactical-border dark:hover:border-primary-500/60 hover:shadow-2xl transition-all duration-300 flex flex-col items-center text-center gap-8 min-h-[22rem] cursor-pointer transform-gpu will-change-transform [backface-visibility:hidden]"
+            transition={{ duration: 0.2 }}
+            className="group relative bg-[var(--card)] rounded-[3rem] p-8 overflow-hidden border border-[var(--border)] hover:border-primary-500/50 hover:shadow-2xl transition-all duration-300 flex flex-col items-center text-center gap-8 min-h-[22rem] cursor-pointer"
             onClick={() => onEdit(category)}
             role="button"
             tabIndex={0}

@@ -49,19 +49,18 @@ export const RecipeCard = memo(({
     if (viewMode === "list") {
         return (
             <motion.div
-                layout
                 initial={{ opacity: 0, x: isRtl ? 20 : -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 whileHover={{ x: isRtl ? -5 : 5 }}
                 onClick={() => onView?.(recipe)}
-                className="group relative glass-card rounded-[2rem] p-4 flex items-center gap-6 cursor-pointer border border-[var(--border)] hover:border-primary-500/30 transition-all"
+                className="group relative bg-[var(--card)] rounded-[2rem] p-4 flex items-center gap-6 cursor-pointer border border-[var(--border)] hover:border-primary-500/30 transition-all shadow-sm hover:shadow-md"
             >
-                <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 bg-[var(--muted)] border border-[var(--border)] shadow-lg">
+                <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 bg-[var(--muted)] border border-[var(--border)]">
                     <ImageWithFallback src={imageUrl} alt={recipe.name} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                        <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
                         <span className="text-[8px] font-black text-primary-500/70 uppercase tracking-widest rtl:not-italic">ASSET_LOADED</span>
                     </div>
                     <h3 className="text-lg font-bold text-[var(--foreground)] truncate group-hover:text-primary-500 transition-colors px-1 italic rtl:not-italic uppercase tracking-tighter rtl:tracking-normal">
@@ -99,13 +98,11 @@ export const RecipeCard = memo(({
 
     return (
         <motion.div
-            layout
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
             whileHover={{ y: -5 }}
-            transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-            className="group relative bg-[var(--sidebar-background)]/90 backdrop-blur-3xl rounded-[2.5rem] overflow-hidden tactical-border dark:hover:border-primary-500/60 transition-all duration-500 cursor-pointer flex flex-col min-h-[18rem] transform-gpu will-change-transform [backface-visibility:hidden]"
+            transition={{ duration: 0.2 }}
+            className="group relative bg-[var(--card)] rounded-[2.5rem] overflow-hidden border border-[var(--border)] hover:border-primary-500/50 transition-all duration-300 cursor-pointer flex flex-col min-h-[18rem] shadow-sm hover:shadow-xl"
             onClick={() => onView?.(recipe)}
             role="button"
             tabIndex={0}

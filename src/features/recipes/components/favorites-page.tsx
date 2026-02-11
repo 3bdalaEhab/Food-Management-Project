@@ -1,11 +1,12 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { Heart, Activity, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { useDeleteRecipe } from "../hooks";
 import { RecipeCard } from "./recipe-card";
-import { RecipeDetails } from "./recipe-details";
+// Lazy load RecipeDetails
+const RecipeDetails = lazy(() => import("./recipe-details").then(m => ({ default: m.RecipeDetails })));
 import { useFavorites } from "@/features/favorites";
 import { DeleteConfirmation } from "@/components/shared/delete-confirmation";
 import { ModulePageLayout } from "@/components/shared/module-page-layout";
@@ -110,12 +111,14 @@ export function FavoritesPage() {
                 }}
                 maxWidth="2xl"
             >
-                {selectedRecipe && (
-                    <RecipeDetails
-                        recipe={selectedRecipe}
-                        onClose={() => setIsDetailsOpen(false)}
-                    />
-                )}
+                <Suspense fallback={<div className="p-12 flex justify-center"><Activity className="animate-spin text-primary-500" /></div>}>
+                    {selectedRecipe && (
+                        <RecipeDetails
+                            recipe={selectedRecipe}
+                            onClose={() => setIsDetailsOpen(false)}
+                        />
+                    )}
+                </Suspense>
             </CustomDialog>
 
             <DeleteConfirmation

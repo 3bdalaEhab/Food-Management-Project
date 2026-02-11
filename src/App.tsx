@@ -46,6 +46,9 @@ const CategoriesPage = lazy(() =>
 const UsersPage = lazy(() =>
     import("@/features/users").then((m) => ({ default: m.UsersPage }))
 );
+const FavoritesPage = lazy(() =>
+    import("@/features/recipes").then((m) => ({ default: m.FavoritesPage }))
+);
 
 // Loading fallback
 function PageLoader() {
@@ -63,9 +66,7 @@ function PageLoader() {
     );
 }
 
-const FavoritesPage = lazy(() =>
-    import("@/features/recipes").then((m) => ({ default: m.FavoritesPage }))
-);
+
 
 function NotFoundPage() {
     const { t } = useTranslation();

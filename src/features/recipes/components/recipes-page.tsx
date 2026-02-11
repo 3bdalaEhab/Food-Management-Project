@@ -36,7 +36,6 @@ export function RecipesPage() {
     const [isUpdateOpen, setIsUpdateOpen] = useState(false);
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
     const [deleteId, setDeleteId] = useState<number | null>(null);
-    const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
     const { data: recipesData, isLoading } = useRecipes({
         name: debouncedSearch,
@@ -122,14 +121,26 @@ export function RecipesPage() {
                 emptyState={
                     <div className="flex flex-col items-center justify-center py-40 border-2 border-dashed border-[var(--border)] rounded-[4rem] text-center">
                         <Utensils size={64} className="text-[var(--muted-foreground)]/20 mb-6" />
-                        <h3 className="text-3xl font-black italic rtl:not-italic uppercase tracking-tighter rtl:tracking-normal text-[var(--foreground)] mb-2">{t('recipes.empty')}</h3>
-                        <p className="text-[var(--muted-foreground)] font-bold mb-8 uppercase tracking-widest rtl:tracking-normal text-[10px] rtl:not-italic">{t('recipes.empty_desc')}</p>
-                        {isAdmin && (
+                        <h3 className="text-3xl font-black italic rtl:not-italic uppercase tracking-tighter rtl:tracking-normal text-[var(--foreground)] mb-2">
+                            {search ? t('common.no_results') : t('recipes.empty')}
+                        </h3>
+                        <p className="text-[var(--muted-foreground)] font-bold mb-8 uppercase tracking-widest rtl:tracking-normal text-[10px] rtl:not-italic">
+                            {search ? t('common.try_different_search') : t('recipes.empty_desc')}
+                        </p>
+
+                        {search ? (
+                            <button
+                                onClick={() => setSearch("")}
+                                className="premium-button premium-button-secondary h-14 px-8"
+                            >
+                                <span className="font-black uppercase tracking-widest rtl:tracking-normal text-xs rtl:not-italic">{t('common.clear_search')}</span>
+                            </button>
+                        ) : isAdmin ? (
                             <button onClick={() => setIsCreateOpen(true)} className="premium-button premium-button-primary h-14 px-8">
                                 <Plus size={20} />
                                 <span className="font-black uppercase tracking-widest rtl:tracking-normal text-xs rtl:not-italic">{t('recipes.start_first')}</span>
                             </button>
-                        )}
+                        ) : null}
                     </div>
                 }
             >
@@ -143,10 +154,10 @@ export function RecipesPage() {
                         onView={handleView}
                     />
                 ))}
-            </ModulePageLayout>
+            </ModulePageLayout >
 
             {/* Dialog Ecosystem */}
-            <CustomDialog open={isCreateOpen} onOpenChange={setIsCreateOpen} maxWidth="4xl">
+            < CustomDialog open={isCreateOpen} onOpenChange={setIsCreateOpen} maxWidth="4xl" >
                 <Suspense fallback={<DialogLoader />}>
                     <RecipeForm
                         onSubmit={(data: CreateRecipeData) => {
@@ -157,7 +168,7 @@ export function RecipesPage() {
                         title={t('recipes.masterpiece')}
                     />
                 </Suspense>
-            </CustomDialog>
+            </CustomDialog >
 
             <CustomDialog open={isUpdateOpen} onOpenChange={setIsUpdateOpen} maxWidth="4xl">
                 <Suspense fallback={<DialogLoader />}>
